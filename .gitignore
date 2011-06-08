@@ -1,0 +1,13 @@
+
+# Mac
+.DS_Store
+
+# Xcode
+build/
+*.mode*
+*.pbxuser
+*~.nib
+xcuserdata
+
+# Xcode 4
+xcuserdata/

@@ -11,7 +11,7 @@
 		01937C8D13A03F5000BCE1D4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01937C8B13A03F5000BCE1D4 /* InfoPlist.strings */; };
 		01937C9013A03F5000BCE1D4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937C8F13A03F5000BCE1D4 /* main.m */; };
 		01937C9313A03F5000BCE1D4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 01937C9113A03F5000BCE1D4 /* Credits.rtf */; };
-		01937C9613A03F5000BCE1D4 /* RSSMenuAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937C9513A03F5000BCE1D4 /* RSSMenuAppDelegate.m */; };
+		01937C9613A03F5000BCE1D4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937C9513A03F5000BCE1D4 /* AppDelegate.m */; };
 		01937C9913A03F5000BCE1D4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01937C9713A03F5000BCE1D4 /* MainMenu.xib */; };
 /* End PBXBuildFile section */
 
@@ -21,13 +21,13 @@
 		01937C8513A03F5000BCE1D4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		01937C8613A03F5000BCE1D4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		01937C8713A03F5000BCE1D4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		01937C8A13A03F5000BCE1D4 /* RSSMenu-Info.plist */ = {isa = PBXFileReference; path = "RSSMenu-Info.plist"; sourceTree = "<group>"; };
+		01937C8A13A03F5000BCE1D4 /* RSSMenu-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RSSMenu-Info.plist"; sourceTree = "<group>"; };
 		01937C8C13A03F5000BCE1D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		01937C8E13A03F5000BCE1D4 /* RSSMenu-Prefix.pch */ = {isa = PBXFileReference; path = "RSSMenu-Prefix.pch"; sourceTree = "<group>"; };
+		01937C8E13A03F5000BCE1D4 /* RSSMenu-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RSSMenu-Prefix.pch"; sourceTree = "<group>"; };
 		01937C8F13A03F5000BCE1D4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		01937C9213A03F5000BCE1D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		01937C9413A03F5000BCE1D4 /* RSSMenuAppDelegate.h */ = {isa = PBXFileReference; path = RSSMenuAppDelegate.h; sourceTree = "<group>"; };
-		01937C9513A03F5000BCE1D4 /* RSSMenuAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RSSMenuAppDelegate.m; sourceTree = "<group>"; };
+		01937C9413A03F5000BCE1D4 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		01937C9513A03F5000BCE1D4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		01937C9813A03F5000BCE1D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,8 +82,8 @@
 		01937C8813A03F5000BCE1D4 /* RSSMenu */ = {
 			isa = PBXGroup;
 			children = (
-				01937C9413A03F5000BCE1D4 /* RSSMenuAppDelegate.h */,
-				01937C9513A03F5000BCE1D4 /* RSSMenuAppDelegate.m */,
+				01937C9413A03F5000BCE1D4 /* AppDelegate.h */,
+				01937C9513A03F5000BCE1D4 /* AppDelegate.m */,
 				01937C9713A03F5000BCE1D4 /* MainMenu.xib */,
 				01937C8913A03F5000BCE1D4 /* Supporting Files */,
 			);
@@ -166,7 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01937C9013A03F5000BCE1D4 /* main.m in Sources */,
-				01937C9613A03F5000BCE1D4 /* RSSMenuAppDelegate.m in Sources */,
+				01937C9613A03F5000BCE1D4 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
