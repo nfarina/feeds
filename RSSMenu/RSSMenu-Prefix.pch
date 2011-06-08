@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'RSSMenu' target in the 'RSSMenu' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif

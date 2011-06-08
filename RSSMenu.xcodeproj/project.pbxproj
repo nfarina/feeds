@@ -1,0 +1,288 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		01937C8313A03F5000BCE1D4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01937C8213A03F5000BCE1D4 /* Cocoa.framework */; };
+		01937C8D13A03F5000BCE1D4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01937C8B13A03F5000BCE1D4 /* InfoPlist.strings */; };
+		01937C9013A03F5000BCE1D4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937C8F13A03F5000BCE1D4 /* main.m */; };
+		01937C9313A03F5000BCE1D4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 01937C9113A03F5000BCE1D4 /* Credits.rtf */; };
+		01937C9613A03F5000BCE1D4 /* RSSMenuAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937C9513A03F5000BCE1D4 /* RSSMenuAppDelegate.m */; };
+		01937C9913A03F5000BCE1D4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01937C9713A03F5000BCE1D4 /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		01937C7E13A03F5000BCE1D4 /* RSSMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSSMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		01937C8213A03F5000BCE1D4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		01937C8513A03F5000BCE1D4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		01937C8613A03F5000BCE1D4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		01937C8713A03F5000BCE1D4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		01937C8A13A03F5000BCE1D4 /* RSSMenu-Info.plist */ = {isa = PBXFileReference; path = "RSSMenu-Info.plist"; sourceTree = "<group>"; };
+		01937C8C13A03F5000BCE1D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		01937C8E13A03F5000BCE1D4 /* RSSMenu-Prefix.pch */ = {isa = PBXFileReference; path = "RSSMenu-Prefix.pch"; sourceTree = "<group>"; };
+		01937C8F13A03F5000BCE1D4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		01937C9213A03F5000BCE1D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		01937C9413A03F5000BCE1D4 /* RSSMenuAppDelegate.h */ = {isa = PBXFileReference; path = RSSMenuAppDelegate.h; sourceTree = "<group>"; };
+		01937C9513A03F5000BCE1D4 /* RSSMenuAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RSSMenuAppDelegate.m; sourceTree = "<group>"; };
+		01937C9813A03F5000BCE1D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		01937C7B13A03F5000BCE1D4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01937C8313A03F5000BCE1D4 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		01937C7313A03F5000BCE1D4 = {
+			isa = PBXGroup;
+			children = (
+				01937C8813A03F5000BCE1D4 /* RSSMenu */,
+				01937C8113A03F5000BCE1D4 /* Frameworks */,
+				01937C7F13A03F5000BCE1D4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		01937C7F13A03F5000BCE1D4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				01937C7E13A03F5000BCE1D4 /* RSSMenu.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		01937C8113A03F5000BCE1D4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				01937C8213A03F5000BCE1D4 /* Cocoa.framework */,
+				01937C8413A03F5000BCE1D4 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		01937C8413A03F5000BCE1D4 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				01937C8513A03F5000BCE1D4 /* AppKit.framework */,
+				01937C8613A03F5000BCE1D4 /* CoreData.framework */,
+				01937C8713A03F5000BCE1D4 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		01937C8813A03F5000BCE1D4 /* RSSMenu */ = {
+			isa = PBXGroup;
+			children = (
+				01937C9413A03F5000BCE1D4 /* RSSMenuAppDelegate.h */,
+				01937C9513A03F5000BCE1D4 /* RSSMenuAppDelegate.m */,
+				01937C9713A03F5000BCE1D4 /* MainMenu.xib */,
+				01937C8913A03F5000BCE1D4 /* Supporting Files */,
+			);
+			path = RSSMenu;
+			sourceTree = "<group>";
+		};
+		01937C8913A03F5000BCE1D4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				01937C8A13A03F5000BCE1D4 /* RSSMenu-Info.plist */,
+				01937C8B13A03F5000BCE1D4 /* InfoPlist.strings */,
+				01937C8E13A03F5000BCE1D4 /* RSSMenu-Prefix.pch */,
+				01937C8F13A03F5000BCE1D4 /* main.m */,
+				01937C9113A03F5000BCE1D4 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		01937C7D13A03F5000BCE1D4 /* RSSMenu */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 01937C9C13A03F5000BCE1D4 /* Build configuration list for PBXNativeTarget "RSSMenu" */;
+			buildPhases = (
+				01937C7A13A03F5000BCE1D4 /* Sources */,
+				01937C7B13A03F5000BCE1D4 /* Frameworks */,
+				01937C7C13A03F5000BCE1D4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RSSMenu;
+			productName = RSSMenu;
+			productReference = 01937C7E13A03F5000BCE1D4 /* RSSMenu.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		01937C7513A03F5000BCE1D4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Spotlight Mobile";
+			};
+			buildConfigurationList = 01937C7813A03F5000BCE1D4 /* Build configuration list for PBXProject "RSSMenu" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 01937C7313A03F5000BCE1D4;
+			productRefGroup = 01937C7F13A03F5000BCE1D4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				01937C7D13A03F5000BCE1D4 /* RSSMenu */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		01937C7C13A03F5000BCE1D4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01937C8D13A03F5000BCE1D4 /* InfoPlist.strings in Resources */,
+				01937C9313A03F5000BCE1D4 /* Credits.rtf in Resources */,
+				01937C9913A03F5000BCE1D4 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		01937C7A13A03F5000BCE1D4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01937C9013A03F5000BCE1D4 /* main.m in Sources */,
+				01937C9613A03F5000BCE1D4 /* RSSMenuAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		01937C8B13A03F5000BCE1D4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				01937C8C13A03F5000BCE1D4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		01937C9113A03F5000BCE1D4 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				01937C9213A03F5000BCE1D4 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		01937C9713A03F5000BCE1D4 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				01937C9813A03F5000BCE1D4 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		01937C9A13A03F5000BCE1D4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		01937C9B13A03F5000BCE1D4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		01937C9D13A03F5000BCE1D4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RSSMenu/RSSMenu-Prefix.pch";
+				INFOPLIST_FILE = "RSSMenu/RSSMenu-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		01937C9E13A03F5000BCE1D4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RSSMenu/RSSMenu-Prefix.pch";
+				INFOPLIST_FILE = "RSSMenu/RSSMenu-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		01937C7813A03F5000BCE1D4 /* Build configuration list for PBXProject "RSSMenu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01937C9A13A03F5000BCE1D4 /* Debug */,
+				01937C9B13A03F5000BCE1D4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		01937C9C13A03F5000BCE1D4 /* Build configuration list for PBXNativeTarget "RSSMenu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01937C9D13A03F5000BCE1D4 /* Debug */,
+				01937C9E13A03F5000BCE1D4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 01937C7513A03F5000BCE1D4 /* Project object */;
+}
