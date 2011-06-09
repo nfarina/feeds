@@ -1,9 +1,6 @@
 
-@interface AppDelegate : NSObject <NSApplicationDelegate> {
-@private
-    NSWindow *window;
-}
+@interface AppDelegate : NSObject <NSApplicationDelegate>
 
-@property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet NSMenu *menu;
 
 @end
