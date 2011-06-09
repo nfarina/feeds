@@ -1,7 +1,10 @@
 #import "SMXMLDocument.h"
 #import "SMWebRequest.h"
 
-@interface RSSItem : NSObject
+@interface RSSItem : NSObject {
+    NSString *title;
+    NSURL *link, *comments;
+}
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, retain) NSURL *link, *comments;
 

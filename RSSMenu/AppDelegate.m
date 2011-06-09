@@ -2,15 +2,14 @@
 #import "RSSItem.h"
 
 @interface AppDelegate ()
-@property (nonatomic, retain) NSStatusItem *statusItem;
 @end
 
 @implementation AppDelegate
-@synthesize menu, statusItem;
+@synthesize menu;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     
-    self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
+    statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength] retain];
 	statusItem.menu = menu;
     
     [statusItem setHighlightMode:YES];
