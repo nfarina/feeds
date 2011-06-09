@@ -15,6 +15,9 @@
 		01937C9913A03F5000BCE1D4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01937C9713A03F5000BCE1D4 /* MainMenu.xib */; };
 		01937CAA13A057FA00BCE1D4 /* StatusItem.png in Resources */ = {isa = PBXBuildFile; fileRef = 01937CA813A057FA00BCE1D4 /* StatusItem.png */; };
 		01937CAB13A057FA00BCE1D4 /* StatusItemSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 01937CA913A057FA00BCE1D4 /* StatusItemSelected.png */; };
+		01937CB013A05A3A00BCE1D4 /* SMWebRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937CAE13A05A3A00BCE1D4 /* SMWebRequest.m */; };
+		01937CB613A05A6C00BCE1D4 /* SMXMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937CB413A05A6C00BCE1D4 /* SMXMLDocument.m */; };
+		01937CB913A05B8700BCE1D4 /* RSSItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937CB813A05B8700BCE1D4 /* RSSItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +36,12 @@
 		01937C9813A03F5000BCE1D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		01937CA813A057FA00BCE1D4 /* StatusItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItem.png; sourceTree = "<group>"; };
 		01937CA913A057FA00BCE1D4 /* StatusItemSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemSelected.png; sourceTree = "<group>"; };
+		01937CAE13A05A3A00BCE1D4 /* SMWebRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMWebRequest.m; path = ../../Code/rssmenu/WebRequest/SMWebRequest.m; sourceTree = "<group>"; };
+		01937CAF13A05A3A00BCE1D4 /* SMWebRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMWebRequest.h; path = ../../Code/rssmenu/WebRequest/SMWebRequest.h; sourceTree = "<group>"; };
+		01937CB413A05A6C00BCE1D4 /* SMXMLDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMXMLDocument.m; path = ../../Code/rssmenu/XMLDocument/SMXMLDocument.m; sourceTree = "<group>"; };
+		01937CB513A05A6C00BCE1D4 /* SMXMLDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMXMLDocument.h; path = ../../Code/rssmenu/XMLDocument/SMXMLDocument.h; sourceTree = "<group>"; };
+		01937CB713A05B8600BCE1D4 /* RSSItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSItem.h; sourceTree = "<group>"; };
+		01937CB813A05B8700BCE1D4 /* RSSItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				01937C8813A03F5000BCE1D4 /* RSSMenu */,
+				01937CB213A05A5100BCE1D4 /* Libraries */,
 				01937C8113A03F5000BCE1D4 /* Frameworks */,
 				01937C7F13A03F5000BCE1D4 /* Products */,
 			);
@@ -88,6 +98,8 @@
 			children = (
 				01937C9413A03F5000BCE1D4 /* AppDelegate.h */,
 				01937C9513A03F5000BCE1D4 /* AppDelegate.m */,
+				01937CB713A05B8600BCE1D4 /* RSSItem.h */,
+				01937CB813A05B8700BCE1D4 /* RSSItem.m */,
 				01937C9713A03F5000BCE1D4 /* MainMenu.xib */,
 				01937C8913A03F5000BCE1D4 /* Supporting Files */,
 			);
@@ -115,6 +127,33 @@
 			);
 			name = Graphics;
 			path = ../../../Code/rssmenu/RSSMenu/Graphics;
+			sourceTree = "<group>";
+		};
+		01937CB113A05A3E00BCE1D4 /* Web Request */ = {
+			isa = PBXGroup;
+			children = (
+				01937CAE13A05A3A00BCE1D4 /* SMWebRequest.m */,
+				01937CAF13A05A3A00BCE1D4 /* SMWebRequest.h */,
+			);
+			name = "Web Request";
+			sourceTree = "<group>";
+		};
+		01937CB213A05A5100BCE1D4 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				01937CB313A05A6300BCE1D4 /* XML Document */,
+				01937CB113A05A3E00BCE1D4 /* Web Request */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		01937CB313A05A6300BCE1D4 /* XML Document */ = {
+			isa = PBXGroup;
+			children = (
+				01937CB413A05A6C00BCE1D4 /* SMXMLDocument.m */,
+				01937CB513A05A6C00BCE1D4 /* SMXMLDocument.h */,
+			);
+			name = "XML Document";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,6 +223,9 @@
 			files = (
 				01937C9013A03F5000BCE1D4 /* main.m in Sources */,
 				01937C9613A03F5000BCE1D4 /* AppDelegate.m in Sources */,
+				01937CB013A05A3A00BCE1D4 /* SMWebRequest.m in Sources */,
+				01937CB613A05A6C00BCE1D4 /* SMXMLDocument.m in Sources */,
+				01937CB913A05B8700BCE1D4 /* RSSItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +267,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -240,6 +283,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;

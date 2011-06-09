@@ -1,0 +1,6 @@
+[submodule "XMLDocument"]
+	path = XMLDocument
+	url = git@github.com:nfarina/xmldocument.git
+[submodule "WebRequest"]
+	path = WebRequest
+	url = git@github.com:nfarina/webrequest.git
