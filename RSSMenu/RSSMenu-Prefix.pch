@@ -8,4 +8,5 @@
 #import "SMWebRequest.h"
 #import "SMXMLDocument.h"
 #import "NSArray+Linqish.h"
+#import "NSString+EntityDecoding.h"
 #endif

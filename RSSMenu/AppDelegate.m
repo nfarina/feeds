@@ -2,6 +2,7 @@
 #import "RSSFeed.h"
 
 #define MAX_ITEMS 30
+#define MAX_GROWLS 3
 
 @interface AppDelegate ()
 @property (nonatomic, copy) NSArray *feeds;
@@ -14,6 +15,8 @@
 @synthesize menu, feeds, refreshTimer;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+
+    [GrowlApplicationBridge setGrowlDelegate:self];
 
     statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength] retain];
 	statusItem.menu = menu;
@@ -58,26 +61,58 @@
         [allItems addObjectsFromArray:feed.items];
     
     [allItems sortUsingSelector:@selector(compareItemByPublishedDate:)];
-
+    int growls = 0;
+    
     for (int i=0; i<[allItems count] && i<MAX_ITEMS; i++) {
         
         RSSItem *item = [allItems objectAtIndex:i];
         
         NSString *title = item.title;
-        if ([title length] > 50)
-            title = [[title substringToIndex:50] stringByAppendingString:@"…"];
+        if ([title length] > 30)
+            title = [[title substringToIndex:30] stringByAppendingString:@"…"];
+        
+        NSString *content = item.strippedContent;
+        if ([content length] > 60)
+            content = [[content substringToIndex:60] stringByAppendingString:@"…"];
 
         NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:title action:@selector(itemSelected:) keyEquivalent:@""];
         [menuItem setTag:i];
         
         [menu insertItem:menuItem atIndex:i];
+        
+        if (item.fresh && growls++ < MAX_GROWLS) {
+            [GrowlApplicationBridge
+             notifyWithTitle:title
+             description:content
+             notificationName:@"NewRSSItem"
+             iconData:nil
+             priority:(signed int)0
+             isSticky:FALSE
+             clickContext:item];
+        }
     }
+    
+//    if (growls >= MAX_GROWLS) {
+//        [GrowlApplicationBridge
+//         notifyWithTitle:@"Too Many Items"
+//         description:@"More notifications in the menubar."
+//         notificationName:@"NewRSSItem"
+//         iconData:nil
+//         priority:(signed int)0
+//         isSticky:FALSE
+//         clickContext:nil];
+//    }
 }
 
 - (void)itemSelected:(NSMenuItem *)menuItem {
     
     RSSItem *item = [allItems objectAtIndex:menuItem.tag];
     [self openBrowserWithURL:item.link];
+}
+
+- (void)growlNotificationWasClicked:(RSSItem *)item {
+    if (item)
+        [self openBrowserWithURL:item.link];
 }
 
 - (void)openBrowserWithURL:(NSURL *)url {

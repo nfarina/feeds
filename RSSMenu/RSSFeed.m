@@ -79,6 +79,11 @@ NSDateFormatter *ATOMDateFormatter() {
 }
 
 - (void)refreshComplete:(NSArray *)newItems {
+    
+    for (RSSItem *item in newItems)
+        if (![items containsObject:item])
+            item.fresh = YES;
+    
     self.items = newItems;
     [[NSNotificationCenter defaultCenter] postNotificationName:kRSSFeedUpdatedNotification object:self];
 }
@@ -86,10 +91,10 @@ NSDateFormatter *ATOMDateFormatter() {
 @end
 
 @implementation RSSItem
-@synthesize title, author, content, link, comments, published, updated;
+@synthesize title, author, content, strippedContent, link, comments, published, updated, fresh;
 
 - (void)dealloc {
-    self.title = self.author = self.content = nil;
+    self.title = self.author = self.content = self.strippedContent = nil;
     self.link = self.comments = nil;
     self.published = self.updated = nil;
     [super dealloc];
@@ -100,6 +105,7 @@ NSDateFormatter *ATOMDateFormatter() {
     item.title = [element childNamed:@"title"].value;
     item.author = [element childNamed:@"author"].value;
     item.content = [element childNamed:@"description"].value;
+    item.strippedContent = [[item.content stringByFlatteningHTML] stringByCondensingSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     if ([element childNamed:@"link"])
         item.link = [NSURL URLWithString:[element childNamed:@"link"].value];
@@ -117,6 +123,7 @@ NSDateFormatter *ATOMDateFormatter() {
     item.title = [element childNamed:@"title"].value;
     item.author = [element valueWithPath:@"author.name"];
     item.content = [element childNamed:@"content"].value;
+    item.strippedContent = [[item.content stringByFlatteningHTML] stringByCondensingSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     NSString *linkHref = [[element childNamed:@"link"] attributeNamed:@"href"];
     
@@ -127,6 +134,13 @@ NSDateFormatter *ATOMDateFormatter() {
     item.updated = [formatter dateFromString:[element childNamed:@"updated"].value];
     
     return item;
+}
+
+- (BOOL)isEqual:(RSSItem *)other {
+    if ([other isKindOfClass:[RSSItem class]]) {
+        return [link isEqual:other.link] && [updated isEqual:other.updated];
+    }
+    else return NO;
 }
 
 - (NSComparisonResult)compareItemByPublishedDate:(RSSItem *)item {
