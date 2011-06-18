@@ -24,7 +24,23 @@
 		01F6169713AD3DCB00EBB24E /* StatusItem.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F6169413AD3DCB00EBB24E /* StatusItem.png */; };
 		01F6169813AD3DCB00EBB24E /* StatusItemSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F6169513AD3DCB00EBB24E /* StatusItemSelected.png */; };
 		01F6169913AD3DCB00EBB24E /* StatusItemUnread.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F6169613AD3DCB00EBB24E /* StatusItemUnread.png */; };
+		01F616A813AD4AB800EBB24E /* Growl-WithInstaller.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01F616A213AD494800EBB24E /* Growl-WithInstaller.framework */; };
+		01F616A913AD4AEF00EBB24E /* Growl-WithInstaller.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 01F616A213AD494800EBB24E /* Growl-WithInstaller.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		01F616A713AD4A5700EBB24E /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				01F616A913AD4AEF00EBB24E /* Growl-WithInstaller.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0117B30413AD27CB0018AB7C /* NSArray+Linqish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Linqish.h"; sourceTree = "<group>"; };
@@ -55,6 +71,7 @@
 		01F6169413AD3DCB00EBB24E /* StatusItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItem.png; sourceTree = "<group>"; };
 		01F6169513AD3DCB00EBB24E /* StatusItemSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemSelected.png; sourceTree = "<group>"; };
 		01F6169613AD3DCB00EBB24E /* StatusItemUnread.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemUnread.png; sourceTree = "<group>"; };
+		01F616A213AD494800EBB24E /* Growl-WithInstaller.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Growl-WithInstaller.framework"; path = "../rssmenu/Growl-WithInstaller.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +80,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01937C8313A03F5000BCE1D4 /* Cocoa.framework in Frameworks */,
+				01F616A813AD4AB800EBB24E /* Growl-WithInstaller.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				01937C8213A03F5000BCE1D4 /* Cocoa.framework */,
+				01F616A213AD494800EBB24E /* Growl-WithInstaller.framework */,
 				01937C8413A03F5000BCE1D4 /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -201,8 +220,9 @@
 			buildConfigurationList = 01937C9C13A03F5000BCE1D4 /* Build configuration list for PBXNativeTarget "RSSMenu" */;
 			buildPhases = (
 				01937C7A13A03F5000BCE1D4 /* Sources */,
-				01937C7B13A03F5000BCE1D4 /* Frameworks */,
 				01937C7C13A03F5000BCE1D4 /* Resources */,
+				01F616A713AD4A5700EBB24E /* Copy Frameworks */,
+				01937C7B13A03F5000BCE1D4 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -341,6 +361,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../rssmenu\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -357,6 +381,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../rssmenu\"",
+				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RSSMenu/RSSMenu-Prefix.pch";
