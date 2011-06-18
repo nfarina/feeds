@@ -3,6 +3,7 @@
 
 #define MAX_ITEMS 30
 #define MAX_GROWLS 3
+#define CHECK_INTERVAL 60*1
 
 @interface AppDelegate ()
 @property (nonatomic, copy) NSArray *feeds;
@@ -39,11 +40,12 @@
     for (RSSFeed *feed in feeds)
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedUpdated:) name:kRSSFeedUpdatedNotification object:feed];
     
-    refreshTimer = [NSTimer timerWithTimeInterval:60*5 target:self selector:@selector(refreshFeeds) userInfo:nil repeats:YES];
+    refreshTimer = [NSTimer timerWithTimeInterval:CHECK_INTERVAL target:self selector:@selector(refreshFeeds) userInfo:nil repeats:YES];
     [self refreshFeeds]; // start now
 }
 
 - (void)refreshFeeds {
+    NSLog(@"Refreshing feeds...");
     [feeds makeObjectsPerformSelector:@selector(refresh)];
 }
 

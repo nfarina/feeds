@@ -24,10 +24,10 @@
 		01F6169713AD3DCB00EBB24E /* StatusItem.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F6169413AD3DCB00EBB24E /* StatusItem.png */; };
 		01F6169813AD3DCB00EBB24E /* StatusItemSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F6169513AD3DCB00EBB24E /* StatusItemSelected.png */; };
 		01F6169913AD3DCB00EBB24E /* StatusItemUnread.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F6169613AD3DCB00EBB24E /* StatusItemUnread.png */; };
-		01F616A813AD4AB800EBB24E /* Growl-WithInstaller.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01F616A213AD494800EBB24E /* Growl-WithInstaller.framework */; };
-		01F616A913AD4AEF00EBB24E /* Growl-WithInstaller.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 01F616A213AD494800EBB24E /* Growl-WithInstaller.framework */; };
 		01F616B313AD4EC800EBB24E /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = 01F616B213AD4EC800EBB24E /* Growl Registration Ticket.growlRegDict */; };
 		01F616B713AD502300EBB24E /* NSString+EntityDecoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F616B613AD502300EBB24E /* NSString+EntityDecoding.m */; };
+		01F616C313AD672000EBB24E /* Growl-WithInstaller.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 01F616C113AD670300EBB24E /* Growl-WithInstaller.framework */; };
+		01F616C413AD67A000EBB24E /* Growl-WithInstaller.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01F616C113AD670300EBB24E /* Growl-WithInstaller.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,7 +37,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				01F616A913AD4AEF00EBB24E /* Growl-WithInstaller.framework in Copy Frameworks */,
+				01F616C313AD672000EBB24E /* Growl-WithInstaller.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -60,10 +60,10 @@
 		01937C9413A03F5000BCE1D4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		01937C9513A03F5000BCE1D4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		01937C9813A03F5000BCE1D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		01937CAE13A05A3A00BCE1D4 /* SMWebRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMWebRequest.m; path = ../../Code/rssmenu/WebRequest/SMWebRequest.m; sourceTree = "<group>"; };
-		01937CAF13A05A3A00BCE1D4 /* SMWebRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMWebRequest.h; path = ../../Code/rssmenu/WebRequest/SMWebRequest.h; sourceTree = "<group>"; };
-		01937CB413A05A6C00BCE1D4 /* SMXMLDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMXMLDocument.m; path = ../../Code/rssmenu/XMLDocument/SMXMLDocument.m; sourceTree = "<group>"; };
-		01937CB513A05A6C00BCE1D4 /* SMXMLDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMXMLDocument.h; path = ../../Code/rssmenu/XMLDocument/SMXMLDocument.h; sourceTree = "<group>"; };
+		01937CAE13A05A3A00BCE1D4 /* SMWebRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMWebRequest.m; sourceTree = "<group>"; };
+		01937CAF13A05A3A00BCE1D4 /* SMWebRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMWebRequest.h; sourceTree = "<group>"; };
+		01937CB413A05A6C00BCE1D4 /* SMXMLDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMXMLDocument.m; sourceTree = "<group>"; };
+		01937CB513A05A6C00BCE1D4 /* SMXMLDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMXMLDocument.h; sourceTree = "<group>"; };
 		01937CB713A05B8600BCE1D4 /* RSSFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSFeed.h; sourceTree = "<group>"; };
 		01937CB813A05B8700BCE1D4 /* RSSFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSFeed.m; sourceTree = "<group>"; };
 		01937CBC13A08A9A00BCE1D4 /* basecamp.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = basecamp.xml; sourceTree = "<group>"; };
@@ -73,10 +73,10 @@
 		01F6169413AD3DCB00EBB24E /* StatusItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItem.png; sourceTree = "<group>"; };
 		01F6169513AD3DCB00EBB24E /* StatusItemSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemSelected.png; sourceTree = "<group>"; };
 		01F6169613AD3DCB00EBB24E /* StatusItemUnread.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemUnread.png; sourceTree = "<group>"; };
-		01F616A213AD494800EBB24E /* Growl-WithInstaller.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Growl-WithInstaller.framework"; path = "../rssmenu/Growl-WithInstaller.framework"; sourceTree = "<group>"; };
 		01F616B213AD4EC800EBB24E /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		01F616B513AD502300EBB24E /* NSString+EntityDecoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+EntityDecoding.h"; sourceTree = "<group>"; };
 		01F616B613AD502300EBB24E /* NSString+EntityDecoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+EntityDecoding.m"; sourceTree = "<group>"; };
+		01F616C113AD670300EBB24E /* Growl-WithInstaller.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "Growl-WithInstaller.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,7 +85,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01937C8313A03F5000BCE1D4 /* Cocoa.framework in Frameworks */,
-				01F616A813AD4AB800EBB24E /* Growl-WithInstaller.framework in Frameworks */,
+				01F616C413AD67A000EBB24E /* Growl-WithInstaller.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,7 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				01937C8213A03F5000BCE1D4 /* Cocoa.framework */,
-				01F616A213AD494800EBB24E /* Growl-WithInstaller.framework */,
+				01F616C113AD670300EBB24E /* Growl-WithInstaller.framework */,
 				01937C8413A03F5000BCE1D4 /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -177,17 +177,17 @@
 				01F6169513AD3DCB00EBB24E /* StatusItemSelected.png */,
 				01F6169613AD3DCB00EBB24E /* StatusItemUnread.png */,
 			);
-			name = Graphics;
-			path = ../../../Code/rssmenu/RSSMenu/Graphics;
+			path = Graphics;
 			sourceTree = "<group>";
 		};
 		01937CB113A05A3E00BCE1D4 /* Web Request */ = {
 			isa = PBXGroup;
 			children = (
-				01937CAE13A05A3A00BCE1D4 /* SMWebRequest.m */,
 				01937CAF13A05A3A00BCE1D4 /* SMWebRequest.h */,
+				01937CAE13A05A3A00BCE1D4 /* SMWebRequest.m */,
 			);
 			name = "Web Request";
+			path = WebRequest;
 			sourceTree = "<group>";
 		};
 		01937CB213A05A5100BCE1D4 /* Libraries */ = {
@@ -202,10 +202,11 @@
 		01937CB313A05A6300BCE1D4 /* XML Document */ = {
 			isa = PBXGroup;
 			children = (
-				01937CB413A05A6C00BCE1D4 /* SMXMLDocument.m */,
 				01937CB513A05A6C00BCE1D4 /* SMXMLDocument.h */,
+				01937CB413A05A6C00BCE1D4 /* SMXMLDocument.m */,
 			);
 			name = "XML Document";
+			path = XMLDocument;
 			sourceTree = "<group>";
 		};
 		01937CBB13A08A7500BCE1D4 /* Samples */ = {
@@ -216,8 +217,7 @@
 				01937CC013A08AC200BCE1D4 /* dribbble.xml */,
 				01937CC213A08ACE00BCE1D4 /* github.xml */,
 			);
-			name = Samples;
-			path = ../../../Code/rssmenu/RSSMenu/Samples;
+			path = Samples;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -373,7 +373,7 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../rssmenu\"",
+					"\"$(SRCROOT)\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -393,7 +393,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../rssmenu\"",
+					"\"$(SRCROOT)\"",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
