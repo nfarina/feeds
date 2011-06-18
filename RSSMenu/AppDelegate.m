@@ -63,7 +63,7 @@
         [allItems addObjectsFromArray:feed.items];
     
     [allItems sortUsingSelector:@selector(compareItemByPublishedDate:)];
-    int growls = 0;
+    int notifications = 0;
     
     for (int i=0; i<[allItems count] && i<MAX_ITEMS; i++) {
         
@@ -82,7 +82,7 @@
         
         [menu insertItem:menuItem atIndex:i];
         
-        if (item.fresh && growls++ < MAX_GROWLS) {
+        if (item.fresh && notifications++ < MAX_GROWLS) {
             [GrowlApplicationBridge
              notifyWithTitle:title
              description:content
@@ -94,16 +94,12 @@
         }
     }
     
-//    if (growls >= MAX_GROWLS) {
-//        [GrowlApplicationBridge
-//         notifyWithTitle:@"Too Many Items"
-//         description:@"More notifications in the menubar."
-//         notificationName:@"NewRSSItem"
-//         iconData:nil
-//         priority:(signed int)0
-//         isSticky:FALSE
-//         clickContext:nil];
-//    }
+    if (notifications)
+        [statusItem setImage:[NSImage imageNamed:@"StatusItemUnread.png"]];
+}
+
+- (void)menuWillOpen:(NSMenu *)menu {
+    [statusItem setImage:[NSImage imageNamed:@"StatusItem.png"]];
 }
 
 - (void)itemSelected:(NSMenuItem *)menuItem {
@@ -115,6 +111,12 @@
 - (void)growlNotificationWasClicked:(RSSItem *)item {
     if (item)
         [self openBrowserWithURL:item.link];
+    
+    // if you clicked on the last remaining fresh item, then we'll dim the menubar icon.
+    BOOL readAll = YES;
+    for (RSSItem *item in allItems) if (item.fresh) { readAll = NO; break; }
+    if (readAll)
+        [statusItem setImage:[NSImage imageNamed:@"StatusItem.png"]];
 }
 
 - (void)openBrowserWithURL:(NSURL *)url {
