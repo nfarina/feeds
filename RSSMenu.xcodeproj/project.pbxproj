@@ -14,8 +14,6 @@
 		01937C9313A03F5000BCE1D4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 01937C9113A03F5000BCE1D4 /* Credits.rtf */; };
 		01937C9613A03F5000BCE1D4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937C9513A03F5000BCE1D4 /* AppDelegate.m */; };
 		01937C9913A03F5000BCE1D4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01937C9713A03F5000BCE1D4 /* MainMenu.xib */; };
-		01937CAA13A057FA00BCE1D4 /* StatusItem.png in Resources */ = {isa = PBXBuildFile; fileRef = 01937CA813A057FA00BCE1D4 /* StatusItem.png */; };
-		01937CAB13A057FA00BCE1D4 /* StatusItemSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 01937CA913A057FA00BCE1D4 /* StatusItemSelected.png */; };
 		01937CB013A05A3A00BCE1D4 /* SMWebRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937CAE13A05A3A00BCE1D4 /* SMWebRequest.m */; };
 		01937CB613A05A6C00BCE1D4 /* SMXMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937CB413A05A6C00BCE1D4 /* SMXMLDocument.m */; };
 		01937CB913A05B8700BCE1D4 /* RSSFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937CB813A05B8700BCE1D4 /* RSSFeed.m */; };
@@ -23,6 +21,9 @@
 		01937CBF13A08AAB00BCE1D4 /* highrise.xml in Resources */ = {isa = PBXBuildFile; fileRef = 01937CBE13A08AAB00BCE1D4 /* highrise.xml */; };
 		01937CC113A08AC200BCE1D4 /* dribbble.xml in Resources */ = {isa = PBXBuildFile; fileRef = 01937CC013A08AC200BCE1D4 /* dribbble.xml */; };
 		01937CC313A08ACE00BCE1D4 /* github.xml in Resources */ = {isa = PBXBuildFile; fileRef = 01937CC213A08ACE00BCE1D4 /* github.xml */; };
+		01F6169713AD3DCB00EBB24E /* StatusItem.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F6169413AD3DCB00EBB24E /* StatusItem.png */; };
+		01F6169813AD3DCB00EBB24E /* StatusItemSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F6169513AD3DCB00EBB24E /* StatusItemSelected.png */; };
+		01F6169913AD3DCB00EBB24E /* StatusItemUnread.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F6169613AD3DCB00EBB24E /* StatusItemUnread.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,8 +42,6 @@
 		01937C9413A03F5000BCE1D4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		01937C9513A03F5000BCE1D4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		01937C9813A03F5000BCE1D4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		01937CA813A057FA00BCE1D4 /* StatusItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItem.png; sourceTree = "<group>"; };
-		01937CA913A057FA00BCE1D4 /* StatusItemSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemSelected.png; sourceTree = "<group>"; };
 		01937CAE13A05A3A00BCE1D4 /* SMWebRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMWebRequest.m; path = ../../Code/rssmenu/WebRequest/SMWebRequest.m; sourceTree = "<group>"; };
 		01937CAF13A05A3A00BCE1D4 /* SMWebRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMWebRequest.h; path = ../../Code/rssmenu/WebRequest/SMWebRequest.h; sourceTree = "<group>"; };
 		01937CB413A05A6C00BCE1D4 /* SMXMLDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMXMLDocument.m; path = ../../Code/rssmenu/XMLDocument/SMXMLDocument.m; sourceTree = "<group>"; };
@@ -53,6 +52,9 @@
 		01937CBE13A08AAB00BCE1D4 /* highrise.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = highrise.xml; sourceTree = "<group>"; };
 		01937CC013A08AC200BCE1D4 /* dribbble.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = dribbble.xml; sourceTree = "<group>"; };
 		01937CC213A08ACE00BCE1D4 /* github.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = github.xml; sourceTree = "<group>"; };
+		01F6169413AD3DCB00EBB24E /* StatusItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItem.png; sourceTree = "<group>"; };
+		01F6169513AD3DCB00EBB24E /* StatusItemSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemSelected.png; sourceTree = "<group>"; };
+		01F6169613AD3DCB00EBB24E /* StatusItemUnread.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemUnread.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,8 +146,9 @@
 		01937CA713A057FA00BCE1D4 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
-				01937CA813A057FA00BCE1D4 /* StatusItem.png */,
-				01937CA913A057FA00BCE1D4 /* StatusItemSelected.png */,
+				01F6169413AD3DCB00EBB24E /* StatusItem.png */,
+				01F6169513AD3DCB00EBB24E /* StatusItemSelected.png */,
+				01F6169613AD3DCB00EBB24E /* StatusItemUnread.png */,
 			);
 			name = Graphics;
 			path = ../../../Code/rssmenu/RSSMenu/Graphics;
@@ -243,12 +246,13 @@
 				01937C8D13A03F5000BCE1D4 /* InfoPlist.strings in Resources */,
 				01937C9313A03F5000BCE1D4 /* Credits.rtf in Resources */,
 				01937C9913A03F5000BCE1D4 /* MainMenu.xib in Resources */,
-				01937CAA13A057FA00BCE1D4 /* StatusItem.png in Resources */,
-				01937CAB13A057FA00BCE1D4 /* StatusItemSelected.png in Resources */,
 				01937CBD13A08A9A00BCE1D4 /* basecamp.xml in Resources */,
 				01937CBF13A08AAB00BCE1D4 /* highrise.xml in Resources */,
 				01937CC113A08AC200BCE1D4 /* dribbble.xml in Resources */,
 				01937CC313A08ACE00BCE1D4 /* github.xml in Resources */,
+				01F6169713AD3DCB00EBB24E /* StatusItem.png in Resources */,
+				01F6169813AD3DCB00EBB24E /* StatusItemSelected.png in Resources */,
+				01F6169913AD3DCB00EBB24E /* StatusItemUnread.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

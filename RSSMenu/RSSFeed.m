@@ -2,6 +2,22 @@
 
 NSString *kRSSFeedUpdatedNotification = @"RSSFeedUpdatedNotification";
 
+NSDateFormatter *RSSDateFormatter() {
+    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
+    [formatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"] autorelease]];
+    [formatter setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss Z"];
+    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    return formatter;
+}
+
+NSDateFormatter *ATOMDateFormatter() {
+    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
+    [formatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"] autorelease]];
+    [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    return formatter;
+}
+
 @interface RSSFeed ()
 @property (nonatomic, retain) SMWebRequest *request;
 @end
@@ -36,18 +52,29 @@ NSString *kRSSFeedUpdatedNotification = @"RSSFeedUpdatedNotification";
 // This method is called on a background thread. Don't touch your instance members!
 + (id)webRequest:(SMWebRequest *)webRequest resultObjectForData:(NSData *)data context:(id)context {
     
-    // We do this gnarly parsing on a background thread to keep the UI responsive.
     SMXMLDocument *document = [SMXMLDocument documentWithData:data error:NULL];
-    
-    // Select the bits in which we're interested.
-    NSArray *itemsXml = [[document.root childNamed:@"channel"] childrenNamed:@"item"];
-    
     NSMutableArray *items = [NSMutableArray array];
-    
-    // Convert them into model objects
-    for (SMXMLElement *itemXml in itemsXml)
-        [items addObject:[RSSItem itemWithElement:itemXml]];
-    
+
+    // are we speaking RSS or ATOM here?
+    if ([document.root.name isEqual:@"rss"]) {
+
+        NSArray *itemsXml = [[document.root childNamed:@"channel"] childrenNamed:@"item"];
+        NSDateFormatter *formatter = RSSDateFormatter();
+        
+        for (SMXMLElement *itemXml in itemsXml)
+            [items addObject:[RSSItem itemWithRSSItemElement:itemXml formatter:formatter]];
+    }
+    else if ([document.root.name isEqual:@"feed"]) {
+
+        NSArray *itemsXml = [document.root childrenNamed:@"entry"];
+        NSDateFormatter *formatter = ATOMDateFormatter();
+        
+        for (SMXMLElement *itemXml in itemsXml)
+            [items addObject:[RSSItem itemWithATOMEntryElement:itemXml formatter:formatter]];
+
+    }
+    else NSLog(@"Unknown feed root element: <%@>", document.root.name);
+        
     return items;
 }
 
@@ -59,25 +86,51 @@ NSString *kRSSFeedUpdatedNotification = @"RSSFeedUpdatedNotification";
 @end
 
 @implementation RSSItem
-@synthesize title, link, comments;
+@synthesize title, author, content, link, comments, published, updated;
 
 - (void)dealloc {
-    self.title = nil;
+    self.title = self.author = self.content = nil;
     self.link = self.comments = nil;
+    self.published = self.updated = nil;
     [super dealloc];
 }
 
-+ (RSSItem *)itemWithElement:(SMXMLElement *)element {
++ (RSSItem *)itemWithRSSItemElement:(SMXMLElement *)element formatter:(NSDateFormatter *)formatter {
     RSSItem *item = [[RSSItem new] autorelease];
     item.title = [element childNamed:@"title"].value;
-
+    item.author = [element childNamed:@"author"].value;
+    item.content = [element childNamed:@"description"].value;
+    
     if ([element childNamed:@"link"])
         item.link = [NSURL URLWithString:[element childNamed:@"link"].value];
-
+    
     if ([element childNamed:@"comments"])
         item.comments = [NSURL URLWithString:[element childNamed:@"comments"].value];
-
+    
+    item.published = [formatter dateFromString:[element childNamed:@"pubDate"].value];
+    
     return item;
+}
+
++ (RSSItem *)itemWithATOMEntryElement:(SMXMLElement *)element formatter:(NSDateFormatter *)formatter {
+    RSSItem *item = [[RSSItem new] autorelease];
+    item.title = [element childNamed:@"title"].value;
+    item.author = [element valueWithPath:@"author.name"];
+    item.content = [element childNamed:@"content"].value;
+    
+    NSString *linkHref = [[element childNamed:@"link"] attributeNamed:@"href"];
+    
+    if (linkHref.length)
+        item.link = [NSURL URLWithString:linkHref];
+    
+    item.published = [formatter dateFromString:[element childNamed:@"published"].value];
+    item.updated = [formatter dateFromString:[element childNamed:@"updated"].value];
+    
+    return item;
+}
+
+- (NSComparisonResult)compareItemByPublishedDate:(RSSItem *)item {
+    return [item.published compare:self.published];
 }
 
 @end

@@ -14,13 +14,18 @@ extern NSString *kRSSFeedUpdatedNotification;
 @end
 
 @interface RSSItem : NSObject {
-    NSString *title;
+    NSString *title, *author, *content;
     NSURL *link, *comments;
+    NSDate *published, *updated;
 }
-@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *title, *author, *content;
 @property (nonatomic, retain) NSURL *link, *comments;
+@property (nonatomic, retain) NSDate *published, *updated;
 
 // creates a new RSSItem by parsing an XML element
-+ (RSSItem *)itemWithElement:(SMXMLElement *)element;
++ (RSSItem *)itemWithRSSItemElement:(SMXMLElement *)element formatter:(NSDateFormatter *)formatter;
++ (RSSItem *)itemWithATOMEntryElement:(SMXMLElement *)element formatter:(NSDateFormatter *)formatter;
+
+- (NSComparisonResult)compareItemByPublishedDate:(RSSItem *)item;
 
 @end
