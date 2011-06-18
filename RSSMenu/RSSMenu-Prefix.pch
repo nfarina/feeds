@@ -6,4 +6,5 @@
 #import <Cocoa/Cocoa.h>
 #import "SMWebRequest.h"
 #import "SMXMLDocument.h"
+#import "NSArray+Linqish.h"
 #endif

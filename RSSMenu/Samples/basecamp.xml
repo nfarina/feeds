@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <channel>
+        <title>Meridian</title>
+        <link></link>
+        <description>Recent items</description>
+        <language>en-us</language>
+        <ttl>40</ttl>
+        <item>
+            <title>Todo completed: Get Keypad working with new special exhibit stuff.  (Adam K. responsible)</title>
+            <description>Get Keypad working with new special exhibit stuff. &lt;p&gt;Company: Meridian | Project: Allure Auto Exhibition | To-do List: Assigned Tasks | Responsible: Adam K.&lt;/p&gt;</description>
+            <pubDate>Wed, 08 Jun 2011 20:20:58 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006d7fa5.TodoItem.15c8e21d</guid>
+            <link>https://meridianapps.basecamphq.com/T95212344</link>
+            <dc:creator>Adam K.</dc:creator>
+        </item>
+        <item>
+            <title>Todo completed: Investigate crash when viewing full-screen images (Nick F. responsible)</title>
+            <description>&lt;p&gt;Company: Meridian | Project: Allure Auto Exhibition | To-do List: Assigned Tasks | Responsible: Nick F.&lt;/p&gt;</description>
+            <pubDate>Wed, 08 Jun 2011 20:17:56 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006d7fa5.TodoItem.15c8d198</guid>
+            <link>https://meridianapps.basecamphq.com/T95211129</link>
+            <dc:creator>Nick F.</dc:creator>
+        </item>
+        <item>
+            <title>Comment posted: Re: Investigate crash when viewing full-screen images</title>
+            <description>&lt;div&gt;Jun &amp;nbsp;8 13:03:56 unknown Meridian[8931] &amp;lt;Error&amp;gt;: *** Terminating app due to uncaught exception 'NSRangeException', reason: '*** -[NSArray objectAtIndex:]: index 1 beyond bounds [0 .. 0]'&lt;/div&gt;&lt;div&gt;	*** Call stack at first throw:&lt;/div&gt;&lt;div&gt;	(&lt;/div&gt;&lt;div&gt;		0 &amp;nbsp; CoreFoundation &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;0x3047b64f __exceptionPreprocess + 114&lt;/div&gt;&lt;div&gt;		1 &amp;nbsp; libobjc.A.dylib &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 0x33bdcc5d objc_exception_throw + 24&lt;/div&gt;&lt;div&gt;		2 &amp;nbsp; CoreFoundation &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;0x303e5465 -[__NSArrayI objectAtIndex:] + 160&lt;/div&gt;&lt;div&gt;		3 &amp;nbsp; Meridian &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;0x00039f83 -[MRSlideshowController currentSlide] + 126&lt;/div&gt;&lt;div&gt;		4 &amp;nbsp; Meridian &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;0x0003a16f -[MRSlideshowController updateCaption] + 162&lt;/div&gt;&lt;div&gt;		5 &amp;nbsp; Meridian &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;0x0003a335 -[MRSlideshowController updateCurrentSlide] + 72&lt;/div&gt;&lt;div&gt;		6 &amp;nbsp; Meridian &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;0x0004e8a3 -[SMSlideshowController scrollViewDidEndDecelerating:] + 42&lt;/div&gt;&lt;div&gt;		7 &amp;nbsp; UIKit &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 0x359f79e5 -[UIScrollView(UIScrollViewInternal) _stopScrollDecelerationNotify:] + 208&lt;/div&gt;&lt;div&gt;		8 &amp;nbsp; UIKit &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 0x359cfbab -[UIScrollView(UIScrollViewInternal) _stopScrollingNotify:dealloc:pin:] + 166&lt;/div&gt;&lt;div&gt;		9 &amp;nbsp; UIKit &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 0x359f74fb -[UIScrollView(Static) _smoothScroll:] + 2578&lt;/div&gt;&lt;div&gt;		10 &amp;nbsp;UIKit &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 0x35ab69bd ScrollerHeartbeatCallback + 76&lt;/div&gt;&lt;div&gt;		11 &amp;nbsp;GraphicsServices &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;0x356292dd HeartbeatVBLCallback + 92&lt;/div&gt;&lt;div&gt;		12 &amp;nbsp;IOMobileFramebuffer &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 0x355729c7 IOMobileFramebufferVsyncNotifyFunc + 74&lt;/div&gt;&lt;div&gt;		13 &amp;nbsp;IOKit &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 0x368046eb IODispatchCalloutFromCFMessage + 198&lt;/div&gt;&lt;div&gt;		14 &amp;nbsp;CoreFoundation &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;0x30447bdf __CFMachPortPerform + 210&lt;/div&gt;&lt;div&gt;		15 &amp;nbsp;CoreFoundation &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;0x30452a97 __CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE1_PERFORM_FUNCTION__ + 26&lt;/div&gt;&lt;div&gt;		16 &amp;nbsp;CoreFoundation &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;0x3045483f __CFRunLoopDoSource1 + 166&lt;/div&gt;&lt;div&gt;		17 &amp;nbsp;CoreFoundation &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;0x3045560d __CFRunLoopRun + 520&lt;/div&gt;&lt;div&gt;		18 &amp;nbsp;CoreFoundation &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;0x303e5ec3 CFRunLoopRunSpecific + 230&lt;/div&gt;&lt;div&gt;		19 &amp;nbsp;CoreFoundation &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;0x303e5dcb CFRunLoopRunInMode + 58&lt;/div&gt;&lt;div&gt;		20 &amp;nbsp;GraphicsServices &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;0x3562741f GSEventRunModal + 114&lt;/div&gt;&lt;div&gt;		21 &amp;nbsp;GraphicsServices &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;0x356274cb GSEventRun + 62&lt;/div&gt;&lt;div&gt;		22 &amp;nbsp;UIKit &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 0x3597dd69 -[UIApplication _run] + 404&lt;/div&gt;&lt;div&gt;		23 &amp;nbsp;UIKit &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 0x3597b807 UIApplicationMain + 670&lt;/div&gt;&lt;div&gt;		24 &amp;nbsp;Meridian &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;0x0000300d main + 88&lt;/div&gt;&lt;div&gt;		25 &amp;nbsp;Meridian &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;0x00002f7c start + 52&lt;/div&gt;&lt;div&gt;	)&lt;/div&gt;&lt;div&gt;&lt;br /&gt;&lt;/div&gt;&lt;p&gt;Company: Meridian | Project: Allure Auto Exhibition&lt;/p&gt;</description>
+            <pubDate>Wed, 08 Jun 2011 20:10:04 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006d7fa5.Comment.15c8d1e5</guid>
+            <link>https://meridianapps.basecamphq.com/C117427529</link>
+            <dc:creator>Nick F.</dc:creator>
+        </item>
+        <item>
+            <title>Comment posted: Re: Investigate UI issue with Allure list of cars page (see attached note)</title>
+            <description>&lt;div&gt;When navigating to the Allure &quot;list of cars&quot; page, many times I'm not able to interact with the page at all. It's weird, I can scroll the page but can't highlight any of the cells or click anything. This happens on both the iOS simulator and my iPhone 4. If I go back to the homepage then click Allure again, I can usually interact with it then.&lt;/div&gt;&lt;p&gt;Company: Meridian | Project: Allure Auto Exhibition&lt;/p&gt;</description>
+            <pubDate>Wed, 08 Jun 2011 20:07:02 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006d7fa5.Comment.15c8c93d</guid>
+            <link>https://meridianapps.basecamphq.com/C117426729</link>
+            <dc:creator>Nick F.</dc:creator>
+        </item>
+        <item>
+            <title>Todo added: Investigate UI issue with Allure list of cars page (see attached note) (Adam K. responsible)</title>
+            <description>Investigate UI issue with Allure list of cars page (see attached note)&lt;p&gt;Company: Meridian | Project: Allure Auto Exhibition | To-do List: Assigned Tasks | Responsible: Adam K.&lt;/p&gt;</description>
+            <pubDate>Wed, 08 Jun 2011 20:05:53 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006d7fa5.TodoItem.15c8c5d0</guid>
+            <link>https://meridianapps.basecamphq.com/T95210309</link>
+            <dc:creator>Nick F.</dc:creator>
+        </item>
+        <item>
+            <title>Todo added: Build feed parser thirdparty API (Adam K. responsible)</title>
+            <description>&lt;p&gt;Company: Meridian | Project: Balboa Park | To-do List: Assigned Tasks | Responsible: Adam K.&lt;/p&gt;</description>
+            <pubDate>Tue, 07 Jun 2011 21:30:31 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006e7e3a.TodoItem.15bfeac0</guid>
+            <link>https://meridianapps.basecamphq.com/T95055567</link>
+            <dc:creator>Adam K.</dc:creator>
+        </item>
+        <item>
+            <title>Comment posted: Re: We need to create a Meridian Keynote Template Design. (including graph designs)</title>
+            <description>&lt;div&gt;dropbox &amp;gt; Meridian/Keynote&lt;/div&gt;&lt;p&gt;Company: Meridian | Project: Everyone&lt;/p&gt;</description>
+            <pubDate>Tue, 07 Jun 2011 20:09:33 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006eb84a.Comment.15bf0b39</guid>
+            <link>https://meridianapps.basecamphq.com/C117196936</link>
+            <dc:creator>Josh H.</dc:creator>
+        </item>
+        <item>
+            <title>Todo completed: We need to create a Meridian Keynote Template Design. (including graph designs) (Josh H. responsible)</title>
+            <description>We need to create a Meridian Keynote Template Design. (including graph designs)&lt;p&gt;Company: Meridian | Project: Everyone | To-do List: Inbox | Responsible: Josh H.&lt;/p&gt;</description>
+            <pubDate>Tue, 07 Jun 2011 20:08:37 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006eb84a.TodoItem.15ac8333</guid>
+            <link>https://meridianapps.basecamphq.com/T94706689</link>
+            <dc:creator>Josh H.</dc:creator>
+        </item>
+        <item>
+            <title>Todo completed: Closures are hard-coded for eastern time, a vestige of the editor's AMNH beginnings.  Need to handle pacific time for Cal Academy (Christen H. responsible)</title>
+            <description>Closures are hard-coded for eastern time, a vestige of the editor's AMNH beginnings.  Need to handle pacific time for Cal Academy&lt;p&gt;Company: Meridian | Project: Cal Academy | To-do List: Editor Tasks | Responsible: Christen H.&lt;/p&gt;</description>
+            <pubDate>Tue, 07 Jun 2011 18:06:21 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006eec34.TodoItem.15a99848</guid>
+            <link>https://meridianapps.basecamphq.com/T94655397</link>
+            <dc:creator>Nick F.</dc:creator>
+        </item>
+        <item>
+            <title>Comment posted: Re: Data Feed URL</title>
+            <description>&lt;div&gt;We probably don't want to be attempting to parse the iCal format in JavaScript - do they have an alternative JSON or XML API for events?&lt;/div&gt;&lt;p&gt;Company: Meridian | Project: Balboa Park&lt;/p&gt;</description>
+            <pubDate>Tue, 07 Jun 2011 16:36:40 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006e7e3a.Comment.15bcb3be</guid>
+            <link>https://meridianapps.basecamphq.com/C117141485</link>
+            <dc:creator>Nick F.</dc:creator>
+        </item>
+        <item>
+            <title>Todo added: Go ahead and create the backgrounds from the snakes and lizards data... see above task. (Josh H. responsible)</title>
+            <description>Go ahead and create the backgrounds from the snakes and lizards data... see above task.&lt;p&gt;Company: Meridian | Project: Cal Academy | To-do List: Snakes and Lizards | Responsible: Josh H.&lt;/p&gt;</description>
+            <pubDate>Tue, 07 Jun 2011 07:27:06 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006eec34.TodoItem.15b88a57</guid>
+            <link>https://meridianapps.basecamphq.com/T94934300</link>
+            <dc:creator>Kiyo K.</dc:creator>
+        </item>
+        <item>
+            <title>Todo added: Duplicate/create new locations using Nick's system.  (Adam K. responsible)</title>
+            <description>Duplicate/create new locations using Nick's system. &lt;p&gt;Company: Meridian | Project: Powells | To-do List: Building additional locations | Responsible: Adam K.&lt;/p&gt;</description>
+            <pubDate>Tue, 07 Jun 2011 07:25:30 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006f6569.TodoItem.15b888f7</guid>
+            <link>https://meridianapps.basecamphq.com/T94934212</link>
+            <dc:creator>Kiyo K.</dc:creator>
+        </item>
+        <item>
+            <title>Todo added: Create routing lines and placemarks on Josh's maps (Andrea P. responsible)</title>
+            <description>&lt;p&gt;Company: Meridian | Project: Powells | To-do List: Building additional locations | Responsible: Andrea P.&lt;/p&gt;</description>
+            <pubDate>Tue, 07 Jun 2011 07:25:05 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006f6569.TodoItem.15b888a5</guid>
+            <link>https://meridianapps.basecamphq.com/T94934196</link>
+            <dc:creator>Kiyo K.</dc:creator>
+        </item>
+        <item>
+            <title>Todo added: Make beautiful maps from drawings...  (Josh H. responsible)</title>
+            <description>&lt;p&gt;Company: Meridian | Project: Powells | To-do List: Building additional locations | Responsible: Josh H.&lt;/p&gt;</description>
+            <pubDate>Tue, 07 Jun 2011 07:24:42 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006f6569.TodoItem.15b88850</guid>
+            <link>https://meridianapps.basecamphq.com/T94934176</link>
+            <dc:creator>Kiyo K.</dc:creator>
+        </item>
+        <item>
+            <title>Todo added: Figure out how we share templates so you can make one and have it cascade down to all the locations.. yet still have custom location content in some instances.  (Nick F. responsible)</title>
+            <description>Figure out how we share templates so you can make one and have it cascade down to all the locations.. yet still have custom location content in some instances. &lt;p&gt;Company: Meridian | Project: Powells | To-do List: Building additional locations | Responsible: Nick F.&lt;/p&gt;</description>
+            <pubDate>Tue, 07 Jun 2011 07:24:04 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006f6569.TodoItem.15b887ca</guid>
+            <link>https://meridianapps.basecamphq.com/T94934141</link>
+            <dc:creator>Kiyo K.</dc:creator>
+        </item>
+        <item>
+            <title>Comment posted: Re: Data Feed URL</title>
+            <description>&lt;div&gt;Here is the events feed:&lt;/div&gt;&lt;div&gt;&lt;br /&gt;&lt;/div&gt;&lt;div&gt;&lt;a href=&quot;http://www.balboapark.org/calendar/ical&quot;&gt;http://www.balboapark.org/calendar/ical&lt;/a&gt;&lt;/div&gt;&lt;div&gt;&lt;br /&gt;&lt;/div&gt;&lt;p&gt;Company: Meridian | Project: Balboa Park&lt;/p&gt;</description>
+            <pubDate>Tue, 07 Jun 2011 06:41:33 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006e7e3a.Comment.15b86069</guid>
+            <link>https://meridianapps.basecamphq.com/C117031729</link>
+            <dc:creator>Kiyo K.</dc:creator>
+        </item>
+        <item>
+            <title>Comment posted: Re: Data Feed URL</title>
+            <description>&lt;div&gt;I'm using&amp;nbsp;&lt;a href=&quot;http://bp.balboaparkonline.org/feeds/organizations/rss3.xml&quot;&gt;http://bp.balboaparkonline.org/feeds/organizations/rss3.xml&lt;/a&gt; for the organizations, but I need something for the events&lt;/div&gt;&lt;p&gt;Company: Meridian | Project: Balboa Park&lt;/p&gt;</description>
+            <pubDate>Mon, 06 Jun 2011 23:15:25 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006e7e3a.Comment.15b6ef60</guid>
+            <link>https://meridianapps.basecamphq.com/C116999750</link>
+            <dc:creator>Adam K.</dc:creator>
+        </item>
+        <item>
+            <title>Comment posted: Re: We need to update the first floor map...</title>
+            <description>&lt;p&gt;Not sure I understand which wall is moving&amp;#8230;looks to me like multiple walls in the main room have been removed?&lt;/p&gt;&lt;p&gt;Company: Meridian | Project: Allure Auto Exhibition&lt;/p&gt;</description>
+            <pubDate>Mon, 06 Jun 2011 17:51:00 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006d7fa5.Comment.15b3a53c</guid>
+            <link>https://meridianapps.basecamphq.com/C116925435</link>
+            <dc:creator>Josh H.</dc:creator>
+        </item>
+        <item>
+            <title>File uploaded: Allure_floorplan_2scale.jpg (JPG, 1.6 MB)</title>
+            <description>&lt;p&gt;Company: Meridian | Project: Allure Auto Exhibition&lt;/p&gt;</description>
+            <pubDate>Sat, 04 Jun 2011 00:54:08 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006d7fa5.ImageAttachment.15ab527e</guid>
+            <link>https://meridianapps.basecamphq.com/F83953679</link>
+            <dc:creator>Kiyo K.</dc:creator>
+        </item>
+        <item>
+            <title>Message posted: We need to update the first floor map...</title>
+            <description>&lt;div&gt;The special exhibition space has changed the wall layout of the first floor. We need to modify.&lt;/div&gt;&lt;div&gt;I have attached the drawing of how the space is now configured. We just need to move the 1 wall.&amp;nbsp;&lt;/div&gt;&lt;p&gt;Company: Meridian | Project: Allure Auto Exhibition&lt;/p&gt;</description>
+            <pubDate>Sat, 04 Jun 2011 00:54:07 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006d7fa5.Post.15ab527b</guid>
+            <link>https://meridianapps.basecamphq.com/P46985356</link>
+            <dc:creator>Kiyo K.</dc:creator>
+        </item>
+        <item>
+            <title>Message posted: Data Feed URL</title>
+            <description>&lt;div&gt;&lt;a href=&quot;http://balboapark-app.appspot.com/api/manifest&quot;&gt;http://balboapark-app.appspot.com/api/manifest&lt;/a&gt;&lt;/div&gt;&lt;div&gt;&lt;br /&gt;&lt;/div&gt;&lt;p&gt;Company: Meridian | Project: Balboa Park&lt;/p&gt;</description>
+            <pubDate>Fri, 03 Jun 2011 23:00:20 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006e7e3a.Post.15aafdb7</guid>
+            <link>https://meridianapps.basecamphq.com/P46983254</link>
+            <dc:creator>Kiyo K.</dc:creator>
+        </item>
+        <item>
+            <title>Todo added: Get approval on latest UI mocks and request a more detailed architectural map (preferably in PDF format). (Kiyo K. responsible)</title>
+            <description>Get approval on latest UI mocks and request a more detailed architectural map (preferably in PDF format).&lt;p&gt;Company: Meridian | Project: Timbers | To-do List: Assigned Tasks | Responsible: Kiyo K.&lt;/p&gt;</description>
+            <pubDate>Fri, 03 Jun 2011 21:19:22 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006ec524.TodoItem.15aa5ecf</guid>
+            <link>https://meridianapps.basecamphq.com/T94668734</link>
+            <dc:creator>Josh H.</dc:creator>
+        </item>
+        <item>
+            <title>Comment posted: Re: Closures are hard-coded for eastern time, a vestige of the editor's AMNH beginnings. Need to handle pacific time for Cal Academy</title>
+            <description>&lt;div&gt;Ditch those closures!&lt;/div&gt;&lt;p&gt;Company: Meridian | Project: Cal Academy&lt;/p&gt;</description>
+            <pubDate>Fri, 03 Jun 2011 21:08:54 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006eec34.Comment.15aa49e0</guid>
+            <link>https://meridianapps.basecamphq.com/C116706186</link>
+            <dc:creator>Nick F.</dc:creator>
+        </item>
+        <item>
+            <title>Todo added: Versioning - test and debug (Christen H. responsible)</title>
+            <description>&lt;p&gt;Company: Meridian | Project: Cal Academy | To-do List: Editor Tasks | Responsible: Christen H.&lt;/p&gt;</description>
+            <pubDate>Fri, 03 Jun 2011 19:56:55 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006eec34.TodoItem.15a99a29</guid>
+            <link>https://meridianapps.basecamphq.com/T94655584</link>
+            <dc:creator>Christen H.</dc:creator>
+        </item>
+        <item>
+            <title>Writeboard added: What is Meridian?</title>
+            <description>&lt;p&gt;Company: Meridian | Project: Founders&lt;/p&gt;</description>
+            <pubDate>Fri, 03 Jun 2011 19:11:42 +0000</pubDate>
+            <guid isPermaLink="false">basecamp.006ebc36.Writeboard.15a930ee</guid>
+            <link>https://meridianapps.basecamphq.com/W3698793</link>
+            <dc:creator>Nick F.</dc:creator>
+        </item>
+    </channel>
+</rss>
