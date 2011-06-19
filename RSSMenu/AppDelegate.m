@@ -168,4 +168,12 @@
 		[[NSWorkspace sharedWorkspace] openURL:url];
 }
 
+- (IBAction)openPreferences:(id)sender {
+
+    if (!preferencesController)
+        preferencesController = [[PreferencesController alloc] initPreferencesController];
+
+	[preferencesController showPreferences];
+}
+
 @end
