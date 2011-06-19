@@ -80,18 +80,24 @@ NSDateFormatter *ATOMDateFormatter() {
 
 - (void)refreshComplete:(NSArray *)newItems {
     
-    for (RSSItem *item in newItems)
-        if (![items containsObject:item])
-            item.fresh = YES;
+    NSMutableArray *merged = [NSMutableArray array];
     
-    self.items = newItems;
+    for (RSSItem *newItem in newItems) {
+        int i = (int)[items indexOfObject:newItem];
+        if (items != nil && i >= 0)
+            [merged addObject:[items objectAtIndex:i]]; // preserve existing item
+        else
+            [merged addObject:newItem];
+    }
+    
+    self.items = merged;
     [[NSNotificationCenter defaultCenter] postNotificationName:kRSSFeedUpdatedNotification object:self];
 }
 
 @end
 
 @implementation RSSItem
-@synthesize title, author, content, strippedContent, link, comments, published, updated, fresh;
+@synthesize title, author, content, strippedContent, link, comments, published, updated, notified;
 
 - (void)dealloc {
     self.title = self.author = self.content = self.strippedContent = nil;
@@ -114,6 +120,7 @@ NSDateFormatter *ATOMDateFormatter() {
         item.comments = [NSURL URLWithString:[element childNamed:@"comments"].value];
     
     item.published = [formatter dateFromString:[element childNamed:@"pubDate"].value];
+    item.updated = item.published;
     
     return item;
 }

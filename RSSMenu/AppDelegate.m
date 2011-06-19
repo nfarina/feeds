@@ -40,8 +40,13 @@
     for (RSSFeed *feed in feeds)
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedUpdated:) name:kRSSFeedUpdatedNotification object:feed];
     
-    refreshTimer = [NSTimer timerWithTimeInterval:CHECK_INTERVAL target:self selector:@selector(refreshFeeds) userInfo:nil repeats:YES];
+    self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:CHECK_INTERVAL target:self selector:@selector(refreshFeeds) userInfo:nil repeats:YES];
     [self refreshFeeds]; // start now
+}
+
+- (void)setRefreshTimer:(NSTimer *)value {
+    [refreshTimer invalidate];
+    refreshTimer = [value retain];
 }
 
 - (void)refreshFeeds {
@@ -51,7 +56,7 @@
 
 - (void)feedUpdated:(NSNotification *)notification {
 
-    //RSSFeed *feed = [notification object];
+    RSSFeed *feed = [notification object];
     
     while (![[menu itemAtIndex:0] isSeparatorItem])
         [menu removeItemAtIndex:0];
@@ -82,17 +87,22 @@
         
         [menu insertItem:menuItem atIndex:i];
         
-        if (item.fresh && notifications++ < MAX_GROWLS) {
-            [GrowlApplicationBridge
-             notifyWithTitle:title
-             description:content
-             notificationName:@"NewRSSItem"
-             iconData:nil
-             priority:(signed int)0
-             isSticky:FALSE
-             clickContext:item];
+        if (!item.notified && notifications++ < MAX_GROWLS) {
+            NSLog(@"GROWL: %@", title);
+//            [GrowlApplicationBridge
+//             notifyWithTitle:title
+//             description:content
+//             notificationName:@"NewRSSItem"
+//             iconData:nil
+//             priority:(signed int)0
+//             isSticky:FALSE
+//             clickContext:item];
         }
     }
+    
+    // mark all as notified
+    for (RSSItem *item in feed.items)
+        item.notified = YES;
     
     if (notifications)
         [statusItem setImage:[NSImage imageNamed:@"StatusItemUnread.png"]];
@@ -111,12 +121,6 @@
 - (void)growlNotificationWasClicked:(RSSItem *)item {
     if (item)
         [self openBrowserWithURL:item.link];
-    
-    // if you clicked on the last remaining fresh item, then we'll dim the menubar icon.
-    BOOL readAll = YES;
-    for (RSSItem *item in allItems) if (item.fresh) { readAll = NO; break; }
-    if (readAll)
-        [statusItem setImage:[NSImage imageNamed:@"StatusItem.png"]];
 }
 
 - (void)openBrowserWithURL:(NSURL *)url {
