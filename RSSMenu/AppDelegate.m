@@ -8,6 +8,7 @@
 @interface AppDelegate ()
 @property (nonatomic, copy) NSArray *feeds;
 @property (nonatomic, retain) NSTimer *refreshTimer;
+- (void)reachabilityChanged;
 - (void)refreshFeeds;
 - (void)openBrowserWithURL:(NSURL *)url;
 @end
@@ -37,11 +38,14 @@
     allItems = [NSMutableArray new];
     self.feeds = [feedDicts collect:@selector(feedWithDictionary:) on:[RSSFeed class]];
     
-    for (RSSFeed *feed in feeds)
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedUpdated:) name:kRSSFeedUpdatedNotification object:feed];
+    reachability = [[Reachability reachabilityForInternetConnection] retain];
+	[reachability startNotifier];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedUpdated:) name:kRSSFeedUpdatedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedFailed:) name:kSMWebRequestError object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged) name:kReachabilityChangedNotification object:nil];
     
-    self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:CHECK_INTERVAL target:self selector:@selector(refreshFeeds) userInfo:nil repeats:YES];
-    [self refreshFeeds]; // start now
+    [self reachabilityChanged];
 }
 
 - (void)setRefreshTimer:(NSTimer *)value {
@@ -54,7 +58,32 @@
     [feeds makeObjectsPerformSelector:@selector(refresh)];
 }
 
+- (void)reachabilityChanged {
+
+    if ([reachability currentReachabilityStatus] != NotReachable) {
+        
+        NSLog(@"Internet is reachable. Refreshing and resetting timer.");
+        
+        [self refreshFeeds];
+        self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:CHECK_INTERVAL target:self selector:@selector(refreshFeeds) userInfo:nil repeats:YES];
+    }
+    else {
+        NSLog(@"Internet is NOT reachable. Killing timer.");
+        self.refreshTimer = nil;
+        [statusItem setImage:[NSImage imageNamed:@"StatusItemInactive.png"]];
+    }
+}
+
+- (void)feedFailed:(NSError *)error {
+    
+    if ([[error domain] isEqual:(id)kCFErrorDomainCFNetwork]) {
+        // we're probably disconnected from the internet.
+    }
+}
+
 - (void)feedUpdated:(NSNotification *)notification {
+
+    [statusItem setImage:[NSImage imageNamed:@"StatusItem.png"]]; // in case it was inactive before
 
     RSSFeed *feed = [notification object];
     
@@ -88,15 +117,14 @@
         [menu insertItem:menuItem atIndex:i];
         
         if (!item.notified && notifications++ < MAX_GROWLS) {
-            NSLog(@"GROWL: %@", title);
-//            [GrowlApplicationBridge
-//             notifyWithTitle:title
-//             description:content
-//             notificationName:@"NewRSSItem"
-//             iconData:nil
-//             priority:(signed int)0
-//             isSticky:FALSE
-//             clickContext:item];
+            [GrowlApplicationBridge
+             notifyWithTitle:title
+             description:content
+             notificationName:@"NewRSSItem"
+             iconData:nil
+             priority:(signed int)0
+             isSticky:FALSE
+             clickContext:item];
         }
     }
     

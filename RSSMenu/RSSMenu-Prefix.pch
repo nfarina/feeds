@@ -5,8 +5,10 @@
 #ifdef __OBJC__
 #import <Cocoa/Cocoa.h>
 #import <Growl-WithInstaller/Growl.h>
+#import <SystemConfiguration/SystemConfiguration.h>
 #import "SMWebRequest.h"
 #import "SMXMLDocument.h"
 #import "NSArray+Linqish.h"
 #import "NSString+EntityDecoding.h"
+#import "Reachability.h"
 #endif

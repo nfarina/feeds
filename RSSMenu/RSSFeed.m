@@ -79,18 +79,28 @@ NSDateFormatter *ATOMDateFormatter() {
 }
 
 - (void)refreshComplete:(NSArray *)newItems {
-    
-    NSMutableArray *merged = [NSMutableArray array];
-    
-    for (RSSItem *newItem in newItems) {
-        int i = (int)[items indexOfObject:newItem];
-        if (items != nil && i >= 0)
-            [merged addObject:[items objectAtIndex:i]]; // preserve existing item
-        else
-            [merged addObject:newItem];
+
+    // if we have existing items, merge the new ones in
+    if (items) {
+        NSMutableArray *merged = [NSMutableArray array];
+        
+        for (RSSItem *newItem in newItems) {
+            int i = (int)[items indexOfObject:newItem];
+            if (items != nil && i >= 0)
+                [merged addObject:[items objectAtIndex:i]]; // preserve existing item
+            else
+                [merged addObject:newItem];
+        }
+        self.items = merged;
+    }
+    else {
+        self.items = newItems;
+        
+        // don't notify about the initial fetch, or we'll have a shitload of growl popups
+        for (RSSItem *item in items)
+            item.notified = YES;
     }
     
-    self.items = merged;
     [[NSNotificationCenter defaultCenter] postNotificationName:kRSSFeedUpdatedNotification object:self];
 }
 
