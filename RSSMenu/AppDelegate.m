@@ -74,10 +74,16 @@
     }
 }
 
-- (void)feedFailed:(NSError *)error {
+- (void)feedFailed:(NSNotification *)notification {
+    
+    NSError *error = [[notification userInfo] objectForKey:NSUnderlyingErrorKey];
+    SMWebRequest *request = [notification object];
     
     if ([[error domain] isEqual:(id)kCFErrorDomainCFNetwork]) {
-        // we're probably disconnected from the internet.
+        NSLog(@"Network error while fetching feed: %@", request);
+    }
+    else {
+        NSLog(@"Failed with HTTP status code %ld while fetching feed: %@", [error code], request);
     }
 }
 
