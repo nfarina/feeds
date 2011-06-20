@@ -34,11 +34,6 @@
     [self.window makeKeyAndOrderFront:self];
 }
 
-//- (IBAction)closePreferences:(id)sender {
-//	[window endEditingFor:[window firstResponder]];
-//    [window performClose:sender];
-//}
-
 - (IBAction)selectGeneralTab:(id)sender {
     [tabView selectTabViewItemWithIdentifier:@"general"];
 }

@@ -11,6 +11,7 @@
 - (void)reachabilityChanged;
 - (void)refreshFeeds;
 - (void)openBrowserWithURL:(NSURL *)url;
+- (void)updateStatusItemIcon;
 @end
 
 @implementation AppDelegate
@@ -64,8 +65,25 @@
 }
 
 - (void)refreshFeeds {
-    NSLog(@"Refreshing feeds...");
+    //NSLog(@"Refreshing feeds...");
     [feeds makeObjectsPerformSelector:@selector(refresh)];
+}
+
+- (void)updateStatusItemIcon {
+    if (refreshTimer) {
+
+        for (RSSItem *item in allItems)
+            if (!item.viewed) {
+                // you've got stuff up there that you haven't seen in the menu, so glow the icon to let you know!
+                [statusItem setImage:[NSImage imageNamed:@"StatusItemUnread.png"]];
+                return;
+            }
+
+        // default
+        [statusItem setImage:[NSImage imageNamed:@"StatusItem.png"]];
+    }
+    else // we're not running. 
+        [statusItem setImage:[NSImage imageNamed:@"StatusItemInactive.png"]];
 }
 
 - (void)reachabilityChanged {
@@ -80,8 +98,9 @@
     else {
         NSLog(@"Internet is NOT reachable. Killing timer.");
         self.refreshTimer = nil;
-        [statusItem setImage:[NSImage imageNamed:@"StatusItemInactive.png"]];
     }
+    
+    [self updateStatusItemIcon];
 }
 
 - (void)feedFailed:(NSNotification *)notification {
@@ -98,8 +117,6 @@
 }
 
 - (void)feedUpdated:(NSNotification *)notification {
-
-    [statusItem setImage:[NSImage imageNamed:@"StatusItem.png"]]; // in case it was inactive before
 
     RSSFeed *feed = [notification object];
     
@@ -120,8 +137,8 @@
         RSSItem *item = [allItems objectAtIndex:i];
         
         NSString *title = item.title;
-        if ([title length] > 30)
-            title = [[title substringToIndex:30] stringByAppendingString:@"…"];
+        if ([title length] > 45)
+            title = [[title substringToIndex:45] stringByAppendingString:@"…"];
         
         NSString *content = item.strippedContent;
         if ([content length] > 60)
@@ -140,7 +157,7 @@
              iconData:nil
              priority:(signed int)0
              isSticky:FALSE
-             clickContext:item];
+             clickContext:[item.link absoluteString]];
         }
     }
     
@@ -148,12 +165,14 @@
     for (RSSItem *item in feed.items)
         item.notified = YES;
     
-    if (notifications)
-        [statusItem setImage:[NSImage imageNamed:@"StatusItemUnread.png"]];
+    [self updateStatusItemIcon];
 }
 
-- (void)menuWillOpen:(NSMenu *)menu {
-    [statusItem setImage:[NSImage imageNamed:@"StatusItem.png"]];
+- (void)menuDidClose:(NSMenu *)menu {
+    for (RSSItem *item in allItems)
+        item.viewed = YES;
+    
+    [self updateStatusItemIcon];
 }
 
 - (void)itemSelected:(NSMenuItem *)menuItem {
@@ -162,9 +181,9 @@
     [self openBrowserWithURL:item.link];
 }
 
-- (void)growlNotificationWasClicked:(RSSItem *)item {
-    if (item)
-        [self openBrowserWithURL:item.link];
+- (void)growlNotificationWasClicked:(NSString *)URLString {
+    if (URLString)
+        [self openBrowserWithURL:[NSURL URLWithString:URLString]];
 }
 
 - (void)openBrowserWithURL:(NSURL *)url {

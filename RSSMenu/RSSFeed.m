@@ -98,7 +98,7 @@ NSDateFormatter *ATOMDateFormatter() {
         
         // don't notify about the initial fetch, or we'll have a shitload of growl popups
         for (RSSItem *item in items)
-            item.notified = YES;
+            item.notified = item.viewed = YES;
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kRSSFeedUpdatedNotification object:self];
@@ -107,7 +107,7 @@ NSDateFormatter *ATOMDateFormatter() {
 @end
 
 @implementation RSSItem
-@synthesize title, author, content, strippedContent, link, comments, published, updated, notified;
+@synthesize title, author, content, strippedContent, link, comments, published, updated, notified, viewed;
 
 - (void)dealloc {
     self.title = self.author = self.content = self.strippedContent = nil;

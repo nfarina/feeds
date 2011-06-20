@@ -17,12 +17,12 @@ extern NSString *kRSSFeedUpdatedNotification;
     NSString *title, *author, *content, *strippedContent;
     NSURL *link, *comments;
     NSDate *published, *updated;
-    BOOL notified;
+    BOOL notified, viewed;
 }
 @property (nonatomic, copy) NSString *title, *author, *content, *strippedContent;
 @property (nonatomic, retain) NSURL *link, *comments;
 @property (nonatomic, retain) NSDate *published, *updated;
-@property (nonatomic, assign) BOOL notified;
+@property (nonatomic, assign) BOOL notified, viewed;
 
 // creates a new RSSItem by parsing an XML element
 + (RSSItem *)itemWithRSSItemElement:(SMXMLElement *)element formatter:(NSDateFormatter *)formatter;
