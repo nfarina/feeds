@@ -33,6 +33,8 @@
 		01F616E813AE504000EBB24E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01F616E713AE504000EBB24E /* SystemConfiguration.framework */; };
 		01F616F213AEAA2700EBB24E /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F616F013AEAA2500EBB24E /* PreferencesController.m */; };
 		01F616F313AEAA2700EBB24E /* PreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F616F113AEAA2600EBB24E /* PreferencesController.xib */; };
+		01F616F613AFA14F00EBB24E /* General.icns in Resources */ = {isa = PBXBuildFile; fileRef = 01F616F413AFA14F00EBB24E /* General.icns */; };
+		01F616F713AFA14F00EBB24E /* Accounts.icns in Resources */ = {isa = PBXBuildFile; fileRef = 01F616F513AFA14F00EBB24E /* Accounts.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -89,6 +91,8 @@
 		01F616EF13AEAA2400EBB24E /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		01F616F013AEAA2500EBB24E /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
 		01F616F113AEAA2600EBB24E /* PreferencesController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PreferencesController.xib; path = en.lproj/PreferencesController.xib; sourceTree = "<group>"; };
+		01F616F413AFA14F00EBB24E /* General.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = General.icns; sourceTree = "<group>"; };
+		01F616F513AFA14F00EBB24E /* Accounts.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Accounts.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +200,8 @@
 				01F616D913AE4B5F00EBB24E /* StatusItemInactive.png */,
 				01F6169513AD3DCB00EBB24E /* StatusItemSelected.png */,
 				01F6169613AD3DCB00EBB24E /* StatusItemUnread.png */,
+				01F616F413AFA14F00EBB24E /* General.icns */,
+				01F616F513AFA14F00EBB24E /* Accounts.icns */,
 			);
 			path = Graphics;
 			sourceTree = "<group>";
@@ -304,6 +310,8 @@
 				01F616B313AD4EC800EBB24E /* Growl Registration Ticket.growlRegDict in Resources */,
 				01F616DA13AE4B5F00EBB24E /* StatusItemInactive.png in Resources */,
 				01F616F313AEAA2700EBB24E /* PreferencesController.xib in Resources */,
+				01F616F613AFA14F00EBB24E /* General.icns in Resources */,
+				01F616F713AFA14F00EBB24E /* Accounts.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

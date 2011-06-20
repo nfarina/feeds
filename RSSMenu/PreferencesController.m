@@ -10,7 +10,13 @@
 }
 
 - (void)dealloc {
+    [toolbar release];
+    [tabView release];
     [super dealloc];
+}
+
+- (void)loadWindow {
+    [super loadWindow];
 }
 
 - (void)showPreferences {
@@ -26,6 +32,22 @@
 //- (IBAction)closePreferences:(id)sender {
 //	[window endEditingFor:[window firstResponder]];
 //    [window performClose:sender];
+//}
+
+//- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
+//    
+//}
+//
+//- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
+//    
+//}
+//
+//- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar {
+//    
+//}
+//
+//- (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar {
+//    
 //}
 
 @end
