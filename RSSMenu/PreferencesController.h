@@ -5,7 +5,9 @@
 }
 
 - (id)initPreferencesController;
-
 - (void)showPreferences;
+
+- (IBAction)selectGeneralTab:(id)sender;
+- (IBAction)selectAccountsTab:(id)sender;
 
 @end

@@ -18,6 +18,12 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
+    // show the dock icon immediately if necessary
+#if DEBUG
+    ProcessSerialNumber psn = { 0, kCurrentProcess }; 
+    TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+#endif
+
     [GrowlApplicationBridge setGrowlDelegate:self];
 
     statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength] retain];
@@ -46,6 +52,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged) name:kReachabilityChangedNotification object:nil];
     
     [self reachabilityChanged];
+    
+#if DEBUG
+    [self openPreferences:nil];
+#endif
 }
 
 - (void)setRefreshTimer:(NSTimer *)value {
@@ -83,7 +93,7 @@
         NSLog(@"Network error while fetching feed: %@", request);
     }
     else {
-        NSLog(@"Failed with HTTP status code %ld while fetching feed: %@", [error code], request);
+        NSLog(@"Failed with HTTP status code %i while fetching feed: %@", (int)[error code], request);
     }
 }
 

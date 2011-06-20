@@ -9,6 +9,11 @@
     return self;
 }
 
+- (void)awakeFromNib {
+    [toolbar setSelectedItemIdentifier:@"general"];
+    [self selectGeneralTab:nil];
+}
+
 - (void)dealloc {
     [toolbar release];
     [tabView release];
@@ -34,20 +39,12 @@
 //    [window performClose:sender];
 //}
 
-//- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
-//    
-//}
-//
-//- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
-//    
-//}
-//
-//- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar {
-//    
-//}
-//
-//- (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar {
-//    
-//}
+- (IBAction)selectGeneralTab:(id)sender {
+    [tabView selectTabViewItemWithIdentifier:@"general"];
+}
+
+- (IBAction)selectAccountsTab:(id)sender {
+    [tabView selectTabViewItemWithIdentifier:@"accounts"];
+}
 
 @end
