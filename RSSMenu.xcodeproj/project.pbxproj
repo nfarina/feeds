@@ -21,6 +21,8 @@
 		01937CBF13A08AAB00BCE1D4 /* highrise.xml in Resources */ = {isa = PBXBuildFile; fileRef = 01937CBE13A08AAB00BCE1D4 /* highrise.xml */; };
 		01937CC113A08AC200BCE1D4 /* dribbble.xml in Resources */ = {isa = PBXBuildFile; fileRef = 01937CC013A08AC200BCE1D4 /* dribbble.xml */; };
 		01937CC313A08ACE00BCE1D4 /* github.xml in Resources */ = {isa = PBXBuildFile; fileRef = 01937CC213A08ACE00BCE1D4 /* github.xml */; };
+		01D7CB7613AFDE7F001B133A /* HotKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D7CB7413AFDE7F001B133A /* HotKeys.m */; };
+		01D7CB8013AFDFCD001B133A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01D7CB7E13AFDFBE001B133A /* Carbon.framework */; };
 		01F6169713AD3DCB00EBB24E /* StatusItem.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F6169413AD3DCB00EBB24E /* StatusItem.png */; };
 		01F6169813AD3DCB00EBB24E /* StatusItemSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F6169513AD3DCB00EBB24E /* StatusItemSelected.png */; };
 		01F6169913AD3DCB00EBB24E /* StatusItemUnread.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F6169613AD3DCB00EBB24E /* StatusItemUnread.png */; };
@@ -77,6 +79,9 @@
 		01937CBE13A08AAB00BCE1D4 /* highrise.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = highrise.xml; sourceTree = "<group>"; };
 		01937CC013A08AC200BCE1D4 /* dribbble.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = dribbble.xml; sourceTree = "<group>"; };
 		01937CC213A08ACE00BCE1D4 /* github.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = github.xml; sourceTree = "<group>"; };
+		01D7CB7413AFDE7F001B133A /* HotKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotKeys.m; sourceTree = "<group>"; };
+		01D7CB7513AFDE7F001B133A /* HotKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotKeys.h; sourceTree = "<group>"; };
+		01D7CB7E13AFDFBE001B133A /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		01F6169413AD3DCB00EBB24E /* StatusItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItem.png; sourceTree = "<group>"; };
 		01F6169513AD3DCB00EBB24E /* StatusItemSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemSelected.png; sourceTree = "<group>"; };
 		01F6169613AD3DCB00EBB24E /* StatusItemUnread.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemUnread.png; sourceTree = "<group>"; };
@@ -100,8 +105,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01F616E813AE504000EBB24E /* SystemConfiguration.framework in Frameworks */,
 				01937C8313A03F5000BCE1D4 /* Cocoa.framework in Frameworks */,
+				01F616E813AE504000EBB24E /* SystemConfiguration.framework in Frameworks */,
+				01D7CB8013AFDFCD001B133A /* Carbon.framework in Frameworks */,
 				01F616C413AD67A000EBB24E /* Growl-WithInstaller.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -146,6 +152,7 @@
 				01937C8213A03F5000BCE1D4 /* Cocoa.framework */,
 				01F616E713AE504000EBB24E /* SystemConfiguration.framework */,
 				01F616C113AD670300EBB24E /* Growl-WithInstaller.framework */,
+				01D7CB7E13AFDFBE001B133A /* Carbon.framework */,
 				01937C8413A03F5000BCE1D4 /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -172,6 +179,8 @@
 				01F616F113AEAA2600EBB24E /* PreferencesController.xib */,
 				01937CB713A05B8600BCE1D4 /* RSSFeed.h */,
 				01937CB813A05B8700BCE1D4 /* RSSFeed.m */,
+				01D7CB7513AFDE7F001B133A /* HotKeys.h */,
+				01D7CB7413AFDE7F001B133A /* HotKeys.m */,
 				0117B30313AD27640018AB7C /* Helpers */,
 				01937C8913A03F5000BCE1D4 /* Supporting Files */,
 			);
@@ -331,6 +340,7 @@
 				01F616B713AD502300EBB24E /* NSString+EntityDecoding.m in Sources */,
 				01F616E613AE4F8D00EBB24E /* Reachability.m in Sources */,
 				01F616F213AEAA2700EBB24E /* PreferencesController.m in Sources */,
+				01D7CB7613AFDE7F001B133A /* HotKeys.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

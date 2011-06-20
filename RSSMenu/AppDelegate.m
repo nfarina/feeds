@@ -1,5 +1,6 @@
 #import "AppDelegate.h"
 #import "RSSFeed.h"
+#import "HotKeys.h"
 
 #define MAX_ITEMS 30
 #define MAX_GROWLS 3
@@ -35,6 +36,9 @@
 	[statusItem setAlternateImage:[NSImage imageNamed:@"StatusItemSelected.png"]];
 	[statusItem setEnabled:YES];
 
+    // register hot key for popping open the menu
+    [HotKeys registerHotKeys];
+    
     NSArray *feedDicts = [[NSUserDefaults standardUserDefaults] arrayForKey:@"feeds"];
     
     if (!feedDicts) {
@@ -51,6 +55,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedUpdated:) name:kRSSFeedUpdatedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedFailed:) name:kSMWebRequestError object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged) name:kReachabilityChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openMenuHotkeyPressed) name:kHotKeyManagerOpenMenuNotification object:nil];
     
     [self reachabilityChanged];
     
@@ -166,6 +171,10 @@
         item.notified = YES;
     
     [self updateStatusItemIcon];
+}
+
+- (void)openMenuHotkeyPressed {
+    [statusItem popUpStatusItemMenu:menu];
 }
 
 - (void)menuDidClose:(NSMenu *)menu {
