@@ -16,7 +16,7 @@
 @end
 
 @implementation AppDelegate
-@synthesize menu, feeds, refreshTimer;
+@synthesize feeds, refreshTimer;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 

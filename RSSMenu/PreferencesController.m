@@ -42,4 +42,14 @@
     [tabView selectTabViewItemWithIdentifier:@"accounts"];
 }
 
+#pragma mark Accounts
+
+- (IBAction)addAccount:(id)sender {
+    
+}
+
+- (IBAction)removeAccount:(id)sender {
+    
+}
+
 @end
