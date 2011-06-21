@@ -2,7 +2,8 @@
 
 @implementation NewAccountController
 
-- (id)initNewAccountController {
+- (id)initWithDelegate:(id<NewAccountControllerDelegate>)theDelegate {
+    delegate = theDelegate;
     return [super initWithWindowNibName:@"NewAccountController"];
 }
 
@@ -12,8 +13,16 @@
 
 - (void)windowDidLoad {
     [super windowDidLoad];
-    
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+}
+
+- (void)OKPressed:(id)sender {
+    [self.window orderOut:self];
+    [delegate newAccountControllerDidComplete:self];
+}
+
+- (void)cancelPressed:(id)sender {
+    [self.window orderOut:self];
+    [delegate newAccountControllerDidCancel:self];
 }
 
 @end

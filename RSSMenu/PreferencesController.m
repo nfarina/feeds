@@ -1,5 +1,4 @@
 #import "PreferencesController.h"
-#import "NewAccountController.h"
 
 @implementation PreferencesController
 
@@ -31,7 +30,12 @@
 	SetFrontProcess(&psn);
     
 	[self.window center];
-    [self.window setLevel: NSTornOffMenuWindowLevel];
+    
+#if DEBUG
+#else
+    [self.window setLevel: NSTornOffMenuWindowLevel]; // a.k.a. "Always On Top"
+#endif
+
     [self.window makeKeyAndOrderFront:self];
 }
 
@@ -46,13 +50,19 @@
 #pragma mark Accounts
 
 - (IBAction)addAccount:(id)sender {
-    NewAccountController *controller = [[NewAccountController alloc] initNewAccountController];
+    NewAccountController *controller = [[NewAccountController alloc] initWithDelegate:self];
     
-    [NSApp beginSheet:controller.window modalForWindow:self.window modalDelegate:self didEndSelector:@selector(addAccountDidEnd:returnCode:contextInfo:) contextInfo:NULL];
+    [NSApp beginSheet:controller.window modalForWindow:self.window modalDelegate:nil didEndSelector:NULL contextInfo:controller];
 }
 
-- (void)addAccountDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
-    
+- (void)newAccountControllerDidComplete:(NewAccountController *)controller {
+    [NSApp endSheet:controller.window];
+    [controller release];
+}
+
+- (void)newAccountControllerDidCancel:(NewAccountController *)controller {
+    [NSApp endSheet:controller.window];
+    [controller release];
 }
 
 - (IBAction)removeAccount:(id)sender {
