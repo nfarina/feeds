@@ -1,4 +1,5 @@
 #import "PreferencesController.h"
+#import "NewAccountController.h"
 
 @implementation PreferencesController
 
@@ -45,6 +46,12 @@
 #pragma mark Accounts
 
 - (IBAction)addAccount:(id)sender {
+    NewAccountController *controller = [[NewAccountController alloc] initNewAccountController];
+    
+    [NSApp beginSheet:controller.window modalForWindow:self.window modalDelegate:self didEndSelector:@selector(addAccountDidEnd:returnCode:contextInfo:) contextInfo:NULL];
+}
+
+- (void)addAccountDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
     
 }
 

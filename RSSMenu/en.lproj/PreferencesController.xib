@@ -44,7 +44,7 @@
 			<object class="NSWindowTemplate" id="623932742">
 				<int key="NSWindowStyleMask">4099</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{709, 497}, {556, 405}}</string>
+				<string key="NSWindowRect">{{441, 226}, {556, 405}}</string>
 				<int key="NSWTFlags">611845120</int>
 				<string key="NSWindowTitle">Preferences</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -294,7 +294,7 @@
 														<string key="NSFrame">{{1, 334}, {145, 15}}</string>
 														<reference key="NSSuperview" ref="41187912"/>
 														<reference key="NSWindow"/>
-														<reference key="NSNextKeyView" ref="26061525"/>
+														<reference key="NSNextKeyView" ref="568146677"/>
 														<int key="NSsFlags">1</int>
 														<reference key="NSTarget" ref="41187912"/>
 														<string key="NSAction">_doScroller:</string>
@@ -380,30 +380,30 @@
 													<int key="NSPeriodicInterval">75</int>
 												</object>
 											</object>
-											<object class="NSTabView" id="26061525">
+											<object class="NSTabView" id="568146677">
 												<reference key="NSNextResponder" ref="224754683"/>
 												<int key="NSvFlags">18</int>
 												<string key="NSFrame">{{181, 45}, {364, 346}}</string>
 												<reference key="NSSuperview" ref="224754683"/>
 												<reference key="NSWindow"/>
-												<reference key="NSNextKeyView" ref="964985487"/>
+												<reference key="NSNextKeyView" ref="974114518"/>
 												<array class="NSMutableArray" key="NSTabViewItems">
-													<object class="NSTabViewItem" id="627735995">
+													<object class="NSTabViewItem" id="221170733">
 														<string key="NSIdentifier">1</string>
-														<object class="NSView" key="NSView" id="964985487">
-															<reference key="NSNextResponder" ref="26061525"/>
+														<object class="NSView" key="NSView" id="974114518">
+															<reference key="NSNextResponder" ref="568146677"/>
 															<int key="NSvFlags">256</int>
 															<string key="NSFrame">{{10, 25}, {344, 308}}</string>
-															<reference key="NSSuperview" ref="26061525"/>
+															<reference key="NSSuperview" ref="568146677"/>
 															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="1043896946"/>
 														</object>
 														<string key="NSLabel">Account Information</string>
 														<reference key="NSColor" ref="657908323"/>
-														<reference key="NSTabView" ref="26061525"/>
+														<reference key="NSTabView" ref="568146677"/>
 													</object>
-													<object class="NSTabViewItem" id="268165274">
-														<object class="NSView" key="NSView" id="500178688">
+													<object class="NSTabViewItem" id="753957902">
+														<object class="NSView" key="NSView" id="860032931">
 															<nil key="NSNextResponder"/>
 															<int key="NSvFlags">256</int>
 															<string key="NSFrame">{{10, 33}, {344, 300}}</string>
@@ -411,16 +411,16 @@
 														</object>
 														<string key="NSLabel">Feeds</string>
 														<reference key="NSColor" ref="657908323"/>
-														<reference key="NSTabView" ref="26061525"/>
+														<reference key="NSTabView" ref="568146677"/>
 													</object>
 												</array>
-												<reference key="NSSelectedTabViewItem" ref="627735995"/>
+												<reference key="NSSelectedTabViewItem" ref="221170733"/>
 												<reference key="NSFont" ref="26"/>
 												<int key="NSTvFlags">134217728</int>
 												<bool key="NSAllowTruncatedLabels">YES</bool>
 												<bool key="NSDrawsBackground">YES</bool>
 												<array class="NSMutableArray" key="NSSubviews">
-													<reference ref="964985487"/>
+													<reference ref="974114518"/>
 												</array>
 											</object>
 										</array>
@@ -448,7 +448,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="517972414"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1366, 746}}</string>
 				<string key="NSMaxSize">{1e+13, 1e+13}</string>
 			</object>
 		</array>
@@ -517,6 +517,22 @@
 						<reference key="destination" ref="307247187"/>
 					</object>
 					<int key="connectionID">53</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">addAccount:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="1043896946"/>
+					</object>
+					<int key="connectionID">61</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">removeAccount:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="202991618"/>
+					</object>
+					<int key="connectionID">62</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -606,7 +622,7 @@
 							<reference ref="1043896946"/>
 							<reference ref="202991618"/>
 							<reference ref="41187912"/>
-							<reference ref="26061525"/>
+							<reference ref="568146677"/>
 						</array>
 						<reference key="parent" ref="1001598873"/>
 					</object>
@@ -699,38 +715,38 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">54</int>
-						<reference key="object" ref="26061525"/>
+						<reference key="object" ref="568146677"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="627735995"/>
-							<reference ref="268165274"/>
+							<reference ref="221170733"/>
+							<reference ref="753957902"/>
 						</array>
 						<reference key="parent" ref="224754683"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">55</int>
-						<reference key="object" ref="627735995"/>
+						<reference key="object" ref="221170733"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="964985487"/>
+							<reference ref="974114518"/>
 						</array>
-						<reference key="parent" ref="26061525"/>
+						<reference key="parent" ref="568146677"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">58</int>
-						<reference key="object" ref="964985487"/>
-						<reference key="parent" ref="627735995"/>
+						<reference key="object" ref="974114518"/>
+						<reference key="parent" ref="221170733"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">59</int>
-						<reference key="object" ref="268165274"/>
+						<reference key="object" ref="753957902"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="500178688"/>
+							<reference ref="860032931"/>
 						</array>
-						<reference key="parent" ref="26061525"/>
+						<reference key="parent" ref="568146677"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">60</int>
-						<reference key="object" ref="500178688"/>
-						<reference key="parent" ref="268165274"/>
+						<reference key="object" ref="860032931"/>
+						<reference key="parent" ref="753957902"/>
 					</object>
 				</array>
 			</object>
@@ -739,6 +755,8 @@
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="-3.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="23.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<boolean value="NO" key="3.IBNSWindowAutoPositionCentersHorizontal"/>
+				<boolean value="NO" key="3.IBNSWindowAutoPositionCentersVertical"/>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="3.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="31.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -762,8 +780,8 @@
 					<string key="NS.key.0">InitialTabViewItem</string>
 					<object class="IBInitialTabViewItemAttribute" key="NS.object.0">
 						<string key="name">InitialTabViewItem</string>
-						<reference key="object" ref="26061525"/>
-						<reference key="initialTabViewItem" ref="627735995"/>
+						<reference key="object" ref="568146677"/>
+						<reference key="initialTabViewItem" ref="221170733"/>
 					</object>
 				</object>
 				<string key="54.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -773,7 +791,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">60</int>
+			<int key="maxID">62</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
