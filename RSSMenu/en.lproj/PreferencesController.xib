@@ -294,7 +294,7 @@
 														<string key="NSFrame">{{1, 334}, {145, 15}}</string>
 														<reference key="NSSuperview" ref="41187912"/>
 														<reference key="NSWindow"/>
-														<reference key="NSNextKeyView" ref="568146677"/>
+														<reference key="NSNextKeyView" ref="547910846"/>
 														<int key="NSsFlags">1</int>
 														<reference key="NSTarget" ref="41187912"/>
 														<string key="NSAction">_doScroller:</string>
@@ -380,47 +380,47 @@
 													<int key="NSPeriodicInterval">75</int>
 												</object>
 											</object>
-											<object class="NSTabView" id="568146677">
+											<object class="NSTabView" id="547910846">
 												<reference key="NSNextResponder" ref="224754683"/>
 												<int key="NSvFlags">18</int>
 												<string key="NSFrame">{{181, 45}, {364, 346}}</string>
 												<reference key="NSSuperview" ref="224754683"/>
 												<reference key="NSWindow"/>
-												<reference key="NSNextKeyView" ref="974114518"/>
+												<reference key="NSNextKeyView" ref="882887953"/>
 												<array class="NSMutableArray" key="NSTabViewItems">
-													<object class="NSTabViewItem" id="221170733">
+													<object class="NSTabViewItem" id="295887275">
 														<string key="NSIdentifier">1</string>
-														<object class="NSView" key="NSView" id="974114518">
-															<reference key="NSNextResponder" ref="568146677"/>
+														<object class="NSView" key="NSView" id="678809882">
+															<nil key="NSNextResponder"/>
 															<int key="NSvFlags">256</int>
 															<string key="NSFrame">{{10, 25}, {344, 308}}</string>
-															<reference key="NSSuperview" ref="568146677"/>
-															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="1043896946"/>
 														</object>
 														<string key="NSLabel">Account Information</string>
 														<reference key="NSColor" ref="657908323"/>
-														<reference key="NSTabView" ref="568146677"/>
+														<reference key="NSTabView" ref="547910846"/>
 													</object>
-													<object class="NSTabViewItem" id="753957902">
-														<object class="NSView" key="NSView" id="860032931">
-															<nil key="NSNextResponder"/>
+													<object class="NSTabViewItem" id="73312102">
+														<object class="NSView" key="NSView" id="882887953">
+															<reference key="NSNextResponder" ref="547910846"/>
 															<int key="NSvFlags">256</int>
-															<string key="NSFrame">{{10, 33}, {344, 300}}</string>
+															<string key="NSFrame">{{10, 25}, {344, 308}}</string>
+															<reference key="NSSuperview" ref="547910846"/>
+															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="1043896946"/>
 														</object>
-														<string key="NSLabel">Feeds</string>
+														<string key="NSLabel">Available Feeds</string>
 														<reference key="NSColor" ref="657908323"/>
-														<reference key="NSTabView" ref="568146677"/>
+														<reference key="NSTabView" ref="547910846"/>
 													</object>
 												</array>
-												<reference key="NSSelectedTabViewItem" ref="221170733"/>
+												<reference key="NSSelectedTabViewItem" ref="73312102"/>
 												<reference key="NSFont" ref="26"/>
 												<int key="NSTvFlags">134217728</int>
 												<bool key="NSAllowTruncatedLabels">YES</bool>
 												<bool key="NSDrawsBackground">YES</bool>
 												<array class="NSMutableArray" key="NSSubviews">
-													<reference ref="974114518"/>
+													<reference ref="882887953"/>
 												</array>
 											</object>
 										</array>
@@ -622,7 +622,7 @@
 							<reference ref="1043896946"/>
 							<reference ref="202991618"/>
 							<reference ref="41187912"/>
-							<reference ref="568146677"/>
+							<reference ref="547910846"/>
 						</array>
 						<reference key="parent" ref="1001598873"/>
 					</object>
@@ -715,38 +715,38 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">54</int>
-						<reference key="object" ref="568146677"/>
+						<reference key="object" ref="547910846"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="221170733"/>
-							<reference ref="753957902"/>
+							<reference ref="295887275"/>
+							<reference ref="73312102"/>
 						</array>
 						<reference key="parent" ref="224754683"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">55</int>
-						<reference key="object" ref="221170733"/>
+						<reference key="object" ref="295887275"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="974114518"/>
+							<reference ref="678809882"/>
 						</array>
-						<reference key="parent" ref="568146677"/>
+						<reference key="parent" ref="547910846"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">58</int>
-						<reference key="object" ref="974114518"/>
-						<reference key="parent" ref="221170733"/>
+						<reference key="object" ref="678809882"/>
+						<reference key="parent" ref="295887275"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">59</int>
-						<reference key="object" ref="753957902"/>
+						<reference key="object" ref="73312102"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="860032931"/>
+							<reference ref="882887953"/>
 						</array>
-						<reference key="parent" ref="568146677"/>
+						<reference key="parent" ref="547910846"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">60</int>
-						<reference key="object" ref="860032931"/>
-						<reference key="parent" ref="753957902"/>
+						<reference key="object" ref="882887953"/>
+						<reference key="parent" ref="73312102"/>
 					</object>
 				</array>
 			</object>
@@ -780,8 +780,8 @@
 					<string key="NS.key.0">InitialTabViewItem</string>
 					<object class="IBInitialTabViewItemAttribute" key="NS.object.0">
 						<string key="name">InitialTabViewItem</string>
-						<reference key="object" ref="568146677"/>
-						<reference key="initialTabViewItem" ref="221170733"/>
+						<reference key="object" ref="547910846"/>
+						<reference key="initialTabViewItem" ref="295887275"/>
 					</object>
 				</object>
 				<string key="54.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>

@@ -179,8 +179,9 @@
 				01937C9713A03F5000BCE1D4 /* App.xib */,
 				01937C9413A03F5000BCE1D4 /* AppDelegate.h */,
 				01937C9513A03F5000BCE1D4 /* AppDelegate.m */,
-				01D7CB8113B02C74001B133A /* Controllers */,
 				01D7CB8213B02C92001B133A /* Model */,
+				01D7CB9213B104DA001B133A /* Views */,
+				01D7CB8113B02C74001B133A /* Controllers */,
 				01D7CB7513AFDE7F001B133A /* HotKeys.h */,
 				01D7CB7413AFDE7F001B133A /* HotKeys.m */,
 				0117B30313AD27640018AB7C /* Helpers */,
@@ -277,6 +278,13 @@
 				01937CB813A05B8700BCE1D4 /* RSSFeed.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		01D7CB9213B104DA001B133A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
