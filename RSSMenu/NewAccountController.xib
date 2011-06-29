@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">10J869</string>
+		<string key="IBDocument.SystemVersion">10K540</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1306</string>
-		<string key="IBDocument.AppKitVersion">1038.35</string>
+		<string key="IBDocument.AppKitVersion">1038.36</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -18,7 +18,6 @@
 			<string>NSMenu</string>
 			<string>NSTextFieldCell</string>
 			<string>NSButtonCell</string>
-			<string>NSMenuItem</string>
 			<string>NSSecureTextFieldCell</string>
 			<string>NSTabView</string>
 			<string>NSCustomObject</string>
@@ -251,12 +250,12 @@
 												<string key="NSFrame">{{11, 166}, {122, 17}}</string>
 												<reference key="NSSuperview" ref="734218820"/>
 												<reference key="NSWindow"/>
-												<reference key="NSNextKeyView" ref="868833581"/>
+												<reference key="NSNextKeyView" ref="817115163"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSTextFieldCell" key="NSCell" id="492525706">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">71304192</int>
-													<string key="NSContents">Email address:</string>
+													<string key="NSContents">User name:</string>
 													<reference key="NSSupport" ref="374177389"/>
 													<reference key="NSControlView" ref="357078762"/>
 													<reference key="NSBackgroundColor" ref="864572931"/>
@@ -269,7 +268,7 @@
 												<string key="NSFrame">{{12, 136}, {121, 17}}</string>
 												<reference key="NSSuperview" ref="734218820"/>
 												<reference key="NSWindow"/>
-												<reference key="NSNextKeyView" ref="708369120"/>
+												<reference key="NSNextKeyView" ref="400434222"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSTextFieldCell" key="NSCell" id="941291435">
 													<int key="NSCellFlags">68288064</int>
@@ -300,55 +299,16 @@
 													<string key="NSKeyEquivalent"/>
 													<int key="NSPeriodicDelay">400</int>
 													<int key="NSPeriodicInterval">75</int>
-													<object class="NSMenuItem" key="NSMenuItem" id="880626345">
-														<reference key="NSMenu" ref="919962134"/>
-														<string key="NSTitle">Basecamp</string>
-														<string key="NSKeyEquiv"/>
-														<int key="NSKeyEquivModMask">1048576</int>
-														<int key="NSMnemonicLoc">2147483647</int>
-														<int key="NSState">1</int>
-														<object class="NSCustomResource" key="NSOnImage" id="560954634">
-															<string key="NSClassName">NSImage</string>
-															<string key="NSResourceName">NSMenuCheckmark</string>
-														</object>
-														<object class="NSCustomResource" key="NSMixedImage" id="42991046">
-															<string key="NSClassName">NSImage</string>
-															<string key="NSResourceName">NSMenuMixedState</string>
-														</object>
-														<string key="NSAction">_popUpItemAction:</string>
-														<reference key="NSTarget" ref="263576778"/>
-													</object>
+													<nil key="NSMenuItem"/>
 													<bool key="NSMenuItemRespectAlignment">YES</bool>
 													<object class="NSMenu" key="NSMenu" id="919962134">
 														<string key="NSTitle">OtherViews</string>
 														<object class="NSMutableArray" key="NSMenuItems">
 															<bool key="EncodedWithXMLCoder">YES</bool>
-															<reference ref="880626345"/>
-															<object class="NSMenuItem" id="36017666">
-																<reference key="NSMenu" ref="919962134"/>
-																<string key="NSTitle">Item 2</string>
-																<string key="NSKeyEquiv"/>
-																<int key="NSKeyEquivModMask">1048576</int>
-																<int key="NSMnemonicLoc">2147483647</int>
-																<reference key="NSOnImage" ref="560954634"/>
-																<reference key="NSMixedImage" ref="42991046"/>
-																<string key="NSAction">_popUpItemAction:</string>
-																<reference key="NSTarget" ref="263576778"/>
-															</object>
-															<object class="NSMenuItem" id="737553300">
-																<reference key="NSMenu" ref="919962134"/>
-																<string key="NSTitle">Item 3</string>
-																<string key="NSKeyEquiv"/>
-																<int key="NSKeyEquivModMask">1048576</int>
-																<int key="NSMnemonicLoc">2147483647</int>
-																<reference key="NSOnImage" ref="560954634"/>
-																<reference key="NSMixedImage" ref="42991046"/>
-																<string key="NSAction">_popUpItemAction:</string>
-																<reference key="NSTarget" ref="263576778"/>
-															</object>
 														</object>
 														<reference key="NSMenuFont" ref="374177389"/>
 													</object>
+													<int key="NSSelectedIndex">-1</int>
 													<int key="NSPreferredEdge">1</int>
 													<bool key="NSUsesItemFromMenu">YES</bool>
 													<bool key="NSAltersState">YES</bool>
@@ -361,6 +321,7 @@
 												<string key="NSFrame">{{138, 164}, {197, 22}}</string>
 												<reference key="NSSuperview" ref="734218820"/>
 												<reference key="NSWindow"/>
+												<reference key="NSNextKeyView" ref="868833581"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSTextFieldCell" key="NSCell" id="598643230">
 													<int key="NSCellFlags">-1804468671</int>
@@ -392,6 +353,7 @@
 												<string key="NSFrame">{{138, 134}, {197, 22}}</string>
 												<reference key="NSSuperview" ref="734218820"/>
 												<reference key="NSWindow"/>
+												<reference key="NSNextKeyView" ref="708369120"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSSecureTextFieldCell" key="NSCell" id="900589597">
 													<int key="NSCellFlags">343014976</int>
@@ -445,7 +407,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="444333316"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1366, 746}}</string>
 				<string key="NSMaxSize">{1e+13, 1e+13}</string>
 			</object>
 		</object>
@@ -732,26 +694,8 @@
 						<reference key="object" ref="919962134"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="880626345"/>
-							<reference ref="36017666"/>
-							<reference ref="737553300"/>
 						</object>
 						<reference key="parent" ref="263576778"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">41</int>
-						<reference key="object" ref="880626345"/>
-						<reference key="parent" ref="919962134"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">42</int>
-						<reference key="object" ref="36017666"/>
-						<reference key="parent" ref="919962134"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">43</int>
-						<reference key="object" ref="737553300"/>
-						<reference key="parent" ref="919962134"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">44</int>
@@ -942,18 +886,5 @@
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<bool key="EncodedWithXMLCoder">YES</bool>
-			<object class="NSArray" key="dict.sortedKeys">
-				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>NSMenuCheckmark</string>
-				<string>NSMenuMixedState</string>
-			</object>
-			<object class="NSMutableArray" key="dict.values">
-				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{9, 8}</string>
-				<string>{7, 2}</string>
-			</object>
-		</object>
 	</data>
 </archive>

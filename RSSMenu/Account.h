@@ -1,0 +1,6 @@
+
+@interface Account : NSObject {
+    
+}
+
+@end

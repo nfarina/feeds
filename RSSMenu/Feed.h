@@ -1,9 +1,9 @@
 
-extern NSString *kRSSFeedUpdatedNotification;
+extern NSString *kFeedUpdatedNotification;
 
-@interface RSSFeed : NSObject {
+@interface Feed : NSObject {
     NSURL *URL;
-    NSArray *items; // of RSSItem
+    NSArray *items; // of FeedItem
     SMWebRequest *request;
 }
 @property (nonatomic, retain) NSURL *URL;
@@ -13,7 +13,7 @@ extern NSString *kRSSFeedUpdatedNotification;
 
 @end
 
-@interface RSSItem : NSObject {
+@interface FeedItem : NSObject {
     NSString *title, *author, *content, *strippedContent;
     NSURL *link, *comments;
     NSDate *published, *updated;
@@ -24,10 +24,10 @@ extern NSString *kRSSFeedUpdatedNotification;
 @property (nonatomic, retain) NSDate *published, *updated;
 @property (nonatomic, assign) BOOL notified, viewed;
 
-// creates a new RSSItem by parsing an XML element
-+ (RSSItem *)itemWithRSSItemElement:(SMXMLElement *)element formatter:(NSDateFormatter *)formatter;
-+ (RSSItem *)itemWithATOMEntryElement:(SMXMLElement *)element formatter:(NSDateFormatter *)formatter;
+// creates a new FeedItem by parsing an XML element
++ (FeedItem *)itemWithRSSItemElement:(SMXMLElement *)element formatter:(NSDateFormatter *)formatter;
++ (FeedItem *)itemWithATOMEntryElement:(SMXMLElement *)element formatter:(NSDateFormatter *)formatter;
 
-- (NSComparisonResult)compareItemByPublishedDate:(RSSItem *)item;
+- (NSComparisonResult)compareItemByPublishedDate:(FeedItem *)item;
 
 @end

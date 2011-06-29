@@ -1,5 +1,5 @@
 #import "AppDelegate.h"
-#import "RSSFeed.h"
+#import "Feed.h"
 #import "HotKeys.h"
 
 #define MAX_ITEMS 30
@@ -30,11 +30,14 @@
 
     statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength] retain];
 	statusItem.menu = menu;
-    
-    [statusItem setHighlightMode:YES];
-	[statusItem setImage:[NSImage imageNamed:@"StatusItem.png"]];
-	[statusItem setAlternateImage:[NSImage imageNamed:@"StatusItemSelected.png"]];
+
+    statusItemView = [[StatusItemView alloc] initWithStatusItem:statusItem];
+
+    //[statusItem setHighlightMode:YES];
+	//[statusItem setImage:[NSImage imageNamed:@"StatusItem.png"]];
+	//[statusItem setAlternateImage:[NSImage imageNamed:@"StatusItemSelected.png"]];
 	[statusItem setEnabled:YES];
+    [statusItem setView:statusItemView];
 
     // register hot key for popping open the menu
     [HotKeys registerHotKeys];
@@ -47,12 +50,12 @@
     }
     
     allItems = [NSMutableArray new];
-    self.feeds = [feedDicts collect:@selector(feedWithDictionary:) on:[RSSFeed class]];
+    self.feeds = [feedDicts collect:@selector(feedWithDictionary:) on:[Feed class]];
     
     reachability = [[Reachability reachabilityForInternetConnection] retain];
 	[reachability startNotifier];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedUpdated:) name:kRSSFeedUpdatedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedUpdated:) name:kFeedUpdatedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedFailed:) name:kSMWebRequestError object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged) name:kReachabilityChangedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openMenuHotkeyPressed) name:kHotKeyManagerOpenMenuNotification object:nil];
@@ -77,18 +80,18 @@
 - (void)updateStatusItemIcon {
     if (refreshTimer) {
 
-        for (RSSItem *item in allItems)
+        for (FeedItem *item in allItems)
             if (!item.viewed) {
                 // you've got stuff up there that you haven't seen in the menu, so glow the icon to let you know!
-                [statusItem setImage:[NSImage imageNamed:@"StatusItemUnread.png"]];
+                //[statusItem setImage:[NSImage imageNamed:@"StatusItemUnread.png"]];
                 return;
             }
 
         // default
-        [statusItem setImage:[NSImage imageNamed:@"StatusItem.png"]];
+        //[statusItem setImage:[NSImage imageNamed:@"StatusItem.png"]];
     }
     else // we're not running. 
-        [statusItem setImage:[NSImage imageNamed:@"StatusItemInactive.png"]];
+    {}//[statusItem setImage:[NSImage imageNamed:@"StatusItemInactive.png"]];
 }
 
 - (void)reachabilityChanged {
@@ -123,7 +126,7 @@
 
 - (void)feedUpdated:(NSNotification *)notification {
 
-    RSSFeed *feed = [notification object];
+    Feed *feed = [notification object];
     
     while (![[menu itemAtIndex:0] isSeparatorItem])
         [menu removeItemAtIndex:0];
@@ -131,7 +134,7 @@
     // build combined feed
     [allItems removeAllObjects];
     
-    for (RSSFeed *feed in feeds)
+    for (Feed *feed in feeds)
         [allItems addObjectsFromArray:feed.items];
     
     [allItems sortUsingSelector:@selector(compareItemByPublishedDate:)];
@@ -139,7 +142,7 @@
     
     for (int i=0; i<[allItems count] && i<MAX_ITEMS; i++) {
         
-        RSSItem *item = [allItems objectAtIndex:i];
+        FeedItem *item = [allItems objectAtIndex:i];
         
         NSString *title = item.title;
         if ([title length] > 45)
@@ -158,7 +161,7 @@
             [GrowlApplicationBridge
              notifyWithTitle:title
              description:content
-             notificationName:@"NewRSSItem"
+             notificationName:@"NewItem"
              iconData:nil
              priority:(signed int)0
              isSticky:FALSE
@@ -167,7 +170,7 @@
     }
     
     // mark all as notified
-    for (RSSItem *item in feed.items)
+    for (FeedItem *item in feed.items)
         item.notified = YES;
     
     [self updateStatusItemIcon];
@@ -178,7 +181,7 @@
 }
 
 - (void)menuDidClose:(NSMenu *)menu {
-    for (RSSItem *item in allItems)
+    for (FeedItem *item in allItems)
         item.viewed = YES;
     
     [self updateStatusItemIcon];
@@ -186,7 +189,7 @@
 
 - (void)itemSelected:(NSMenuItem *)menuItem {
     
-    RSSItem *item = [allItems objectAtIndex:menuItem.tag];
+    FeedItem *item = [allItems objectAtIndex:menuItem.tag];
     [self openBrowserWithURL:item.link];
 }
 

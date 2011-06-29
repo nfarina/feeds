@@ -1,6 +1,6 @@
-#import "RSSFeed.h"
+#import "Feed.h"
 
-NSString *kRSSFeedUpdatedNotification = @"RSSFeedUpdatedNotification";
+NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
 
 NSDateFormatter *RSSDateFormatter() {
     NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
@@ -18,11 +18,11 @@ NSDateFormatter *ATOMDateFormatter() {
     return formatter;
 }
 
-@interface RSSFeed ()
+@interface Feed ()
 @property (nonatomic, retain) SMWebRequest *request;
 @end
 
-@implementation RSSFeed
+@implementation Feed
 @synthesize URL, items, request;
 
 - (void)dealloc {
@@ -37,8 +37,8 @@ NSDateFormatter *ATOMDateFormatter() {
     request = [value retain];
 }
 
-+ (RSSFeed *)feedWithDictionary:(NSDictionary *)dict {
-    RSSFeed *feed = [[[RSSFeed alloc] init] autorelease];
++ (Feed *)feedWithDictionary:(NSDictionary *)dict {
+    Feed *feed = [[[Feed alloc] init] autorelease];
     feed.URL = [NSURL URLWithString:[dict objectForKey:@"url"]];
     return feed;
 }
@@ -62,7 +62,7 @@ NSDateFormatter *ATOMDateFormatter() {
         NSDateFormatter *formatter = RSSDateFormatter();
         
         for (SMXMLElement *itemXml in itemsXml)
-            [items addObject:[RSSItem itemWithRSSItemElement:itemXml formatter:formatter]];
+            [items addObject:[FeedItem itemWithRSSItemElement:itemXml formatter:formatter]];
     }
     else if ([document.root.name isEqual:@"feed"]) {
 
@@ -70,7 +70,7 @@ NSDateFormatter *ATOMDateFormatter() {
         NSDateFormatter *formatter = ATOMDateFormatter();
         
         for (SMXMLElement *itemXml in itemsXml)
-            [items addObject:[RSSItem itemWithATOMEntryElement:itemXml formatter:formatter]];
+            [items addObject:[FeedItem itemWithATOMEntryElement:itemXml formatter:formatter]];
 
     }
     else NSLog(@"Unknown feed root element: <%@>", document.root.name);
@@ -84,7 +84,7 @@ NSDateFormatter *ATOMDateFormatter() {
     if (items) {
         NSMutableArray *merged = [NSMutableArray array];
         
-        for (RSSItem *newItem in newItems) {
+        for (FeedItem *newItem in newItems) {
             int i = (int)[items indexOfObject:newItem];
             if (items != nil && i >= 0)
                 [merged addObject:[items objectAtIndex:i]]; // preserve existing item
@@ -97,16 +97,16 @@ NSDateFormatter *ATOMDateFormatter() {
         self.items = newItems;
         
         // don't notify about the initial fetch, or we'll have a shitload of growl popups
-        for (RSSItem *item in items)
+        for (FeedItem *item in items)
             item.notified = item.viewed = YES;
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kRSSFeedUpdatedNotification object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kFeedUpdatedNotification object:self];
 }
 
 @end
 
-@implementation RSSItem
+@implementation FeedItem
 @synthesize title, author, content, strippedContent, link, comments, published, updated, notified, viewed;
 
 - (void)dealloc {
@@ -116,8 +116,8 @@ NSDateFormatter *ATOMDateFormatter() {
     [super dealloc];
 }
 
-+ (RSSItem *)itemWithRSSItemElement:(SMXMLElement *)element formatter:(NSDateFormatter *)formatter {
-    RSSItem *item = [[RSSItem new] autorelease];
++ (FeedItem *)itemWithRSSItemElement:(SMXMLElement *)element formatter:(NSDateFormatter *)formatter {
+    FeedItem *item = [[FeedItem new] autorelease];
     item.title = [element childNamed:@"title"].value;
     item.author = [element childNamed:@"author"].value;
     item.content = [element childNamed:@"description"].value;
@@ -135,8 +135,8 @@ NSDateFormatter *ATOMDateFormatter() {
     return item;
 }
 
-+ (RSSItem *)itemWithATOMEntryElement:(SMXMLElement *)element formatter:(NSDateFormatter *)formatter {
-    RSSItem *item = [[RSSItem new] autorelease];
++ (FeedItem *)itemWithATOMEntryElement:(SMXMLElement *)element formatter:(NSDateFormatter *)formatter {
+    FeedItem *item = [[FeedItem new] autorelease];
     item.title = [element childNamed:@"title"].value;
     item.author = [element valueWithPath:@"author.name"];
     item.content = [element childNamed:@"content"].value;
@@ -153,14 +153,14 @@ NSDateFormatter *ATOMDateFormatter() {
     return item;
 }
 
-- (BOOL)isEqual:(RSSItem *)other {
-    if ([other isKindOfClass:[RSSItem class]]) {
+- (BOOL)isEqual:(FeedItem *)other {
+    if ([other isKindOfClass:[FeedItem class]]) {
         return [link isEqual:other.link] && [updated isEqual:other.updated];
     }
     else return NO;
 }
 
-- (NSComparisonResult)compareItemByPublishedDate:(RSSItem *)item {
+- (NSComparisonResult)compareItemByPublishedDate:(FeedItem *)item {
     return [item.published compare:self.published];
 }
 

@@ -6,11 +6,11 @@
 	<integer>1</integer>
 	<key>AllNotifications</key>
 	<array>
-		<string>NewRSSItem</string>
+		<string>NewItem</string>
 	</array>
 	<key>DefaultNotifications</key>
 	<array>
-		<string>NewRSSItem</string>
+		<string>NewItem</string>
 	</array>
 </dict>
 </plist>
