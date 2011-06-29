@@ -2,13 +2,12 @@
 
 @protocol NewAccountControllerDelegate;
 
-@interface NewAccountController : NSWindowController <NSTextFieldDelegate> {
+@interface NewAccountController : NSWindowController <NSTextFieldDelegate, AccountDelegate> {
     id<NewAccountControllerDelegate> delegate;
     Account *newAccount;
     
     IBOutlet NSPopUpButton *accountTypeButton;
-    IBOutlet NSTextField *usernameField;
-    IBOutlet NSTextField *passwordField;
+    IBOutlet NSTextField *domainField, *usernameField, *passwordField;
     IBOutlet NSButton *OKButton;
 }
 

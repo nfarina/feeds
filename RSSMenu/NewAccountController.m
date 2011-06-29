@@ -37,24 +37,34 @@ static NSArray *accountTypes = nil;
 
 - (void)windowDidLoad {
     [super windowDidLoad];
-    [usernameField becomeFirstResponder];
+    [domainField becomeFirstResponder];
+}
+
+- (Class)selectedAccountClass {
+    NSDictionary *accountType = [accountTypes objectAtIndex:[accountTypeButton indexOfSelectedItem]];
+    return [accountType objectForKey:@"class"];
 }
 
 - (void)accountTypeChanged:(id)sender {
 }
 
 - (void)controlTextDidChange:(NSNotification *)notification {
-    BOOL canContinue = [[usernameField stringValue] length] && [[passwordField stringValue] length];
+    BOOL canContinue = [[domainField stringValue] length] && [[usernameField stringValue] length] && [[passwordField stringValue] length];
     [OKButton setEnabled:canContinue];
 }
 
 - (void)OKPressed:(id)sender {
-    NSDictionary *accountType = [accountTypes objectAtIndex:[accountTypeButton indexOfSelectedItem]];
-    Class class = [accountType objectForKey:@"class"];
     
-    self.newAccount = [[[class alloc] init] autorelease];
+    self.newAccount = [[[[self selectedAccountClass] alloc] init] autorelease];
+    newAccount.delegate = self;
+    newAccount.domain = [domainField stringValue];
     newAccount.username = [usernameField stringValue];
     newAccount.password = [passwordField stringValue];
+    [newAccount validate];
+}
+
+- (void)accountValidationDidComplete:(Account *)account {
+    NSLog(@"VALID!");
 }
 
 - (void)cancelPressed:(id)sender {
