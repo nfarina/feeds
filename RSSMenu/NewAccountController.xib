@@ -71,7 +71,7 @@
 							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="904530516">
-								<int key="NSCellFlags">67239424</int>
+								<int key="NSCellFlags">604110336</int>
 								<int key="NSCellFlags2">134217728</int>
 								<string key="NSContents">OK</string>
 								<object class="NSFont" key="NSSupport" id="374177389">
@@ -456,27 +456,43 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">passwordButton</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="400434222"/>
-					</object>
-					<int key="connectionID">49</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">usernameButton</string>
+						<string key="label">usernameField</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="817115163"/>
 					</object>
-					<int key="connectionID">50</int>
+					<int key="connectionID">57</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">passwordField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="400434222"/>
+					</object>
+					<int key="connectionID">58</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="817115163"/>
+						<reference key="destination" ref="1001"/>
+					</object>
+					<int key="connectionID">59</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="400434222"/>
+						<reference key="destination" ref="1001"/>
+					</object>
+					<int key="connectionID">60</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">accountTypeChanged</string>
+						<string key="label">accountTypeChanged:</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="540552353"/>
 					</object>
-					<int key="connectionID">54</int>
+					<int key="connectionID">61</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -852,7 +868,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">54</int>
+			<int key="maxID">61</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -865,10 +881,16 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>OKPressed:</string>
+							<string>accountTypeChanged:</string>
 							<string>cancelPressed:</string>
+							<string>passwordChanged:</string>
+							<string>usernameChanged:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -878,7 +900,10 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>OKPressed:</string>
+							<string>accountTypeChanged:</string>
 							<string>cancelPressed:</string>
+							<string>passwordChanged:</string>
+							<string>usernameChanged:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -887,7 +912,19 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">accountTypeChanged:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">cancelPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">passwordChanged:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">usernameChanged:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -898,8 +935,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>OKButton</string>
 							<string>accountTypeButton</string>
-							<string>passwordButton</string>
-							<string>usernameButton</string>
+							<string>passwordField</string>
+							<string>usernameField</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -915,8 +952,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>OKButton</string>
 							<string>accountTypeButton</string>
-							<string>passwordButton</string>
-							<string>usernameButton</string>
+							<string>passwordField</string>
+							<string>usernameField</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -929,11 +966,11 @@
 								<string key="candidateClassName">NSPopUpButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">passwordButton</string>
+								<string key="name">passwordField</string>
 								<string key="candidateClassName">NSTextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">usernameButton</string>
+								<string key="name">usernameField</string>
 								<string key="candidateClassName">NSTextField</string>
 							</object>
 						</object>

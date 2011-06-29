@@ -1,12 +1,14 @@
+#import "Account.h"
 
 @protocol NewAccountControllerDelegate;
 
-@interface NewAccountController : NSWindowController {
+@interface NewAccountController : NSWindowController <NSTextFieldDelegate> {
     id<NewAccountControllerDelegate> delegate;
+    Account *newAccount;
     
     IBOutlet NSPopUpButton *accountTypeButton;
-    IBOutlet NSTextField *usernameButton;
-    IBOutlet NSTextField *passwordButton;
+    IBOutlet NSTextField *usernameField;
+    IBOutlet NSTextField *passwordField;
     IBOutlet NSButton *OKButton;
 }
 

@@ -30,13 +30,15 @@
 	SetFrontProcess(&psn);
     
 	[self.window center];
-    
+
+    [self.window makeKeyAndOrderFront:self];
+
 #if DEBUG
+    [self selectAccountsTab:nil];
+    [self addAccount:nil];
 #else
     [self.window setLevel: NSTornOffMenuWindowLevel]; // a.k.a. "Always On Top"
 #endif
-
-    [self.window makeKeyAndOrderFront:self];
 }
 
 - (IBAction)selectGeneralTab:(id)sender {

@@ -3,11 +3,16 @@
 
 static NSArray *accountTypes = nil;
 
+@interface NewAccountController ()
+@property (nonatomic, retain) Account *newAccount;
+@end
+
 @implementation NewAccountController
+@synthesize newAccount;
 
 + (void)initialize {
     if (self == [NewAccountController class]) {
-        accountTypes = [NSArray arrayWithObjects:
+        accountTypes = [[NSArray alloc] initWithObjects:
                         [NSDictionary dictionaryWithObjectsAndKeys:@"Basecamp",@"name",[BasecampAccount class],@"class",nil],
                         nil];
     }
@@ -19,6 +24,7 @@ static NSArray *accountTypes = nil;
 }
 
 - (void)dealloc {
+    self.newAccount = nil;
     [super dealloc];
 }
 
@@ -31,14 +37,24 @@ static NSArray *accountTypes = nil;
 
 - (void)windowDidLoad {
     [super windowDidLoad];
+    [usernameField becomeFirstResponder];
 }
 
 - (void)accountTypeChanged:(id)sender {
 }
 
+- (void)controlTextDidChange:(NSNotification *)notification {
+    BOOL canContinue = [[usernameField stringValue] length] && [[passwordField stringValue] length];
+    [OKButton setEnabled:canContinue];
+}
+
 - (void)OKPressed:(id)sender {
-    [self.window orderOut:self];
-    [delegate newAccountControllerDidComplete:self];
+    NSDictionary *accountType = [accountTypes objectAtIndex:[accountTypeButton indexOfSelectedItem]];
+    Class class = [accountType objectForKey:@"class"];
+    
+    self.newAccount = [[[class alloc] init] autorelease];
+    newAccount.username = [usernameField stringValue];
+    newAccount.password = [passwordField stringValue];
 }
 
 - (void)cancelPressed:(id)sender {
