@@ -33,6 +33,8 @@ static NSArray *accountTypes = nil;
         NSString *name = [accountType objectForKey:@"name"];
         [accountTypeButton addItemWithTitle:name];
     }
+    [progress setHidden:YES];
+    [messageField setHidden:YES];
 }
 
 - (void)windowDidLoad {
@@ -61,10 +63,20 @@ static NSArray *accountTypes = nil;
     newAccount.username = [usernameField stringValue];
     newAccount.password = [passwordField stringValue];
     [newAccount validate];
+    
+    [progress setHidden:NO];
+    [progress startAnimation:nil];
+    [messageField setHidden:NO];
+    [messageField setStringValue:@"Validating account…"];
 }
 
 - (void)accountValidationDidComplete:(Account *)account {
-    NSLog(@"VALID!");
+
+    [progress stopAnimation:nil];
+    [progress setHidden:YES];
+    [messageField setHidden:YES];
+    [self.window orderOut:self];
+    [delegate newAccountControllerDidComplete:self];
 }
 
 - (void)cancelPressed:(id)sender {

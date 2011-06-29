@@ -25,6 +25,7 @@
 
 - (void)meRequestComplete:(NSData *)data {
     NSLog(@"Complete! %@", [SMXMLDocument documentWithData:data error:NULL]);
+    [self.delegate accountValidationDidComplete:self];
 }
 
 @end

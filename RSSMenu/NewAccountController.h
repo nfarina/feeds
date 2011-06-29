@@ -7,7 +7,8 @@
     Account *newAccount;
     
     IBOutlet NSPopUpButton *accountTypeButton;
-    IBOutlet NSTextField *domainField, *usernameField, *passwordField;
+    IBOutlet NSTextField *domainField, *usernameField, *passwordField, *messageField;
+    IBOutlet NSProgressIndicator *progress;
     IBOutlet NSButton *OKButton;
 }
 
