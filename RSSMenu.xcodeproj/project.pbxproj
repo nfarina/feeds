@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0108CED013BB1B4F0000ECE1 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 0108CECF13BB1B4F0000ECE1 /* Account.m */; };
+		0108CED313BB1EC00000ECE1 /* BasecampAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 0108CED213BB1EC00000ECE1 /* BasecampAccount.m */; };
 		0117B30613AD27CB0018AB7C /* NSArray+Linqish.m in Sources */ = {isa = PBXBuildFile; fileRef = 0117B30513AD27CB0018AB7C /* NSArray+Linqish.m */; };
 		01937C8313A03F5000BCE1D4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01937C8213A03F5000BCE1D4 /* Cocoa.framework */; };
 		01937C8D13A03F5000BCE1D4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01937C8B13A03F5000BCE1D4 /* InfoPlist.strings */; };
@@ -60,6 +61,8 @@
 /* Begin PBXFileReference section */
 		0108CECE13BB1B4F0000ECE1 /* Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Account.h; sourceTree = "<group>"; };
 		0108CECF13BB1B4F0000ECE1 /* Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Account.m; sourceTree = "<group>"; };
+		0108CED113BB1EC00000ECE1 /* BasecampAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasecampAccount.h; sourceTree = "<group>"; };
+		0108CED213BB1EC00000ECE1 /* BasecampAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasecampAccount.m; sourceTree = "<group>"; };
 		0117B30413AD27CB0018AB7C /* NSArray+Linqish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Linqish.h"; sourceTree = "<group>"; };
 		0117B30513AD27CB0018AB7C /* NSArray+Linqish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Linqish.m"; sourceTree = "<group>"; };
 		01937C7E13A03F5000BCE1D4 /* RSSMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSSMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,6 +132,8 @@
 		0108CECC13BB1B080000ECE1 /* Accounts */ = {
 			isa = PBXGroup;
 			children = (
+				0108CED113BB1EC00000ECE1 /* BasecampAccount.h */,
+				0108CED213BB1EC00000ECE1 /* BasecampAccount.m */,
 			);
 			name = Accounts;
 			sourceTree = "<group>";
@@ -395,6 +400,7 @@
 				01D7CB8C13B02F4A001B133A /* NewAccountController.m in Sources */,
 				01F5D6C713B3B89600EA479D /* StatusItemView.m in Sources */,
 				0108CED013BB1B4F0000ECE1 /* Account.m in Sources */,
+				0108CED313BB1EC00000ECE1 /* BasecampAccount.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
