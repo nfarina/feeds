@@ -33,11 +33,11 @@
 
     statusItemView = [[StatusItemView alloc] initWithStatusItem:statusItem];
 
-    //[statusItem setHighlightMode:YES];
-	//[statusItem setImage:[NSImage imageNamed:@"StatusItem.png"]];
-	//[statusItem setAlternateImage:[NSImage imageNamed:@"StatusItemSelected.png"]];
-	[statusItem setEnabled:YES];
-    [statusItem setView:statusItemView];
+    [statusItem setHighlightMode:YES];
+	[statusItem setImage:[NSImage imageNamed:@"StatusItem.png"]];
+	[statusItem setAlternateImage:[NSImage imageNamed:@"StatusItemSelected.png"]];
+//	[statusItem setEnabled:YES];
+//  [statusItem setView:statusItemView];
 
     // register hot key for popping open the menu
     [HotKeys registerHotKeys];
@@ -83,15 +83,15 @@
         for (FeedItem *item in allItems)
             if (!item.viewed) {
                 // you've got stuff up there that you haven't seen in the menu, so glow the icon to let you know!
-                //[statusItem setImage:[NSImage imageNamed:@"StatusItemUnread.png"]];
+                [statusItem setImage:[NSImage imageNamed:@"StatusItemUnread.png"]];
                 return;
             }
 
         // default
-        //[statusItem setImage:[NSImage imageNamed:@"StatusItem.png"]];
+        [statusItem setImage:[NSImage imageNamed:@"StatusItem.png"]];
     }
     else // we're not running. 
-    {}//[statusItem setImage:[NSImage imageNamed:@"StatusItemInactive.png"]];
+        [statusItem setImage:[NSImage imageNamed:@"StatusItemInactive.png"]];
 }
 
 - (void)reachabilityChanged {

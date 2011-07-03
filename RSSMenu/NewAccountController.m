@@ -35,6 +35,7 @@ static NSArray *accountTypes = nil;
     }
     [progress setHidden:YES];
     [messageField setHidden:YES];
+    [usernameField becomeFirstResponder];
 }
 
 - (void)windowDidLoad {
