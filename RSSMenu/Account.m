@@ -54,11 +54,10 @@ static NSMutableArray *allAccounts = nil;
 }
 
 - (id)initWithDictionary:(NSDictionary *)dict {
-    if ([super init]) {
-        self.domain = [dict objectForKey:@"domain"];
-        self.username = [dict objectForKey:@"username"];
-        self.feeds = [[dict objectForKey:@"feeds"] collect:@selector(feedWithDictionary:) on:[Feed class]];
-    }
+    [super init];
+    self.domain = [dict objectForKey:@"domain"];
+    self.username = [dict objectForKey:@"username"];
+    self.feeds = [[dict objectForKey:@"feeds"] collect:@selector(feedWithDictionary:) on:[Feed class]];
     return self;
 }
 
@@ -73,7 +72,7 @@ static NSMutableArray *allAccounts = nil;
 
 - (void)dealloc {
     self.delegate = nil;
-    self.domain = self.username;
+    self.domain = self.username = nil;
     self.request = nil;
     [super dealloc];
 }
@@ -115,7 +114,7 @@ static NSMutableArray *allAccounts = nil;
         return nil;
     }
     
-    NSString *password = [[NSString alloc] initWithBytes:passwordData length:passwordLength encoding:NSUTF8StringEncoding];
+    NSString *password = [[[NSString alloc] initWithBytes:passwordData length:passwordLength encoding:NSUTF8StringEncoding] autorelease];
     SecKeychainItemFreeContent(NULL, passwordData);
     return password;
 }

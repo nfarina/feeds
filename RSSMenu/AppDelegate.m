@@ -7,17 +7,18 @@
 #define CHECK_INTERVAL 60*1
 
 @interface AppDelegate ()
-@property (nonatomic, copy) NSArray *feeds;
 @property (nonatomic, retain) NSTimer *refreshTimer;
+- (NSArray *)allFeeds;
 - (void)accountsChanged:(NSNotification *)notification;
 - (void)reachabilityChanged;
 - (void)refreshFeeds;
 - (void)openBrowserWithURL:(NSURL *)url;
 - (void)updateStatusItemIcon;
+- (void)rebuildItems;
 @end
 
 @implementation AppDelegate
-@synthesize feeds, refreshTimer;
+@synthesize refreshTimer;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
@@ -45,17 +46,14 @@
     
     allItems = [NSMutableArray new];
     
-#if DEBUG
-#else
-    NSArray *feedDicts = [[NSUserDefaults standardUserDefaults] arrayForKey:@"feeds"];
-    
-    if (!feedDicts) {
-        feedDicts = [NSArray arrayWithObject:[NSDictionary dictionaryWithObject:@"http://dribbble.com/shots/popular.rss" forKey:@"url"]];
-        [[NSUserDefaults standardUserDefaults] setObject:feedDicts forKey:@"feeds"];
-    }
-    
-    self.feeds = [feedDicts collect:@selector(feedWithDictionary:) on:[Feed class]];
-#endif
+//    NSArray *feedDicts = [[NSUserDefaults standardUserDefaults] arrayForKey:@"feeds"];
+//    
+//    if (!feedDicts) {
+//        feedDicts = [NSArray arrayWithObject:[NSDictionary dictionaryWithObject:@"http://dribbble.com/shots/popular.rss" forKey:@"url"]];
+//        [[NSUserDefaults standardUserDefaults] setObject:feedDicts forKey:@"feeds"];
+//    }
+//    
+//    self.feeds = [feedDicts collect:@selector(feedWithDictionary:) on:[Feed class]];
     
     reachability = [[Reachability reachabilityForInternetConnection] retain];
 	[reachability startNotifier];
@@ -79,16 +77,20 @@
     refreshTimer = [value retain];
 }
 
+- (NSArray *)allFeeds {
+    NSMutableArray *feeds = [NSMutableArray array];
+    for (Account *account in [Account allAccounts]) [feeds addObjectsFromArray:account.feeds];
+    return feeds;
+}
+
 - (void)accountsChanged:(NSNotification *)notification {
-    NSMutableArray *allFeeds = [NSMutableArray array];
-    for (Account *account in [Account allAccounts]) [allFeeds addObjectsFromArray:account.feeds];
-    self.feeds = allFeeds;
+    [self rebuildItems];
     [self refreshFeeds];
 }
 
 - (void)refreshFeeds {
     //NSLog(@"Refreshing feeds...");
-    [feeds makeObjectsPerformSelector:@selector(refresh)];
+    [[self allFeeds] makeObjectsPerformSelector:@selector(refresh)];
 }
 
 - (void)updateStatusItemIcon {
@@ -139,42 +141,19 @@
 }
 
 - (void)feedUpdated:(NSNotification *)notification {
+    [self rebuildItems];
 
     Feed *feed = [notification object];
-    
-    while (![[menu itemAtIndex:0] isSeparatorItem])
-        [menu removeItemAtIndex:0];
-    
-    // build combined feed
-    [allItems removeAllObjects];
-    
-    for (Feed *feed in feeds)
-        [allItems addObjectsFromArray:feed.items];
-    
-    [allItems sortUsingSelector:@selector(compareItemByPublishedDate:)];
     int notifications = 0;
     
     for (int i=0; i<[allItems count] && i<MAX_ITEMS; i++) {
         
         FeedItem *item = [allItems objectAtIndex:i];
         
-        NSString *title = item.title;
-        if ([title length] > 45)
-            title = [[title substringToIndex:45] stringByAppendingString:@"…"];
-        
-        NSString *content = item.strippedContent;
-        if ([content length] > 60)
-            content = [[content substringToIndex:60] stringByAppendingString:@"…"];
-
-        NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:title action:@selector(itemSelected:) keyEquivalent:@""];
-        [menuItem setTag:i];
-        
-        [menu insertItem:menuItem atIndex:i];
-        
         if (!item.notified && notifications++ < MAX_GROWLS) {
             [GrowlApplicationBridge
-             notifyWithTitle:title
-             description:content
+             notifyWithTitle:[item.title truncatedAfterIndex:45]
+             description:[item.content truncatedAfterIndex:45]
              notificationName:@"NewItem"
              iconData:nil
              priority:(signed int)0
@@ -188,6 +167,34 @@
         item.notified = YES;
     
     [self updateStatusItemIcon];
+}
+
+- (void)rebuildItems {
+    
+    [allItems removeAllObjects];
+    
+    for (Feed *feed in [self allFeeds])
+        [allItems addObjectsFromArray:feed.items];
+    
+    [allItems sortUsingSelector:@selector(compareItemByPublishedDate:)];
+    
+    while (![[menu itemAtIndex:0] isSeparatorItem])
+        [menu removeItemAtIndex:0];
+
+    for (int i=0; i<[allItems count] && i<MAX_ITEMS; i++) {
+        
+        FeedItem *item = [allItems objectAtIndex:i];
+        
+        NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:[item.title truncatedAfterIndex:45] action:@selector(itemSelected:) keyEquivalent:@""] autorelease];
+        [menuItem setTag:i];
+        
+        [menu insertItem:menuItem atIndex:i];
+    }
+    
+    if ([allItems count] == 0) {
+        NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:@"No Items" action:NULL keyEquivalent:@""] autorelease];
+        [menu insertItem:menuItem atIndex:0];
+    }
 }
 
 - (void)openMenuHotkeyPressed {

@@ -1,7 +1,4 @@
 #import "Account.h"
 
-@interface BasecampAccount : Account {
-    
-}
-
+@interface BasecampAccount : Account
 @end

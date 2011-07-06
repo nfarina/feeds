@@ -26,6 +26,8 @@
 		01937CC113A08AC200BCE1D4 /* dribbble.xml in Resources */ = {isa = PBXBuildFile; fileRef = 01937CC013A08AC200BCE1D4 /* dribbble.xml */; };
 		01937CC313A08ACE00BCE1D4 /* github.xml in Resources */ = {isa = PBXBuildFile; fileRef = 01937CC213A08ACE00BCE1D4 /* github.xml */; };
 		01AD75C413C3F8010092E790 /* AlertCautionIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 01AD75C313C3F8010092E790 /* AlertCautionIcon.png */; };
+		01B2BE7313C4BBE900304D6A /* NSString+Truncated.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE7213C4BBE900304D6A /* NSString+Truncated.m */; };
+		01C359B113C4B6C400D803BD /* HighriseAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C359B013C4B6C400D803BD /* HighriseAccount.m */; };
 		01D4A3BC13C434B400CE07CC /* NSURLRequest+Authorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D4A3BB13C434B400CE07CC /* NSURLRequest+Authorization.m */; };
 		01D7CB7613AFDE7F001B133A /* HotKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D7CB7413AFDE7F001B133A /* HotKeys.m */; };
 		01D7CB8013AFDFCD001B133A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01D7CB7E13AFDFBE001B133A /* Carbon.framework */; };
@@ -96,6 +98,10 @@
 		01937CC013A08AC200BCE1D4 /* dribbble.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = dribbble.xml; sourceTree = "<group>"; };
 		01937CC213A08ACE00BCE1D4 /* github.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = github.xml; sourceTree = "<group>"; };
 		01AD75C313C3F8010092E790 /* AlertCautionIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AlertCautionIcon.png; sourceTree = "<group>"; };
+		01B2BE7113C4BBE900304D6A /* NSString+Truncated.h */ = {isa = PBXFileReference; fileEncoding = 4; path = "NSString+Truncated.h"; sourceTree = "<group>"; };
+		01B2BE7213C4BBE900304D6A /* NSString+Truncated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Truncated.m"; sourceTree = "<group>"; };
+		01C359AF13C4B6C400D803BD /* HighriseAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighriseAccount.h; sourceTree = "<group>"; };
+		01C359B013C4B6C400D803BD /* HighriseAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighriseAccount.m; sourceTree = "<group>"; };
 		01D4A3BA13C434B400CE07CC /* NSURLRequest+Authorization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+Authorization.h"; sourceTree = "<group>"; };
 		01D4A3BB13C434B400CE07CC /* NSURLRequest+Authorization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+Authorization.m"; sourceTree = "<group>"; };
 		01D7CB7413AFDE7F001B133A /* HotKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotKeys.m; sourceTree = "<group>"; };
@@ -145,6 +151,8 @@
 			children = (
 				0108CED113BB1EC00000ECE1 /* BasecampAccount.h */,
 				0108CED213BB1EC00000ECE1 /* BasecampAccount.m */,
+				01C359AF13C4B6C400D803BD /* HighriseAccount.h */,
+				01C359B013C4B6C400D803BD /* HighriseAccount.m */,
 			);
 			name = Accounts;
 			sourceTree = "<group>";
@@ -162,6 +170,8 @@
 				0108CEDF13BBA3AC0000ECE1 /* NSString+Base64.m */,
 				01D4A3BA13C434B400CE07CC /* NSURLRequest+Authorization.h */,
 				01D4A3BB13C434B400CE07CC /* NSURLRequest+Authorization.m */,
+				01B2BE7113C4BBE900304D6A /* NSString+Truncated.h */,
+				01B2BE7213C4BBE900304D6A /* NSString+Truncated.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -421,6 +431,8 @@
 				0108CED313BB1EC00000ECE1 /* BasecampAccount.m in Sources */,
 				0108CEE013BBA3AC0000ECE1 /* NSString+Base64.m in Sources */,
 				01D4A3BC13C434B400CE07CC /* NSURLRequest+Authorization.m in Sources */,
+				01C359B113C4B6C400D803BD /* HighriseAccount.m in Sources */,
+				01B2BE7313C4BBE900304D6A /* NSString+Truncated.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

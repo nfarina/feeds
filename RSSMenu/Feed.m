@@ -23,10 +23,11 @@ NSDateFormatter *ATOMDateFormatter() {
 @end
 
 @implementation Feed
-@synthesize URL, items, request;
+@synthesize URL, author, items, request;
 
 - (void)dealloc {
     self.URL = nil;
+    self.author = nil;
     self.items = nil;
     self.request = nil;
     [super dealloc];
@@ -46,12 +47,14 @@ NSDateFormatter *ATOMDateFormatter() {
 + (Feed *)feedWithDictionary:(NSDictionary *)dict {
     Feed *feed = [[[Feed alloc] init] autorelease];
     feed.URL = [NSURL URLWithString:[dict objectForKey:@"url"]];
+    feed.author = [dict objectForKey:@"author"];
     return feed;
 }
 
 - (NSDictionary *)dictionaryRepresentation {
     return [NSDictionary dictionaryWithObjectsAndKeys:
             [URL absoluteString], @"url",
+            author, @"author",
             nil];
 
 }
@@ -106,6 +109,13 @@ NSDateFormatter *ATOMDateFormatter() {
                 [merged addObject:newItem];
         }
         self.items = merged;
+        
+        // mark as notified any item that was "created" by ourself, because we don't need to be reminded about stuff we did ourself.
+        for (FeedItem *item in items)
+            if ([item.author isEqual:author]) {
+                NSLog(@"Skipping %@", item);
+                item.notified = YES;
+            }
     }
     else {
         self.items = newItems;

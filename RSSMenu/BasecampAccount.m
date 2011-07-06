@@ -1,9 +1,5 @@
 #import "BasecampAccount.h"
 
-@interface NSObject (Data)
-- (NSData *)data;
-@end
-
 @implementation BasecampAccount
 
 - (void)dealloc {
@@ -21,11 +17,18 @@
 }
 
 - (void)meRequestComplete:(NSData *)data {
+    
     SMXMLDocument *document = [SMXMLDocument documentWithData:data error:NULL];
+    
+    NSString *firstName = [document.root valueWithPath:@"first-name"];
+    NSString *lastName = [document.root valueWithPath:@"last-name"];
     NSString *token = [document.root valueWithPath:@"token"];
     
     NSString *mainFeedString = [NSString stringWithFormat:@"https://%@:%@@%@.basecamphq.com/feed/recent_items_rss", token, token, domain];
     Feed *mainFeed = [Feed feedWithURLString:mainFeedString];
+    
+    if ([firstName length] > 0 && [lastName length] > 0)
+        mainFeed.author = [NSString stringWithFormat:@"%@ %@.", firstName, [lastName substringToIndex:1]];
     
     self.feeds = [NSArray arrayWithObject:mainFeed];
     
@@ -33,7 +36,7 @@
 }
 
 - (void)meRequestError:(NSError *)error {
-    NSLog(@"Error! %@", [SMXMLDocument documentWithData:request.data error:NULL]);
+    NSLog(@"Error! %@", error);
     [self.delegate account:self validationDidFailWithMessage:@"Could not log in to the given Basecamp account. Please check your domain, username, and password." field:0];
 }
 

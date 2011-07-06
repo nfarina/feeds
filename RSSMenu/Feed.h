@@ -3,10 +3,12 @@ extern NSString *kFeedUpdatedNotification;
 
 @interface Feed : NSObject {
     NSURL *URL;
+    NSString *author;
     NSArray *items; // of FeedItem
     SMWebRequest *request;
 }
 @property (nonatomic, retain) NSURL *URL;
+@property (nonatomic, copy) NSString *author;
 @property (nonatomic, copy) NSArray *items;
 
 + (Feed *)feedWithURLString:(NSString *)URLString;
