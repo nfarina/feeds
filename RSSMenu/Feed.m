@@ -112,14 +112,12 @@ NSDateFormatter *ATOMDateFormatter() {
         
         // mark as notified any item that was "created" by ourself, because we don't need to be reminded about stuff we did ourself.
         for (FeedItem *item in items)
-            if ([item.author isEqual:author]) {
-                NSLog(@"Skipping %@", item);
-                item.notified = YES;
-            }
+            if ([item.author isEqual:author])
+                item.notified = item.viewed = YES;
     }
     else {
         self.items = newItems;
-        
+
         // don't notify about the initial fetch, or we'll have a shitload of growl popups
         for (FeedItem *item in items)
             item.notified = item.viewed = YES;
@@ -152,6 +150,10 @@ NSDateFormatter *ATOMDateFormatter() {
     
     if ([element childNamed:@"comments"])
         item.comments = [NSURL URLWithString:[element childNamed:@"comments"].value];
+    
+    // basecamp
+    if (!item.author && [element childNamed:@"creator"])
+        item.author = [element valueWithPath:@"creator"];
     
     item.published = [formatter dateFromString:[element childNamed:@"pubDate"].value];
     item.updated = item.published;
