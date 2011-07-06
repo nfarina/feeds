@@ -31,7 +31,7 @@
 
 #if DEBUG
     [self selectAccountsTab:nil];
-    //[self addAccount:nil];
+    [self addAccount:nil];
 #else
     [self.window setLevel: NSTornOffMenuWindowLevel]; // a.k.a. "Always On Top"
 #endif

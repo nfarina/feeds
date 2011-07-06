@@ -2,9 +2,10 @@
 
 @implementation HighriseAccount
 
-- (void)dealloc {
-    [super dealloc];
-}
++ (BOOL)requiresDomain { return YES; }
++ (BOOL)requiresUsername { return YES; }
++ (BOOL)requiresPassword { return YES; }
++ (NSString *)domainSuffix { return @".highrisehq.com"; }
 
 - (void)validateWithPassword:(NSString *)password {
     

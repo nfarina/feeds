@@ -21,6 +21,12 @@ typedef enum {
 // discriminator
 @property (nonatomic, readonly) NSString *type;
 
+// creation options, returns YES by default
++ (BOOL) requiresDomain;
++ (BOOL) requiresUsername;
++ (BOOL) requiresPassword;
++ (NSString *)domainSuffix;
+
 @property (nonatomic, assign) id<AccountDelegate> delegate;
 @property (nonatomic, copy) NSString *domain, *username;
 @property (nonatomic, copy) NSArray *feeds;

@@ -27,12 +27,23 @@
 		01937CC313A08ACE00BCE1D4 /* github.xml in Resources */ = {isa = PBXBuildFile; fileRef = 01937CC213A08ACE00BCE1D4 /* github.xml */; };
 		01AD75C413C3F8010092E790 /* AlertCautionIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 01AD75C313C3F8010092E790 /* AlertCautionIcon.png */; };
 		01B2BE7313C4BBE900304D6A /* NSString+Truncated.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE7213C4BBE900304D6A /* NSString+Truncated.m */; };
+		01B2BE7713C4C39B00304D6A /* DribbbleAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE7613C4C39B00304D6A /* DribbbleAccount.m */; };
+		01B2BE7A13C4E76400304D6A /* GithubAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE7913C4E76400304D6A /* GithubAccount.m */; };
+		01B2BE8913C4E89D00304D6A /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE7E13C4E89D00304D6A /* NSObject+SBJSON.m */; };
+		01B2BE8A13C4E89D00304D6A /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE8013C4E89D00304D6A /* NSString+SBJSON.m */; };
+		01B2BE8B13C4E89D00304D6A /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE8213C4E89D00304D6A /* SBJSON.m */; };
+		01B2BE8C13C4E89D00304D6A /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE8413C4E89D00304D6A /* SBJsonBase.m */; };
+		01B2BE8D13C4E89D00304D6A /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE8613C4E89D00304D6A /* SBJsonParser.m */; };
+		01B2BE8E13C4E89D00304D6A /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE8813C4E89D00304D6A /* SBJsonWriter.m */; };
+		01B2BE9113C4E9C500304D6A /* NSData+JSONValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE9013C4E9C400304D6A /* NSData+JSONValue.m */; };
 		01C359B113C4B6C400D803BD /* HighriseAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C359B013C4B6C400D803BD /* HighriseAccount.m */; };
 		01D4A3BC13C434B400CE07CC /* NSURLRequest+Authorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D4A3BB13C434B400CE07CC /* NSURLRequest+Authorization.m */; };
 		01D7CB7613AFDE7F001B133A /* HotKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D7CB7413AFDE7F001B133A /* HotKeys.m */; };
 		01D7CB8013AFDFCD001B133A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01D7CB7E13AFDFBE001B133A /* Carbon.framework */; };
 		01D7CB8C13B02F4A001B133A /* NewAccountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D7CB8B13B02F4A001B133A /* NewAccountController.m */; };
 		01D7CB8E13B02F62001B133A /* NewAccountController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D7CB8D13B02F62001B133A /* NewAccountController.xib */; };
+		01EB9C3913C4F26E00A9C131 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 01EB9C3713C4F26E00A9C131 /* RegexKitLite.m */; };
+		01EB9C3D13C4F36E00A9C131 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 01EB9C3B13C4F35A00A9C131 /* libicucore.dylib */; };
 		01F5D6C713B3B89600EA479D /* StatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F5D6C513B3B89600EA479D /* StatusItemView.m */; };
 		01F6169713AD3DCB00EBB24E /* StatusItem.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F6169413AD3DCB00EBB24E /* StatusItem.png */; };
 		01F6169813AD3DCB00EBB24E /* StatusItemSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F6169513AD3DCB00EBB24E /* StatusItemSelected.png */; };
@@ -98,8 +109,27 @@
 		01937CC013A08AC200BCE1D4 /* dribbble.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = dribbble.xml; sourceTree = "<group>"; };
 		01937CC213A08ACE00BCE1D4 /* github.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = github.xml; sourceTree = "<group>"; };
 		01AD75C313C3F8010092E790 /* AlertCautionIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AlertCautionIcon.png; sourceTree = "<group>"; };
-		01B2BE7113C4BBE900304D6A /* NSString+Truncated.h */ = {isa = PBXFileReference; fileEncoding = 4; path = "NSString+Truncated.h"; sourceTree = "<group>"; };
+		01B2BE7113C4BBE900304D6A /* NSString+Truncated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Truncated.h"; sourceTree = "<group>"; };
 		01B2BE7213C4BBE900304D6A /* NSString+Truncated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Truncated.m"; sourceTree = "<group>"; };
+		01B2BE7513C4C39A00304D6A /* DribbbleAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DribbbleAccount.h; sourceTree = "<group>"; };
+		01B2BE7613C4C39B00304D6A /* DribbbleAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DribbbleAccount.m; sourceTree = "<group>"; };
+		01B2BE7813C4E76400304D6A /* GithubAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GithubAccount.h; sourceTree = "<group>"; };
+		01B2BE7913C4E76400304D6A /* GithubAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GithubAccount.m; sourceTree = "<group>"; };
+		01B2BE7C13C4E89D00304D6A /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		01B2BE7D13C4E89D00304D6A /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
+		01B2BE7E13C4E89D00304D6A /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
+		01B2BE7F13C4E89D00304D6A /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
+		01B2BE8013C4E89D00304D6A /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
+		01B2BE8113C4E89D00304D6A /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
+		01B2BE8213C4E89D00304D6A /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
+		01B2BE8313C4E89D00304D6A /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
+		01B2BE8413C4E89D00304D6A /* SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
+		01B2BE8513C4E89D00304D6A /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		01B2BE8613C4E89D00304D6A /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		01B2BE8713C4E89D00304D6A /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		01B2BE8813C4E89D00304D6A /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		01B2BE8F13C4E9C400304D6A /* NSData+JSONValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+JSONValue.h"; sourceTree = "<group>"; };
+		01B2BE9013C4E9C400304D6A /* NSData+JSONValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+JSONValue.m"; sourceTree = "<group>"; };
 		01C359AF13C4B6C400D803BD /* HighriseAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighriseAccount.h; sourceTree = "<group>"; };
 		01C359B013C4B6C400D803BD /* HighriseAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighriseAccount.m; sourceTree = "<group>"; };
 		01D4A3BA13C434B400CE07CC /* NSURLRequest+Authorization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+Authorization.h"; sourceTree = "<group>"; };
@@ -110,6 +140,9 @@
 		01D7CB8A13B02F4A001B133A /* NewAccountController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAccountController.h; sourceTree = "<group>"; };
 		01D7CB8B13B02F4A001B133A /* NewAccountController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAccountController.m; sourceTree = "<group>"; };
 		01D7CB8D13B02F62001B133A /* NewAccountController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewAccountController.xib; sourceTree = "<group>"; };
+		01EB9C3713C4F26E00A9C131 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
+		01EB9C3813C4F26E00A9C131 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
+		01EB9C3B13C4F35A00A9C131 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		01F5D6C513B3B89600EA479D /* StatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemView.m; sourceTree = "<group>"; };
 		01F5D6C613B3B89600EA479D /* StatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemView.h; sourceTree = "<group>"; };
 		01F6169413AD3DCB00EBB24E /* StatusItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItem.png; sourceTree = "<group>"; };
@@ -135,6 +168,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01EB9C3D13C4F36E00A9C131 /* libicucore.dylib in Frameworks */,
 				0108CEDD13BB8CB90000ECE1 /* Security.framework in Frameworks */,
 				01937C8313A03F5000BCE1D4 /* Cocoa.framework in Frameworks */,
 				01F616E813AE504000EBB24E /* SystemConfiguration.framework in Frameworks */,
@@ -153,6 +187,10 @@
 				0108CED213BB1EC00000ECE1 /* BasecampAccount.m */,
 				01C359AF13C4B6C400D803BD /* HighriseAccount.h */,
 				01C359B013C4B6C400D803BD /* HighriseAccount.m */,
+				01B2BE7513C4C39A00304D6A /* DribbbleAccount.h */,
+				01B2BE7613C4C39B00304D6A /* DribbbleAccount.m */,
+				01B2BE7813C4E76400304D6A /* GithubAccount.h */,
+				01B2BE7913C4E76400304D6A /* GithubAccount.m */,
 			);
 			name = Accounts;
 			sourceTree = "<group>";
@@ -172,6 +210,10 @@
 				01D4A3BB13C434B400CE07CC /* NSURLRequest+Authorization.m */,
 				01B2BE7113C4BBE900304D6A /* NSString+Truncated.h */,
 				01B2BE7213C4BBE900304D6A /* NSString+Truncated.m */,
+				01B2BE8F13C4E9C400304D6A /* NSData+JSONValue.h */,
+				01B2BE9013C4E9C400304D6A /* NSData+JSONValue.m */,
+				01EB9C3813C4F26E00A9C131 /* RegexKitLite.h */,
+				01EB9C3713C4F26E00A9C131 /* RegexKitLite.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -197,6 +239,7 @@
 		01937C8113A03F5000BCE1D4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				01EB9C3B13C4F35A00A9C131 /* libicucore.dylib */,
 				0108CEDC13BB8CB80000ECE1 /* Security.framework */,
 				01937C8213A03F5000BCE1D4 /* Cocoa.framework */,
 				01F616E713AE504000EBB24E /* SystemConfiguration.framework */,
@@ -278,6 +321,7 @@
 			children = (
 				01937CB313A05A6300BCE1D4 /* XML Document */,
 				01937CB113A05A3E00BCE1D4 /* Web Request */,
+				01B2BE7B13C4E89D00304D6A /* JSON */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -301,6 +345,26 @@
 				01937CC213A08ACE00BCE1D4 /* github.xml */,
 			);
 			path = Samples;
+			sourceTree = "<group>";
+		};
+		01B2BE7B13C4E89D00304D6A /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				01B2BE7C13C4E89D00304D6A /* JSON.h */,
+				01B2BE7D13C4E89D00304D6A /* NSObject+SBJSON.h */,
+				01B2BE7E13C4E89D00304D6A /* NSObject+SBJSON.m */,
+				01B2BE7F13C4E89D00304D6A /* NSString+SBJSON.h */,
+				01B2BE8013C4E89D00304D6A /* NSString+SBJSON.m */,
+				01B2BE8113C4E89D00304D6A /* SBJSON.h */,
+				01B2BE8213C4E89D00304D6A /* SBJSON.m */,
+				01B2BE8313C4E89D00304D6A /* SBJsonBase.h */,
+				01B2BE8413C4E89D00304D6A /* SBJsonBase.m */,
+				01B2BE8513C4E89D00304D6A /* SBJsonParser.h */,
+				01B2BE8613C4E89D00304D6A /* SBJsonParser.m */,
+				01B2BE8713C4E89D00304D6A /* SBJsonWriter.h */,
+				01B2BE8813C4E89D00304D6A /* SBJsonWriter.m */,
+			);
+			path = JSON;
 			sourceTree = "<group>";
 		};
 		01D7CB8113B02C74001B133A /* Controllers */ = {
@@ -433,6 +497,16 @@
 				01D4A3BC13C434B400CE07CC /* NSURLRequest+Authorization.m in Sources */,
 				01C359B113C4B6C400D803BD /* HighriseAccount.m in Sources */,
 				01B2BE7313C4BBE900304D6A /* NSString+Truncated.m in Sources */,
+				01B2BE7713C4C39B00304D6A /* DribbbleAccount.m in Sources */,
+				01B2BE7A13C4E76400304D6A /* GithubAccount.m in Sources */,
+				01B2BE8913C4E89D00304D6A /* NSObject+SBJSON.m in Sources */,
+				01B2BE8A13C4E89D00304D6A /* NSString+SBJSON.m in Sources */,
+				01B2BE8B13C4E89D00304D6A /* SBJSON.m in Sources */,
+				01B2BE8C13C4E89D00304D6A /* SBJsonBase.m in Sources */,
+				01B2BE8D13C4E89D00304D6A /* SBJsonParser.m in Sources */,
+				01B2BE8E13C4E89D00304D6A /* SBJsonWriter.m in Sources */,
+				01B2BE9113C4E9C500304D6A /* NSData+JSONValue.m in Sources */,
+				01EB9C3913C4F26E00A9C131 /* RegexKitLite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

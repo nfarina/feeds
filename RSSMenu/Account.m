@@ -11,6 +11,11 @@ static NSMutableArray *allAccounts = nil;
 @implementation Account
 @synthesize delegate, domain, username, request, feeds;
 
++ (BOOL)requiresDomain { return NO; }
++ (BOOL)requiresUsername { return NO; }
++ (BOOL)requiresPassword { return NO; }
++ (NSString *)domainSuffix { return @""; }
+
 #pragma mark Account Persistence
 
 + (NSArray *)allAccounts {    
@@ -110,7 +115,7 @@ static NSMutableArray *allAccounts = nil;
                                                      itemRef);
     
     if (status != noErr) {
-        NSLog(@"Find password failed. (OSStatus: %d)\n", status);
+        NSLog(@"Find password failed. (OSStatus: %d)\n", (int)status);
         return nil;
     }
     
@@ -139,7 +144,7 @@ static NSMutableArray *allAccounts = nil;
                                                                  [password UTF8String]);
         
         if (status != noErr)
-            NSLog(@"Update password failed. (OSStatus: %d)\n", status);
+            NSLog(@"Update password failed. (OSStatus: %d)\n", (int)status);
     }
     else {
         const char *serviceName = [self serviceName];
@@ -153,7 +158,7 @@ static NSMutableArray *allAccounts = nil;
                                                          NULL);
         
         if (status != noErr)
-            NSLog(@"Add password failed. (OSStatus: %d)\n", status);
+            NSLog(@"Add password failed. (OSStatus: %d)\n", (int)status);
     }
 }
 

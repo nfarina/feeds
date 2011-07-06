@@ -1,6 +1,8 @@
 #import "NewAccountController.h"
 #import "BasecampAccount.h"
 #import "HighriseAccount.h"
+#import "DribbbleAccount.h"
+#import "GithubAccount.h"
 
 static NSArray *accountTypes = nil;
 
@@ -16,6 +18,8 @@ static NSArray *accountTypes = nil;
     if (self == [NewAccountController class]) {
         accountTypes = [[NSArray alloc] initWithObjects:
                         [NSDictionary dictionaryWithObjectsAndKeys:@"Basecamp",@"name",[BasecampAccount class],@"class",nil],
+                        [NSDictionary dictionaryWithObjectsAndKeys:@"Dribbble",@"name",[DribbbleAccount class],@"class",nil],
+                        [NSDictionary dictionaryWithObjectsAndKeys:@"Github",@"name",[GithubAccount class],@"class",nil],
                         [NSDictionary dictionaryWithObjectsAndKeys:@"Highrise",@"name",[HighriseAccount class],@"class",nil],
                         nil];
     }
@@ -40,6 +44,7 @@ static NSArray *accountTypes = nil;
     [progress setHidden:YES];
     [messageField setHidden:YES];
     [usernameField becomeFirstResponder];
+    [self accountTypeChanged:nil];
 }
 
 - (void)windowDidLoad {
@@ -53,10 +58,32 @@ static NSArray *accountTypes = nil;
 }
 
 - (void)accountTypeChanged:(id)sender {
+    Class accountClass = [self selectedAccountClass];
+    [domainLabel setHidden:![accountClass requiresDomain]];
+    [domainPrefix setHidden:![accountClass requiresDomain]];
+    [domainSuffix setStringValue:[accountClass domainSuffix]];
+    [domainField setHidden:![accountClass requiresDomain]];
+    [usernameLabel setHidden:![accountClass requiresUsername]];
+    [usernameField setHidden:![accountClass requiresUsername]];
+    [passwordLabel setHidden:![accountClass requiresPassword]];
+    [passwordField setHidden:![accountClass requiresPassword]];
+    
+    if ([accountClass requiresDomain])
+        [domainField becomeFirstResponder];
+    else if ([accountClass requiresUsername])
+        [usernameField becomeFirstResponder];
+    else if ([accountClass requiresPassword])
+        [passwordField becomeFirstResponder];
 }
 
 - (void)controlTextDidChange:(NSNotification *)notification {
-    BOOL canContinue = [[domainField stringValue] length] && [[usernameField stringValue] length] && [[passwordField stringValue] length];
+    Class accountClass = [self selectedAccountClass];
+    BOOL canContinue = YES;
+    
+    if ([accountClass requiresDomain] && [[domainField stringValue] length] == 0) canContinue = NO;
+    if ([accountClass requiresUsername] && [[usernameField stringValue] length] == 0) canContinue = NO;
+    if ([accountClass requiresPassword] && [[passwordField stringValue] length] == 0) canContinue = NO;
+
     [OKButton setEnabled:canContinue];
 }
 

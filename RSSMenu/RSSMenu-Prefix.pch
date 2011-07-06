@@ -8,10 +8,13 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 #import "SMWebRequest.h"
 #import "SMXMLDocument.h"
+#import "JSON.h"
+#import "NSData+JSONValue.h"
 #import "NSArray+Linqish.h"
 #import "NSString+EntityDecoding.h"
 #import "NSString+Base64.h"
 #import "NSURLRequest+Authorization.h"
 #import "NSString+Truncated.h"
 #import "Reachability.h"
+#import "RegexKitLite.h"
 #endif

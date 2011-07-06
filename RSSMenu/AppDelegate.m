@@ -153,7 +153,7 @@
         if (!item.notified && notifications++ < MAX_GROWLS) {
             [GrowlApplicationBridge
              notifyWithTitle:[item.title truncatedAfterIndex:45]
-             description:[item.content truncatedAfterIndex:45]
+             description:[[item.content stringByFlatteningHTML] truncatedAfterIndex:45]
              notificationName:@"NewItem"
              iconData:nil
              priority:(signed int)0

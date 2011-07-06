@@ -468,7 +468,7 @@
 												<string key="NSFrame">{{54, 5}, {328, 56}}</string>
 												<reference key="NSSuperview" ref="734218820"/>
 												<reference key="NSWindow"/>
-												<reference key="NSNextKeyView" ref="708369120"/>
+												<reference key="NSNextKeyView"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSTextFieldCell" key="NSCell" id="239080121">
 													<int key="NSCellFlags">67239424</int>
@@ -647,7 +647,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="444333316"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1366, 746}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
@@ -798,6 +798,46 @@
 						<reference key="destination" ref="524276708"/>
 					</object>
 					<int key="connectionID">94</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">domainSuffix</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="771788784"/>
+					</object>
+					<int key="connectionID">95</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">domainLabel</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="498990312"/>
+					</object>
+					<int key="connectionID">96</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">domainPrefix</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="390019229"/>
+					</object>
+					<int key="connectionID">97</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">passwordLabel</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="868833581"/>
+					</object>
+					<int key="connectionID">98</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">usernameLabel</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="357078762"/>
+					</object>
+					<int key="connectionID">99</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1354,7 +1394,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">94</int>
+			<int key="maxID">99</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1409,12 +1449,17 @@
 							<string>accountTypeButton</string>
 							<string>domainField</string>
 							<string>domainInvalid</string>
+							<string>domainLabel</string>
+							<string>domainPrefix</string>
+							<string>domainSuffix</string>
 							<string>messageField</string>
 							<string>passwordField</string>
 							<string>passwordInvalid</string>
+							<string>passwordLabel</string>
 							<string>progress</string>
 							<string>usernameField</string>
 							<string>usernameInvalid</string>
+							<string>usernameLabel</string>
 							<string>warningIcon</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -1425,10 +1470,15 @@
 							<string>NSImageView</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>
+							<string>NSTextField</string>
+							<string>NSTextField</string>
+							<string>NSTextField</string>
 							<string>NSImageView</string>
+							<string>NSTextField</string>
 							<string>NSProgressIndicator</string>
 							<string>NSTextField</string>
 							<string>NSImageView</string>
+							<string>NSTextField</string>
 							<string>NSImageView</string>
 						</object>
 					</object>
@@ -1440,12 +1490,17 @@
 							<string>accountTypeButton</string>
 							<string>domainField</string>
 							<string>domainInvalid</string>
+							<string>domainLabel</string>
+							<string>domainPrefix</string>
+							<string>domainSuffix</string>
 							<string>messageField</string>
 							<string>passwordField</string>
 							<string>passwordInvalid</string>
+							<string>passwordLabel</string>
 							<string>progress</string>
 							<string>usernameField</string>
 							<string>usernameInvalid</string>
+							<string>usernameLabel</string>
 							<string>warningIcon</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -1467,6 +1522,18 @@
 								<string key="candidateClassName">NSImageView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">domainLabel</string>
+								<string key="candidateClassName">NSTextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">domainPrefix</string>
+								<string key="candidateClassName">NSTextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">domainSuffix</string>
+								<string key="candidateClassName">NSTextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">messageField</string>
 								<string key="candidateClassName">NSTextField</string>
 							</object>
@@ -1479,6 +1546,10 @@
 								<string key="candidateClassName">NSImageView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">passwordLabel</string>
+								<string key="candidateClassName">NSTextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">progress</string>
 								<string key="candidateClassName">NSProgressIndicator</string>
 							</object>
@@ -1489,6 +1560,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">usernameInvalid</string>
 								<string key="candidateClassName">NSImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">usernameLabel</string>
+								<string key="candidateClassName">NSTextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">warningIcon</string>
