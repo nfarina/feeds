@@ -1,11 +1,48 @@
 #import "Account.h"
 
+static NSMutableArray *allAccounts = nil;
+
 @interface Account ()
-- (NSString *)simpleName;
++ (Account *)accountWithDictionary:(NSDictionary *)dict;
 @end
 
 @implementation Account
 @synthesize delegate, domain, username, request;
+
+#pragma mark Account Persistence
+
++ (NSArray *)allAccounts {    
+    if (!allAccounts) {
+        // initial load
+        NSArray *accountDicts = [[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"];
+        NSArray *accounts = [accountDicts collect:@selector(accountWithDictionary:) on:[Account class]];
+        allAccounts = [accounts mutableCopy]; // retained
+    }
+    
+    // no saved data?
+    if (!allAccounts)
+        allAccounts = [NSMutableArray new]; // retained
+    
+    return allAccounts;
+}
+
++ (void)saveAccounts {
+    NSArray *accounts = [allAccounts valueForKey:@"dictionaryRepresentation"];
+    [[NSUserDefaults standardUserDefaults] setObject:accounts forKey:@"accounts"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (void)addAccount:(Account *)account {
+    [allAccounts addObject:account];
+    [self saveAccounts];
+}
+
++ (void)removeAccount:(Account *)account {
+    [allAccounts removeObject:account];
+    [self saveAccounts];
+}
+
+#pragma mark Account Implementation
 
 + (Account *)accountWithDictionary:(NSDictionary *)dict {
     NSString *type = [dict objectForKey:@"type"];
@@ -23,7 +60,7 @@
 
 - (NSDictionary *)dictionaryRepresentation {
     return [NSDictionary dictionaryWithObjectsAndKeys:
-            [self simpleName], @"type",
+            self.type, @"type",
             domain, @"domain",
             username, @"username",
             nil];
@@ -41,7 +78,7 @@
     [request release], request = [value retain];
 }
 
-- (NSString *)simpleName {
+- (NSString *)type {
     return [NSStringFromClass([self class]) stringByReplacingOccurrencesOfString:@"Account" withString:@""];
 }
 
@@ -50,93 +87,76 @@
 }
 
 - (NSString *)description {
-    return [domain length] ? [[self simpleName] stringByAppendingFormat:@" (%@)",domain] : [self simpleName];
+    return [domain length] ? [self.type stringByAppendingFormat:@" (%@)",domain] : self.type;
 }
 
 - (void)validateWithPassword:(NSString *)password {
     // no default implementation
 }
 
-- (NSString *)findPassword {
-    if (username) {
-        const char *serviceName = [self serviceName];
-        void *passwordData;
-        UInt32 passwordLength;
-        
-        OSStatus status = SecKeychainFindGenericPassword(
-                                                         NULL,           // default keychain
-                                                         (UInt32)strlen(serviceName),             // length of service name
-                                                         serviceName,   // service name
-                                                         (UInt32)[username lengthOfBytesUsingEncoding:NSUTF8StringEncoding], // length of account name
-                                                         [username UTF8String],   // account name
-                                                         &passwordLength,  // length of password
-                                                         &passwordData,   // pointer to password data
-                                                         NULL // the item reference
-                                                         );
-        
-        if (status != noErr) {
-            NSLog(@"SecKeychainFindGenericPassword: failed. (OSStatus: %d)\n", status); // FIXME: handle the errror
-            return nil;//@"";
-        }
-        
-        NSString *passwd = [[NSString alloc] initWithBytes: passwordData length: passwordLength encoding: NSUTF8StringEncoding];
-        status = SecKeychainItemFreeContent(NULL, passwordData);
-        
-        if (status != noErr)
-            NSLog(@"SeSecKeychainItemFreeContent: failed. (OSStatus: %d)\n", status); // FIXME: handle the errror
-        
-        return passwd;
-    }
-    else
+- (NSString *)findPassword:(SecKeychainItemRef *)itemRef {
+    const char *serviceName = [self serviceName];
+    void *passwordData;
+    UInt32 passwordLength;
+    
+    OSStatus status = SecKeychainFindGenericPassword(NULL,
+                                                     (UInt32)strlen(serviceName), serviceName,
+                                                     (UInt32)[username lengthOfBytesUsingEncoding:NSUTF8StringEncoding], [username UTF8String],
+                                                     &passwordLength, &passwordData,
+                                                     itemRef);
+    
+    if (status != noErr) {
+        NSLog(@"Find password failed. (OSStatus: %d)\n", status);
         return nil;
+    }
+    
+    NSString *password = [[NSString alloc] initWithBytes:passwordData length:passwordLength encoding:NSUTF8StringEncoding];
+    SecKeychainItemFreeContent(NULL, passwordData);
+    return password;
+}
+
+- (NSString *)findPassword {
+    return [self findPassword:NULL];
 }
 
 - (void)savePassword:(NSString *)password {
-    [self deletePassword];
-    if (username) {
-        const char *serviceName = [self serviceName];
-        OSStatus status = SecKeychainAddGenericPassword (
-                                                         NULL,           // default keychain
-                                                         (UInt32)strlen(serviceName),             // length of service name
-                                                         serviceName,   // service name
-                                                         (UInt32)[username lengthOfBytesUsingEncoding: NSUTF8StringEncoding], // length of account name
-                                                         [username UTF8String],   // account name
-                                                         (UInt32)[password lengthOfBytesUsingEncoding:NSUTF8StringEncoding], // length of password
-                                                         [password UTF8String],   // password
-                                                         NULL
-                                                         );
+    
+    if ([password length] == 0) {
+        [self deletePassword];
+        return;
+    }
+
+    SecKeychainItemRef itemRef;
+    
+    if ([self findPassword:&itemRef]) {
+        
+        OSStatus status = SecKeychainItemModifyAttributesAndData(itemRef,NULL,
+                                                                 (UInt32)[password lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+                                                                 [password UTF8String]);
         
         if (status != noErr)
-            NSLog(@"SecKeychainAddGenericPassword: failed. (OSStatus: %d)\n", status); // FIXME: handle the errror
+            NSLog(@"Update password failed. (OSStatus: %d)\n", status); // FIXME: handle the errror
+    }
+    else {
+        const char *serviceName = [self serviceName];
+        
+        OSStatus status = SecKeychainAddGenericPassword (NULL,
+                                                         (UInt32)strlen(serviceName), serviceName,
+                                                         (UInt32)[username lengthOfBytesUsingEncoding: NSUTF8StringEncoding],
+                                                         [username UTF8String],
+                                                         (UInt32)[password lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+                                                         [password UTF8String],
+                                                         NULL);
+        
+        if (status != noErr)
+            NSLog(@"Add password failed. (OSStatus: %d)\n", status); // FIXME: handle the errror
     }
 }
 
 - (void)deletePassword {
-    if (username) {
-        const char *serviceName = [self serviceName];
-        void *passwordData;
-        UInt32 passwordLength;
-        SecKeychainItemRef itemRef;
-        
-        OSStatus status = SecKeychainFindGenericPassword(
-                                                         NULL,           // default keychain
-                                                         (UInt32)strlen(serviceName),             // length of service name
-                                                         serviceName,   // service name
-                                                         (UInt32)[username lengthOfBytesUsingEncoding:NSUTF8StringEncoding], // length of account name
-                                                         [username UTF8String],   // account name
-                                                         &passwordLength,  // length of password
-                                                         &passwordData,   // pointer to password data
-                                                         &itemRef // the item reference
-                                                         );
-        
-        if (status != noErr) {
-            NSLog(@"SecKeychainFindGenericPassword: failed. (OSStatus: %d)\n", status); // FIXME: handle the errror
-            return;
-        }
-        
-        SecKeychainItemFreeContent(NULL, passwordData);
+    SecKeychainItemRef itemRef;
+    if ([self findPassword:&itemRef])
         SecKeychainItemDelete(itemRef);
-    }
 }
 
 @end

@@ -20,10 +20,6 @@
     [super dealloc];
 }
 
-- (void)loadWindow {
-    [super loadWindow];
-}
-
 - (void)showPreferences {
     // Transform process from background to foreground
 	ProcessSerialNumber psn = { 0, kCurrentProcess };
@@ -51,6 +47,15 @@
 
 #pragma mark Accounts
 
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+    return [[Account allAccounts] count];
+}
+
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    Account *account = [[Account allAccounts] objectAtIndex:row];
+    return account.type;
+}
+
 - (IBAction)addAccount:(id)sender {
     NewAccountController *controller = [[NewAccountController alloc] initWithDelegate:self];
     
@@ -59,15 +64,8 @@
 
 - (void)newAccountController:(NewAccountController *)controller didCompleteWithAccount:(Account *)account {
     
-    NSMutableArray *accounts = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"] mutableCopy] autorelease];
-    
-    if (!accounts)
-        accounts = [NSMutableArray array];
-    
-    [accounts addObject:[account dictionaryRepresentation]];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:accounts forKey:@"accounts"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [Account addAccount:account];
+    [tableView reloadData];
     
     [NSApp endSheet:controller.window];
     [controller release];
@@ -78,8 +76,14 @@
     [controller release];
 }
 
+- (void)tableViewSelectionDidChange:(NSNotification *)notification {
+    [removeButton setEnabled:[tableView selectedRow] >= 0];
+}
+
 - (IBAction)removeAccount:(id)sender {
-    
+    Account *account = [[Account allAccounts] objectAtIndex:[tableView selectedRow]];
+    [Account removeAccount:account];
+    [tableView reloadData];
 }
 
 @end

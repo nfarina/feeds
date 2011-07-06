@@ -18,7 +18,9 @@ typedef enum {
 @property (nonatomic, copy) NSString *domain, *username;
 @property (nonatomic, retain) SMWebRequest *request;
 
-+ (Account *)accountWithDictionary:(NSDictionary *)dict;
++ (NSArray *)allAccounts;
++ (void)addAccount:(Account *)account;
++ (void)removeAccount:(Account *)account;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 - (NSDictionary *)dictionaryRepresentation;
@@ -28,6 +30,8 @@ typedef enum {
 - (NSString *)findPassword;
 - (void)savePassword:(NSString *)password;
 - (void)deletePassword;
+
+@property (nonatomic, readonly) NSString *type;
 
 @end
 

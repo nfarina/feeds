@@ -1,9 +1,10 @@
 #import "NewAccountController.h"
 
-@interface PreferencesController : NSWindowController <NSToolbarDelegate, NSTabViewDelegate, NewAccountControllerDelegate> {
+@interface PreferencesController : NSWindowController <NSToolbarDelegate, NSTabViewDelegate, NSTableViewDataSource, NSTableViewDelegate, NewAccountControllerDelegate> {
     IBOutlet NSToolbar *toolbar;
     IBOutlet NSTabView *tabView;
     IBOutlet NSTableView *tableView;
+    IBOutlet NSButton *removeButton;
 }
 
 - (id)initPreferencesController;
