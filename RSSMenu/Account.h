@@ -1,4 +1,11 @@
 
+typedef enum {
+    AccountFailingFieldUnknown,
+    AccountFailingFieldDomain,
+    AccountFailingFieldUsername,
+    AccountFailingFieldPassword
+} AccountFailingField;
+
 @protocol AccountDelegate;
 
 @interface Account : NSObject {
@@ -20,6 +27,8 @@
 
 @protocol AccountDelegate <NSObject>
 
+- (void)account:(Account *)account validationDidContinueWithMessage:(NSString *)message;
+- (void)account:(Account *)account validationDidFailWithMessage:(NSString *)message field:(AccountFailingField)field;
 - (void)accountValidationDidComplete:(Account *)account;
 
 @end

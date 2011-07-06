@@ -25,6 +25,7 @@
 		01937CBF13A08AAB00BCE1D4 /* highrise.xml in Resources */ = {isa = PBXBuildFile; fileRef = 01937CBE13A08AAB00BCE1D4 /* highrise.xml */; };
 		01937CC113A08AC200BCE1D4 /* dribbble.xml in Resources */ = {isa = PBXBuildFile; fileRef = 01937CC013A08AC200BCE1D4 /* dribbble.xml */; };
 		01937CC313A08ACE00BCE1D4 /* github.xml in Resources */ = {isa = PBXBuildFile; fileRef = 01937CC213A08ACE00BCE1D4 /* github.xml */; };
+		01AD75C413C3F8010092E790 /* AlertCautionIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 01AD75C313C3F8010092E790 /* AlertCautionIcon.png */; };
 		01D7CB7613AFDE7F001B133A /* HotKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D7CB7413AFDE7F001B133A /* HotKeys.m */; };
 		01D7CB8013AFDFCD001B133A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01D7CB7E13AFDFBE001B133A /* Carbon.framework */; };
 		01D7CB8C13B02F4A001B133A /* NewAccountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D7CB8B13B02F4A001B133A /* NewAccountController.m */; };
@@ -93,6 +94,7 @@
 		01937CBE13A08AAB00BCE1D4 /* highrise.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = highrise.xml; sourceTree = "<group>"; };
 		01937CC013A08AC200BCE1D4 /* dribbble.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = dribbble.xml; sourceTree = "<group>"; };
 		01937CC213A08ACE00BCE1D4 /* github.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = github.xml; sourceTree = "<group>"; };
+		01AD75C313C3F8010092E790 /* AlertCautionIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AlertCautionIcon.png; sourceTree = "<group>"; };
 		01D7CB7413AFDE7F001B133A /* HotKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotKeys.m; sourceTree = "<group>"; };
 		01D7CB7513AFDE7F001B133A /* HotKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotKeys.h; sourceTree = "<group>"; };
 		01D7CB7E13AFDFBE001B133A /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
@@ -235,6 +237,7 @@
 		01937CA713A057FA00BCE1D4 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				01AD75C313C3F8010092E790 /* AlertCautionIcon.png */,
 				01F6169413AD3DCB00EBB24E /* StatusItem.png */,
 				01F616D913AE4B5F00EBB24E /* StatusItemInactive.png */,
 				01F6169513AD3DCB00EBB24E /* StatusItemSelected.png */,
@@ -386,6 +389,7 @@
 				01F616F613AFA14F00EBB24E /* General.icns in Resources */,
 				01F616F713AFA14F00EBB24E /* Accounts.icns in Resources */,
 				01D7CB8E13B02F62001B133A /* NewAccountController.xib in Resources */,
+				01AD75C413C3F8010092E790 /* AlertCautionIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -4,11 +4,11 @@
 static NSArray *accountTypes = nil;
 
 @interface NewAccountController ()
-@property (nonatomic, retain) Account *newAccount;
+@property (nonatomic, retain) Account *account;
 @end
 
 @implementation NewAccountController
-@synthesize newAccount;
+@synthesize account;
 
 + (void)initialize {
     if (self == [NewAccountController class]) {
@@ -24,7 +24,7 @@ static NSArray *accountTypes = nil;
 }
 
 - (void)dealloc {
-    self.newAccount = nil;
+    self.account = nil;
     [super dealloc];
 }
 
@@ -58,17 +58,44 @@ static NSArray *accountTypes = nil;
 
 - (void)OKPressed:(id)sender {
     
-    self.newAccount = [[[[self selectedAccountClass] alloc] init] autorelease];
-    newAccount.delegate = self;
-    newAccount.domain = [domainField stringValue];
-    newAccount.username = [usernameField stringValue];
-    newAccount.password = [passwordField stringValue];
-    [newAccount validate];
+    self.account = [[[[self selectedAccountClass] alloc] init] autorelease];
+    account.delegate = self;
+    account.domain = [domainField stringValue];
+    account.username = [usernameField stringValue];
+    account.password = [passwordField stringValue];
+    [account validate];
     
+    [OKButton setEnabled:NO];
     [progress setHidden:NO];
     [progress startAnimation:nil];
     [messageField setHidden:NO];
     [messageField setStringValue:@"Validating account…"];
+    [warningIcon setHidden:YES];
+    [domainInvalid setHidden:YES];
+    [usernameInvalid setHidden:YES];
+    [passwordInvalid setHidden:YES];
+}
+
+- (void)account:(Account *)account validationDidContinueWithMessage:(NSString *)message {
+    [messageField setStringValue:message];
+}
+
+- (void)account:(Account *)account validationDidFailWithMessage:(NSString *)message field:(AccountFailingField)field {
+    
+    [progress stopAnimation:nil];
+    [progress setHidden:YES];
+    
+    [warningIcon setHidden:NO];
+    [messageField setStringValue:message];
+
+    [OKButton setEnabled:YES];
+
+    if (field == AccountFailingFieldDomain)
+        [domainInvalid setHidden:NO];
+    else if (field == AccountFailingFieldUsername)
+        [usernameInvalid setHidden:NO];
+    else if (field == AccountFailingFieldPassword)
+        [passwordInvalid setHidden:NO];
 }
 
 - (void)accountValidationDidComplete:(Account *)account {
