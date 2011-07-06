@@ -7,7 +7,7 @@ static NSMutableArray *allAccounts = nil;
 @end
 
 @implementation Account
-@synthesize delegate, domain, username, request;
+@synthesize delegate, domain, username, request, feeds;
 
 #pragma mark Account Persistence
 
@@ -54,6 +54,7 @@ static NSMutableArray *allAccounts = nil;
     if ([super init]) {
         self.domain = [dict objectForKey:@"domain"];
         self.username = [dict objectForKey:@"username"];
+        self.feeds = [[dict objectForKey:@"feeds"] collect:@selector(feedWithDictionary:) on:[Feed class]];
     }
     return self;
 }
@@ -63,6 +64,7 @@ static NSMutableArray *allAccounts = nil;
             self.type, @"type",
             domain, @"domain",
             username, @"username",
+            [feeds valueForKey:@"dictionaryRepresentation"], @"feeds",
             nil];
 }
 
@@ -135,7 +137,7 @@ static NSMutableArray *allAccounts = nil;
                                                                  [password UTF8String]);
         
         if (status != noErr)
-            NSLog(@"Update password failed. (OSStatus: %d)\n", status); // FIXME: handle the errror
+            NSLog(@"Update password failed. (OSStatus: %d)\n", status);
     }
     else {
         const char *serviceName = [self serviceName];
@@ -149,7 +151,7 @@ static NSMutableArray *allAccounts = nil;
                                                          NULL);
         
         if (status != noErr)
-            NSLog(@"Add password failed. (OSStatus: %d)\n", status); // FIXME: handle the errror
+            NSLog(@"Add password failed. (OSStatus: %d)\n", status);
     }
 }
 

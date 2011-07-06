@@ -1,3 +1,4 @@
+#import "Feed.h"
 
 typedef enum {
     AccountFailingFieldUnknown,
@@ -12,11 +13,15 @@ typedef enum {
     id<AccountDelegate> delegate; // nonretained
     NSString *domain, *username;
     SMWebRequest *request; // convenience for subclassers, will be properly cancelled and cleaned up on dealloc
+    NSArray *feeds; // of Feed
 }
+
+// discriminator
+@property (nonatomic, readonly) NSString *type;
 
 @property (nonatomic, assign) id<AccountDelegate> delegate;
 @property (nonatomic, copy) NSString *domain, *username;
-@property (nonatomic, retain) SMWebRequest *request;
+@property (nonatomic, copy) NSArray *feeds;
 
 + (NSArray *)allAccounts;
 + (void)addAccount:(Account *)account;
@@ -31,7 +36,8 @@ typedef enum {
 - (void)savePassword:(NSString *)password;
 - (void)deletePassword;
 
-@property (nonatomic, readonly) NSString *type;
+// for subclassers
+@property (nonatomic, retain) SMWebRequest *request;
 
 @end
 

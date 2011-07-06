@@ -37,10 +37,23 @@ NSDateFormatter *ATOMDateFormatter() {
     request = [value retain];
 }
 
++ (Feed *)feedWithURLString:(NSString *)URLString {
+    Feed *feed = [[[Feed alloc] init] autorelease];
+    feed.URL = [NSURL URLWithString:URLString];
+    return feed;
+}
+
 + (Feed *)feedWithDictionary:(NSDictionary *)dict {
     Feed *feed = [[[Feed alloc] init] autorelease];
     feed.URL = [NSURL URLWithString:[dict objectForKey:@"url"]];
     return feed;
+}
+
+- (NSDictionary *)dictionaryRepresentation {
+    return [NSDictionary dictionaryWithObjectsAndKeys:
+            [URL absoluteString], @"url",
+            nil];
+
 }
 
 - (void)refresh {

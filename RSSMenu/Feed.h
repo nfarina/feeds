@@ -9,6 +9,11 @@ extern NSString *kFeedUpdatedNotification;
 @property (nonatomic, retain) NSURL *URL;
 @property (nonatomic, copy) NSArray *items;
 
++ (Feed *)feedWithURLString:(NSString *)URLString;
+
++ (Feed *)feedWithDictionary:(NSDictionary *)dict;
+- (NSDictionary *)dictionaryRepresentation;
+
 - (void)refresh;
 
 @end
