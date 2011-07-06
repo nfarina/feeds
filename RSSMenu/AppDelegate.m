@@ -9,6 +9,7 @@
 @interface AppDelegate ()
 @property (nonatomic, copy) NSArray *feeds;
 @property (nonatomic, retain) NSTimer *refreshTimer;
+- (void)accountsChanged:(NSNotification *)notification;
 - (void)reachabilityChanged;
 - (void)refreshFeeds;
 - (void)openBrowserWithURL:(NSURL *)url;
@@ -42,6 +43,10 @@
     // register hot key for popping open the menu
     [HotKeys registerHotKeys];
     
+    allItems = [NSMutableArray new];
+    
+#if DEBUG
+#else
     NSArray *feedDicts = [[NSUserDefaults standardUserDefaults] arrayForKey:@"feeds"];
     
     if (!feedDicts) {
@@ -49,12 +54,13 @@
         [[NSUserDefaults standardUserDefaults] setObject:feedDicts forKey:@"feeds"];
     }
     
-    allItems = [NSMutableArray new];
     self.feeds = [feedDicts collect:@selector(feedWithDictionary:) on:[Feed class]];
+#endif
     
     reachability = [[Reachability reachabilityForInternetConnection] retain];
 	[reachability startNotifier];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountsChanged:) name:kAccountsChangedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedUpdated:) name:kFeedUpdatedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedFailed:) name:kSMWebRequestError object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged) name:kReachabilityChangedNotification object:nil];
@@ -64,12 +70,20 @@
     
 #if DEBUG
     [self openPreferences:nil];
+    [self accountsChanged:nil];
 #endif
 }
 
 - (void)setRefreshTimer:(NSTimer *)value {
     [refreshTimer invalidate];
     refreshTimer = [value retain];
+}
+
+- (void)accountsChanged:(NSNotification *)notification {
+    NSMutableArray *allFeeds = [NSMutableArray array];
+    for (Account *account in [Account allAccounts]) [allFeeds addObjectsFromArray:account.feeds];
+    self.feeds = allFeeds;
+    [self refreshFeeds];
 }
 
 - (void)refreshFeeds {

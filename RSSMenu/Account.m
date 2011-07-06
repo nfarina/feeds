@@ -1,5 +1,7 @@
 #import "Account.h"
 
+NSString *kAccountsChangedNotification = @"AccountsChangedNotification";
+
 static NSMutableArray *allAccounts = nil;
 
 @interface Account ()
@@ -30,6 +32,7 @@ static NSMutableArray *allAccounts = nil;
     NSArray *accounts = [allAccounts valueForKey:@"dictionaryRepresentation"];
     [[NSUserDefaults standardUserDefaults] setObject:accounts forKey:@"accounts"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kAccountsChangedNotification object:nil];
 }
 
 + (void)addAccount:(Account *)account {

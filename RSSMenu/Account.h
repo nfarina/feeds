@@ -1,5 +1,7 @@
 #import "Feed.h"
 
+extern NSString *kAccountsChangedNotification;
+
 typedef enum {
     AccountFailingFieldUnknown,
     AccountFailingFieldDomain,
