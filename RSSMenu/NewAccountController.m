@@ -1,5 +1,6 @@
 #import "NewAccountController.h"
 #import "BasecampAccount.h"
+#import "HighriseAccount.h"
 
 static NSArray *accountTypes = nil;
 
@@ -15,6 +16,7 @@ static NSArray *accountTypes = nil;
     if (self == [NewAccountController class]) {
         accountTypes = [[NSArray alloc] initWithObjects:
                         [NSDictionary dictionaryWithObjectsAndKeys:@"Basecamp",@"name",[BasecampAccount class],@"class",nil],
+                        [NSDictionary dictionaryWithObjectsAndKeys:@"Highrise",@"name",[HighriseAccount class],@"class",nil],
                         nil];
     }
 }
