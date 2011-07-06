@@ -5,10 +5,11 @@ static NSArray *accountTypes = nil;
 
 @interface NewAccountController ()
 @property (nonatomic, retain) Account *account;
+@property (nonatomic, copy) NSString *password;
 @end
 
 @implementation NewAccountController
-@synthesize account;
+@synthesize account, password;
 
 + (void)initialize {
     if (self == [NewAccountController class]) {
@@ -25,6 +26,7 @@ static NSArray *accountTypes = nil;
 
 - (void)dealloc {
     self.account = nil;
+    self.password = nil;
     [super dealloc];
 }
 
@@ -62,8 +64,8 @@ static NSArray *accountTypes = nil;
     account.delegate = self;
     account.domain = [domainField stringValue];
     account.username = [usernameField stringValue];
-    account.password = [passwordField stringValue];
-    [account validate];
+    self.password = [passwordField stringValue];
+    [account validateWithPassword:password];
     
     [OKButton setEnabled:NO];
     [progress setHidden:NO];
@@ -98,13 +100,15 @@ static NSArray *accountTypes = nil;
         [passwordInvalid setHidden:NO];
 }
 
-- (void)accountValidationDidComplete:(Account *)account {
+- (void)accountValidationDidComplete:(Account *)theAccount {
 
+    [account savePassword:password];
+    
     [progress stopAnimation:nil];
     [progress setHidden:YES];
     [messageField setHidden:YES];
     [self.window orderOut:self];
-    [delegate newAccountControllerDidComplete:self];
+    [delegate newAccountController:self didCompleteWithAccount:account];
 }
 
 - (void)cancelPressed:(id)sender {

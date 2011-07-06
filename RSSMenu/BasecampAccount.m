@@ -6,19 +6,11 @@
     [super dealloc];
 }
 
-- (const char *)serviceName { return "Basecamp"; }
-
-- (void)validate {
+- (void)validateWithPassword:(NSString *)password {
   
     NSString *URL = [NSString stringWithFormat:@"https://%@.basecamphq.com/me.xml", domain];
     
-    NSString *loginString = [NSString stringWithFormat:@"%@:%@", username, password];  
-    NSString *authHeader = [@"Basic " stringByAppendingString:[loginString base64EncodedString]];
-    
-    NSMutableURLRequest *URLRequest = [[[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:URL]] autorelease];
-    [URLRequest setValue:authHeader forHTTPHeaderField:@"Authorization"];
-    
-    self.request = [SMWebRequest requestWithURLRequest:URLRequest delegate:nil context:NULL];
+    self.request = [SMWebRequest requestWithURLRequest:[NSURLRequest requestWithURLString:URL username:username password:password] delegate:nil context:NULL];
     [request addTarget:self action:@selector(meRequestComplete:) forRequestEvents:SMWebRequestEventComplete];
     [request addTarget:self action:@selector(meRequestError:) forRequestEvents:SMWebRequestEventError];
     [request start];

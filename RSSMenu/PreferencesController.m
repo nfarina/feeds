@@ -57,7 +57,18 @@
     [NSApp beginSheet:controller.window modalForWindow:self.window modalDelegate:nil didEndSelector:NULL contextInfo:controller];
 }
 
-- (void)newAccountControllerDidComplete:(NewAccountController *)controller {
+- (void)newAccountController:(NewAccountController *)controller didCompleteWithAccount:(Account *)account {
+    
+    NSMutableArray *accounts = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"] mutableCopy] autorelease];
+    
+    if (!accounts)
+        accounts = [NSMutableArray array];
+    
+    [accounts addObject:[account dictionaryRepresentation]];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:accounts forKey:@"accounts"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     [NSApp endSheet:controller.window];
     [controller release];
 }

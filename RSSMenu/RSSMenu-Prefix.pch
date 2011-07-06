@@ -11,5 +11,6 @@
 #import "NSArray+Linqish.h"
 #import "NSString+EntityDecoding.h"
 #import "NSString+Base64.h"
+#import "NSURLRequest+Authorization.h"
 #import "Reachability.h"
 #endif

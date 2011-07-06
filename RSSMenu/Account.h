@@ -10,17 +10,24 @@ typedef enum {
 
 @interface Account : NSObject {
     id<AccountDelegate> delegate; // nonretained
-    NSString *domain, *username, *password;
+    NSString *domain, *username;
     SMWebRequest *request; // convenience for subclassers, will be properly cancelled and cleaned up on dealloc
 }
 
 @property (nonatomic, assign) id<AccountDelegate> delegate;
-@property (nonatomic, copy) NSString *domain, *username, *password;
+@property (nonatomic, copy) NSString *domain, *username;
 @property (nonatomic, retain) SMWebRequest *request;
 
-- (const char *)serviceName;
++ (Account *)accountWithDictionary:(NSDictionary *)dict;
 
-- (void)validate;
+- (id)initWithDictionary:(NSDictionary *)dict;
+- (NSDictionary *)dictionaryRepresentation;
+
+- (void)validateWithPassword:(NSString *)password;
+
+- (NSString *)findPassword;
+- (void)savePassword:(NSString *)password;
+- (void)deletePassword;
 
 @end
 

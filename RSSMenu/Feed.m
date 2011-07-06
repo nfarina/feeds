@@ -44,7 +44,8 @@ NSDateFormatter *ATOMDateFormatter() {
 }
 
 - (void)refresh {
-    self.request = [SMWebRequest requestWithURL:self.URL delegate:(id<SMWebRequestDelegate>)[self class] context:nil];
+    NSURLRequest *URLRequest = [NSURLRequest requestWithURL:URL username:[URL user] password:[URL password]];
+    self.request = [SMWebRequest requestWithURLRequest:URLRequest delegate:(id<SMWebRequestDelegate>)[self class] context:nil];
     [request addTarget:self action:@selector(refreshComplete:) forRequestEvents:SMWebRequestEventComplete];
     [request start];
 }
@@ -74,7 +75,7 @@ NSDateFormatter *ATOMDateFormatter() {
 
     }
     else NSLog(@"Unknown feed root element: <%@>", document.root.name);
-        
+    
     return items;
 }
 
