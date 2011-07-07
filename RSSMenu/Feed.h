@@ -15,8 +15,8 @@ extern NSString *kFeedUpdatedNotification;
 @property (nonatomic, copy) NSArray *items;
 @property (nonatomic, assign) Account *account;
 
-+ (Feed *)feedWithURLString:(NSString *)URLString;
-+ (Feed *)feedWithURLString:(NSString *)URLString author:(NSString *)author;
++ (Feed *)feedWithURLString:(NSString *)URLString account:(Account *)account;
++ (Feed *)feedWithURLString:(NSString *)URLString author:(NSString *)author account:(Account *)account;
 
 + (Feed *)feedWithDictionary:(NSDictionary *)dict account:(Account *)account;
 - (NSDictionary *)dictionaryRepresentation;

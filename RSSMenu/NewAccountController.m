@@ -74,6 +74,8 @@ static NSArray *accountTypes = nil;
         [usernameField becomeFirstResponder];
     else if ([accountClass requiresPassword])
         [passwordField becomeFirstResponder];
+    
+    [self controlTextDidChange:nil];
 }
 
 - (void)controlTextDidChange:(NSNotification *)notification {

@@ -66,13 +66,13 @@
     
     NSString *mainFeedString = [NSString stringWithFormat:@"https://github.com/%@.private.atom?token=%@", username, token];
     
-    NSMutableArray *foundFeeds = [NSMutableArray arrayWithObject:[Feed feedWithURLString:mainFeedString author:username]];
+    NSMutableArray *foundFeeds = [NSMutableArray arrayWithObject:[Feed feedWithURLString:mainFeedString author:username account:self]];
 
     for (NSDictionary *org in orgs) {
         
         NSString *orgName = [org objectForKey:@"login"];
         NSString *orgFeedString = [NSString stringWithFormat:@"https://github.com/organizations/%@/%@.private.atom?token=%@", orgName, username, token];
-        [foundFeeds addObject:[Feed feedWithURLString:orgFeedString author:username]];
+        [foundFeeds addObject:[Feed feedWithURLString:orgFeedString author:username account:self]];
     }
     
     self.feeds = foundFeeds;
