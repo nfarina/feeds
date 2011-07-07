@@ -43,14 +43,16 @@
     [statusItem setEnabled:YES];
     [statusItem setView:statusItemView];
 
-    popover = [[NSPopover alloc] init];
-    popover.contentViewController = [[[NSViewController alloc] init] autorelease];
-    popover.contentViewController.view = [[[WebView alloc] initWithFrame:NSMakeRect(0, 0, 415, 500)] autorelease];
-    popover.animates = NO;
-
-    shimItem = [[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""];
-    shimItem.view = [[[NSView alloc] initWithFrame:NSMakeRect(0, 0, 1, 1)] autorelease];
-    [menu addItem:shimItem];
+    if (NSClassFromString(@"NSPopover")) {
+        popover = [[NSClassFromString(@"NSPopover") alloc] init];
+        [popover setContentViewController:[[[NSViewController alloc] init] autorelease]];
+        [popover contentViewController].view = [[[WebView alloc] initWithFrame:NSMakeRect(0, 0, 415, 500)] autorelease];
+        [popover setAnimates:NO];
+        
+        shimItem = [[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""];
+        shimItem.view = [[[NSView alloc] initWithFrame:NSMakeRect(0, 0, 1, 1)] autorelease];
+        [menu addItem:shimItem];
+    }
 
     // register hot key for popping open the menu
     [HotKeys registerHotKeys];
@@ -215,25 +217,28 @@
 
 - (void)menu:(NSMenu *)theMenu willHighlightItem:(NSMenuItem *)menuItem {
     
-    if (menuItem.tag > 0) {
+    if (popover) {
 
-        //NSLog(@"Found shim view at %@", NSStringFromPoint([[shimItem view] convertPointToBase:[shimItem.view frame].origin]));
-        
-        FeedItem *item = [allItems objectAtIndex:menuItem.tag-1];
-        
-        WebView *webView = (WebView *)popover.contentViewController.view;
-        [webView.mainFrame loadHTMLString:item.content baseURL:nil];
-        
-        NSRect frame = shimItem.view.superview.frame;
-        
-        NSInteger shimIndex = [menu indexOfItem:shimItem];
-        NSInteger itemIndex = [menu indexOfItem:menuItem];
-        
-        frame.origin.y += 3 + (19 * (shimIndex-itemIndex-1));
-        [popover showRelativeToRect:frame ofView:shimItem.view.superview.superview preferredEdge:NSMinXEdge];
-    }
-    else {
-        [popover close];
+        if (menuItem.tag > 0) {
+            
+            //NSLog(@"Found shim view at %@", NSStringFromPoint([[shimItem view] convertPointToBase:[shimItem.view frame].origin]));
+            
+            FeedItem *item = [allItems objectAtIndex:menuItem.tag-1];
+            
+            WebView *webView = (WebView *)[popover contentViewController].view;
+            [webView.mainFrame loadHTMLString:item.content baseURL:nil];
+            
+            NSRect frame = shimItem.view.superview.frame;
+            
+            NSInteger shimIndex = [menu indexOfItem:shimItem];
+            NSInteger itemIndex = [menu indexOfItem:menuItem];
+            
+            frame.origin.y += 3 + (19 * (shimIndex-itemIndex-1));
+            [popover showRelativeToRect:frame ofView:shimItem.view.superview.superview preferredEdge:NSMinXEdge];
+        }
+        else {
+            [popover close];
+        }
     }
 }
 
