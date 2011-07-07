@@ -7,6 +7,7 @@
     StatusItemView *statusItemView;
     NSMutableArray *allItems;
     NSTimer *refreshTimer;
+    NSPopover *popover;
     Reachability *reachability;
     PreferencesController *preferencesController;
 }

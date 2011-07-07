@@ -34,7 +34,7 @@
 }
 
 - (void)drawRect:(NSRect)rect {
-	
+
     [statusItem drawStatusBarBackgroundInRect:rect withHighlight:highlighted];
     
     NSImage *image = highlighted ? [NSImage imageNamed:@"StatusItemSelected.png"] : [self iconImage];
@@ -44,12 +44,12 @@
     CGRect canvasRect = NSRectToCGRect(rect);
     CGSize imageSize = NSSizeToCGSize(srcRect.size);
     CGRect dstRect = CGRectCenteredInside(canvasRect, imageSize);
-    
-	[image drawInRect:dstRect fromRect:srcRect operation:NSCompositeSourceOver fraction:1];
+
+	[image drawInRect:NSRectFromCGRect(dstRect) fromRect:srcRect operation:NSCompositeSourceOver fraction:1];
 }
 
 - (void) mouseDown:(NSEvent *)theEvent {
-	NSLog(@"MOUSE DOWN: %@", NSStringFromRect([[self window] frame]));
+	//NSLog(@"MOUSE DOWN: %@", NSStringFromRect([[self window] frame]));
     [self toggleMenu];
 	
 //	NSRect statusItemRect = [[self window] frame];

@@ -4,6 +4,7 @@
 
 #ifdef __OBJC__
 #import <Cocoa/Cocoa.h>
+#import <WebKit/WebKit.h>
 #import <Growl-WithInstaller/Growl.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 #import "SMWebRequest.h"

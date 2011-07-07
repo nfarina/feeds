@@ -39,6 +39,7 @@
 		01B2BE8E13C4E89D00304D6A /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE8813C4E89D00304D6A /* SBJsonWriter.m */; };
 		01B2BE9113C4E9C500304D6A /* NSData+JSONValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE9013C4E9C400304D6A /* NSData+JSONValue.m */; };
 		01C359B113C4B6C400D803BD /* HighriseAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C359B013C4B6C400D803BD /* HighriseAccount.m */; };
+		01C4F93513C597C000DB0CCB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C4F93213C597AC00DB0CCB /* WebKit.framework */; };
 		01D4A3BC13C434B400CE07CC /* NSURLRequest+Authorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D4A3BB13C434B400CE07CC /* NSURLRequest+Authorization.m */; };
 		01D7CB7613AFDE7F001B133A /* HotKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D7CB7413AFDE7F001B133A /* HotKeys.m */; };
 		01D7CB8013AFDFCD001B133A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01D7CB7E13AFDFBE001B133A /* Carbon.framework */; };
@@ -138,6 +139,7 @@
 		01B2BE9013C4E9C400304D6A /* NSData+JSONValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+JSONValue.m"; sourceTree = "<group>"; };
 		01C359AF13C4B6C400D803BD /* HighriseAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighriseAccount.h; sourceTree = "<group>"; };
 		01C359B013C4B6C400D803BD /* HighriseAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighriseAccount.m; sourceTree = "<group>"; };
+		01C4F93213C597AC00DB0CCB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		01D4A3BA13C434B400CE07CC /* NSURLRequest+Authorization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+Authorization.h"; sourceTree = "<group>"; };
 		01D4A3BB13C434B400CE07CC /* NSURLRequest+Authorization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+Authorization.m"; sourceTree = "<group>"; };
 		01D7CB7413AFDE7F001B133A /* HotKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotKeys.m; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01C4F93513C597C000DB0CCB /* WebKit.framework in Frameworks */,
 				01EB9C3D13C4F36E00A9C131 /* libicucore.dylib in Frameworks */,
 				0108CEDD13BB8CB90000ECE1 /* Security.framework in Frameworks */,
 				01937C8313A03F5000BCE1D4 /* Cocoa.framework in Frameworks */,
@@ -247,6 +250,7 @@
 		01937C8113A03F5000BCE1D4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				01C4F93213C597AC00DB0CCB /* WebKit.framework */,
 				01EB9C3B13C4F35A00A9C131 /* libicucore.dylib */,
 				0108CEDC13BB8CB80000ECE1 /* Security.framework */,
 				01937C8213A03F5000BCE1D4 /* Cocoa.framework */,

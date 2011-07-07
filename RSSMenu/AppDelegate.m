@@ -43,6 +43,11 @@
     [statusItem setEnabled:YES];
     [statusItem setView:statusItemView];
 
+    popover = [[NSPopover alloc] init];
+    popover.contentViewController = [[[NSViewController alloc] init] autorelease];
+    popover.contentViewController.view = [[[WebView alloc] initWithFrame:NSMakeRect(0, 0, 415, 500)] autorelease];
+    popover.animates = NO;
+
     // register hot key for popping open the menu
     [HotKeys registerHotKeys];
     
@@ -176,22 +181,30 @@
     
     [allItems removeAllObjects];
     
-    for (Feed *feed in [self allFeeds])
+    for (Feed *feed in self.allFeeds)
         [allItems addObjectsFromArray:feed.items];
     
     [allItems sortUsingSelector:@selector(compareItemByPublishedDate:)];
     
-    while (![[menu itemAtIndex:0] isSeparatorItem])
+    while (![menu itemAtIndex:0].isSeparatorItem)
         [menu removeItemAtIndex:0];
 
-    for (int i=0; i<[allItems count] && i<MAX_ITEMS; i++) {
+    int menuIndex = 0;
+    
+    for (int i=0; i<allItems.count && i<MAX_ITEMS; i++) {
         
         FeedItem *item = [allItems objectAtIndex:i];
         
         NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:[item.title truncatedAfterIndex:45] action:@selector(itemSelected:) keyEquivalent:@""] autorelease];
-        [menuItem setTag:i];
+        menuItem.tag = 100+i;
+
+        [menu insertItem:menuItem atIndex:menuIndex++];
         
-        [menu insertItem:menuItem atIndex:i];
+        NSMenuItem *shimItem = [[[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""] autorelease];
+        FeedItemView *view = [[[FeedItemView alloc] initWithFrame:NSMakeRect(0, 0, 0, 1)] autorelease];
+        shimItem.view = view;
+        shimItem.tag = -menuItem.tag;
+        [menu insertItem:shimItem atIndex:menuIndex++];
     }
     
     if ([allItems count] == 0) {
@@ -204,17 +217,38 @@
     [statusItemView toggleMenu];
 }
 
+- (void)menu:(NSMenu *)theMenu willHighlightItem:(NSMenuItem *)menuItem {
+    
+    if (menuItem.tag >= 100) {
+
+        NSMenuItem *shimItem = [menu itemWithTag:-menuItem.tag];
+        NSView *shimView = shimItem.view;
+        
+        //NSLog(@"Found shim view at %@", NSStringFromPoint([[shimItem view] convertPointToBase:[shimItem.view frame].origin]));
+        
+        FeedItem *item = [allItems objectAtIndex:menuItem.tag-100];
+        
+        WebView *webView = (WebView *)popover.contentViewController.view;
+        [webView.mainFrame loadHTMLString:item.content baseURL:nil];
+        
+        NSRect frame = shimView.superview.frame;
+        frame.origin.y += 9;
+        [popover showRelativeToRect:frame ofView:shimView.superview.superview preferredEdge:NSMinXEdge];
+    }
+}
+
 - (void)menuDidClose:(NSMenu *)menu {
     for (FeedItem *item in allItems)
         item.viewed = YES;
     
     [self updateStatusItemIcon];
     statusItemView.highlighted = NO;
+    [popover close];
 }
 
 - (void)itemSelected:(NSMenuItem *)menuItem {
     
-    FeedItem *item = [allItems objectAtIndex:menuItem.tag];
+    FeedItem *item = [allItems objectAtIndex:menuItem.tag-100];
     [self openBrowserWithURL:item.link];
 }
 
