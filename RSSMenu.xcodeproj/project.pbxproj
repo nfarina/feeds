@@ -14,6 +14,7 @@
 		0117B30613AD27CB0018AB7C /* NSArray+Linqish.m in Sources */ = {isa = PBXBuildFile; fileRef = 0117B30513AD27CB0018AB7C /* NSArray+Linqish.m */; };
 		01518F7E13C54F480043AB98 /* CG+Geometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 01518F7D13C54F480043AB98 /* CG+Geometry.m */; };
 		015D788F13C6394600BCD7C4 /* Popover.html in Resources */ = {isa = PBXBuildFile; fileRef = 015D788E13C6394600BCD7C4 /* Popover.html */; };
+		015D789513C6536400BCD7C4 /* Unread.png in Resources */ = {isa = PBXBuildFile; fileRef = 015D789413C6536400BCD7C4 /* Unread.png */; };
 		01937C8313A03F5000BCE1D4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01937C8213A03F5000BCE1D4 /* Cocoa.framework */; };
 		01937C8D13A03F5000BCE1D4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01937C8B13A03F5000BCE1D4 /* InfoPlist.strings */; };
 		01937C9013A03F5000BCE1D4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937C8F13A03F5000BCE1D4 /* main.m */; };
@@ -91,6 +92,7 @@
 		01518F7C13C54F480043AB98 /* CG+Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CG+Geometry.h"; sourceTree = "<group>"; };
 		01518F7D13C54F480043AB98 /* CG+Geometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CG+Geometry.m"; sourceTree = "<group>"; };
 		015D788E13C6394600BCD7C4 /* Popover.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Popover.html; sourceTree = "<group>"; };
+		015D789413C6536400BCD7C4 /* Unread.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Unread.png; sourceTree = "<group>"; };
 		01937C7E13A03F5000BCE1D4 /* RSSMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSSMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01937C8213A03F5000BCE1D4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		01937C8513A03F5000BCE1D4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -314,6 +316,7 @@
 				01F6169613AD3DCB00EBB24E /* StatusItemUnread.png */,
 				01F616F413AFA14F00EBB24E /* General.icns */,
 				01F616F513AFA14F00EBB24E /* Accounts.icns */,
+				015D789413C6536400BCD7C4 /* Unread.png */,
 			);
 			path = Graphics;
 			sourceTree = "<group>";
@@ -482,6 +485,7 @@
 				01D7CB8E13B02F62001B133A /* NewAccountController.xib in Resources */,
 				01AD75C413C3F8010092E790 /* AlertCautionIcon.png in Resources */,
 				015D788F13C6394600BCD7C4 /* Popover.html in Resources */,
+				015D789513C6536400BCD7C4 /* Unread.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
