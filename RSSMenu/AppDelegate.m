@@ -235,11 +235,15 @@
     if (lastHighlightedItem) {
         FeedItem *lastItem = [allItems objectAtIndex:lastHighlightedItem.tag-1];
         lastHighlightedItem.attributedTitle = [lastItem attributedStringHighlighted:NO];
+//        lastHighlightedItem.image = [NSImage imageNamed:[lastItem.feed.account.type stringByAppendingString:@".png"]];
     }
 
     if (menuItem) {
         FeedItem *item = [allItems objectAtIndex:menuItem.tag-1];
         menuItem.attributedTitle = [item attributedStringHighlighted:YES];
+        
+//        NSImage *highlightedImage = [NSImage imageNamed:[item.feed.account.type stringByAppendingString:@"Highlighted.png"]];
+//        if (highlightedImage) menuItem.image = highlightedImage;
     }
     
     self.lastHighlightedItem = menuItem;
