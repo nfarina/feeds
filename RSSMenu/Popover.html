@@ -5,28 +5,48 @@
             background: transparent;
         }
         body {
-            font-family: Helvetica;
-            font-size: 10pt;
-            margin: 10px;
+            font-family: Lucida Grande;
+            font-size: 12px;
+            margin: 0;
             margin-top: 7px;
+            text-shadow: 0 1px 0 white;
         }
         div.title {
-            font-size: 14pt;
+            font-size: 17px;
             font-weight: bold;
+            margin: 7px;
+            margin-bottom: 0;
+            /*max-height: 50px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;*/
         }
         div.author {
             color: #777;
-            font-size: 11pt;
-            font-weight: lighter;
-            margin-bottom: 10px;
+            font-size: 10px;
+            font-weight: bold;
+            margin: 7px;
+            margin-top: 1px;
+        }
+        div.content {
+            margin: 7px;
+            font-size: 11px;
         }
         img {
             border: 1px solid rgba(0,0,0,0.2);
+            -webkit-border-radius: 2px;
+            margin-left: -7px;
+            margin-right: -7px;
+        }
+        a {
+            color: inherit;
+            text-decoration: inherit;
         }
     </style>
     <script>
         function adjustHeight() {
             window.location = "cmd://" + (document.getElementById("container").offsetHeight + 17);
+            document.body.style.overflow = "hidden";
         }
         
         window.onload = function() {
@@ -39,7 +59,9 @@
         
         <div class="title">%@</div>
         <div class="author">%@</div>
-        %@
+        <div class="content">
+            %@
+        </div>
         
     </div>
     

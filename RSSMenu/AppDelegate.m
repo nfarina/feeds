@@ -7,6 +7,7 @@
 #define MAX_GROWLS 3
 #define CHECK_INTERVAL 60*1
 #define POPOVER_INTERVAL 0.5
+#define POPOVER_WIDTH 402
 
 @interface AppDelegate ()
 @property (nonatomic, retain) NSTimer *refreshTimer, *popoverTimer;
@@ -44,6 +45,7 @@
         [popover setContentViewController:[[[NSViewController alloc] init] autorelease]];
         [popover setBehavior:NSPopoverBehaviorTransient];
         [popover setAnimates:NO];
+        [popover setContentSize:NSMakeSize(POPOVER_WIDTH, 50)];
         
         WebView *webView = [[[WebView alloc] initWithFrame:NSZeroRect] autorelease];
         webView.drawsBackground = NO;
@@ -198,7 +200,34 @@
         
         FeedItem *item = [allItems objectAtIndex:i];
         
-        NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:[item.title truncatedAfterIndex:45] action:@selector(itemSelected:) keyEquivalent:@""] autorelease];
+        NSString *author = item.author;
+        
+        NSString *authorSpace = [author stringByAppendingString:@" "];
+        NSString *titleWithoutAuthor = item.title;
+        
+        if ([titleWithoutAuthor rangeOfString:authorSpace].location == 0)
+            titleWithoutAuthor = [titleWithoutAuthor substringFromIndex:authorSpace.length];
+        
+        NSString *title = [titleWithoutAuthor truncatedAfterIndex:40-item.author.length];
+        
+        NSMutableAttributedString *attributed = [[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@",author,title]] autorelease];
+        
+        NSDictionary *authorAtts = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [NSFont systemFontOfSize:13.0f],NSFontAttributeName,
+                                    [NSColor disabledControlTextColor],NSForegroundColorAttributeName,nil];
+
+        NSDictionary *titleAtts = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   [NSFont systemFontOfSize:13.0f],NSFontAttributeName,nil];
+        
+        NSRange authorRange = NSMakeRange(0, author.length);
+        NSRange titleRange = NSMakeRange(author.length+1, title.length);
+        
+        [attributed addAttributes:authorAtts range:authorRange];
+        [attributed addAttributes:titleAtts range:titleRange];
+        
+        
+        NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:title action:@selector(itemSelected:) keyEquivalent:@""] autorelease];
+        menuItem.attributedTitle = attributed;
         menuItem.tag = i+1;
         
         if (!item.viewed) {
@@ -255,7 +284,7 @@
 }
 
 - (void)showPopoverForMenuItem:(NSMenuItem *)menuItem {
-    
+
     FeedItem *item = [allItems objectAtIndex:menuItem.tag-1];
 
     menuItem.state = NSOffState;
@@ -265,18 +294,17 @@
     
     NSString *templatePath = [[NSBundle mainBundle] pathForResource:@"Popover" ofType:@"html"];
     NSString *template = [NSString stringWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:NULL];
-    NSString *rendered = [NSString stringWithFormat:template, item.title, item.author, item.content];
+    NSString *rendered = [NSString stringWithFormat:template, [item.title truncatedAfterIndex:75], item.author, item.content];
     
     webView.alphaValue = 0;
     [webView.mainFrame loadHTMLString:rendered baseURL:nil];
-    [popover setContentSize:NSMakeSize(415, 0)];
     
     NSRect frame = shimItem.view.superview.frame;
     
     NSInteger shimIndex = [menu indexOfItem:shimItem];
     NSInteger itemIndex = [menu indexOfItem:menuItem];
     
-    frame.origin.y += 3 + (19 * (shimIndex-itemIndex-1));
+    frame.origin.y += 2 + (18 * (shimIndex-itemIndex-1));
     [popover showRelativeToRect:frame ofView:shimItem.view.superview.superview preferredEdge:NSMinXEdge];
 }
 
@@ -291,7 +319,7 @@
             
             int height = [[URLString substringFromIndex:6] intValue];
 
-            [popover setContentSize:NSMakeSize(415, height)];
+            [popover setContentSize:NSMakeSize(POPOVER_WIDTH, height)];
             webView.alphaValue = 1;
 
             return;
