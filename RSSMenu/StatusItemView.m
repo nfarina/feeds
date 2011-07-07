@@ -1,6 +1,7 @@
 #import "StatusItemView.h"
 
 @implementation StatusItemView
+@synthesize icon, highlighted;
 
 - (id)initWithStatusItem:(NSStatusItem *)theStatusItem {
 	if ([super initWithFrame:NSMakeRect(0, 0, 30, 22)]) {
@@ -10,17 +11,46 @@
 	return self;
 }
 
+- (void)dealloc {
+    [super dealloc];
+}
+
+- (void)setIcon:(StatusItemIcon)value {
+    icon = value;
+    [self setNeedsDisplay:YES];
+}
+
+- (void)setHighlighted:(BOOL)value {
+    highlighted = value;
+    [self setNeedsDisplay:YES];
+}
+
+- (NSImage *)iconImage {
+    switch (icon) {
+        case StatusItemIconInactive: return [NSImage imageNamed:@"StatusItemInactive.png"];
+        case StatusItemIconUnread: return [NSImage imageNamed:@"StatusItemUnread.png"];
+        default: return [NSImage imageNamed:@"StatusItem.png"];
+    }
+}
+
 - (void)drawRect:(NSRect)rect {
 	
     [statusItem drawStatusBarBackgroundInRect:rect withHighlight:highlighted];
     
-	//NSRect imageRect = NSOffsetRect(dirtyRect, 0, 1);
-	//[[NSImage imageNamed:@"StatusItem.png"] drawInRect:imageRect fromRect:[self bounds] operation:NSCompositeSourceOver fraction:1];
+    NSImage *image = highlighted ? [NSImage imageNamed:@"StatusItemSelected.png"] : [self iconImage];
+    
+	NSRect srcRect = NSMakeRect(0, 0, [image size].width, [image size].height);
+    
+    CGRect canvasRect = NSRectToCGRect(rect);
+    CGSize imageSize = NSSizeToCGSize(srcRect.size);
+    CGRect dstRect = CGRectCenteredInside(canvasRect, imageSize);
+    
+	[image drawInRect:dstRect fromRect:srcRect operation:NSCompositeSourceOver fraction:1];
 }
 
 - (void) mouseDown:(NSEvent *)theEvent {
 	NSLog(@"MOUSE DOWN: %@", NSStringFromRect([[self window] frame]));
-    
+    [self toggleMenu];
 	
 //	NSRect statusItemRect = [[self window] frame];
 
@@ -35,6 +65,15 @@
 	// Transform process from background to foreground
 //	ProcessSerialNumber psn = { 0, kCurrentProcess };
 //	SetFrontProcess(&psn);
+}
+
+- (void)toggleMenu {
+    if (highlighted)
+        [[statusItem menu] cancelTracking];
+    else
+        [statusItem performSelector:@selector(popUpStatusItemMenu:) withObject:[statusItem menu] afterDelay:0];
+    
+    self.highlighted = !self.highlighted;
 }
 
 @end

@@ -1,0 +1,4 @@
+
+@interface FeedItemView : NSView
+
+@end

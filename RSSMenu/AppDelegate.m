@@ -1,6 +1,8 @@
 #import "AppDelegate.h"
 #import "Feed.h"
 #import "HotKeys.h"
+#import "FeedItemView.h"
+#import "StatusItemView.h"
 
 #define MAX_ITEMS 30
 #define MAX_GROWLS 3
@@ -24,8 +26,8 @@
 
     // show the dock icon immediately if necessary
 #if DEBUG
-    ProcessSerialNumber psn = { 0, kCurrentProcess }; 
-    TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+//    ProcessSerialNumber psn = { 0, kCurrentProcess }; 
+//    TransformProcessType(&psn, kProcessTransformToForegroundApplication);
 #endif
 
     [GrowlApplicationBridge setGrowlDelegate:self];
@@ -35,11 +37,11 @@
 
     statusItemView = [[StatusItemView alloc] initWithStatusItem:statusItem];
 
-    [statusItem setHighlightMode:YES];
-	[statusItem setImage:[NSImage imageNamed:@"StatusItem.png"]];
-	[statusItem setAlternateImage:[NSImage imageNamed:@"StatusItemSelected.png"]];
-//	[statusItem setEnabled:YES];
-//  [statusItem setView:statusItemView];
+//  [statusItem setHighlightMode:YES];
+//	[statusItem setImage:[NSImage imageNamed:@"StatusItem.png"]];
+//	[statusItem setAlternateImage:[NSImage imageNamed:@"StatusItemSelected.png"]];
+    [statusItem setEnabled:YES];
+    [statusItem setView:statusItemView];
 
     // register hot key for popping open the menu
     [HotKeys registerHotKeys];
@@ -67,9 +69,10 @@
     [self reachabilityChanged];
     
 #if DEBUG
-    [self openPreferences:nil];
-    [self accountsChanged:nil];
+//    [self openPreferences:nil];
 #endif
+
+    [self accountsChanged:nil];
 }
 
 - (void)setRefreshTimer:(NSTimer *)value {
@@ -99,15 +102,15 @@
         for (FeedItem *item in allItems)
             if (!item.viewed) {
                 // you've got stuff up there that you haven't seen in the menu, so glow the icon to let you know!
-                [statusItem setImage:[NSImage imageNamed:@"StatusItemUnread.png"]];
+                statusItemView.icon = StatusItemIconUnread;
                 return;
             }
 
         // default
-        [statusItem setImage:[NSImage imageNamed:@"StatusItem.png"]];
+        statusItemView.icon = StatusItemIconNormal;
     }
     else // we're not running. 
-        [statusItem setImage:[NSImage imageNamed:@"StatusItemInactive.png"]];
+        statusItemView.icon = StatusItemIconInactive;
 }
 
 - (void)reachabilityChanged {
@@ -198,7 +201,7 @@
 }
 
 - (void)openMenuHotkeyPressed {
-    [statusItem popUpStatusItemMenu:menu];
+    [statusItemView toggleMenu];
 }
 
 - (void)menuDidClose:(NSMenu *)menu {
@@ -206,6 +209,7 @@
         item.viewed = YES;
     
     [self updateStatusItemIcon];
+    statusItemView.highlighted = NO;
 }
 
 - (void)itemSelected:(NSMenuItem *)menuItem {

@@ -17,4 +17,5 @@
 #import "NSString+Truncated.h"
 #import "Reachability.h"
 #import "RegexKitLite.h"
+#import "CG+Geometry.h"
 #endif
