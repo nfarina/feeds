@@ -1,4 +1,5 @@
 #import "Feed.h"
+#import "Account.h"
 
 NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
 
@@ -23,13 +24,14 @@ NSDateFormatter *ATOMDateFormatter() {
 @end
 
 @implementation Feed
-@synthesize URL, author, items, request;
+@synthesize URL, author, items, request, account;
 
 - (void)dealloc {
     self.URL = nil;
     self.author = nil;
     self.items = nil;
     self.request = nil;
+    self.account = nil;
     [super dealloc];
 }
 
@@ -49,10 +51,11 @@ NSDateFormatter *ATOMDateFormatter() {
     return feed;
 }
 
-+ (Feed *)feedWithDictionary:(NSDictionary *)dict {
++ (Feed *)feedWithDictionary:(NSDictionary *)dict account:(Account *)account {
     Feed *feed = [[[Feed alloc] init] autorelease];
     feed.URL = [NSURL URLWithString:[dict objectForKey:@"url"]];
     feed.author = [dict objectForKey:@"author"];
+    feed.account = account;
     return feed;
 }
 
@@ -128,18 +131,23 @@ NSDateFormatter *ATOMDateFormatter() {
             item.notified = item.viewed = YES;
     }
     
+    // link them back to us
+    for (FeedItem *item in items)
+        item.feed = self;
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:kFeedUpdatedNotification object:self];
 }
 
 @end
 
 @implementation FeedItem
-@synthesize title, author, content, strippedContent, link, comments, published, updated, notified, viewed;
+@synthesize title, author, content, strippedContent, link, comments, published, updated, notified, viewed, feed;
 
 - (void)dealloc {
     self.title = self.author = self.content = self.strippedContent = nil;
     self.link = self.comments = nil;
     self.published = self.updated = nil;
+    self.feed = nil;
     [super dealloc];
 }
 

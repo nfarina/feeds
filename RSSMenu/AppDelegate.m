@@ -204,6 +204,7 @@
         
         NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:@"" action:@selector(itemSelected:) keyEquivalent:@""] autorelease];
         menuItem.attributedTitle = [item attributedStringHighlighted:NO];
+        menuItem.image = [NSImage imageNamed:[item.feed.account.type stringByAppendingString:@".png"]];
         menuItem.tag = i+1;
         
         if (!item.viewed) {
@@ -245,8 +246,11 @@
 }
 
 - (void)menu:(NSMenu *)theMenu willHighlightItem:(NSMenuItem *)menuItem {
- 
-    [self highlightMenuItem:menuItem];
+
+    if (menuItem.tag > 0)
+        [self highlightMenuItem:menuItem];
+    else
+        [self highlightMenuItem:nil];
     
     if (popover) {
 
@@ -297,7 +301,7 @@
     NSInteger shimIndex = [menu indexOfItem:shimItem];
     NSInteger itemIndex = [menu indexOfItem:menuItem];
     
-    frame.origin.y += 6 + (18 * (shimIndex-itemIndex-1));
+    frame.origin.y += 6 + (19.333333 * (shimIndex-itemIndex-1));
     [popover showRelativeToRect:frame ofView:shimItem.view.superview.superview preferredEdge:NSMinXEdge];
 }
 

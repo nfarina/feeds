@@ -15,6 +15,10 @@
 		01518F7E13C54F480043AB98 /* CG+Geometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 01518F7D13C54F480043AB98 /* CG+Geometry.m */; };
 		015D788F13C6394600BCD7C4 /* Popover.html in Resources */ = {isa = PBXBuildFile; fileRef = 015D788E13C6394600BCD7C4 /* Popover.html */; };
 		015D789513C6536400BCD7C4 /* Unread.png in Resources */ = {isa = PBXBuildFile; fileRef = 015D789413C6536400BCD7C4 /* Unread.png */; };
+		015D78A113C6747100BCD7C4 /* Basecamp.png in Resources */ = {isa = PBXBuildFile; fileRef = 015D78A013C6747100BCD7C4 /* Basecamp.png */; };
+		015D78A513C6753500BCD7C4 /* Dribbble.png in Resources */ = {isa = PBXBuildFile; fileRef = 015D78A213C6753500BCD7C4 /* Dribbble.png */; };
+		015D78A613C6753500BCD7C4 /* Highrise.png in Resources */ = {isa = PBXBuildFile; fileRef = 015D78A313C6753500BCD7C4 /* Highrise.png */; };
+		015D78A713C6753500BCD7C4 /* Github.png in Resources */ = {isa = PBXBuildFile; fileRef = 015D78A413C6753500BCD7C4 /* Github.png */; };
 		01937C8313A03F5000BCE1D4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01937C8213A03F5000BCE1D4 /* Cocoa.framework */; };
 		01937C8D13A03F5000BCE1D4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01937C8B13A03F5000BCE1D4 /* InfoPlist.strings */; };
 		01937C9013A03F5000BCE1D4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937C8F13A03F5000BCE1D4 /* main.m */; };
@@ -93,6 +97,10 @@
 		01518F7D13C54F480043AB98 /* CG+Geometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CG+Geometry.m"; sourceTree = "<group>"; };
 		015D788E13C6394600BCD7C4 /* Popover.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Popover.html; sourceTree = "<group>"; };
 		015D789413C6536400BCD7C4 /* Unread.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Unread.png; sourceTree = "<group>"; };
+		015D78A013C6747100BCD7C4 /* Basecamp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Basecamp.png; sourceTree = "<group>"; };
+		015D78A213C6753500BCD7C4 /* Dribbble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dribbble.png; sourceTree = "<group>"; };
+		015D78A313C6753500BCD7C4 /* Highrise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Highrise.png; sourceTree = "<group>"; };
+		015D78A413C6753500BCD7C4 /* Github.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Github.png; sourceTree = "<group>"; };
 		01937C7E13A03F5000BCE1D4 /* RSSMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSSMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01937C8213A03F5000BCE1D4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		01937C8513A03F5000BCE1D4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -230,6 +238,17 @@
 			name = Helpers;
 			sourceTree = "<group>";
 		};
+		015D789E13C6733D00BCD7C4 /* Service Icons */ = {
+			isa = PBXGroup;
+			children = (
+				015D78A013C6747100BCD7C4 /* Basecamp.png */,
+				015D78A213C6753500BCD7C4 /* Dribbble.png */,
+				015D78A313C6753500BCD7C4 /* Highrise.png */,
+				015D78A413C6753500BCD7C4 /* Github.png */,
+			);
+			name = "Service Icons";
+			sourceTree = "<group>";
+		};
 		01937C7313A03F5000BCE1D4 = {
 			isa = PBXGroup;
 			children = (
@@ -309,6 +328,7 @@
 		01937CA713A057FA00BCE1D4 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				015D789E13C6733D00BCD7C4 /* Service Icons */,
 				01AD75C313C3F8010092E790 /* AlertCautionIcon.png */,
 				01F6169413AD3DCB00EBB24E /* StatusItem.png */,
 				01F616D913AE4B5F00EBB24E /* StatusItemInactive.png */,
@@ -486,6 +506,10 @@
 				01AD75C413C3F8010092E790 /* AlertCautionIcon.png in Resources */,
 				015D788F13C6394600BCD7C4 /* Popover.html in Resources */,
 				015D789513C6536400BCD7C4 /* Unread.png in Resources */,
+				015D78A113C6747100BCD7C4 /* Basecamp.png in Resources */,
+				015D78A513C6753500BCD7C4 /* Dribbble.png in Resources */,
+				015D78A613C6753500BCD7C4 /* Highrise.png in Resources */,
+				015D78A713C6753500BCD7C4 /* Github.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

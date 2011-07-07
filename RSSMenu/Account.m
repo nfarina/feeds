@@ -62,7 +62,7 @@ static NSMutableArray *allAccounts = nil;
     [super init];
     self.domain = [dict objectForKey:@"domain"];
     self.username = [dict objectForKey:@"username"];
-    self.feeds = [[dict objectForKey:@"feeds"] collect:@selector(feedWithDictionary:) on:[Feed class]];
+    self.feeds = [[dict objectForKey:@"feeds"] collect:@selector(feedWithDictionary:account:) on:[Feed class] secondArgument:self];
     return self;
 }
 
