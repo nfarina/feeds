@@ -7,27 +7,28 @@
 #define MAX_ITEMS 30
 #define MAX_GROWLS 3
 #define CHECK_INTERVAL 60*1
+#define POPOVER_INTERVAL 0.5
 
 @interface AppDelegate ()
-@property (nonatomic, retain) NSTimer *refreshTimer;
+@property (nonatomic, retain) NSTimer *refreshTimer, *popoverTimer;
 - (NSArray *)allFeeds;
+- (void)showPopoverForMenuItem:(NSMenuItem *)menuItem;
 - (void)accountsChanged:(NSNotification *)notification;
 - (void)reachabilityChanged;
 - (void)refreshFeeds;
 - (void)openBrowserWithURL:(NSURL *)url;
 - (void)updateStatusItemIcon;
-- (void)rebuildItems;
 @end
 
 @implementation AppDelegate
-@synthesize refreshTimer;
+@synthesize refreshTimer, popoverTimer;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
     // show the dock icon immediately if necessary
 #if DEBUG
-//    ProcessSerialNumber psn = { 0, kCurrentProcess }; 
-//    TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+    ProcessSerialNumber psn = { 0, kCurrentProcess }; 
+    TransformProcessType(&psn, kProcessTransformToForegroundApplication);
 #endif
 
     [GrowlApplicationBridge setGrowlDelegate:self];
@@ -36,12 +37,8 @@
 	statusItem.menu = menu;
 
     statusItemView = [[StatusItemView alloc] initWithStatusItem:statusItem];
-
-//  [statusItem setHighlightMode:YES];
-//	[statusItem setImage:[NSImage imageNamed:@"StatusItem.png"]];
-//	[statusItem setAlternateImage:[NSImage imageNamed:@"StatusItemSelected.png"]];
-    [statusItem setEnabled:YES];
-    [statusItem setView:statusItemView];
+    statusItem.enabled = YES;
+    statusItem.view = statusItemView;
 
     if (NSClassFromString(@"NSPopover")) {
         popover = [[NSClassFromString(@"NSPopover") alloc] init];
@@ -58,15 +55,6 @@
     [HotKeys registerHotKeys];
     
     allItems = [NSMutableArray new];
-    
-//    NSArray *feedDicts = [[NSUserDefaults standardUserDefaults] arrayForKey:@"feeds"];
-//    
-//    if (!feedDicts) {
-//        feedDicts = [NSArray arrayWithObject:[NSDictionary dictionaryWithObject:@"http://dribbble.com/shots/popular.rss" forKey:@"url"]];
-//        [[NSUserDefaults standardUserDefaults] setObject:feedDicts forKey:@"feeds"];
-//    }
-//    
-//    self.feeds = [feedDicts collect:@selector(feedWithDictionary:) on:[Feed class]];
     
     reachability = [[Reachability reachabilityForInternetConnection] retain];
 	[reachability startNotifier];
@@ -91,6 +79,11 @@
     refreshTimer = [value retain];
 }
 
+- (void)setPopoverTimer:(NSTimer *)value {
+    [popoverTimer invalidate];
+    popoverTimer = [value retain];
+}
+
 - (NSArray *)allFeeds {
     NSMutableArray *feeds = [NSMutableArray array];
     for (Account *account in [Account allAccounts]) [feeds addObjectsFromArray:account.feeds];
@@ -98,7 +91,7 @@
 }
 
 - (void)accountsChanged:(NSNotification *)notification {
-    [self rebuildItems];
+    menuNeedsRebuild = YES;
     [self refreshFeeds];
 }
 
@@ -155,7 +148,7 @@
 }
 
 - (void)feedUpdated:(NSNotification *)notification {
-    [self rebuildItems];
+    menuNeedsRebuild = YES;
 
     Feed *feed = [notification object];
     int notifications = 0;
@@ -215,31 +208,50 @@
     [statusItemView toggleMenu];
 }
 
+- (void)menuWillOpen:(NSMenu *)menu {
+    if (menuNeedsRebuild)
+        [self rebuildItems];
+}
+
 - (void)menu:(NSMenu *)theMenu willHighlightItem:(NSMenuItem *)menuItem {
     
     if (popover) {
 
         if (menuItem.tag > 0) {
-            
-            //NSLog(@"Found shim view at %@", NSStringFromPoint([[shimItem view] convertPointToBase:[shimItem.view frame].origin]));
-            
-            FeedItem *item = [allItems objectAtIndex:menuItem.tag-1];
-            
-            WebView *webView = (WebView *)[popover contentViewController].view;
-            [webView.mainFrame loadHTMLString:item.content baseURL:nil];
-            
-            NSRect frame = shimItem.view.superview.frame;
-            
-            NSInteger shimIndex = [menu indexOfItem:shimItem];
-            NSInteger itemIndex = [menu indexOfItem:menuItem];
-            
-            frame.origin.y += 3 + (19 * (shimIndex-itemIndex-1));
-            [popover showRelativeToRect:frame ofView:shimItem.view.superview.superview preferredEdge:NSMinXEdge];
+            if ([popover isShown]) {
+                [self showPopoverForMenuItem:menuItem]; // popover's already open, so switch to the new item immediately
+            }
+            else {
+                // popover should open after you wait a tick
+                NSRunLoop *runloop = [NSRunLoop currentRunLoop];
+                self.popoverTimer = [NSTimer timerWithTimeInterval:POPOVER_INTERVAL target:self selector:@selector(showPopover:) userInfo:menuItem repeats:NO];
+                [runloop addTimer:popoverTimer forMode:NSEventTrackingRunLoopMode];
+            }
         }
         else {
+            self.popoverTimer = nil;
             [popover close];
         }
     }
+}
+
+- (void)showPopover:(NSTimer *)timer {
+    [self showPopoverForMenuItem:timer.userInfo];
+}
+
+- (void)showPopoverForMenuItem:(NSMenuItem *)menuItem {
+    FeedItem *item = [allItems objectAtIndex:menuItem.tag-1];
+    
+    WebView *webView = (WebView *)[popover contentViewController].view;
+    [webView.mainFrame loadHTMLString:item.content baseURL:nil];
+    
+    NSRect frame = shimItem.view.superview.frame;
+    
+    NSInteger shimIndex = [menu indexOfItem:shimItem];
+    NSInteger itemIndex = [menu indexOfItem:menuItem];
+    
+    frame.origin.y += 3 + (19 * (shimIndex-itemIndex-1));
+    [popover showRelativeToRect:frame ofView:shimItem.view.superview.superview preferredEdge:NSMinXEdge];
 }
 
 - (void)menuDidClose:(NSMenu *)menu {
