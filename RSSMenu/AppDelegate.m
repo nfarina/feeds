@@ -158,9 +158,7 @@
     Feed *feed = [notification object];
     int notifications = 0;
     
-    for (int i=0; i<[allItems count] && i<MAX_ITEMS; i++) {
-        
-        FeedItem *item = [allItems objectAtIndex:i];
+    for (FeedItem *item in feed.items) {
         
         if (!item.notified && notifications++ < MAX_GROWLS) {
             [GrowlApplicationBridge
@@ -178,27 +176,35 @@
     for (FeedItem *item in feed.items)
         item.notified = YES;
     
-    [self updateStatusItemIcon];
-}
-
-- (void)rebuildItems {
-    
+    // rebuild allItems array
     [allItems removeAllObjects];
     
     for (Feed *feed in self.allFeeds)
         [allItems addObjectsFromArray:feed.items];
     
     [allItems sortUsingSelector:@selector(compareItemByPublishedDate:)];
+    while ([allItems count] > MAX_ITEMS)
+        [allItems removeObjectAtIndex:MAX_ITEMS];
+    
+    [self updateStatusItemIcon];
+}
+
+- (void)rebuildItems {
     
     while (![menu itemAtIndex:0].isSeparatorItem)
         [menu removeItemAtIndex:0];
 
-    for (int i=0; i<allItems.count && i<MAX_ITEMS; i++) {
+    for (int i=0; i<allItems.count; i++) {
         
         FeedItem *item = [allItems objectAtIndex:i];
         
         NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:[item.title truncatedAfterIndex:45] action:@selector(itemSelected:) keyEquivalent:@""] autorelease];
         menuItem.tag = i+1;
+        
+        if (!item.viewed) {
+            menuItem.onStateImage = [NSImage imageNamed:@"Unread.png"];
+            menuItem.state = NSOnState;
+        }
 
         [menu insertItem:menuItem atIndex:i];
     }
@@ -249,8 +255,12 @@
 }
 
 - (void)showPopoverForMenuItem:(NSMenuItem *)menuItem {
-    FeedItem *item = [allItems objectAtIndex:menuItem.tag-1];
     
+    FeedItem *item = [allItems objectAtIndex:menuItem.tag-1];
+
+    menuItem.state = NSOffState;
+    item.viewed = YES;
+
     WebView *webView = (WebView *)[popover contentViewController].view;
     
     NSString *templatePath = [[NSBundle mainBundle] pathForResource:@"Popover" ofType:@"html"];
@@ -292,8 +302,9 @@
 }
 
 - (void)menuDidClose:(NSMenu *)menu {
-    for (FeedItem *item in allItems)
-        item.viewed = YES;
+    if (!popover)
+        for (FeedItem *item in allItems)
+            item.viewed = YES;
     
     [self updateStatusItemIcon];
     statusItemView.highlighted = NO;
@@ -303,12 +314,26 @@
 - (void)itemSelected:(NSMenuItem *)menuItem {
     
     FeedItem *item = [allItems objectAtIndex:menuItem.tag-1];
+    
+    menuItem.state = NSOffState;
+    item.viewed = YES;
+    
     [self openBrowserWithURL:item.link];
 }
 
 - (void)growlNotificationWasClicked:(NSString *)URLString {
-    if (URLString)
+    if (URLString) {
+        
+        // if you click the growl notification, that's the same as viewing an item.
+        for (FeedItem *item in allItems)
+            if ([item.link.absoluteString isEqual:URLString]) {
+                item.viewed = YES;
+                [self updateStatusItemIcon];
+                menuNeedsRebuild = YES;
+            }
+        
         [self openBrowserWithURL:[NSURL URLWithString:URLString]];
+    }
 }
 
 - (void)openBrowserWithURL:(NSURL *)url {
