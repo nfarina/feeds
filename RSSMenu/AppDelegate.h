@@ -10,6 +10,8 @@
     NSPopover *popover;
     Reachability *reachability;
     PreferencesController *preferencesController;
+    
+    NSMenuItem *shimItem;
 }
 
 - (IBAction)openPreferences:(id)sender;

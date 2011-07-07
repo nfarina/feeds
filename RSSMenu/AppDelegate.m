@@ -48,6 +48,10 @@
     popover.contentViewController.view = [[[WebView alloc] initWithFrame:NSMakeRect(0, 0, 415, 500)] autorelease];
     popover.animates = NO;
 
+    shimItem = [[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""];
+    shimItem.view = [[[NSView alloc] initWithFrame:NSMakeRect(0, 0, 1, 1)] autorelease];
+    [menu addItem:shimItem];
+
     // register hot key for popping open the menu
     [HotKeys registerHotKeys];
     
@@ -189,22 +193,14 @@
     while (![menu itemAtIndex:0].isSeparatorItem)
         [menu removeItemAtIndex:0];
 
-    int menuIndex = 0;
-    
     for (int i=0; i<allItems.count && i<MAX_ITEMS; i++) {
         
         FeedItem *item = [allItems objectAtIndex:i];
         
         NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:[item.title truncatedAfterIndex:45] action:@selector(itemSelected:) keyEquivalent:@""] autorelease];
-        menuItem.tag = 100+i;
+        menuItem.tag = i+1;
 
-        [menu insertItem:menuItem atIndex:menuIndex++];
-        
-        NSMenuItem *shimItem = [[[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""] autorelease];
-        FeedItemView *view = [[[FeedItemView alloc] initWithFrame:NSMakeRect(0, 0, 0, 1)] autorelease];
-        shimItem.view = view;
-        shimItem.tag = -menuItem.tag;
-        [menu insertItem:shimItem atIndex:menuIndex++];
+        [menu insertItem:menuItem atIndex:i];
     }
     
     if ([allItems count] == 0) {
@@ -219,21 +215,25 @@
 
 - (void)menu:(NSMenu *)theMenu willHighlightItem:(NSMenuItem *)menuItem {
     
-    if (menuItem.tag >= 100) {
+    if (menuItem.tag > 0) {
 
-        NSMenuItem *shimItem = [menu itemWithTag:-menuItem.tag];
-        NSView *shimView = shimItem.view;
-        
         //NSLog(@"Found shim view at %@", NSStringFromPoint([[shimItem view] convertPointToBase:[shimItem.view frame].origin]));
         
-        FeedItem *item = [allItems objectAtIndex:menuItem.tag-100];
+        FeedItem *item = [allItems objectAtIndex:menuItem.tag-1];
         
         WebView *webView = (WebView *)popover.contentViewController.view;
         [webView.mainFrame loadHTMLString:item.content baseURL:nil];
         
-        NSRect frame = shimView.superview.frame;
-        frame.origin.y += 9;
-        [popover showRelativeToRect:frame ofView:shimView.superview.superview preferredEdge:NSMinXEdge];
+        NSRect frame = shimItem.view.superview.frame;
+        
+        NSInteger shimIndex = [menu indexOfItem:shimItem];
+        NSInteger itemIndex = [menu indexOfItem:menuItem];
+        
+        frame.origin.y += 3 + (19 * (shimIndex-itemIndex-1));
+        [popover showRelativeToRect:frame ofView:shimItem.view.superview.superview preferredEdge:NSMinXEdge];
+    }
+    else {
+        [popover close];
     }
 }
 
@@ -248,7 +248,7 @@
 
 - (void)itemSelected:(NSMenuItem *)menuItem {
     
-    FeedItem *item = [allItems objectAtIndex:menuItem.tag-100];
+    FeedItem *item = [allItems objectAtIndex:menuItem.tag-1];
     [self openBrowserWithURL:item.link];
 }
 
