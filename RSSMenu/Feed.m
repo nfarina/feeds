@@ -39,8 +39,13 @@ NSDateFormatter *ATOMDateFormatter() {
 }
 
 + (Feed *)feedWithURLString:(NSString *)URLString {
+    return [self feedWithURLString:URLString author:nil];
+}
+
++ (Feed *)feedWithURLString:(NSString *)URLString author:(NSString *)author {
     Feed *feed = [[[Feed alloc] init] autorelease];
     feed.URL = [NSURL URLWithString:URLString];
+    feed.author = author;
     return feed;
 }
 

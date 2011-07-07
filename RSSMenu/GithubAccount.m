@@ -46,6 +46,7 @@
         [request addTarget:self action:@selector(orgRequestComplete:token:) forRequestEvents:SMWebRequestEventComplete];
         [request addTarget:self action:@selector(orgRequestError:) forRequestEvents:SMWebRequestEventError];
         [request start];
+        [delegate account:self validationDidContinueWithMessage:@"Finding feeds…"];
     }
     else {
         [self.delegate account:self validationDidFailWithMessage:@"Could not retrieve some information for the given Github account. Please check your username and password." field:0];
@@ -65,13 +66,13 @@
     
     NSString *mainFeedString = [NSString stringWithFormat:@"https://github.com/%@.private.atom?token=%@", username, token];
     
-    NSMutableArray *foundFeeds = [NSMutableArray arrayWithObject:[Feed feedWithURLString:mainFeedString]];
+    NSMutableArray *foundFeeds = [NSMutableArray arrayWithObject:[Feed feedWithURLString:mainFeedString author:username]];
 
     for (NSDictionary *org in orgs) {
         
         NSString *orgName = [org objectForKey:@"login"];
         NSString *orgFeedString = [NSString stringWithFormat:@"https://github.com/organizations/%@/%@.private.atom?token=%@", orgName, username, token];
-        [foundFeeds addObject:[Feed feedWithURLString:orgFeedString]];
+        [foundFeeds addObject:[Feed feedWithURLString:orgFeedString author:username]];
     }
     
     self.feeds = foundFeeds;
