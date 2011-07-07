@@ -47,7 +47,6 @@
         [popover setContentViewController:[[[NSViewController alloc] init] autorelease]];
         [popover setBehavior:NSPopoverBehaviorTransient];
         [popover setAnimates:NO];
-        [popover setContentSize:NSMakeSize(POPOVER_WIDTH, 50)];
         
         WebView *webView = [[[WebView alloc] initWithFrame:NSZeroRect] autorelease];
         webView.drawsBackground = NO;
@@ -271,6 +270,7 @@
                 // clear popover contents in preparation for display
                 WebView *webView = (WebView *)[popover contentViewController].view;
                 [webView.mainFrame loadHTMLString:@"" baseURL:nil];
+                [popover setContentSize:NSMakeSize(POPOVER_WIDTH, 100)];
             }
         }
         else {
