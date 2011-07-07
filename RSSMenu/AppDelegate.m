@@ -1,7 +1,6 @@
 #import "AppDelegate.h"
 #import "Feed.h"
 #import "HotKeys.h"
-#import "FeedItemView.h"
 #import "StatusItemView.h"
 
 #define MAX_ITEMS 30
@@ -27,8 +26,8 @@
 
     // show the dock icon immediately if necessary
 #if DEBUG
-    ProcessSerialNumber psn = { 0, kCurrentProcess }; 
-    TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+//    ProcessSerialNumber psn = { 0, kCurrentProcess }; 
+//    TransformProcessType(&psn, kProcessTransformToForegroundApplication);
 #endif
 
     [GrowlApplicationBridge setGrowlDelegate:self];
@@ -43,8 +42,11 @@
     if (NSClassFromString(@"NSPopover")) {
         popover = [[NSClassFromString(@"NSPopover") alloc] init];
         [popover setContentViewController:[[[NSViewController alloc] init] autorelease]];
-        [popover contentViewController].view = [[[WebView alloc] initWithFrame:NSMakeRect(0, 0, 415, 500)] autorelease];
         [popover setAnimates:NO];
+        
+        WebView *webView = [[[WebView alloc] initWithFrame:NSMakeRect(0, 0, 415, 500)] autorelease];
+        webView.drawsBackground = NO;
+        [popover contentViewController].view = webView;
         
         shimItem = [[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""];
         shimItem.view = [[[NSView alloc] initWithFrame:NSMakeRect(0, 0, 1, 1)] autorelease];
@@ -226,6 +228,10 @@
                 NSRunLoop *runloop = [NSRunLoop currentRunLoop];
                 self.popoverTimer = [NSTimer timerWithTimeInterval:POPOVER_INTERVAL target:self selector:@selector(showPopover:) userInfo:menuItem repeats:NO];
                 [runloop addTimer:popoverTimer forMode:NSEventTrackingRunLoopMode];
+                
+                // clear popover contents in preparation for display
+                WebView *webView = (WebView *)[popover contentViewController].view;
+                [webView.mainFrame loadHTMLString:@"" baseURL:nil];
             }
         }
         else {
@@ -243,7 +249,12 @@
     FeedItem *item = [allItems objectAtIndex:menuItem.tag-1];
     
     WebView *webView = (WebView *)[popover contentViewController].view;
-    [webView.mainFrame loadHTMLString:item.content baseURL:nil];
+    
+    NSString *templatePath = [[NSBundle mainBundle] pathForResource:@"Popover" ofType:@"html"];
+    NSString *template = [NSString stringWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:NULL];
+    NSString *rendered = [NSString stringWithFormat:template, item.content];
+    
+    [webView.mainFrame loadHTMLString:rendered baseURL:nil];
     
     NSRect frame = shimItem.view.superview.frame;
     
