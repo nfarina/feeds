@@ -11,7 +11,9 @@
 
 @interface AppDelegate ()
 @property (nonatomic, retain) NSTimer *refreshTimer, *popoverTimer;
+@property (nonatomic, retain) NSMenuItem *lastHighlightedItem;
 - (NSArray *)allFeeds;
+- (void)highlightMenuItem:(NSMenuItem *)menuItem;
 - (void)showPopoverForMenuItem:(NSMenuItem *)menuItem;
 - (void)accountsChanged:(NSNotification *)notification;
 - (void)reachabilityChanged;
@@ -21,7 +23,7 @@
 @end
 
 @implementation AppDelegate
-@synthesize refreshTimer, popoverTimer;
+@synthesize refreshTimer, popoverTimer, lastHighlightedItem;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
@@ -200,34 +202,8 @@
         
         FeedItem *item = [allItems objectAtIndex:i];
         
-        NSString *author = item.author;
-        
-        NSString *authorSpace = [author stringByAppendingString:@" "];
-        NSString *titleWithoutAuthor = item.title;
-        
-        if ([titleWithoutAuthor rangeOfString:authorSpace].location == 0)
-            titleWithoutAuthor = [titleWithoutAuthor substringFromIndex:authorSpace.length];
-        
-        NSString *title = [titleWithoutAuthor truncatedAfterIndex:40-item.author.length];
-        
-        NSMutableAttributedString *attributed = [[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@",author,title]] autorelease];
-        
-        NSDictionary *authorAtts = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [NSFont systemFontOfSize:13.0f],NSFontAttributeName,
-                                    [NSColor disabledControlTextColor],NSForegroundColorAttributeName,nil];
-
-        NSDictionary *titleAtts = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   [NSFont systemFontOfSize:13.0f],NSFontAttributeName,nil];
-        
-        NSRange authorRange = NSMakeRange(0, author.length);
-        NSRange titleRange = NSMakeRange(author.length+1, title.length);
-        
-        [attributed addAttributes:authorAtts range:authorRange];
-        [attributed addAttributes:titleAtts range:titleRange];
-        
-        
-        NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:title action:@selector(itemSelected:) keyEquivalent:@""] autorelease];
-        menuItem.attributedTitle = attributed;
+        NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:@"" action:@selector(itemSelected:) keyEquivalent:@""] autorelease];
+        menuItem.attributedTitle = [item attributedStringHighlighted:NO];
         menuItem.tag = i+1;
         
         if (!item.viewed) {
@@ -253,7 +229,24 @@
         [self rebuildItems];
 }
 
+- (void)highlightMenuItem:(NSMenuItem *)menuItem {
+    
+    if (lastHighlightedItem) {
+        FeedItem *lastItem = [allItems objectAtIndex:lastHighlightedItem.tag-1];
+        lastHighlightedItem.attributedTitle = [lastItem attributedStringHighlighted:NO];
+    }
+
+    if (menuItem) {
+        FeedItem *item = [allItems objectAtIndex:menuItem.tag-1];
+        menuItem.attributedTitle = [item attributedStringHighlighted:YES];
+    }
+    
+    self.lastHighlightedItem = menuItem;
+}
+
 - (void)menu:(NSMenu *)theMenu willHighlightItem:(NSMenuItem *)menuItem {
+ 
+    [self highlightMenuItem:menuItem];
     
     if (popover) {
 
@@ -304,7 +297,7 @@
     NSInteger shimIndex = [menu indexOfItem:shimItem];
     NSInteger itemIndex = [menu indexOfItem:menuItem];
     
-    frame.origin.y += 2 + (18 * (shimIndex-itemIndex-1));
+    frame.origin.y += 6 + (18 * (shimIndex-itemIndex-1));
     [popover showRelativeToRect:frame ofView:shimItem.view.superview.superview preferredEdge:NSMinXEdge];
 }
 
@@ -337,6 +330,7 @@
     [self updateStatusItemIcon];
     statusItemView.highlighted = NO;
     [popover close];
+    [self highlightMenuItem:nil];
 }
 
 - (void)itemSelected:(NSMenuItem *)menuItem {

@@ -38,4 +38,6 @@ extern NSString *kFeedUpdatedNotification;
 
 - (NSComparisonResult)compareItemByPublishedDate:(FeedItem *)item;
 
+- (NSAttributedString *)attributedStringHighlighted:(BOOL)highlighted;
+
 @end

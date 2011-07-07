@@ -195,4 +195,33 @@ NSDateFormatter *ATOMDateFormatter() {
     return [item.published compare:self.published];
 }
 
+- (NSAttributedString *)attributedStringHighlighted:(BOOL)highlighted {
+
+    NSString *authorSpace = [author stringByAppendingString:@" "];
+    NSString *titleWithoutAuthor = title;
+    
+    if ([titleWithoutAuthor rangeOfString:authorSpace].location == 0)
+        titleWithoutAuthor = [titleWithoutAuthor substringFromIndex:authorSpace.length];
+    
+    titleWithoutAuthor = [titleWithoutAuthor truncatedAfterIndex:40-author.length];
+    
+    NSMutableAttributedString *attributed = [[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@",author,titleWithoutAuthor]] autorelease];
+    
+    NSColor *authorColor = highlighted ? [NSColor selectedMenuItemTextColor] : [NSColor disabledControlTextColor]; 
+    
+    NSDictionary *authorAtts = [NSDictionary dictionaryWithObjectsAndKeys:
+                                [NSFont systemFontOfSize:13.0f],NSFontAttributeName,
+                                authorColor,NSForegroundColorAttributeName,nil];
+    
+    NSDictionary *titleAtts = [NSDictionary dictionaryWithObjectsAndKeys:
+                               [NSFont systemFontOfSize:13.0f],NSFontAttributeName,nil];
+    
+    NSRange authorRange = NSMakeRange(0, author.length);
+    NSRange titleRange = NSMakeRange(author.length+1, titleWithoutAuthor.length);
+    
+    [attributed addAttributes:authorAtts range:authorRange];
+    [attributed addAttributes:titleAtts range:titleRange];
+    return attributed;
+}
+
 @end
