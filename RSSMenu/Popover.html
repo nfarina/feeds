@@ -1,10 +1,45 @@
 <html>
 <head>
     <style>
-        html, body { background: transparent; }
+        html, body {
+            background: transparent;
+        }
+        body {
+            font-family: Helvetica;
+            font-size: 10pt;
+            margin: 10px;
+        }
+        div.title {
+            font-size: 14pt;
+            font-weight: bold;
+        }
+        div.author {
+            color: #777;
+            font-size: 11pt;
+            font-weight: lighter;
+            margin-bottom: 10px;
+        }
+        img {
+            border: 1px solid rgba(0,0,0,0.2);
+        }
     </style>
+    <script>
+        //window.onload = function() {
+            //window.location = "cmd://200";// + document.body.offsetHeight;
+        //}
+    </script>
 </head>
 <body>
-    %@
+    <div id="container">
+        
+        <div class="title">%@</div>
+        <div class="author">%@</div>
+        %@
+        
+    </div>
+    
+    <script>
+        window.location = "cmd://" + (document.getElementById("container").offsetHeight + 20);
+    </script>
 </body>
 </html>

@@ -42,10 +42,13 @@
     if (NSClassFromString(@"NSPopover")) {
         popover = [[NSClassFromString(@"NSPopover") alloc] init];
         [popover setContentViewController:[[[NSViewController alloc] init] autorelease]];
+        [popover setBehavior:NSPopoverBehaviorTransient];
         [popover setAnimates:NO];
         
-        WebView *webView = [[[WebView alloc] initWithFrame:NSMakeRect(0, 0, 415, 500)] autorelease];
+        WebView *webView = [[[WebView alloc] initWithFrame:NSZeroRect] autorelease];
         webView.drawsBackground = NO;
+        webView.policyDelegate = self;
+        webView.autoresizingMask = NSViewWidthSizable|NSViewHeightSizable;
         [popover contentViewController].view = webView;
         
         shimItem = [[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""];
@@ -252,9 +255,11 @@
     
     NSString *templatePath = [[NSBundle mainBundle] pathForResource:@"Popover" ofType:@"html"];
     NSString *template = [NSString stringWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:NULL];
-    NSString *rendered = [NSString stringWithFormat:template, item.content];
+    NSString *rendered = [NSString stringWithFormat:template, item.title, item.author, item.content];
     
+    webView.alphaValue = 0;
     [webView.mainFrame loadHTMLString:rendered baseURL:nil];
+    [popover setContentSize:NSMakeSize(415, 0)];
     
     NSRect frame = shimItem.view.superview.frame;
     
@@ -263,6 +268,27 @@
     
     frame.origin.y += 3 + (19 * (shimIndex-itemIndex-1));
     [popover showRelativeToRect:frame ofView:shimItem.view.superview.superview preferredEdge:NSMinXEdge];
+}
+
+- (void)webView:(WebView *)webView decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id<WebPolicyDecisionListener>)listener {	
+	
+    if ([actionInformation objectForKey:@"WebActionNavigationTypeKey"] != nil) {
+        
+        NSURL *URL = [actionInformation objectForKey:@"WebActionOriginalURLKey"];
+        NSString *URLString = [URL absoluteString];
+        
+		if ([URLString rangeOfString:@"cmd://"].location != NSNotFound) {
+            
+            int height = [[URLString substringFromIndex:6] intValue];
+
+            [popover setContentSize:NSMakeSize(415, height)];
+            webView.alphaValue = 1;
+
+            return;
+        }
+	}
+    
+	[listener use];
 }
 
 - (void)menuDidClose:(NSMenu *)menu {
