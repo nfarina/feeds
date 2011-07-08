@@ -322,6 +322,7 @@
 
             [popover setContentSize:NSMakeSize(POPOVER_WIDTH, height)];
             webView.alphaValue = 1;
+            [webView stringByEvaluatingJavaScriptFromString:@"commandReceived()"];
 
             return;
         }

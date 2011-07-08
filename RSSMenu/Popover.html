@@ -44,8 +44,27 @@
         }
     </style>
     <script>
+        
+        commands = [];
+        executing = false;
+
+        function executeCommand(cmd) {
+            commands.push("cmd://" + cmd);
+            if (!executing) sendNextCommand();
+        }
+        function sendNextCommand() {
+            window.location = commands.shift();
+            executing = true;
+        }
+        function commandReceived() {
+            executing = false;
+            if (commands.length > 0)
+                setTimeout(sendNextCommand,50);
+        }
+
         function adjustHeight() {
-            window.location = "cmd://" + (document.getElementById("container").offsetHeight + 17);
+            executeCommand(document.getElementById("container").offsetHeight + 17);
+            
             document.body.style.overflow = "hidden";
         }
         
@@ -62,6 +81,7 @@
         <div class="content">
             %@
         </div>
+        <div style="clear:both"></div>
         
     </div>
     
