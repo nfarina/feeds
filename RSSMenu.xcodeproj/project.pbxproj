@@ -12,6 +12,7 @@
 		0108CEDD13BB8CB90000ECE1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0108CEDC13BB8CB80000ECE1 /* Security.framework */; };
 		0108CEE013BBA3AC0000ECE1 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 0108CEDF13BBA3AC0000ECE1 /* NSString+Base64.m */; };
 		0117B30613AD27CB0018AB7C /* NSArray+Linqish.m in Sources */ = {isa = PBXBuildFile; fileRef = 0117B30513AD27CB0018AB7C /* NSArray+Linqish.m */; };
+		0125C6CD13C7C8B10006BB1A /* NSView+PrintHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0125C6CC13C7C8B10006BB1A /* NSView+PrintHierarchy.m */; };
 		01518F7E13C54F480043AB98 /* CG+Geometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 01518F7D13C54F480043AB98 /* CG+Geometry.m */; };
 		015D788F13C6394600BCD7C4 /* Popover.html in Resources */ = {isa = PBXBuildFile; fileRef = 015D788E13C6394600BCD7C4 /* Popover.html */; };
 		015D789513C6536400BCD7C4 /* Unread.png in Resources */ = {isa = PBXBuildFile; fileRef = 015D789413C6536400BCD7C4 /* Unread.png */; };
@@ -93,6 +94,8 @@
 		0108CEDF13BBA3AC0000ECE1 /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
 		0117B30413AD27CB0018AB7C /* NSArray+Linqish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Linqish.h"; sourceTree = "<group>"; };
 		0117B30513AD27CB0018AB7C /* NSArray+Linqish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Linqish.m"; sourceTree = "<group>"; };
+		0125C6CB13C7C8B10006BB1A /* NSView+PrintHierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+PrintHierarchy.h"; sourceTree = "<group>"; };
+		0125C6CC13C7C8B10006BB1A /* NSView+PrintHierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+PrintHierarchy.m"; sourceTree = "<group>"; };
 		01518F7C13C54F480043AB98 /* CG+Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CG+Geometry.h"; sourceTree = "<group>"; };
 		01518F7D13C54F480043AB98 /* CG+Geometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CG+Geometry.m"; sourceTree = "<group>"; };
 		015D788E13C6394600BCD7C4 /* Popover.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Popover.html; sourceTree = "<group>"; };
@@ -234,6 +237,8 @@
 				01EB9C3713C4F26E00A9C131 /* RegexKitLite.m */,
 				01518F7C13C54F480043AB98 /* CG+Geometry.h */,
 				01518F7D13C54F480043AB98 /* CG+Geometry.m */,
+				0125C6CB13C7C8B10006BB1A /* NSView+PrintHierarchy.h */,
+				0125C6CC13C7C8B10006BB1A /* NSView+PrintHierarchy.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -549,6 +554,7 @@
 				01B2BE9113C4E9C500304D6A /* NSData+JSONValue.m in Sources */,
 				01EB9C3913C4F26E00A9C131 /* RegexKitLite.m in Sources */,
 				01518F7E13C54F480043AB98 /* CG+Geometry.m in Sources */,
+				0125C6CD13C7C8B10006BB1A /* NSView+PrintHierarchy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

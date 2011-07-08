@@ -15,6 +15,7 @@
 #import "NSString+EntityDecoding.h"
 #import "NSString+Base64.h"
 #import "NSURLRequest+Authorization.h"
+#import "NSView+PrintHierarchy.h"
 #import "NSString+Truncated.h"
 #import "Reachability.h"
 #import "RegexKitLite.h"
