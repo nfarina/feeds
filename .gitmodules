@@ -4,6 +4,3 @@
 [submodule "WebRequest"]
 	path = WebRequest
 	url = git@github.com:nfarina/webrequest.git
-[submodule "Chameleon"]
-	path = Chameleon
-	url = https://github.com/BigZaphod/Chameleon.git
