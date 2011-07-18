@@ -195,7 +195,7 @@ NSDateFormatter *ATOMDateFormatter() {
 
 - (BOOL)isEqual:(FeedItem *)other {
     if ([other isKindOfClass:[FeedItem class]]) {
-        return [link isEqual:other.link] && [updated isEqual:other.updated];
+        return [link isEqual:other.link];// && [updated isEqual:other.updated]; // ignore updated, it creates too many false positives
     }
     else return NO;
 }

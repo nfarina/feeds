@@ -231,6 +231,10 @@
 
 - (void)highlightMenuItem:(NSMenuItem *)menuItem {
     
+//    NSWindow *window = [NSApplication sharedApplication].keyWindow;
+//    NSView *firstResponder = (NSView *)window.firstResponder;
+//    NSLog(@"Window: %@ first responder %@ frame %@", window, firstResponder, NSStringFromRect(firstResponder.frame));
+    
     if (lastHighlightedItem) {
         FeedItem *lastItem = [allItems objectAtIndex:lastHighlightedItem.tag-1];
         lastHighlightedItem.attributedTitle = [lastItem attributedStringHighlighted:NO];
