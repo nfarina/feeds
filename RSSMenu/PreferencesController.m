@@ -12,6 +12,7 @@
 - (void)awakeFromNib {
     [toolbar setSelectedItemIdentifier:@"general"];
     [self selectGeneralTab:nil];
+    [self tableViewSelectionDidChange:nil];
 }
 
 - (void)dealloc {
@@ -29,9 +30,11 @@
 
     [self.window makeKeyAndOrderFront:self];
 
-#if DEBUG
+    [toolbar setSelectedItemIdentifier:@"accounts"];
     [self selectAccountsTab:nil];
-    [self addAccount:nil];
+#if DEBUG
+//    [self selectAccountsTab:nil];
+//    [self addAccount:nil];
 #else
     [self.window setLevel: NSTornOffMenuWindowLevel]; // a.k.a. "Always On Top"
 #endif

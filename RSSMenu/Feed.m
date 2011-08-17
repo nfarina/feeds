@@ -99,13 +99,22 @@ NSDateFormatter *ATOMDateFormatter() {
             [items addObject:[FeedItem itemWithATOMEntryElement:itemXml formatter:formatter]];
 
     }
-    else NSLog(@"Unknown feed root element: <%@>", document.root.name);
+    else {
+        NSLog(@"Unknown feed root element: <%@>", document.root.name);
+        return nil;
+    }
     
     return items;
 }
 
 - (void)refreshComplete:(NSArray *)newItems {
 
+    if (!newItems) {
+        // problem refreshing the feed!
+        // TODO: something
+        return;
+    }
+    
     // if we have existing items, merge the new ones in
     if (items) {
         NSMutableArray *merged = [NSMutableArray array];

@@ -468,6 +468,7 @@
 		01937C7513A03F5000BCE1D4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "Spotlight Mobile";
 			};
 			buildConfigurationList = 01937C7813A03F5000BCE1D4 /* Build configuration list for PBXProject "RSSMenu" */;

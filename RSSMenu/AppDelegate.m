@@ -76,7 +76,7 @@
     [self reachabilityChanged];
     
 #if DEBUG
-//    [self openPreferences:nil];
+    [self openPreferences:nil];
 #endif
 
     [self accountsChanged:nil];
