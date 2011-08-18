@@ -44,6 +44,7 @@
 		01B2BE8D13C4E89D00304D6A /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE8613C4E89D00304D6A /* SBJsonParser.m */; };
 		01B2BE8E13C4E89D00304D6A /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE8813C4E89D00304D6A /* SBJsonWriter.m */; };
 		01B2BE9113C4E9C500304D6A /* NSData+JSONValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE9013C4E9C400304D6A /* NSData+JSONValue.m */; };
+		01B7FBE313FDB60200ACC29B /* ApplicationIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 01B7FBE213FDB60200ACC29B /* ApplicationIcon.icns */; };
 		01C359B113C4B6C400D803BD /* HighriseAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C359B013C4B6C400D803BD /* HighriseAccount.m */; };
 		01C4F93513C597C000DB0CCB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C4F93213C597AC00DB0CCB /* WebKit.framework */; };
 		01D4A3BC13C434B400CE07CC /* NSURLRequest+Authorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D4A3BB13C434B400CE07CC /* NSURLRequest+Authorization.m */; };
@@ -149,6 +150,7 @@
 		01B2BE8813C4E89D00304D6A /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		01B2BE8F13C4E9C400304D6A /* NSData+JSONValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+JSONValue.h"; sourceTree = "<group>"; };
 		01B2BE9013C4E9C400304D6A /* NSData+JSONValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+JSONValue.m"; sourceTree = "<group>"; };
+		01B7FBE213FDB60200ACC29B /* ApplicationIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ApplicationIcon.icns; sourceTree = "<group>"; };
 		01C359AF13C4B6C400D803BD /* HighriseAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighriseAccount.h; sourceTree = "<group>"; };
 		01C359B013C4B6C400D803BD /* HighriseAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighriseAccount.m; sourceTree = "<group>"; };
 		01C4F93213C597AC00DB0CCB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -257,6 +259,7 @@
 		01937C7313A03F5000BCE1D4 = {
 			isa = PBXGroup;
 			children = (
+				01B7FBE213FDB60200ACC29B /* ApplicationIcon.icns */,
 				01937C8813A03F5000BCE1D4 /* Feeds */,
 				01937CB213A05A5100BCE1D4 /* Libraries */,
 				01937C8113A03F5000BCE1D4 /* Frameworks */,
@@ -516,6 +519,7 @@
 				015D78A513C6753500BCD7C4 /* Dribbble.png in Resources */,
 				015D78A613C6753500BCD7C4 /* Highrise.png in Resources */,
 				015D78A713C6753500BCD7C4 /* Github.png in Resources */,
+				01B7FBE313FDB60200ACC29B /* ApplicationIcon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,6 +616,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -619,6 +624,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 			};
 			name = Release;

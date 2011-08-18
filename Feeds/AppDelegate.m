@@ -29,8 +29,8 @@
 
     // show the dock icon immediately if necessary
 #if DEBUG
-//    ProcessSerialNumber psn = { 0, kCurrentProcess }; 
-//    TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+    ProcessSerialNumber psn = { 0, kCurrentProcess }; 
+    TransformProcessType(&psn, kProcessTransformToForegroundApplication);
 #endif
 
     [GrowlApplicationBridge setGrowlDelegate:self];
