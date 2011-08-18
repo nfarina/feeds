@@ -174,7 +174,7 @@ NSString* NSStringFromCharacterCode(int code)
 		}
 	}
 	
-	return [flat stringByDecodingCharacterEntities];
+	return [[flat stringByDecodingCharacterEntities] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
 @end
