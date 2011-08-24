@@ -28,7 +28,10 @@
 
 - (void)privateFeedRequestError:(NSError *)error {
     NSLog(@"Error! %@", error);
-    [self.delegate account:self validationDidFailWithMessage:@"Could not log in to the given Github account. Please check your username and password." field:0];
+    if (error.code == 401)
+        [self.delegate account:self validationDidFailWithMessage:@"Could not log in to the given Github account. Please check your username and password." field:0];
+    else
+        [self.delegate account:self validationDidFailWithMessage:error.localizedDescription field:AccountFailingFieldUnknown];
 }
 
 - (void)tokenRequestComplete:(NSData *)data password:(NSString *)password {

@@ -26,7 +26,10 @@
 
 - (void)meRequestError:(NSError *)error {
     NSLog(@"Error! %@", error);
-    [self.delegate account:self validationDidFailWithMessage:@"Could not find the given Dribbble username." field:AccountFailingFieldUsername];
+    if (error.code == 404)
+        [self.delegate account:self validationDidFailWithMessage:@"Could not find the given Dribbble username." field:AccountFailingFieldUsername];
+    else
+        [self.delegate account:self validationDidFailWithMessage:error.localizedDescription field:AccountFailingFieldUnknown];
 }
 
 @end
