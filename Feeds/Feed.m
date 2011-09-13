@@ -37,7 +37,7 @@ NSDateFormatter *ATOMDateFormatter() {
 
 - (void)setRequest:(SMWebRequest *)value {
     [request removeTarget:self];
-    request = [value retain];
+    [request release], request = [value retain];
 }
 
 + (Feed *)feedWithURLString:(NSString *)URLString account:(Account *)account {
@@ -151,10 +151,10 @@ NSDateFormatter *ATOMDateFormatter() {
 @end
 
 @implementation FeedItem
-@synthesize title, author, content, strippedContent, link, comments, published, updated, notified, viewed, feed;
+@synthesize title, author, content, link, comments, published, updated, notified, viewed, feed;
 
 - (void)dealloc {
-    self.title = self.author = self.content = self.strippedContent = nil;
+    self.title = self.author = self.content = nil;
     self.link = self.comments = nil;
     self.published = self.updated = nil;
     self.feed = nil;
@@ -166,7 +166,6 @@ NSDateFormatter *ATOMDateFormatter() {
     item.title = [element childNamed:@"title"].value;
     item.author = [element childNamed:@"author"].value;
     item.content = [element childNamed:@"description"].value;
-    item.strippedContent = [[item.content stringByFlatteningHTML] stringByCondensingSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     if ([element childNamed:@"link"])
         item.link = [NSURL URLWithString:[element childNamed:@"link"].value];
@@ -189,7 +188,6 @@ NSDateFormatter *ATOMDateFormatter() {
     item.title = [element childNamed:@"title"].value;
     item.author = [element valueWithPath:@"author.name"];
     item.content = [element childNamed:@"content"].value;
-    item.strippedContent = [[item.content stringByFlatteningHTML] stringByCondensingSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     NSString *linkHref = [[element childNamed:@"link"] attributeNamed:@"href"];
     
@@ -204,7 +202,12 @@ NSDateFormatter *ATOMDateFormatter() {
 
 - (BOOL)isEqual:(FeedItem *)other {
     if ([other isKindOfClass:[FeedItem class]]) {
-        return [link isEqual:other.link];// && [updated isEqual:other.updated]; // ignore updated, it creates too many false positives
+        // order is important - content comes last because it's expensive to compare but typically it'll short-circuit before getting there.
+        return [link isEqual:other.link]
+            && [title isEqual:other.title]
+            && [author isEqual:other.author]
+            && [content isEqual:other.content];
+         // && [updated isEqual:other.updated]; // ignore updated, it creates too many false positives
     }
     else return NO;
 }

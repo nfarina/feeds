@@ -84,12 +84,12 @@
 
 - (void)setRefreshTimer:(NSTimer *)value {
     [refreshTimer invalidate];
-    refreshTimer = [value retain];
+    [refreshTimer release], refreshTimer = [value retain];
 }
 
 - (void)setPopoverTimer:(NSTimer *)value {
     [popoverTimer invalidate];
-    popoverTimer = [value retain];
+    [popoverTimer release], popoverTimer = [value retain];
 }
 
 - (NSArray *)allFeeds {

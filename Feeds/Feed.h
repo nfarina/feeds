@@ -32,7 +32,7 @@ extern NSString *kFeedUpdatedNotification;
     BOOL notified, viewed;
     Feed *feed; // not retained
 }
-@property (nonatomic, copy) NSString *title, *author, *content, *strippedContent;
+@property (nonatomic, copy) NSString *title, *author, *content;
 @property (nonatomic, retain) NSURL *link, *comments;
 @property (nonatomic, retain) NSDate *published, *updated;
 @property (nonatomic, assign) BOOL notified, viewed;
