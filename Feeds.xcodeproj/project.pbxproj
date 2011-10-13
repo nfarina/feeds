@@ -20,6 +20,7 @@
 		015D78A513C6753500BCD7C4 /* Dribbble.png in Resources */ = {isa = PBXBuildFile; fileRef = 015D78A213C6753500BCD7C4 /* Dribbble.png */; };
 		015D78A613C6753500BCD7C4 /* Highrise.png in Resources */ = {isa = PBXBuildFile; fileRef = 015D78A313C6753500BCD7C4 /* Highrise.png */; };
 		015D78A713C6753500BCD7C4 /* Github.png in Resources */ = {isa = PBXBuildFile; fileRef = 015D78A413C6753500BCD7C4 /* Github.png */; };
+		015E0ED814475D2E000A611D /* AccountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 015E0ED714475D2E000A611D /* AccountCell.m */; };
 		01937C8313A03F5000BCE1D4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01937C8213A03F5000BCE1D4 /* Cocoa.framework */; };
 		01937C8D13A03F5000BCE1D4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01937C8B13A03F5000BCE1D4 /* InfoPlist.strings */; };
 		01937C9013A03F5000BCE1D4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937C8F13A03F5000BCE1D4 /* main.m */; };
@@ -105,6 +106,8 @@
 		015D78A213C6753500BCD7C4 /* Dribbble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dribbble.png; sourceTree = "<group>"; };
 		015D78A313C6753500BCD7C4 /* Highrise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Highrise.png; sourceTree = "<group>"; };
 		015D78A413C6753500BCD7C4 /* Github.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Github.png; sourceTree = "<group>"; };
+		015E0ED614475D2E000A611D /* AccountCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountCell.h; sourceTree = "<group>"; };
+		015E0ED714475D2E000A611D /* AccountCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountCell.m; sourceTree = "<group>"; };
 		01937C7E13A03F5000BCE1D4 /* Feeds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Feeds.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01937C8213A03F5000BCE1D4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		01937C8513A03F5000BCE1D4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -440,6 +443,8 @@
 			children = (
 				01F5D6C613B3B89600EA479D /* StatusItemView.h */,
 				01F5D6C513B3B89600EA479D /* StatusItemView.m */,
+				015E0ED614475D2E000A611D /* AccountCell.h */,
+				015E0ED714475D2E000A611D /* AccountCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -560,6 +565,7 @@
 				01EB9C3913C4F26E00A9C131 /* RegexKitLite.m in Sources */,
 				01518F7E13C54F480043AB98 /* CG+Geometry.m in Sources */,
 				0125C6CD13C7C8B10006BB1A /* NSView+PrintHierarchy.m in Sources */,
+				015E0ED814475D2E000A611D /* AccountCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
