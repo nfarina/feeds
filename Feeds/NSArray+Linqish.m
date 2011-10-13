@@ -6,6 +6,41 @@
 	return [self count] ? [self objectAtIndex:0] : nil;
 }
 
+#if NS_BLOCKS_AVAILABLE
+
+- (NSArray *)selectUsingBlock:(id (^)(id obj))block {
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.count];
+	
+	for (id obj in self) {
+        id result = block(obj);
+		if (result) [array addObject:result];
+	}
+	
+	return array;
+}
+
+- (id)aggregateUsingBlock:(id (^)(id accumulator, id obj))block {
+    
+    id result = nil;
+	
+	NSEnumerator *enumerator = [self objectEnumerator];
+	id firstObject = [enumerator nextObject];
+	
+	if (firstObject) {
+		result = firstObject;
+		id secondObject;
+		
+		while (secondObject = [enumerator nextObject])
+			result = block(result, secondObject);
+	}
+	
+	return result;
+}
+
+#endif
+
+#if !__has_feature(objc_arc)
+
 - (NSArray *)collect:(SEL)selector on:(id)target {
 	return [self collect:selector on:target secondArgument:nil];
 }
@@ -34,6 +69,8 @@
 	
 	return array;
 }
+
+#endif
 
 - (NSDictionary *)indexedWithKey:(NSString *)key {
 	NSMutableDictionary *indexed = [NSMutableDictionary dictionary];

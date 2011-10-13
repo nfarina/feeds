@@ -64,7 +64,7 @@
 - (void)orgRequestComplete:(NSData *)data token:(NSString *)token {
 
     // Sample result: {"organizations":[{"gravatar_id":"a0c3a0214c5f9a5701e892255fb3d87f","type":"Organization","login":"spotlightmobile"}]}
-    NSDictionary *dict = [data JSONValue];
+    NSDictionary *dict = [data objectFromJSONData];
     NSArray *orgs = [dict objectForKey:@"organizations"];
     
     NSString *mainFeedString = [NSString stringWithFormat:@"https://github.com/%@.private.atom?token=%@", username, token];

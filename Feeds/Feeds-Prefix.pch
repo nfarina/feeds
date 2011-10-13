@@ -6,8 +6,7 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 #import "SMWebRequest.h"
 #import "SMXMLDocument.h"
-#import "JSON.h"
-#import "NSData+JSONValue.h"
+#import "JSONKit.h"
 #import "NSArray+Linqish.h"
 #import "NSString+EntityDecoding.h"
 #import "NSString+Base64.h"

@@ -22,7 +22,7 @@ static NSMutableArray *allAccounts = nil;
     if (!allAccounts) {
         // initial load
         NSArray *accountDicts = [[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"];
-        NSArray *accounts = [accountDicts collect:@selector(accountWithDictionary:) on:[Account class]];
+        NSArray *accounts = [accountDicts selectUsingBlock:^id(NSDictionary *dict) { return [Account accountWithDictionary:dict]; }];
         allAccounts = [accounts mutableCopy]; // retained
     }
     
@@ -62,7 +62,7 @@ static NSMutableArray *allAccounts = nil;
     [super init];
     self.domain = [dict objectForKey:@"domain"];
     self.username = [dict objectForKey:@"username"];
-    self.feeds = [[dict objectForKey:@"feeds"] collect:@selector(feedWithDictionary:account:) on:[Feed class] secondArgument:self];
+    self.feeds = [[dict objectForKey:@"feeds"] selectUsingBlock:^id(NSDictionary *dict) { return [Feed feedWithDictionary:dict account:self]; }];
     return self;
 }
 
