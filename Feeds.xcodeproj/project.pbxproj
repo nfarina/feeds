@@ -150,7 +150,7 @@
 		01B2BE8813C4E89D00304D6A /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		01B2BE8F13C4E9C400304D6A /* NSData+JSONValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+JSONValue.h"; sourceTree = "<group>"; };
 		01B2BE9013C4E9C400304D6A /* NSData+JSONValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+JSONValue.m"; sourceTree = "<group>"; };
-		01B7FBE213FDB60200ACC29B /* ApplicationIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ApplicationIcon.icns; sourceTree = "<group>"; };
+		01B7FBE213FDB60200ACC29B /* ApplicationIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = ApplicationIcon.icns; path = ../ApplicationIcon.icns; sourceTree = "<group>"; };
 		01C359AF13C4B6C400D803BD /* HighriseAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighriseAccount.h; sourceTree = "<group>"; };
 		01C359B013C4B6C400D803BD /* HighriseAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighriseAccount.m; sourceTree = "<group>"; };
 		01C4F93213C597AC00DB0CCB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -259,7 +259,6 @@
 		01937C7313A03F5000BCE1D4 = {
 			isa = PBXGroup;
 			children = (
-				01B7FBE213FDB60200ACC29B /* ApplicationIcon.icns */,
 				01937C8813A03F5000BCE1D4 /* Feeds */,
 				01937CB213A05A5100BCE1D4 /* Libraries */,
 				01937C8113A03F5000BCE1D4 /* Frameworks */,
@@ -329,6 +328,7 @@
 				01937C8F13A03F5000BCE1D4 /* main.m */,
 				01937C9113A03F5000BCE1D4 /* Credits.rtf */,
 				015D788E13C6394600BCD7C4 /* Popover.html */,
+				01B7FBE213FDB60200ACC29B /* ApplicationIcon.icns */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
