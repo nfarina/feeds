@@ -30,8 +30,6 @@
 
     [self.window makeKeyAndOrderFront:self];
 
-    [toolbar setSelectedItemIdentifier:@"accounts"];
-    [self selectAccountsTab:nil];
 #if DEBUG
 //    [self selectAccountsTab:nil];
 //    [self addAccount:nil];
@@ -56,7 +54,7 @@
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     Account *account = [[Account allAccounts] objectAtIndex:row];
-    return account.type;
+    return [NSDictionary dictionaryWithObjectsAndKeys:account.type, @"type", account.username, @"username", nil];
 }
 
 - (IBAction)addAccount:(id)sender {

@@ -36,6 +36,10 @@
 		01937CC113A08AC200BCE1D4 /* dribbble.xml in Resources */ = {isa = PBXBuildFile; fileRef = 01937CC013A08AC200BCE1D4 /* dribbble.xml */; };
 		01937CC313A08ACE00BCE1D4 /* github.xml in Resources */ = {isa = PBXBuildFile; fileRef = 01937CC213A08ACE00BCE1D4 /* github.xml */; };
 		01AD75C413C3F8010092E790 /* AlertCautionIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 01AD75C313C3F8010092E790 /* AlertCautionIcon.png */; };
+		01B0AE801448C5940020AF67 /* GithubAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 01B0AE7F1448C5940020AF67 /* GithubAccount.png */; };
+		01B0AE831448C94A0020AF67 /* BasecampAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 01B0AE821448C94A0020AF67 /* BasecampAccount.png */; };
+		01B0AE851448CACD0020AF67 /* HighriseAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 01B0AE841448CACD0020AF67 /* HighriseAccount.png */; };
+		01B0AE871448CC310020AF67 /* DribbbleAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 01B0AE861448CC310020AF67 /* DribbbleAccount.png */; };
 		01B2BE7313C4BBE900304D6A /* NSString+Truncated.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE7213C4BBE900304D6A /* NSString+Truncated.m */; };
 		01B2BE7713C4C39B00304D6A /* DribbbleAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE7613C4C39B00304D6A /* DribbbleAccount.m */; };
 		01B2BE7A13C4E76400304D6A /* GithubAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE7913C4E76400304D6A /* GithubAccount.m */; };
@@ -128,6 +132,10 @@
 		01937CC013A08AC200BCE1D4 /* dribbble.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = dribbble.xml; sourceTree = "<group>"; };
 		01937CC213A08ACE00BCE1D4 /* github.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = github.xml; sourceTree = "<group>"; };
 		01AD75C313C3F8010092E790 /* AlertCautionIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AlertCautionIcon.png; sourceTree = "<group>"; };
+		01B0AE7F1448C5940020AF67 /* GithubAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GithubAccount.png; sourceTree = "<group>"; };
+		01B0AE821448C94A0020AF67 /* BasecampAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BasecampAccount.png; sourceTree = "<group>"; };
+		01B0AE841448CACD0020AF67 /* HighriseAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HighriseAccount.png; sourceTree = "<group>"; };
+		01B0AE861448CC310020AF67 /* DribbbleAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DribbbleAccount.png; sourceTree = "<group>"; };
 		01B2BE7113C4BBE900304D6A /* NSString+Truncated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Truncated.h"; sourceTree = "<group>"; };
 		01B2BE7213C4BBE900304D6A /* NSString+Truncated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Truncated.m"; sourceTree = "<group>"; };
 		01B2BE7513C4C39A00304D6A /* DribbbleAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DribbbleAccount.h; sourceTree = "<group>"; };
@@ -231,9 +239,13 @@
 			isa = PBXGroup;
 			children = (
 				015D78A013C6747100BCD7C4 /* Basecamp.png */,
+				01B0AE821448C94A0020AF67 /* BasecampAccount.png */,
 				015D78A213C6753500BCD7C4 /* Dribbble.png */,
+				01B0AE861448CC310020AF67 /* DribbbleAccount.png */,
 				015D78A313C6753500BCD7C4 /* Highrise.png */,
+				01B0AE841448CACD0020AF67 /* HighriseAccount.png */,
 				015D78A413C6753500BCD7C4 /* Github.png */,
+				01B0AE7F1448C5940020AF67 /* GithubAccount.png */,
 			);
 			name = "Service Icons";
 			sourceTree = "<group>";
@@ -493,6 +505,10 @@
 				015D78A613C6753500BCD7C4 /* Highrise.png in Resources */,
 				015D78A713C6753500BCD7C4 /* Github.png in Resources */,
 				01B7FBE313FDB60200ACC29B /* ApplicationIcon.icns in Resources */,
+				01B0AE801448C5940020AF67 /* GithubAccount.png in Resources */,
+				01B0AE831448C94A0020AF67 /* BasecampAccount.png in Resources */,
+				01B0AE851448CACD0020AF67 /* HighriseAccount.png in Resources */,
+				01B0AE871448CC310020AF67 /* DribbbleAccount.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
