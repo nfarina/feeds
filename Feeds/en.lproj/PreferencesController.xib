@@ -86,7 +86,7 @@
 							<bool key="NSToolbarIsUserRemovable">YES</bool>
 							<int key="NSToolbarItemVisibilityPriority">0</int>
 						</object>
-						<object class="NSToolbarItem" key="C0B40A30-2ABA-4FAE-9F99-2C03F26D3386" id="117190150">
+						<object class="NSToolbarItem" key="C0B40A30-2ABA-4FAE-9F99-2C03F26D3386" id="663795266">
 							<object class="NSMutableString" key="NSToolbarItemIdentifier">
 								<characters key="NS.bytes">C0B40A30-2ABA-4FAE-9F99-2C03F26D3386</characters>
 							</object>
@@ -110,11 +110,11 @@
 						</object>
 					</dictionary>
 					<array class="NSMutableArray" key="NSToolbarIBAllowedItems">
-						<reference ref="117190150"/>
+						<reference ref="663795266"/>
 						<reference ref="84823086"/>
 					</array>
 					<array key="NSToolbarIBDefaultItems">
-						<reference ref="117190150"/>
+						<reference ref="663795266"/>
 						<reference ref="84823086"/>
 					</array>
 					<array key="NSToolbarIBSelectableItems" id="0"/>
@@ -198,7 +198,7 @@
 																			<int key="NSCellFlags">75628096</int>
 																			<int key="NSCellFlags2">2048</int>
 																			<string key="NSContents">Accounts</string>
-																			<object class="NSFont" key="NSSupport">
+																			<object class="NSFont" key="NSSupport" id="26">
 																				<string key="NSName">LucidaGrande</string>
 																				<double key="NSSize">11</double>
 																				<int key="NSfFlags">3100</int>
@@ -361,7 +361,7 @@
 												<string key="NSFrame">{{42, 84}, {23, 22}}</string>
 												<reference key="NSSuperview" ref="224754683"/>
 												<reference key="NSWindow"/>
-												<reference key="NSNextKeyView"/>
+												<reference key="NSNextKeyView" ref="482130865"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="588054535">
 													<int key="NSCellFlags">-1543373312</int>
@@ -380,6 +380,40 @@
 													<int key="NSPeriodicDelay">400</int>
 													<int key="NSPeriodicInterval">75</int>
 												</object>
+											</object>
+											<object class="NSTabView" id="482130865">
+												<reference key="NSNextResponder" ref="224754683"/>
+												<int key="NSvFlags">18</int>
+												<string key="NSFrame">{{164, 103}, {325, 288}}</string>
+												<reference key="NSSuperview" ref="224754683"/>
+												<reference key="NSWindow"/>
+												<reference key="NSNextKeyView" ref="254522109"/>
+												<string key="NSReuseIdentifierKey">_NS:608</string>
+												<array class="NSMutableArray" key="NSTabViewItems">
+													<object class="NSTabViewItem" id="147752227">
+														<string key="NSIdentifier">1</string>
+														<object class="NSView" key="NSView" id="254522109">
+															<reference key="NSNextResponder" ref="482130865"/>
+															<int key="NSvFlags">256</int>
+															<string key="NSFrame">{{10, 25}, {305, 250}}</string>
+															<reference key="NSSuperview" ref="482130865"/>
+															<reference key="NSWindow"/>
+															<reference key="NSNextKeyView"/>
+															<string key="NSReuseIdentifierKey">_NS:610</string>
+														</object>
+														<string key="NSLabel">Account Information</string>
+														<reference key="NSColor" ref="657908323"/>
+														<reference key="NSTabView" ref="482130865"/>
+													</object>
+												</array>
+												<reference key="NSSelectedTabViewItem" ref="147752227"/>
+												<reference key="NSFont" ref="26"/>
+												<int key="NSTvFlags">134217728</int>
+												<bool key="NSAllowTruncatedLabels">YES</bool>
+												<bool key="NSDrawsBackground">YES</bool>
+												<array class="NSMutableArray" key="NSSubviews">
+													<reference ref="254522109"/>
+												</array>
 											</object>
 										</array>
 										<string key="NSFrameSize">{556, 405}</string>
@@ -484,7 +518,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">selectGeneralTab:</string>
 						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="117190150"/>
+						<reference key="destination" ref="663795266"/>
 					</object>
 					<int key="connectionID">88</int>
 				</object>
@@ -597,6 +631,7 @@
 							<reference ref="41187912"/>
 							<reference ref="1043896946"/>
 							<reference ref="202991618"/>
+							<reference ref="482130865"/>
 						</array>
 						<reference key="parent" ref="1001598873"/>
 					</object>
@@ -697,7 +732,7 @@
 						<reference key="object" ref="424524473"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="84823086"/>
-							<reference ref="117190150"/>
+							<reference ref="663795266"/>
 						</array>
 						<reference key="parent" ref="623932742"/>
 					</object>
@@ -708,8 +743,29 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">86</int>
-						<reference key="object" ref="117190150"/>
+						<reference key="object" ref="663795266"/>
 						<reference key="parent" ref="424524473"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">89</int>
+						<reference key="object" ref="482130865"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="147752227"/>
+						</array>
+						<reference key="parent" ref="224754683"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">90</int>
+						<reference key="object" ref="147752227"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="254522109"/>
+						</array>
+						<reference key="parent" ref="482130865"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">93</int>
+						<reference key="object" ref="254522109"/>
+						<reference key="parent" ref="147752227"/>
 					</object>
 				</array>
 			</object>
@@ -747,12 +803,15 @@
 				<string key="86.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="86.designableToolbarItemIdentifier">general</string>
 				<boolean value="YES" key="86.toolbarItem.selectable"/>
+				<string key="89.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="90.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="93.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">88</int>
+			<int key="maxID">93</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
