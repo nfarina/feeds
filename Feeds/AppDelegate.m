@@ -72,7 +72,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged) name:kReachabilityChangedNotification object:nil];
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openMenuHotkeyPressed) name:kHotKeyManagerOpenMenuNotification object:nil];
     
-    [self reachabilityChanged];
+//    [self reachabilityChanged];
     
 #if DEBUG
     [self openPreferences:nil];

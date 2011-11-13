@@ -31,9 +31,9 @@
     [self.window makeKeyAndOrderFront:self];
 
 #if DEBUG
-    [toolbar setSelectedItemIdentifier:@"accounts"];
-    [self selectAccountsTab:nil];
-    [self addAccount:nil];
+//    [toolbar setSelectedItemIdentifier:@"accounts"];
+//    [self selectAccountsTab:nil];
+//    [self addAccount:nil];
 #else
     [self.window setLevel: NSTornOffMenuWindowLevel]; // a.k.a. "Always On Top"
 #endif
@@ -45,6 +45,12 @@
 
 - (IBAction)selectAccountsTab:(id)sender {
     [tabView selectTabViewItemWithIdentifier:@"accounts"];
+}
+
+#pragma mark General
+
+- (void)shortcutRecorder:(SRRecorderControl *)aRecorder keyComboDidChange:(KeyCombo)newKeyCombo {
+    NSLog(@"CHANGE OMG");
 }
 
 #pragma mark Accounts

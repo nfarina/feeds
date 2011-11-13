@@ -42,6 +42,8 @@
 		019EE0E81470278300B67B74 /* HighriseNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 019EE0E71470278300B67B74 /* HighriseNotify.png */; };
 		019EE0EA147027E200B67B74 /* DribbbleNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 019EE0E9147027E200B67B74 /* DribbbleNotify.png */; };
 		019EE0EC14702FEE00B67B74 /* GithubNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 019EE0EB14702FEE00B67B74 /* GithubNotify.png */; };
+		019EE0EE147034E400B67B74 /* ShortcutRecorder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 019EE0ED147034E400B67B74 /* ShortcutRecorder.framework */; };
+		019EE0EF147034FD00B67B74 /* ShortcutRecorder.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 019EE0ED147034E400B67B74 /* ShortcutRecorder.framework */; };
 		01AD75C413C3F8010092E790 /* AlertCautionIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 01AD75C313C3F8010092E790 /* AlertCautionIcon.png */; };
 		01B0AE801448C5940020AF67 /* GithubAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 01B0AE7F1448C5940020AF67 /* GithubAccount.png */; };
 		01B0AE831448C94A0020AF67 /* BasecampAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 01B0AE821448C94A0020AF67 /* BasecampAccount.png */; };
@@ -83,6 +85,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				019EE0E41470248600B67B74 /* Growl.framework in Copy Frameworks */,
+				019EE0EF147034FD00B67B74 /* ShortcutRecorder.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,6 +146,7 @@
 		019EE0E71470278300B67B74 /* HighriseNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HighriseNotify.png; sourceTree = "<group>"; };
 		019EE0E9147027E200B67B74 /* DribbbleNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DribbbleNotify.png; sourceTree = "<group>"; };
 		019EE0EB14702FEE00B67B74 /* GithubNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GithubNotify.png; sourceTree = "<group>"; };
+		019EE0ED147034E400B67B74 /* ShortcutRecorder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShortcutRecorder.framework; sourceTree = "<group>"; };
 		01AD75C313C3F8010092E790 /* AlertCautionIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AlertCautionIcon.png; sourceTree = "<group>"; };
 		01B0AE7F1448C5940020AF67 /* GithubAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GithubAccount.png; sourceTree = "<group>"; };
 		01B0AE821448C94A0020AF67 /* BasecampAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BasecampAccount.png; sourceTree = "<group>"; };
@@ -200,6 +204,7 @@
 				01F616E813AE504000EBB24E /* SystemConfiguration.framework in Frameworks */,
 				01D7CB8013AFDFCD001B133A /* Carbon.framework in Frameworks */,
 				019EE0C314701FA500B67B74 /* Growl.framework in Frameworks */,
+				019EE0EE147034E400B67B74 /* ShortcutRecorder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +291,7 @@
 		01937C8113A03F5000BCE1D4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				019EE0ED147034E400B67B74 /* ShortcutRecorder.framework */,
 				019EE0C214701FA500B67B74 /* Growl.framework */,
 				01C4F93213C597AC00DB0CCB /* WebKit.framework */,
 				01EB9C3B13C4F35A00A9C131 /* libicucore.dylib */,
