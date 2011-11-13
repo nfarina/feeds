@@ -56,7 +56,6 @@
 		01C359B113C4B6C400D803BD /* HighriseAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C359B013C4B6C400D803BD /* HighriseAccount.m */; };
 		01C4F93513C597C000DB0CCB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C4F93213C597AC00DB0CCB /* WebKit.framework */; };
 		01D4A3BC13C434B400CE07CC /* NSURLRequest+Authorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D4A3BB13C434B400CE07CC /* NSURLRequest+Authorization.m */; };
-		01D7CB7613AFDE7F001B133A /* HotKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D7CB7413AFDE7F001B133A /* HotKeys.m */; };
 		01D7CB8013AFDFCD001B133A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01D7CB7E13AFDFBE001B133A /* Carbon.framework */; };
 		01D7CB8C13B02F4A001B133A /* NewAccountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D7CB8B13B02F4A001B133A /* NewAccountController.m */; };
 		01D7CB8E13B02F62001B133A /* NewAccountController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D7CB8D13B02F62001B133A /* NewAccountController.xib */; };
@@ -164,8 +163,6 @@
 		01C4F93213C597AC00DB0CCB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		01D4A3BA13C434B400CE07CC /* NSURLRequest+Authorization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+Authorization.h"; sourceTree = "<group>"; };
 		01D4A3BB13C434B400CE07CC /* NSURLRequest+Authorization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+Authorization.m"; sourceTree = "<group>"; };
-		01D7CB7413AFDE7F001B133A /* HotKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotKeys.m; sourceTree = "<group>"; };
-		01D7CB7513AFDE7F001B133A /* HotKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotKeys.h; sourceTree = "<group>"; };
 		01D7CB7E13AFDFBE001B133A /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		01D7CB8A13B02F4A001B133A /* NewAccountController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAccountController.h; sourceTree = "<group>"; };
 		01D7CB8B13B02F4A001B133A /* NewAccountController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAccountController.m; sourceTree = "<group>"; };
@@ -323,8 +320,6 @@
 				01D7CB8213B02C92001B133A /* Model */,
 				01D7CB9213B104DA001B133A /* Views */,
 				01D7CB8113B02C74001B133A /* Controllers */,
-				01D7CB7513AFDE7F001B133A /* HotKeys.h */,
-				01D7CB7413AFDE7F001B133A /* HotKeys.m */,
 				0117B30313AD27640018AB7C /* Helpers */,
 				01937C8913A03F5000BCE1D4 /* Supporting Files */,
 			);
@@ -564,7 +559,6 @@
 				01F616B713AD502300EBB24E /* NSString+EntityDecoding.m in Sources */,
 				01F616E613AE4F8D00EBB24E /* Reachability.m in Sources */,
 				01F616F213AEAA2700EBB24E /* PreferencesController.m in Sources */,
-				01D7CB7613AFDE7F001B133A /* HotKeys.m in Sources */,
 				01D7CB8C13B02F4A001B133A /* NewAccountController.m in Sources */,
 				01F5D6C713B3B89600EA479D /* StatusItemView.m in Sources */,
 				0108CED013BB1B4F0000ECE1 /* Account.m in Sources */,

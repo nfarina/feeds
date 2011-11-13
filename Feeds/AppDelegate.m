@@ -15,6 +15,7 @@
 - (void)highlightMenuItem:(NSMenuItem *)menuItem;
 - (void)showPopoverForMenuItem:(NSMenuItem *)menuItem;
 - (void)accountsChanged:(NSNotification *)notification;
+- (void)hotKeysChanged;
 - (void)reachabilityChanged;
 - (void)refreshFeeds;
 - (void)openBrowserWithURL:(NSURL *)url;
@@ -34,6 +35,8 @@
 
     [GrowlApplicationBridge setGrowlDelegate:self];
 
+    hotKeyCenter = [DDHotKeyCenter new];
+    
     statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength] retain];
 	statusItem.menu = menu;
 
@@ -70,8 +73,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedUpdated:) name:kFeedUpdatedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedFailed:) name:kSMWebRequestError object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged) name:kReachabilityChangedNotification object:nil];
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openMenuHotkeyPressed) name:kHotKeyManagerOpenMenuNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hotKeysChanged) name:@"FeedsHotKeysChanged" object:nil];
     
+    [self hotKeysChanged];
 //    [self reachabilityChanged];
     
 #if DEBUG
@@ -95,6 +99,14 @@
     NSMutableArray *feeds = [NSMutableArray array];
     for (Account *account in [Account allAccounts]) [feeds addObjectsFromArray:account.feeds];
     return feeds;
+}
+
+- (void)hotKeysChanged {
+    [hotKeyCenter unregisterHotKeysWithTarget:self];
+    unsigned short code = [[NSUserDefaults standardUserDefaults] integerForKey:@"OpenMenuKeyCode"];
+    NSUInteger flags = [[NSUserDefaults standardUserDefaults] integerForKey:@"OpenMenuKeyFlags"];
+    if (code > -1)
+        [hotKeyCenter registerHotKeyWithKeyCode:code modifierFlags:flags target:self action:@selector(openMenuHotkeyPressed) object:nil];
 }
 
 - (void)accountsChanged:(NSNotification *)notification {

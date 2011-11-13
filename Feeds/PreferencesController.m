@@ -13,6 +13,11 @@
     [toolbar setSelectedItemIdentifier:@"general"];
     [self selectGeneralTab:nil];
     [self tableViewSelectionDidChange:nil];
+    
+    KeyCombo combo;
+    combo.code = [[NSUserDefaults standardUserDefaults] integerForKey:@"OpenMenuKeyCode"];
+    combo.flags = [[NSUserDefaults standardUserDefaults] integerForKey:@"OpenMenuKeyFlags"];
+    if (combo.code > -1) [keyRecorderControl setKeyCombo:combo];
 }
 
 - (void)dealloc {
@@ -39,18 +44,41 @@
 #endif
 }
 
+- (void)resizeWindowForContentSize:(NSSize)size {
+    static BOOL firstTime = YES;
+	NSRect windowFrame = [NSWindow contentRectForFrameRect:[[self window] frame]
+                                                 styleMask:[[self window] styleMask]];
+	NSRect newWindowFrame = [NSWindow frameRectForContentRect:
+                             NSMakeRect( NSMinX( windowFrame ), NSMaxY( windowFrame ) - size.height, size.width, size.height )
+                                                    styleMask:[[self window] styleMask]];
+	[[self window] setFrame:newWindowFrame display:YES animate:(!firstTime && [[self window] isVisible])];
+    firstTime = NO;
+}
+
 - (IBAction)selectGeneralTab:(id)sender {
     [tabView selectTabViewItemWithIdentifier:@"general"];
+    [generalView setHidden:YES];
+    [self resizeWindowForContentSize:NSMakeSize(self.window.frame.size.width, 240)];
+    [self performSelector:@selector(revealView:) withObject:generalView afterDelay:0.075];
 }
 
 - (IBAction)selectAccountsTab:(id)sender {
     [tabView selectTabViewItemWithIdentifier:@"accounts"];
+    [accountsView setHidden:YES];
+    [self resizeWindowForContentSize:NSMakeSize(self.window.frame.size.width, 360)];
+    [self performSelector:@selector(revealView:) withObject:accountsView afterDelay:0.075];
+}
+
+- (void)revealView:(NSView *)view {
+    [view setHidden:NO];
 }
 
 #pragma mark General
 
 - (void)shortcutRecorder:(SRRecorderControl *)aRecorder keyComboDidChange:(KeyCombo)newKeyCombo {
-    NSLog(@"CHANGE OMG");
+    [[NSUserDefaults standardUserDefaults] setInteger:newKeyCombo.code forKey:@"OpenMenuKeyCode"];
+    [[NSUserDefaults standardUserDefaults] setInteger:newKeyCombo.flags forKey:@"OpenMenuKeyFlags"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"FeedsHotKeysChanged" object:nil];
 }
 
 #pragma mark Accounts
