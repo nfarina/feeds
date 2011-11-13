@@ -1,8 +1,8 @@
-
-extern NSString *kHotKeyManagerOpenMenuNotification;
-
-@interface HotKeys : NSObject { }
-
-+ (void)registerHotKeys;
-
-@end
+//
+//extern NSString *kHotKeyManagerOpenMenuNotification;
+//
+//@interface HotKeys : NSObject { }
+//
+//+ (void)registerHotKeys;
+//
+//@end

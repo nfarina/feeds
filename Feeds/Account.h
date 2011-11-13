@@ -30,6 +30,8 @@ typedef enum {
 @property (nonatomic, assign) id<AccountDelegate> delegate;
 @property (nonatomic, copy) NSString *domain, *username;
 @property (nonatomic, copy) NSArray *feeds;
+@property (nonatomic, readonly) NSImage *menuIconImage, *accountIconImage;
+@property (nonatomic, readonly) NSData *notifyIconData;
 
 + (NSArray *)allAccounts;
 + (void)addAccount:(Account *)account;

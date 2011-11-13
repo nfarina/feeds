@@ -1,6 +1,5 @@
 #import "AppDelegate.h"
 #import "Feed.h"
-#import "HotKeys.h"
 #import "StatusItemView.h"
 
 #define MAX_ITEMS 30
@@ -60,7 +59,7 @@
     }
 
     // register hot key for popping open the menu
-    [HotKeys registerHotKeys];
+    //[HotKeys registerHotKeys];
     
     allItems = [NSMutableArray new];
     
@@ -71,7 +70,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedUpdated:) name:kFeedUpdatedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedFailed:) name:kSMWebRequestError object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged) name:kReachabilityChangedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openMenuHotkeyPressed) name:kHotKeyManagerOpenMenuNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openMenuHotkeyPressed) name:kHotKeyManagerOpenMenuNotification object:nil];
     
     [self reachabilityChanged];
     
@@ -162,13 +161,12 @@
     int notifications = 0;
     
     for (FeedItem *item in feed.items) {
-        
         if (!item.notified && notifications++ < MAX_GROWLS) {
             [GrowlApplicationBridge
              notifyWithTitle:[item.title truncatedAfterIndex:45]
              description:[[item.content stringByFlatteningHTML] truncatedAfterIndex:45]
              notificationName:@"NewItem"
-             iconData:nil
+             iconData:feed.account.notifyIconData
              priority:(signed int)0
              isSticky:FALSE
              clickContext:[item.link absoluteString]];
@@ -203,7 +201,7 @@
         
         NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:@"" action:@selector(itemSelected:) keyEquivalent:@""] autorelease];
         menuItem.attributedTitle = [item attributedStringHighlighted:NO];
-        menuItem.image = [NSImage imageNamed:[item.feed.account.type stringByAppendingString:@".png"]];
+        menuItem.image = item.feed.account.menuIconImage;
         menuItem.tag = i+1;
         
         if (!item.viewed) {

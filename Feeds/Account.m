@@ -91,6 +91,18 @@ static NSMutableArray *allAccounts = nil;
     return [NSStringFromClass([self class]) stringByReplacingOccurrencesOfString:@"Account" withString:@""];
 }
 
+- (NSImage *)menuIconImage {
+    return [NSImage imageNamed:[self.type stringByAppendingString:@".png"]];
+}
+
+- (NSImage *)accountIconImage {
+    return [NSImage imageNamed:[self.type stringByAppendingString:@"Account.png"]];
+}
+
+- (NSData *)notifyIconData {
+    return [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForImageResource:[self.type stringByAppendingString:@"Notify.png"]]];
+}
+
 - (const char *)serviceName {
     return [[self description] cStringUsingEncoding:NSUTF8StringEncoding];
 }
