@@ -269,7 +269,7 @@
 													<int key="NSPeriodicInterval">75</int>
 													<object class="NSMenuItem" key="NSMenuItem" id="987988025">
 														<reference key="NSMenu" ref="227302268"/>
-														<string key="NSTitle">15 minutes</string>
+														<string key="NSTitle">30 minutes</string>
 														<string key="NSKeyEquiv"/>
 														<int key="NSKeyEquivModMask">1048576</int>
 														<int key="NSMnemonicLoc">2147483647</int>
@@ -291,7 +291,7 @@
 														<array class="NSMutableArray" key="NSMenuItems">
 															<object class="NSMenuItem" id="859181364">
 																<reference key="NSMenu" ref="227302268"/>
-																<string key="NSTitle">5 minutes</string>
+																<string key="NSTitle">15 minutes</string>
 																<string key="NSKeyEquiv"/>
 																<int key="NSKeyEquivModMask">1048576</int>
 																<int key="NSMnemonicLoc">2147483647</int>
@@ -727,6 +727,22 @@
 						<reference key="destination" ref="4345005"/>
 					</object>
 					<int key="connectionID">120</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">launchAtStartupChanged:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="790559665"/>
+					</object>
+					<int key="connectionID">122</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">launchAtStartupButton</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="790559665"/>
+					</object>
+					<int key="connectionID">123</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1195,7 +1211,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">120</int>
+			<int key="maxID">123</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

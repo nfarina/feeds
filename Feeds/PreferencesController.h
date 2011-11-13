@@ -4,7 +4,7 @@
     IBOutlet NSToolbar *toolbar;
     IBOutlet NSTabView *tabView;
     IBOutlet NSTableView *tableView;
-    IBOutlet NSButton *removeButton;
+    IBOutlet NSButton *removeButton, *launchAtStartupButton;
     IBOutlet SRRecorderControl *keyRecorderControl;
     IBOutlet NSView *generalView, *accountsView;
 }
@@ -17,5 +17,7 @@
 
 - (IBAction)addAccount:(id)sender;
 - (IBAction)removeAccount:(id)sender;
+
+- (IBAction)launchAtStartupChanged:(id)sender;
 
 @end

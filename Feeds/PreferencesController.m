@@ -1,4 +1,5 @@
 #import "PreferencesController.h"
+#import "LoginItems.h"
 
 @implementation PreferencesController
 
@@ -18,6 +19,8 @@
     combo.code = [[NSUserDefaults standardUserDefaults] integerForKey:@"OpenMenuKeyCode"];
     combo.flags = [[NSUserDefaults standardUserDefaults] integerForKey:@"OpenMenuKeyFlags"];
     if (combo.code > -1) [keyRecorderControl setKeyCombo:combo];
+    
+    launchAtStartupButton.state = [LoginItems userLoginItems].currentAppLaunchesAtStartup ? NSOnState : NSOffState;
 }
 
 - (void)dealloc {
@@ -79,6 +82,10 @@
     [[NSUserDefaults standardUserDefaults] setInteger:newKeyCombo.code forKey:@"OpenMenuKeyCode"];
     [[NSUserDefaults standardUserDefaults] setInteger:newKeyCombo.flags forKey:@"OpenMenuKeyFlags"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"FeedsHotKeysChanged" object:nil];
+}
+
+- (void)launchAtStartupChanged:(id)sender {
+    [LoginItems userLoginItems].currentAppLaunchesAtStartup = (launchAtStartupButton.state == NSOnState);
 }
 
 #pragma mark Accounts

@@ -44,6 +44,7 @@
 		019EE0EC14702FEE00B67B74 /* GithubNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 019EE0EB14702FEE00B67B74 /* GithubNotify.png */; };
 		019EE0EE147034E400B67B74 /* ShortcutRecorder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 019EE0ED147034E400B67B74 /* ShortcutRecorder.framework */; };
 		019EE0EF147034FD00B67B74 /* ShortcutRecorder.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 019EE0ED147034E400B67B74 /* ShortcutRecorder.framework */; };
+		019EE0F2147044CA00B67B74 /* LoginItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 019EE0F1147044CA00B67B74 /* LoginItems.m */; };
 		01AD75C413C3F8010092E790 /* AlertCautionIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 01AD75C313C3F8010092E790 /* AlertCautionIcon.png */; };
 		01B0AE801448C5940020AF67 /* GithubAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 01B0AE7F1448C5940020AF67 /* GithubAccount.png */; };
 		01B0AE831448C94A0020AF67 /* BasecampAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 01B0AE821448C94A0020AF67 /* BasecampAccount.png */; };
@@ -146,6 +147,8 @@
 		019EE0E9147027E200B67B74 /* DribbbleNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DribbbleNotify.png; sourceTree = "<group>"; };
 		019EE0EB14702FEE00B67B74 /* GithubNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GithubNotify.png; sourceTree = "<group>"; };
 		019EE0ED147034E400B67B74 /* ShortcutRecorder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShortcutRecorder.framework; sourceTree = "<group>"; };
+		019EE0F0147044CA00B67B74 /* LoginItems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginItems.h; sourceTree = "<group>"; };
+		019EE0F1147044CA00B67B74 /* LoginItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginItems.m; sourceTree = "<group>"; };
 		01AD75C313C3F8010092E790 /* AlertCautionIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AlertCautionIcon.png; sourceTree = "<group>"; };
 		01B0AE7F1448C5940020AF67 /* GithubAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GithubAccount.png; sourceTree = "<group>"; };
 		01B0AE821448C94A0020AF67 /* BasecampAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BasecampAccount.png; sourceTree = "<group>"; };
@@ -244,6 +247,8 @@
 				01518F7D13C54F480043AB98 /* CG+Geometry.m */,
 				0125C6CB13C7C8B10006BB1A /* NSView+PrintHierarchy.h */,
 				0125C6CC13C7C8B10006BB1A /* NSView+PrintHierarchy.m */,
+				019EE0F0147044CA00B67B74 /* LoginItems.h */,
+				019EE0F1147044CA00B67B74 /* LoginItems.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -575,6 +580,7 @@
 				015E0ED814475D2E000A611D /* AccountCell.m in Sources */,
 				015E0EE614478DB6000A611D /* JSONKit.m in Sources */,
 				019EE0DC147023B800B67B74 /* DDHotKeyCenter.m in Sources */,
+				019EE0F2147044CA00B67B74 /* LoginItems.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
