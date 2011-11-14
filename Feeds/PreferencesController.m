@@ -45,8 +45,8 @@
     [self.window makeKeyAndOrderFront:self];
 
 #if DEBUG
-//    [toolbar setSelectedItemIdentifier:@"accounts"];
-//    [self selectAccountsTab:nil];
+    [toolbar setSelectedItemIdentifier:@"accounts"];
+    [self selectAccountsTab:nil];
 //    [self addAccount:nil];
 #else
     [self.window setLevel: NSTornOffMenuWindowLevel]; // a.k.a. "Always On Top"
@@ -54,14 +54,14 @@
 }
 
 - (void)resizeWindowForContentSize:(NSSize)size {
-    static BOOL firstTime = YES;
-	NSRect windowFrame = [NSWindow contentRectForFrameRect:[[self window] frame]
-                                                 styleMask:[[self window] styleMask]];
-	NSRect newWindowFrame = [NSWindow frameRectForContentRect:
-                             NSMakeRect( NSMinX( windowFrame ), NSMaxY( windowFrame ) - size.height, size.width, size.height )
-                                                    styleMask:[[self window] styleMask]];
-	[[self window] setFrame:newWindowFrame display:YES animate:(!firstTime && [[self window] isVisible])];
-    firstTime = NO;
+//    static BOOL firstTime = YES;
+//	NSRect windowFrame = [NSWindow contentRectForFrameRect:[[self window] frame]
+//                                                 styleMask:[[self window] styleMask]];
+//	NSRect newWindowFrame = [NSWindow frameRectForContentRect:
+//                             NSMakeRect( NSMinX( windowFrame ), NSMaxY( windowFrame ) - size.height, size.width, size.height )
+//                                                    styleMask:[[self window] styleMask]];
+//	[[self window] setFrame:newWindowFrame display:YES animate:(!firstTime && [[self window] isVisible])];
+//    firstTime = NO;
 }
 
 - (IBAction)selectGeneralTab:(id)sender {
@@ -74,7 +74,7 @@
 - (IBAction)selectAccountsTab:(id)sender {
     [tabView selectTabViewItemWithIdentifier:@"accounts"];
     [accountsView setHidden:YES];
-    [self resizeWindowForContentSize:NSMakeSize(self.window.frame.size.width, 360)];
+    [self resizeWindowForContentSize:NSMakeSize(self.window.frame.size.width, 390)];
     [self performSelector:@selector(revealView:) withObject:accountsView afterDelay:0.075];
 }
 
@@ -136,14 +136,48 @@
     [controller release];
 }
 
-- (void)tableViewSelectionDidChange:(NSNotification *)notification {
-    [removeButton setEnabled:[tableView selectedRow] >= 0];
-}
-
 - (IBAction)removeAccount:(id)sender {
     Account *account = [[Account allAccounts] objectAtIndex:[tableView selectedRow]];
     [Account removeAccount:account];
     [tableView reloadData];
+}
+
+- (void)tableViewSelectionDidChange:(NSNotification *)notification {
+    [removeButton setEnabled:tableView.selectedRow >= 0];
+
+    // refresh the available feeds by reauthenticating to this account
+    Account *selectedAccount = tableView.selectedRow >= 0 ? [[Account allAccounts] objectAtIndex:tableView.selectedRow] : nil;
+    selectedAccount.delegate = self;
+    [selectedAccount validateWithPassword:[selectedAccount findPassword]];
+    
+    feedsTableView.dataSource = nil;
+    findFeedsProgress.hidden = NO;
+    findFeedsLabel.hidden = NO;
+    [findFeedsLabel setStringValue:@"Finding feeds…"];
+    [findFeedsWarning setHidden:YES];
+    [findFeedsProgress startAnimation:nil];
+}
+
+- (void)account:(Account *)account validationDidContinueWithMessage:(NSString *)message {
+    [findFeedsLabel setStringValue:message];
+}
+
+- (void)account:(Account *)account validationDidFailWithMessage:(NSString *)message field:(AccountFailingField)field {
+
+    [findFeedsProgress stopAnimation:nil];
+    [findFeedsProgress setHidden:YES];
+    
+    [findFeedsWarning setHidden:NO];
+    [findFeedsLabel setStringValue:message];
+}
+
+- (void)accountValidationDidComplete:(Account *)account {
+    [findFeedsProgress stopAnimation:nil];
+    [findFeedsProgress setHidden:YES];
+    [findFeedsLabel setHidden:YES];
+    feedsTableView.dataSource = account;
+    
+    NSLog(@"FEEDS: %@", account.feeds);
 }
 
 @end

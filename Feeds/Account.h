@@ -11,7 +11,7 @@ typedef enum {
 
 @protocol AccountDelegate;
 
-@interface Account : NSObject {
+@interface Account : NSObject <NSTableViewDataSource> {
     id<AccountDelegate> delegate; // nonretained
     NSString *domain, *username;
     SMWebRequest *request; // convenience for subclassers, will be properly cancelled and cleaned up on dealloc
@@ -36,6 +36,7 @@ typedef enum {
 + (NSArray *)allAccounts;
 + (void)addAccount:(Account *)account;
 + (void)removeAccount:(Account *)account;
++ (void)saveAccounts;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 - (NSDictionary *)dictionaryRepresentation;

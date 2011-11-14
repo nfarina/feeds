@@ -40,7 +40,7 @@
     NSString *pattern = @"API Token.*<code>([0-9a-f]+)</code>";
     NSString *token = [html stringByMatching:pattern options:RKLMultiline|RKLDotAll inRange:NSMakeRange(0, [html length]) capture:1 error:NULL];
     
-    if ([token length]) {
+    if ([token length] && NO) {
 
         // Now look for organizations
         NSString *URL = @"https://github.com/api/v2/json/organizations";

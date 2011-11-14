@@ -180,4 +180,16 @@ static NSMutableArray *allAccounts = nil;
         SecKeychainItemDelete(itemRef);
 }
 
+#pragma mark NSTableViewDataSource, exposes Feeds
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+    return feeds.count;
+}
+
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    Feed *feed = [feeds objectAtIndex:row];
+    //return [NSDictionary dictionaryWithObjectsAndKeys:account.type, @"type", account.username, @"username", nil];
+    return feed.URL;
+}
+
 @end

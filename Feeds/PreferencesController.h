@@ -2,14 +2,17 @@
 
 #define DEFAULT_REFRESH_INTERVAL 30*60; // default to 30 minutes if none specified
 
-@interface PreferencesController : NSWindowController <NSToolbarDelegate, NSTabViewDelegate, NSTableViewDataSource, NSTableViewDelegate, NewAccountControllerDelegate> {
+@interface PreferencesController : NSWindowController <NSToolbarDelegate, NSTabViewDelegate, NSTableViewDataSource, NSTableViewDelegate, NewAccountControllerDelegate, AccountDelegate> {
     IBOutlet NSToolbar *toolbar;
     IBOutlet NSTabView *tabView;
-    IBOutlet NSTableView *tableView;
+    IBOutlet NSTableView *tableView, *feedsTableView;
     IBOutlet NSButton *removeButton, *showNotificationsButton, *launchAtStartupButton;
     IBOutlet SRRecorderControl *keyRecorderControl;
     IBOutlet NSView *generalView, *accountsView;
     IBOutlet NSPopUpButton *refreshIntervalButton;
+    IBOutlet NSProgressIndicator *findFeedsProgress;
+    IBOutlet NSTextField *findFeedsLabel;
+    IBOutlet NSImageView *findFeedsWarning;
 }
 
 - (id)initPreferencesController;
