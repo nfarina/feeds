@@ -28,6 +28,8 @@
     if (combo.code > -1) [keyRecorderControl setKeyCombo:combo];
     
     launchAtStartupButton.state = [LoginItems userLoginItems].currentAppLaunchesAtStartup ? NSOnState : NSOffState;
+    
+    hideDockIconButton.state = [[NSUserDefaults standardUserDefaults] boolForKey:@"HideDockIcon"] ? NSOnState : NSOffState;
 }
 
 // No dealloc - PreferencesController lives forever!
@@ -64,7 +66,7 @@
 - (IBAction)selectGeneralTab:(id)sender {
     [tabView selectTabViewItemWithIdentifier:@"general"];
     [generalView setHidden:YES];
-    [self resizeWindowForContentSize:NSMakeSize(self.window.frame.size.width, 240)];
+    [self resizeWindowForContentSize:NSMakeSize(self.window.frame.size.width, 310)];
     [self performSelector:@selector(revealView:) withObject:generalView afterDelay:0.075];
 }
 
@@ -100,6 +102,11 @@
 
 - (void)launchAtStartupChanged:(id)sender {
     [LoginItems userLoginItems].currentAppLaunchesAtStartup = (launchAtStartupButton.state == NSOnState);
+}
+
+- (void)hideDockIconChanged:(id)sender {
+    BOOL hideDockIcon = (hideDockIconButton.state == NSOnState);
+    [[NSUserDefaults standardUserDefaults] setBool:hideDockIcon forKey:@"HideDockIcon"];
 }
 
 #pragma mark Accounts

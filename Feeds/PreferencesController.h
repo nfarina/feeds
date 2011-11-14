@@ -6,7 +6,7 @@
     IBOutlet NSToolbar *toolbar;
     IBOutlet NSTabView *tabView;
     IBOutlet NSTableView *tableView, *feedsTableView;
-    IBOutlet NSButton *removeButton, *showNotificationsButton, *launchAtStartupButton;
+    IBOutlet NSButton *removeButton, *showNotificationsButton, *launchAtStartupButton, *hideDockIconButton;
     IBOutlet SRRecorderControl *keyRecorderControl;
     IBOutlet NSView *generalView, *accountsView;
     IBOutlet NSPopUpButton *refreshIntervalButton;
@@ -30,5 +30,6 @@
 - (IBAction)refreshIntervalChanged:(id)sender;
 - (IBAction)showNotificationsChanged:(id)sender;
 - (IBAction)launchAtStartupChanged:(id)sender;
+- (IBAction)hideDockIconChanged:(id)sender;;
 
 @end

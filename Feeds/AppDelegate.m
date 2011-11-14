@@ -27,10 +27,10 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
     // show the dock icon immediately if necessary
-#if DEBUG
-    ProcessSerialNumber psn = { 0, kCurrentProcess }; 
-    TransformProcessType(&psn, kProcessTransformToForegroundApplication);
-#endif
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HideDockIcon"]) {
+        ProcessSerialNumber psn = { 0, kCurrentProcess }; 
+        TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+    }
 
     [GrowlApplicationBridge setGrowlDelegate:self];
 
