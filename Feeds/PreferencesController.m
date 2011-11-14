@@ -202,6 +202,16 @@
     }
     else {
         NSLog(@"Available feeds changed! Saving accounts.");
+        
+        // copy over the disabled flag for accounts we already had
+        for (Feed *feed in account.feeds) {
+            NSUInteger index = [oldFeeds indexOfObject:feed];
+            if (index != NSNotFound) {
+                Feed *old = [oldFeeds objectAtIndex:index];
+                feed.disabled = old.disabled;
+            }
+        }
+        
         [Account saveAccounts];
     }
     
