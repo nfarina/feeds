@@ -115,6 +115,10 @@ static NSMutableArray *allAccounts = nil;
     // no default implementation
 }
 
+- (void)cancelValidation {
+    self.request = nil;
+}
+
 - (NSString *)findPassword:(SecKeychainItemRef *)itemRef {
     const char *serviceName = [self serviceName];
     void *passwordData;

@@ -145,17 +145,28 @@
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
     [removeButton setEnabled:tableView.selectedRow >= 0];
 
-    // refresh the available feeds by reauthenticating to this account
-    Account *selectedAccount = tableView.selectedRow >= 0 ? [[Account allAccounts] objectAtIndex:tableView.selectedRow] : nil;
-    selectedAccount.delegate = self;
-    [selectedAccount validateWithPassword:[selectedAccount findPassword]];
-    
+    // cancel any pending account validation
+    [[Account allAccounts] makeObjectsPerformSelector:@selector(cancelValidation)];
+    [[Account allAccounts] makeObjectsPerformSelector:@selector(setDelegate:) withObject:nil];
     feedsTableView.dataSource = nil;
-    findFeedsProgress.hidden = NO;
-    findFeedsLabel.hidden = NO;
-    [findFeedsLabel setStringValue:@"Finding feeds…"];
     [findFeedsWarning setHidden:YES];
-    [findFeedsProgress startAnimation:nil];
+
+    if (tableView.selectedRow >= 0) {
+        // refresh the available feeds by reauthenticating to this account
+        Account *selectedAccount = [[Account allAccounts] objectAtIndex:tableView.selectedRow];
+        selectedAccount.delegate = self;
+        [selectedAccount validateWithPassword:[selectedAccount findPassword]];
+        
+        findFeedsProgress.hidden = NO;
+        findFeedsLabel.hidden = NO;
+        [findFeedsLabel setStringValue:@"Finding feeds…"];
+        [findFeedsProgress startAnimation:nil];
+    }
+    else {
+        [findFeedsProgress stopAnimation:nil];
+        findFeedsProgress.hidden = YES;
+        findFeedsLabel.hidden = YES;
+    }
 }
 
 - (void)account:(Account *)account validationDidContinueWithMessage:(NSString *)message {

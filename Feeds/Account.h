@@ -42,6 +42,7 @@ typedef enum {
 - (NSDictionary *)dictionaryRepresentation;
 
 - (void)validateWithPassword:(NSString *)password;
+- (void)cancelValidation;
 
 - (NSString *)findPassword;
 - (void)savePassword:(NSString *)password;
