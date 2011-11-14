@@ -2,6 +2,7 @@
 #import "LoginItems.h"
 
 @implementation PreferencesController
+@synthesize oldFeeds;
 
 - (id)initPreferencesController {
     if ([super initWithWindowNibName:@"PreferencesController"]) {
@@ -29,11 +30,7 @@
     launchAtStartupButton.state = [LoginItems userLoginItems].currentAppLaunchesAtStartup ? NSOnState : NSOffState;
 }
 
-- (void)dealloc {
-    [toolbar release];
-    [tabView release];
-    [super dealloc];
-}
+// No dealloc - PreferencesController lives forever!
 
 - (void)showPreferences {
     // Transform process from background to foreground
@@ -74,7 +71,7 @@
 - (IBAction)selectAccountsTab:(id)sender {
     [tabView selectTabViewItemWithIdentifier:@"accounts"];
     [accountsView setHidden:YES];
-    [self resizeWindowForContentSize:NSMakeSize(self.window.frame.size.width, 390)];
+    [self resizeWindowForContentSize:NSMakeSize(self.window.frame.size.width, 400)];
     [self performSelector:@selector(revealView:) withObject:accountsView afterDelay:0.075];
 }
 
@@ -114,6 +111,10 @@
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     Account *account = [[Account allAccounts] objectAtIndex:row];
     return [NSDictionary dictionaryWithObjectsAndKeys:account.type, @"type", account.username, @"username", nil];
+}
+
+- (BOOL)tableView:(NSTableView *)tableView shouldShowCellExpansionForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    return NO;
 }
 
 - (IBAction)addAccount:(id)sender {
@@ -161,6 +162,7 @@
         findFeedsLabel.hidden = NO;
         [findFeedsLabel setStringValue:@"Finding feeds…"];
         [findFeedsProgress startAnimation:nil];
+        self.oldFeeds = selectedAccount.feeds; // preserve old feeds because existing FeedItems in our main menu might point to them (weak links)
     }
     else {
         [findFeedsProgress stopAnimation:nil];
@@ -186,9 +188,26 @@
     [findFeedsProgress stopAnimation:nil];
     [findFeedsProgress setHidden:YES];
     [findFeedsLabel setHidden:YES];
-    feedsTableView.dataSource = account;
     
-    NSLog(@"FEEDS: %@", account.feeds);
+    if ([account.feeds isEqualToArray:oldFeeds]) {
+        
+        // copy over the disabled flag
+        for (Feed *feed in account.feeds) {
+            NSUInteger index = [oldFeeds indexOfObject:feed];
+            if (index != NSNotFound) {
+                Feed *old = [oldFeeds objectAtIndex:index];
+                feed.disabled = old.disabled;
+            }
+        }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"FeedsRecreated" object:nil];
+    }
+    else {
+        NSLog(@"Available feeds changed! Saving accounts.");
+        [Account saveAccounts];
+    }
+    
+    feedsTableView.dataSource = account;
 }
 
 @end

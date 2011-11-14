@@ -20,7 +20,7 @@
 - (void)meRequestComplete:(NSData *)data {
     
     SMXMLDocument *document = [SMXMLDocument documentWithData:data error:NULL];
-    NSLog(@"Document: %@", document);
+    //NSLog(@"Document: %@", document);
 
     NSString *name = [document.root valueWithPath:@"name"];
     NSString *token = [document.root valueWithPath:@"token"];

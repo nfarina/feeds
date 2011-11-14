@@ -59,7 +59,7 @@ static NSMutableArray *allAccounts = nil;
 }
 
 - (id)initWithDictionary:(NSDictionary *)dict {
-    [super init];
+    self = [super init];
     self.domain = [dict objectForKey:@"domain"];
     self.username = [dict objectForKey:@"username"];
     self.feeds = [[dict objectForKey:@"feeds"] selectUsingBlock:^id(NSDictionary *dict) { return [Feed feedWithDictionary:dict account:self]; }];
@@ -67,18 +67,19 @@ static NSMutableArray *allAccounts = nil;
 }
 
 - (NSDictionary *)dictionaryRepresentation {
-    return [NSDictionary dictionaryWithObjectsAndKeys:
-            self.type, @"type",
-            domain, @"domain",
-            username, @"username",
-            [feeds valueForKey:@"dictionaryRepresentation"], @"feeds",
-            nil];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setObject:self.type forKey:@"type"];
+    if (domain) [dict setObject:self.domain forKey:@"domain"];
+    if (username) [dict setObject:self.username forKey:@"username"];
+    [dict setObject:[feeds valueForKey:@"dictionaryRepresentation"] forKey:@"feeds"];
+    return dict;
 }
 
 - (void)dealloc {
     self.delegate = nil;
     self.domain = self.username = nil;
     self.request = nil;
+    self.feeds = nil;
     [super dealloc];
 }
 
@@ -198,6 +199,14 @@ static NSMutableArray *allAccounts = nil;
         return feed.title;
     else
         return nil;
+}
+
+- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    Feed *feed = [feeds objectAtIndex:row];
+    if ([tableColumn.identifier isEqual:@"showColumn"]) {
+        feed.disabled = ![object boolValue];
+        [Account saveAccounts];
+    }
 }
 
 @end

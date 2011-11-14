@@ -65,22 +65,26 @@ NSDateFormatter *ATOMDateFormatter() {
 }
 
 - (NSDictionary *)dictionaryRepresentation {
-    return [NSDictionary dictionaryWithObjectsAndKeys:
-            [URL absoluteString], @"url",
-            title, @"title",
-            author, @"author",
-            [NSNumber numberWithBool:disabled], @"disabled",
-            nil];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setObject:[URL absoluteString] forKey:@"url"];
+    if (title) [dict setObject:title forKey:@"title"];
+    if (author) [dict setObject:author forKey:@"author"];
+    [dict setObject:[NSNumber numberWithBool:disabled] forKey:@"disabled"];
+    return dict;
+}
 
+- (BOOL)isEqual:(Feed *)other {
+    if ([other isKindOfClass:[Feed class]])
+        return [URL isEqual:other.URL] && [title isEqual:other.title] && ((!author && !other.author) || [author isEqual:other.author]);
+    else
+        return NO;
 }
 
 - (void)refresh {
-    if (!disabled) {
-        NSURLRequest *URLRequest = [NSURLRequest requestWithURL:URL username:[URL user] password:[URL password]];
-        self.request = [SMWebRequest requestWithURLRequest:URLRequest delegate:(id<SMWebRequestDelegate>)[self class] context:nil];
-        [request addTarget:self action:@selector(refreshComplete:) forRequestEvents:SMWebRequestEventComplete];
-        [request start];
-    }
+    NSURLRequest *URLRequest = [NSURLRequest requestWithURL:URL username:[URL user] password:[URL password]];
+    self.request = [SMWebRequest requestWithURLRequest:URLRequest delegate:(id<SMWebRequestDelegate>)[self class] context:nil];
+    [request addTarget:self action:@selector(refreshComplete:) forRequestEvents:SMWebRequestEventComplete];
+    [request start];
 }
 
 // This method is called on a background thread. Don't touch your instance members!

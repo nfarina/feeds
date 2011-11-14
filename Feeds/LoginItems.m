@@ -81,8 +81,8 @@
 			[self enableLoginItemWithLoginItemsReference:loginItems ForPath:appPath];
 		else
 			[self disableLoginItemWithLoginItemsReference:loginItems ForPath:appPath];
+        CFRelease(loginItems);
 	}
-	CFRelease(loginItems);
 }
 
 @end

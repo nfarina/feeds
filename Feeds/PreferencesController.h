@@ -13,7 +13,10 @@
     IBOutlet NSProgressIndicator *findFeedsProgress;
     IBOutlet NSTextField *findFeedsLabel;
     IBOutlet NSImageView *findFeedsWarning;
+    NSArray *oldFeeds;
 }
+
+@property (nonatomic, copy) NSArray *oldFeeds;
 
 - (id)initPreferencesController;
 - (void)showPreferences;
