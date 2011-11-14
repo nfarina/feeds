@@ -5,18 +5,20 @@ extern NSString *kFeedUpdatedNotification;
 
 @interface Feed : NSObject {
     NSURL *URL;
-    NSString *author;
+    NSString *title, *author;
     NSArray *items; // of FeedItem
     SMWebRequest *request;
+    BOOL disabled;
     Account *account; // not retained
 }
 @property (nonatomic, retain) NSURL *URL;
-@property (nonatomic, copy) NSString *author;
+@property (nonatomic, copy) NSString *title, *author;
 @property (nonatomic, copy) NSArray *items;
+@property (nonatomic, assign) BOOL disabled;
 @property (nonatomic, assign) Account *account;
 
-+ (Feed *)feedWithURLString:(NSString *)URLString account:(Account *)account;
-+ (Feed *)feedWithURLString:(NSString *)URLString author:(NSString *)author account:(Account *)account;
++ (Feed *)feedWithURLString:(NSString *)URLString title:(NSString *)title account:(Account *)account;
++ (Feed *)feedWithURLString:(NSString *)URLString title:(NSString *)title author:(NSString *)author account:(Account *)account;
 
 + (Feed *)feedWithDictionary:(NSDictionary *)dict account:(Account *)account;
 - (NSDictionary *)dictionaryRepresentation;

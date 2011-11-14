@@ -26,7 +26,7 @@
     NSString *token = [document.root valueWithPath:@"token"];
     
     NSString *mainFeedString = [NSString stringWithFormat:@"https://%@:%@@%@.basecamphq.com/feed/recent_items_rss", token, token, domain];
-    Feed *mainFeed = [Feed feedWithURLString:mainFeedString account:self];
+    Feed *mainFeed = [Feed feedWithURLString:mainFeedString title:@"Latest Activity" account:self];
     
     if ([firstName length] > 0 && [lastName length] > 0)
         mainFeed.author = [NSString stringWithFormat:@"%@ %@.", firstName, [lastName substringToIndex:1]];

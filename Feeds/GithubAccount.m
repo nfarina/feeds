@@ -40,7 +40,7 @@
     NSString *pattern = @"API Token.*<code>([0-9a-f]+)</code>";
     NSString *token = [html stringByMatching:pattern options:RKLMultiline|RKLDotAll inRange:NSMakeRange(0, [html length]) capture:1 error:NULL];
     
-    if ([token length] && NO) {
+    if ([token length]) {
 
         // Now look for organizations
         NSString *URL = @"https://github.com/api/v2/json/organizations";
@@ -68,14 +68,17 @@
     NSArray *orgs = [dict objectForKey:@"organizations"];
     
     NSString *mainFeedString = [NSString stringWithFormat:@"https://github.com/%@.private.atom?token=%@", username, token];
+    NSString *mainFeedTitle = [NSString stringWithFormat:@"News Feed (%@)", username];
+    Feed *mainFeed = [Feed feedWithURLString:mainFeedString title:mainFeedTitle author:username account:self];
     
-    NSMutableArray *foundFeeds = [NSMutableArray arrayWithObject:[Feed feedWithURLString:mainFeedString author:username account:self]];
+    NSMutableArray *foundFeeds = [NSMutableArray arrayWithObject:mainFeed];
 
     for (NSDictionary *org in orgs) {
         
         NSString *orgName = [org objectForKey:@"login"];
         NSString *orgFeedString = [NSString stringWithFormat:@"https://github.com/organizations/%@/%@.private.atom?token=%@", orgName, username, token];
-        [foundFeeds addObject:[Feed feedWithURLString:orgFeedString author:username account:self]];
+        NSString *orgFeedTitle = [NSString stringWithFormat:@"News Feed (%@)", orgName];
+        [foundFeeds addObject:[Feed feedWithURLString:orgFeedString title:orgFeedTitle author:username account:self]];
     }
     
     self.feeds = foundFeeds;

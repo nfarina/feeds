@@ -34,7 +34,7 @@
     }
     
     NSString *mainFeedString = [NSString stringWithFormat:@"https://%@:%@@%@.highrisehq.com/recordings.atom", token, token, domain];
-    Feed *mainFeed = [Feed feedWithURLString:mainFeedString account:self];
+    Feed *mainFeed = [Feed feedWithURLString:mainFeedString title:@"Latest Activity" account:self];
     
     if ([firstName length] > 0 && [lastName length] > 0)
         mainFeed.author = [NSString stringWithFormat:@"%@ %@.", firstName, [lastName substringToIndex:1]];

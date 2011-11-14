@@ -17,8 +17,8 @@
 - (void)meRequestComplete:(NSData *)data {
     
     self.feeds = [NSArray arrayWithObjects:
-                  [Feed feedWithURLString:[NSString stringWithFormat:@"http://dribbble.com/%@/activity/incoming.rss", username] account:self],
-                  [Feed feedWithURLString:[NSString stringWithFormat:@"http://dribbble.com/%@/shots/following.rss", username] account:self],
+                  [Feed feedWithURLString:[NSString stringWithFormat:@"http://dribbble.com/%@/activity/incoming.rss", username] title:@"My Activity" account:self],
+                  [Feed feedWithURLString:[NSString stringWithFormat:@"http://dribbble.com/%@/shots/following.rss", username] title:@"Following Activity" account:self],
                   nil];
     
     [self.delegate accountValidationDidComplete:self];

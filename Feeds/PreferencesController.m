@@ -54,14 +54,14 @@
 }
 
 - (void)resizeWindowForContentSize:(NSSize)size {
-//    static BOOL firstTime = YES;
-//	NSRect windowFrame = [NSWindow contentRectForFrameRect:[[self window] frame]
-//                                                 styleMask:[[self window] styleMask]];
-//	NSRect newWindowFrame = [NSWindow frameRectForContentRect:
-//                             NSMakeRect( NSMinX( windowFrame ), NSMaxY( windowFrame ) - size.height, size.width, size.height )
-//                                                    styleMask:[[self window] styleMask]];
-//	[[self window] setFrame:newWindowFrame display:YES animate:(!firstTime && [[self window] isVisible])];
-//    firstTime = NO;
+    static BOOL firstTime = YES;
+	NSRect windowFrame = [NSWindow contentRectForFrameRect:[[self window] frame]
+                                                 styleMask:[[self window] styleMask]];
+	NSRect newWindowFrame = [NSWindow frameRectForContentRect:
+                             NSMakeRect( NSMinX( windowFrame ), NSMaxY( windowFrame ) - size.height, size.width, size.height )
+                                                    styleMask:[[self window] styleMask]];
+	[[self window] setFrame:newWindowFrame display:YES animate:(!firstTime && [[self window] isVisible])];
+    firstTime = NO;
 }
 
 - (IBAction)selectGeneralTab:(id)sender {

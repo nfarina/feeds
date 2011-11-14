@@ -24,10 +24,11 @@ NSDateFormatter *ATOMDateFormatter() {
 @end
 
 @implementation Feed
-@synthesize URL, author, items, request, account;
+@synthesize URL, title, author, items, request, disabled, account;
 
 - (void)dealloc {
     self.URL = nil;
+    self.title = nil;
     self.author = nil;
     self.items = nil;
     self.request = nil;
@@ -40,13 +41,14 @@ NSDateFormatter *ATOMDateFormatter() {
     [request release], request = [value retain];
 }
 
-+ (Feed *)feedWithURLString:(NSString *)URLString account:(Account *)account {
-    return [self feedWithURLString:URLString author:nil account:account];
++ (Feed *)feedWithURLString:(NSString *)URLString title:(NSString *)title account:(Account *)account {
+    return [self feedWithURLString:URLString title:title author:nil account:account];
 }
 
-+ (Feed *)feedWithURLString:(NSString *)URLString author:(NSString *)author account:(Account *)account {
++ (Feed *)feedWithURLString:(NSString *)URLString title:(NSString *)title author:(NSString *)author account:(Account *)account {
     Feed *feed = [[[Feed alloc] init] autorelease];
     feed.URL = [NSURL URLWithString:URLString];
+    feed.title = title;
     feed.author = author;
     feed.account = account;
     return feed;
@@ -55,7 +57,9 @@ NSDateFormatter *ATOMDateFormatter() {
 + (Feed *)feedWithDictionary:(NSDictionary *)dict account:(Account *)account {
     Feed *feed = [[[Feed alloc] init] autorelease];
     feed.URL = [NSURL URLWithString:[dict objectForKey:@"url"]];
+    feed.title = [dict objectForKey:@"title"];
     feed.author = [dict objectForKey:@"author"];
+    feed.disabled = [[dict objectForKey:@"disabled"] boolValue];
     feed.account = account;
     return feed;
 }
@@ -63,16 +67,20 @@ NSDateFormatter *ATOMDateFormatter() {
 - (NSDictionary *)dictionaryRepresentation {
     return [NSDictionary dictionaryWithObjectsAndKeys:
             [URL absoluteString], @"url",
+            title, @"title",
             author, @"author",
+            [NSNumber numberWithBool:disabled], @"disabled",
             nil];
 
 }
 
 - (void)refresh {
-    NSURLRequest *URLRequest = [NSURLRequest requestWithURL:URL username:[URL user] password:[URL password]];
-    self.request = [SMWebRequest requestWithURLRequest:URLRequest delegate:(id<SMWebRequestDelegate>)[self class] context:nil];
-    [request addTarget:self action:@selector(refreshComplete:) forRequestEvents:SMWebRequestEventComplete];
-    [request start];
+    if (!disabled) {
+        NSURLRequest *URLRequest = [NSURLRequest requestWithURL:URL username:[URL user] password:[URL password]];
+        self.request = [SMWebRequest requestWithURLRequest:URLRequest delegate:(id<SMWebRequestDelegate>)[self class] context:nil];
+        [request addTarget:self action:@selector(refreshComplete:) forRequestEvents:SMWebRequestEventComplete];
+        [request start];
+    }
 }
 
 // This method is called on a background thread. Don't touch your instance members!

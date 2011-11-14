@@ -192,8 +192,12 @@ static NSMutableArray *allAccounts = nil;
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     Feed *feed = [feeds objectAtIndex:row];
-    //return [NSDictionary dictionaryWithObjectsAndKeys:account.type, @"type", account.username, @"username", nil];
-    return feed.URL;
+    if ([tableColumn.identifier isEqual:@"showColumn"])
+        return [NSNumber numberWithBool:!feed.disabled];
+    else if ([tableColumn.identifier isEqual:@"feedColumn"])
+        return feed.title;
+    else
+        return nil;
 }
 
 @end
