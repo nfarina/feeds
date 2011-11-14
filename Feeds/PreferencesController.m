@@ -190,17 +190,8 @@
     [findFeedsLabel setHidden:YES];
     
     if ([account.feeds isEqualToArray:oldFeeds]) {
-        
-        // copy over the disabled flag
-        for (Feed *feed in account.feeds) {
-            NSUInteger index = [oldFeeds indexOfObject:feed];
-            if (index != NSNotFound) {
-                Feed *old = [oldFeeds objectAtIndex:index];
-                feed.disabled = old.disabled;
-            }
-        }
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"FeedsRecreated" object:nil];
+        // if nothing has changed, keep our old feed objects to preserve non-retained references from any existing FeedItems.
+        account.feeds = oldFeeds;
     }
     else {
         NSLog(@"Available feeds changed! Saving accounts.");

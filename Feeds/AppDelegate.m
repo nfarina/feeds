@@ -69,7 +69,6 @@
 	[reachability startNotifier];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountsChanged:) name:kAccountsChangedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedsRecreated:) name:@"FeedsRecreated" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedUpdated:) name:kFeedUpdatedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedFailed:) name:kSMWebRequestError object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged) name:kReachabilityChangedNotification object:nil];
@@ -124,10 +123,6 @@
 - (void)accountsChanged:(NSNotification *)notification {
     menuNeedsRebuild = YES;
     [self refreshFeeds];
-}
-
-- (void)feedsRecreated:(NSNotification *)notification {
-    menuNeedsRebuild = YES;
 }
 
 - (void)refreshFeeds {
