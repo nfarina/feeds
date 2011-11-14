@@ -4,7 +4,6 @@
 
 #define MAX_ITEMS 30
 #define MAX_GROWLS 3
-#define CHECK_INTERVAL 60*1
 #define POPOVER_INTERVAL 0.5
 #define POPOVER_WIDTH 402
 
@@ -73,16 +72,21 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedUpdated:) name:kFeedUpdatedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedFailed:) name:kSMWebRequestError object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged) name:kReachabilityChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshIntervalChanged) name:@"RefreshIntervalChanged" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hotKeysChanged) name:@"FeedsHotKeysChanged" object:nil];
     
     [self hotKeysChanged];
-//    [self reachabilityChanged];
+    [self reachabilityChanged];
     
 #if DEBUG
     [self openPreferences:nil];
 #endif
 
     [self accountsChanged:nil];
+}
+
+- (NSTimeInterval)refreshInterval {
+    return [[NSUserDefaults standardUserDefaults] integerForKey:@"RefreshInterval"] ?: DEFAULT_REFRESH_INTERVAL;
 }
 
 - (void)setRefreshTimer:(NSTimer *)value {
@@ -101,6 +105,10 @@
     return feeds;
 }
 
+- (void)refreshIntervalChanged {
+    [self reachabilityChanged]; // trigger a timer reset
+}
+
 - (void)hotKeysChanged {
     [hotKeyCenter unregisterHotKeysWithTarget:self];
     unsigned short code = [[NSUserDefaults standardUserDefaults] integerForKey:@"OpenMenuKeyCode"];
@@ -115,7 +123,7 @@
 }
 
 - (void)refreshFeeds {
-    //NSLog(@"Refreshing feeds...");
+    NSLog(@"Refreshing feeds...");
     [[self allFeeds] makeObjectsPerformSelector:@selector(refresh)];
 }
 
@@ -143,7 +151,7 @@
         NSLog(@"Internet is reachable. Refreshing and resetting timer.");
         
         [self refreshFeeds];
-        self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:CHECK_INTERVAL target:self selector:@selector(refreshFeeds) userInfo:nil repeats:YES];
+        self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:self.refreshInterval target:self selector:@selector(refreshFeeds) userInfo:nil repeats:YES];
     }
     else {
         NSLog(@"Internet is NOT reachable. Killing timer.");
@@ -172,18 +180,22 @@
     Feed *feed = [notification object];
     int notifications = 0;
     
-    for (FeedItem *item in feed.items) {
-        if (!item.notified && notifications++ < MAX_GROWLS) {
-            [GrowlApplicationBridge
-             notifyWithTitle:[item.title truncatedAfterIndex:45]
-             description:[[item.content stringByFlatteningHTML] truncatedAfterIndex:45]
-             notificationName:@"NewItem"
-             iconData:feed.account.notifyIconData
-             priority:(signed int)0
-             isSticky:FALSE
-             clickContext:[item.link absoluteString]];
+    // Show Growl notifications if the user wants
+    BOOL disableNotifications = [[NSUserDefaults standardUserDefaults] boolForKey:@"DisableNotifications"];
+    
+    if (!disableNotifications)
+        for (FeedItem *item in feed.items) {
+            if (!item.notified && notifications++ < MAX_GROWLS) {
+                [GrowlApplicationBridge
+                 notifyWithTitle:[item.title truncatedAfterIndex:45]
+                 description:[[item.content stringByFlatteningHTML] truncatedAfterIndex:45]
+                 notificationName:@"NewItem"
+                 iconData:feed.account.notifyIconData
+                 priority:(signed int)0
+                 isSticky:FALSE
+                 clickContext:[item.link absoluteString]];
+            }
         }
-    }
     
     // mark all as notified
     for (FeedItem *item in feed.items)

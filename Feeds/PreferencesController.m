@@ -15,6 +15,12 @@
     [self selectGeneralTab:nil];
     [self tableViewSelectionDidChange:nil];
     
+    NSTimeInterval refreshInterval = [[NSUserDefaults standardUserDefaults] integerForKey:@"RefreshInterval"] ?: DEFAULT_REFRESH_INTERVAL;
+    [refreshIntervalButton selectItemWithTag:refreshInterval];
+    
+    BOOL disableNotifications = [[NSUserDefaults standardUserDefaults] boolForKey:@"DisableNotifications"];
+    showNotificationsButton.state = (disableNotifications ? NSOffState : NSOnState);
+
     KeyCombo combo;
     combo.code = [[NSUserDefaults standardUserDefaults] integerForKey:@"OpenMenuKeyCode"];
     combo.flags = [[NSUserDefaults standardUserDefaults] integerForKey:@"OpenMenuKeyFlags"];
@@ -78,10 +84,21 @@
 
 #pragma mark General
 
+- (void)refreshIntervalChanged:(id)sender {
+    NSTimeInterval refreshInterval = refreshIntervalButton.selectedItem.tag; // cleverly the menuitem "tag" is the refresh interval
+    [[NSUserDefaults standardUserDefaults] setInteger:refreshInterval forKey:@"RefreshInterval"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshIntervalChanged" object:nil];
+}
+
 - (void)shortcutRecorder:(SRRecorderControl *)aRecorder keyComboDidChange:(KeyCombo)newKeyCombo {
     [[NSUserDefaults standardUserDefaults] setInteger:newKeyCombo.code forKey:@"OpenMenuKeyCode"];
     [[NSUserDefaults standardUserDefaults] setInteger:newKeyCombo.flags forKey:@"OpenMenuKeyFlags"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"FeedsHotKeysChanged" object:nil];
+}
+
+- (void)showNotificationsChanged:(id)sender {
+    BOOL showNotifications = (showNotificationsButton.state == NSOnState);
+    [[NSUserDefaults standardUserDefaults] setBool:!showNotifications forKey:@"DisableNotifications"];
 }
 
 - (void)launchAtStartupChanged:(id)sender {
