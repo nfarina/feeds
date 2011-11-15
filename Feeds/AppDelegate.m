@@ -60,9 +60,6 @@
         [menu addItem:shimItem];
     }
 
-    // register hot key for popping open the menu
-    //[HotKeys registerHotKeys];
-    
     allItems = [NSMutableArray new];
     
     reachability = [[Reachability reachabilityForInternetConnection] retain];
@@ -116,7 +113,7 @@
     [hotKeyCenter unregisterHotKeysWithTarget:self];
     unsigned short code = [[NSUserDefaults standardUserDefaults] integerForKey:@"OpenMenuKeyCode"];
     NSUInteger flags = [[NSUserDefaults standardUserDefaults] integerForKey:@"OpenMenuKeyFlags"];
-    if (code > -1)
+    if (code > 0)
         [hotKeyCenter registerHotKeyWithKeyCode:code modifierFlags:flags target:self action:@selector(openMenuHotkeyPressed) object:nil];
 }
 
