@@ -88,7 +88,8 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
 }
 
 - (void)refresh {
-    NSURLRequest *URLRequest = [NSURLRequest requestWithURL:URL username:[URL user] password:[URL password]];
+    NSMutableURLRequest *URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL username:[URL user] password:[URL password]];
+    URLRequest.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
     self.request = [SMWebRequest requestWithURLRequest:URLRequest delegate:(id<SMWebRequestDelegate>)[self class] context:nil];
     [request addTarget:self action:@selector(refreshComplete:) forRequestEvents:SMWebRequestEventComplete];
     [request start];
