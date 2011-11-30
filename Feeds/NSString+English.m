@@ -1,5 +1,13 @@
 #import "NSString+English.h"
 
+BOOL NSEqualStrings(NSString *aString, NSString *bString) {
+    return (!aString && !bString) || [aString isEqualToString:bString];
+}
+
+BOOL NSEqualObjects(id a, id b) {
+    return (!a && !b) || [a isEqual:b];
+}
+
 @implementation NSString (English)
 
 - (NSString *)pluralizedForCount:(NSUInteger)count {

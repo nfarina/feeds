@@ -1,4 +1,7 @@
 
+BOOL NSEqualStrings(NSString *aString, NSString *bString);
+BOOL NSEqualObjects(id a, id b);
+
 @interface NSString (English)
 
 // Appends an "s" to this word if count is greater than 1.

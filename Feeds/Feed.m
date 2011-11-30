@@ -143,8 +143,10 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
             int i = (int)[items indexOfObject:newItem];
             if (items != nil && i >= 0)
                 [merged addObject:[items objectAtIndex:i]]; // preserve existing item
-            else
+            else {
+                NSLog(@"NEW ITEM FOR FEED %@: %@", URL, newItem);
                 [merged addObject:newItem];
+            }
         }
         self.items = merged;
         
@@ -154,6 +156,7 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
                 item.notified = item.viewed = YES;
     }
     else {
+        NSLog(@"ALL NEW ITEMS FOR FEED %@", URL);
         self.items = newItems;
 
         // don't notify about the initial fetch, or we'll have a shitload of growl popups
@@ -232,13 +235,17 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
 - (BOOL)isEqual:(FeedItem *)other {
     if ([other isKindOfClass:[FeedItem class]]) {
         // order is important - content comes last because it's expensive to compare but typically it'll short-circuit before getting there.
-        return [link isEqual:other.link]
-            && [title isEqual:other.title]
-            && [author isEqual:other.author]
-            && [content isEqual:other.content];
+        return NSEqualObjects(link, other.link) && NSEqualStrings(title, other.title) && NSEqualStrings(author, other.author) && NSEqualStrings(content, other.content);
          // && [updated isEqual:other.updated]; // ignore updated, it creates too many false positives
     }
     else return NO;
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"FeedItem (\n\ttitle: %@\n\tauthor:%@\n\tlink:%@\n\tcontent:%@\n)",
+            title,author,link,
+            [content truncatedAfterIndex:25],
+            nil];
 }
 
 - (NSComparisonResult)compareItemByPublishedDate:(FeedItem *)item {
