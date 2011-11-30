@@ -3,6 +3,7 @@
 #import "HighriseAccount.h"
 #import "DribbbleAccount.h"
 #import "GithubAccount.h"
+#import "UserVoiceAccount.h"
 
 static NSArray *accountTypes = nil;
 
@@ -21,6 +22,7 @@ static NSArray *accountTypes = nil;
                         [NSDictionary dictionaryWithObjectsAndKeys:@"Dribbble",@"name",[DribbbleAccount class],@"class",nil],
                         [NSDictionary dictionaryWithObjectsAndKeys:@"Github",@"name",[GithubAccount class],@"class",nil],
                         [NSDictionary dictionaryWithObjectsAndKeys:@"Highrise",@"name",[HighriseAccount class],@"class",nil],
+                        [NSDictionary dictionaryWithObjectsAndKeys:@"UserVoice",@"name",[UserVoiceAccount class],@"class",nil],
                         nil];
     }
 }

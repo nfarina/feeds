@@ -41,8 +41,8 @@ extern NSString *kFeedUpdatedNotification;
 @property (nonatomic, assign) Feed *feed;
 
 // creates a new FeedItem by parsing an XML element
-+ (FeedItem *)itemWithRSSItemElement:(SMXMLElement *)element formatter:(NSDateFormatter *)formatter;
-+ (FeedItem *)itemWithATOMEntryElement:(SMXMLElement *)element formatter:(NSDateFormatter *)formatter;
++ (FeedItem *)itemWithRSSItemElement:(SMXMLElement *)element formatter:(ISO8601DateFormatter *)formatter;
++ (FeedItem *)itemWithATOMEntryElement:(SMXMLElement *)element formatter:(ISO8601DateFormatter *)formatter;
 
 - (NSComparisonResult)compareItemByPublishedDate:(FeedItem *)item;
 

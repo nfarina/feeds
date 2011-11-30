@@ -6,9 +6,12 @@
 
 	NSDictionary *dict = self.objectValue;
     NSString *type = [dict objectForKey:@"type"];
-    NSString *user = [dict objectForKey:@"username"];
+    NSString *name = [dict objectForKey:@"username"];
+    NSImage *icon = [NSImage imageNamed:[type stringByAppendingString:@"Account.png"]];
 
-    
+    if (!name.length)
+        name = [dict objectForKey:@"domain"];
+
     // We have to do some work otherwise the image will be drawn Y-flipped
 	[[NSGraphicsContext currentContext] saveGraphicsState]; {
         
@@ -17,11 +20,10 @@
             NSAffineTransform* transform = [NSAffineTransform transform];
             [transform translateXBy:0.0 yBy: cellFrame.size.height];
             [transform scaleXBy:1.0 yBy:-1.0];
-            [transform concat];		
+            [transform concat];
             yOffset = 0-cellFrame.origin.y;
         }	
 
-        NSImage *icon = [NSImage imageNamed:[type stringByAppendingString:@"Account.png"]];
         [icon drawAtPoint:NSMakePoint(4, yOffset+6) fromRect:(NSRect){.size=icon.size} operation:NSCompositeSourceOver fraction:1];
 
 	} [[NSGraphicsContext currentContext] restoreGraphicsState];	
@@ -54,7 +56,7 @@
     NSRect userRect = typeRect;
     userRect.origin.y += 16;
 
-    [user drawWithRect:userRect options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine attributes:userAttributes];
+    [name drawWithRect:userRect options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine attributes:userAttributes];
 }
 
 @end

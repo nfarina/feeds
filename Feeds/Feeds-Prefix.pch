@@ -12,10 +12,13 @@
 #import "NSArray+Linqish.h"
 #import "NSString+EntityDecoding.h"
 #import "NSString+Base64.h"
+#import "NSString+English.h"
 #import "NSURLRequest+Authorization.h"
 #import "NSView+PrintHierarchy.h"
 #import "NSString+Truncated.h"
 #import "Reachability.h"
 #import "RegexKitLite.h"
 #import "CG+Geometry.h"
+#import "TFHpple.h"
+#import "ISO8601DateFormatter.h"
 #endif

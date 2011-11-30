@@ -13,6 +13,13 @@
 		0108CEE013BBA3AC0000ECE1 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 0108CEDF13BBA3AC0000ECE1 /* NSString+Base64.m */; };
 		0117B30613AD27CB0018AB7C /* NSArray+Linqish.m in Sources */ = {isa = PBXBuildFile; fileRef = 0117B30513AD27CB0018AB7C /* NSArray+Linqish.m */; };
 		0125C6CD13C7C8B10006BB1A /* NSView+PrintHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0125C6CC13C7C8B10006BB1A /* NSView+PrintHierarchy.m */; };
+		014147A01486B019000D63E5 /* UserVoiceAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 0141479F1486B019000D63E5 /* UserVoiceAccount.m */; };
+		014147AE1486B258000D63E5 /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 014147A91486B258000D63E5 /* TFHpple.m */; };
+		014147AF1486B258000D63E5 /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 014147AB1486B258000D63E5 /* TFHppleElement.m */; };
+		014147B01486B258000D63E5 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 014147AD1486B258000D63E5 /* XPathQuery.m */; };
+		014147B31486B2BF000D63E5 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 014147B11486B27F000D63E5 /* libxml2.2.dylib */; };
+		014147B81486B575000D63E5 /* NSString+English.m in Sources */ = {isa = PBXBuildFile; fileRef = 014147B71486B575000D63E5 /* NSString+English.m */; };
+		014147BB1486BAB5000D63E5 /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 014147BA1486BAB5000D63E5 /* ISO8601DateFormatter.m */; };
 		01518F7E13C54F480043AB98 /* CG+Geometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 01518F7D13C54F480043AB98 /* CG+Geometry.m */; };
 		015D788F13C6394600BCD7C4 /* Popover.html in Resources */ = {isa = PBXBuildFile; fileRef = 015D788E13C6394600BCD7C4 /* Popover.html */; };
 		015D789513C6536400BCD7C4 /* Unread.png in Resources */ = {isa = PBXBuildFile; fileRef = 015D789413C6536400BCD7C4 /* Unread.png */; };
@@ -100,6 +107,19 @@
 		0117B30513AD27CB0018AB7C /* NSArray+Linqish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Linqish.m"; sourceTree = "<group>"; };
 		0125C6CB13C7C8B10006BB1A /* NSView+PrintHierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+PrintHierarchy.h"; sourceTree = "<group>"; };
 		0125C6CC13C7C8B10006BB1A /* NSView+PrintHierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+PrintHierarchy.m"; sourceTree = "<group>"; };
+		0141479E1486B019000D63E5 /* UserVoiceAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserVoiceAccount.h; sourceTree = "<group>"; };
+		0141479F1486B019000D63E5 /* UserVoiceAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserVoiceAccount.m; sourceTree = "<group>"; };
+		014147A81486B258000D63E5 /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
+		014147A91486B258000D63E5 /* TFHpple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHpple.m; sourceTree = "<group>"; };
+		014147AA1486B258000D63E5 /* TFHppleElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHppleElement.h; sourceTree = "<group>"; };
+		014147AB1486B258000D63E5 /* TFHppleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHppleElement.m; sourceTree = "<group>"; };
+		014147AC1486B258000D63E5 /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
+		014147AD1486B258000D63E5 /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
+		014147B11486B27F000D63E5 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		014147B61486B575000D63E5 /* NSString+English.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+English.h"; sourceTree = "<group>"; };
+		014147B71486B575000D63E5 /* NSString+English.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+English.m"; sourceTree = "<group>"; };
+		014147B91486BAB5000D63E5 /* ISO8601DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISO8601DateFormatter.h; sourceTree = "<group>"; };
+		014147BA1486BAB5000D63E5 /* ISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISO8601DateFormatter.m; sourceTree = "<group>"; };
 		01518F7C13C54F480043AB98 /* CG+Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CG+Geometry.h"; sourceTree = "<group>"; };
 		01518F7D13C54F480043AB98 /* CG+Geometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CG+Geometry.m"; sourceTree = "<group>"; };
 		015D788E13C6394600BCD7C4 /* Popover.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Popover.html; sourceTree = "<group>"; };
@@ -189,6 +209,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				014147B31486B2BF000D63E5 /* libxml2.2.dylib in Frameworks */,
 				01C4F93513C597C000DB0CCB /* WebKit.framework in Frameworks */,
 				01EB9C3D13C4F36E00A9C131 /* libicucore.dylib in Frameworks */,
 				0108CEDD13BB8CB90000ECE1 /* Security.framework in Frameworks */,
@@ -214,6 +235,8 @@
 				01B2BE7613C4C39B00304D6A /* DribbbleAccount.m */,
 				01B2BE7813C4E76400304D6A /* GithubAccount.h */,
 				01B2BE7913C4E76400304D6A /* GithubAccount.m */,
+				0141479E1486B019000D63E5 /* UserVoiceAccount.h */,
+				0141479F1486B019000D63E5 /* UserVoiceAccount.m */,
 			);
 			name = Accounts;
 			sourceTree = "<group>";
@@ -225,6 +248,8 @@
 				0117B30513AD27CB0018AB7C /* NSArray+Linqish.m */,
 				01F616B513AD502300EBB24E /* NSString+EntityDecoding.h */,
 				01F616B613AD502300EBB24E /* NSString+EntityDecoding.m */,
+				014147B61486B575000D63E5 /* NSString+English.h */,
+				014147B71486B575000D63E5 /* NSString+English.m */,
 				01F616E513AE4F8D00EBB24E /* Reachability.h */,
 				01F616E413AE4F8D00EBB24E /* Reachability.m */,
 				0108CEDE13BBA3AC0000ECE1 /* NSString+Base64.h */,
@@ -241,8 +266,23 @@
 				0125C6CC13C7C8B10006BB1A /* NSView+PrintHierarchy.m */,
 				019EE0F0147044CA00B67B74 /* LoginItems.h */,
 				019EE0F1147044CA00B67B74 /* LoginItems.m */,
+				014147B91486BAB5000D63E5 /* ISO8601DateFormatter.h */,
+				014147BA1486BAB5000D63E5 /* ISO8601DateFormatter.m */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		014147A71486B258000D63E5 /* Hpple */ = {
+			isa = PBXGroup;
+			children = (
+				014147A81486B258000D63E5 /* TFHpple.h */,
+				014147A91486B258000D63E5 /* TFHpple.m */,
+				014147AA1486B258000D63E5 /* TFHppleElement.h */,
+				014147AB1486B258000D63E5 /* TFHppleElement.m */,
+				014147AC1486B258000D63E5 /* XPathQuery.h */,
+				014147AD1486B258000D63E5 /* XPathQuery.m */,
+			);
+			path = Hpple;
 			sourceTree = "<group>";
 		};
 		015D789E13C6733D00BCD7C4 /* Service Icons */ = {
@@ -267,6 +307,7 @@
 		01937C7313A03F5000BCE1D4 = {
 			isa = PBXGroup;
 			children = (
+				014147B11486B27F000D63E5 /* libxml2.2.dylib */,
 				01937C8813A03F5000BCE1D4 /* Feeds */,
 				01937CB213A05A5100BCE1D4 /* Libraries */,
 				01937C8113A03F5000BCE1D4 /* Frameworks */,
@@ -372,6 +413,7 @@
 				01937CB113A05A3E00BCE1D4 /* Web Request */,
 				01B2BE7B13C4E89D00304D6A /* JSONKit */,
 				019EE0C4147023B800B67B74 /* DDHotKey */,
+				014147A71486B258000D63E5 /* Hpple */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -557,6 +599,12 @@
 				015E0EE614478DB6000A611D /* JSONKit.m in Sources */,
 				019EE0DC147023B800B67B74 /* DDHotKeyCenter.m in Sources */,
 				019EE0F2147044CA00B67B74 /* LoginItems.m in Sources */,
+				014147A01486B019000D63E5 /* UserVoiceAccount.m in Sources */,
+				014147AE1486B258000D63E5 /* TFHpple.m in Sources */,
+				014147AF1486B258000D63E5 /* TFHppleElement.m in Sources */,
+				014147B01486B258000D63E5 /* XPathQuery.m in Sources */,
+				014147B81486B575000D63E5 /* NSString+English.m in Sources */,
+				014147BB1486BAB5000D63E5 /* ISO8601DateFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -639,6 +687,7 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Feeds/Feeds-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Feeds/Feeds-Info.plist";
 				PRODUCT_NAME = Feeds;
 				WRAPPER_EXTENSION = app;
@@ -658,6 +707,7 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Feeds/Feeds-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Feeds/Feeds-Info.plist";
 				PRODUCT_NAME = Feeds;
 				WRAPPER_EXTENSION = app;

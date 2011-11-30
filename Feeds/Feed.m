@@ -3,21 +3,28 @@
 
 NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
 
-NSDateFormatter *RSSDateFormatter() {
-    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
-    [formatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"] autorelease]];
-    [formatter setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss Z"];
-    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-    return formatter;
-}
-
-NSDateFormatter *ATOMDateFormatter() {
-    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
-    [formatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"] autorelease]];
-    [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
-    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-    return formatter;
-}
+//NSDateFormatter *RSSDateFormatter() {
+//    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
+//    [formatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"] autorelease]];
+//    [formatter setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss Z"];
+//    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+//    return formatter;
+//}
+//
+//NSDateFormatter *ATOMDateFormatter() {
+//    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
+//    [formatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"] autorelease]];
+//    [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+//    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+//    return formatter;
+//}
+//
+//NSDateFormatter *ATOMDateFormatterWithTimeZone() {
+//    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
+//    [formatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"] autorelease]];
+//    [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZ"];
+//    return formatter;
+//}
 
 @interface Feed ()
 @property (nonatomic, retain) SMWebRequest *request;
@@ -93,11 +100,13 @@ NSDateFormatter *ATOMDateFormatter() {
     SMXMLDocument *document = [SMXMLDocument documentWithData:data error:NULL];
     NSMutableArray *items = [NSMutableArray array];
 
+    // cache this, it's expensive to create (and not threadsafe)
+    ISO8601DateFormatter *formatter = [[[ISO8601DateFormatter alloc] init] autorelease];
+
     // are we speaking RSS or ATOM here?
     if ([document.root.name isEqual:@"rss"]) {
 
         NSArray *itemsXml = [[document.root childNamed:@"channel"] childrenNamed:@"item"];
-        NSDateFormatter *formatter = RSSDateFormatter();
         
         for (SMXMLElement *itemXml in itemsXml)
             [items addObject:[FeedItem itemWithRSSItemElement:itemXml formatter:formatter]];
@@ -105,7 +114,6 @@ NSDateFormatter *ATOMDateFormatter() {
     else if ([document.root.name isEqual:@"feed"]) {
 
         NSArray *itemsXml = [document.root childrenNamed:@"entry"];
-        NSDateFormatter *formatter = ATOMDateFormatter();
         
         for (SMXMLElement *itemXml in itemsXml)
             [items addObject:[FeedItem itemWithATOMEntryElement:itemXml formatter:formatter]];
@@ -173,7 +181,7 @@ NSDateFormatter *ATOMDateFormatter() {
     [super dealloc];
 }
 
-+ (FeedItem *)itemWithRSSItemElement:(SMXMLElement *)element formatter:(NSDateFormatter *)formatter {
++ (FeedItem *)itemWithRSSItemElement:(SMXMLElement *)element formatter:(ISO8601DateFormatter *)formatter {
     FeedItem *item = [[FeedItem new] autorelease];
     item.title = [element childNamed:@"title"].value;
     item.author = [element childNamed:@"author"].value;
@@ -189,13 +197,17 @@ NSDateFormatter *ATOMDateFormatter() {
     if (!item.author && [element childNamed:@"creator"])
         item.author = [element valueWithPath:@"creator"];
     
-    item.published = [formatter dateFromString:[element childNamed:@"pubDate"].value];
+    NSString *published = [element childNamed:@"pubDate"].value;
+    
+    item.published = [formatter dateFromString:published];
     item.updated = item.published;
     
+    if (!item.published) NSLog(@"Couldn't parse date %@", published);
+
     return item;
 }
 
-+ (FeedItem *)itemWithATOMEntryElement:(SMXMLElement *)element formatter:(NSDateFormatter *)formatter {
++ (FeedItem *)itemWithATOMEntryElement:(SMXMLElement *)element formatter:(ISO8601DateFormatter *)formatter {
     FeedItem *item = [[FeedItem new] autorelease];
     item.title = [element childNamed:@"title"].value;
     item.author = [element valueWithPath:@"author.name"];
@@ -206,9 +218,14 @@ NSDateFormatter *ATOMDateFormatter() {
     if (linkHref.length)
         item.link = [NSURL URLWithString:linkHref];
     
-    item.published = [formatter dateFromString:[element childNamed:@"published"].value];
-    item.updated = [formatter dateFromString:[element childNamed:@"updated"].value];
+    NSString *published = [element childNamed:@"published"].value;
+    NSString *updated = [element childNamed:@"updated"].value;
     
+    item.published = [formatter dateFromString:published];
+    item.updated = [formatter dateFromString:updated];
+
+    if (!item.published) NSLog(@"Couldn't parse date %@", published);
+
     return item;
 }
 

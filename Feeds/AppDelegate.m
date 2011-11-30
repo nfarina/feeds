@@ -76,6 +76,8 @@
     [self reachabilityChanged];
     
 #if DEBUG
+    ProcessSerialNumber psn = { 0, kCurrentProcess }; 
+    TransformProcessType(&psn, kProcessTransformToForegroundApplication);
     [self openPreferences:nil];
 #endif
 
@@ -321,7 +323,7 @@
     
     NSString *templatePath = [[NSBundle mainBundle] pathForResource:@"Popover" ofType:@"html"];
     NSString *template = [NSString stringWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:NULL];
-    NSString *rendered = [NSString stringWithFormat:template, [item.title truncatedAfterIndex:75], item.author, item.content];
+    NSString *rendered = [NSString stringWithFormat:template, [item.title truncatedAfterIndex:75], item.author, item.content ?: @""];
     
     webView.alphaValue = 0;
     [webView.mainFrame loadHTMLString:rendered baseURL:nil];
