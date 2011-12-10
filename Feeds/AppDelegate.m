@@ -76,8 +76,8 @@
     [self reachabilityChanged];
     
 #if DEBUG
-    ProcessSerialNumber psn = { 0, kCurrentProcess }; 
-    TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+//    ProcessSerialNumber psn = { 0, kCurrentProcess }; 
+//    TransformProcessType(&psn, kProcessTransformToForegroundApplication);
     [self openPreferences:nil];
 #endif
 
