@@ -21,6 +21,7 @@
 		014147B81486B575000D63E5 /* NSString+English.m in Sources */ = {isa = PBXBuildFile; fileRef = 014147B71486B575000D63E5 /* NSString+English.m */; };
 		014147BB1486BAB5000D63E5 /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 014147BA1486BAB5000D63E5 /* ISO8601DateFormatter.m */; };
 		01518F7E13C54F480043AB98 /* CG+Geometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 01518F7D13C54F480043AB98 /* CG+Geometry.m */; };
+		01524F4514BFB45F00913D84 /* TrelloAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01524F4414BFB45F00913D84 /* TrelloAccount.m */; };
 		015D788F13C6394600BCD7C4 /* Popover.html in Resources */ = {isa = PBXBuildFile; fileRef = 015D788E13C6394600BCD7C4 /* Popover.html */; };
 		015D789513C6536400BCD7C4 /* Unread.png in Resources */ = {isa = PBXBuildFile; fileRef = 015D789413C6536400BCD7C4 /* Unread.png */; };
 		015D78A113C6747100BCD7C4 /* Basecamp.png in Resources */ = {isa = PBXBuildFile; fileRef = 015D78A013C6747100BCD7C4 /* Basecamp.png */; };
@@ -122,6 +123,8 @@
 		014147BA1486BAB5000D63E5 /* ISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISO8601DateFormatter.m; sourceTree = "<group>"; };
 		01518F7C13C54F480043AB98 /* CG+Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CG+Geometry.h"; sourceTree = "<group>"; };
 		01518F7D13C54F480043AB98 /* CG+Geometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CG+Geometry.m"; sourceTree = "<group>"; };
+		01524F4314BFB45F00913D84 /* TrelloAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrelloAccount.h; sourceTree = "<group>"; };
+		01524F4414BFB45F00913D84 /* TrelloAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrelloAccount.m; sourceTree = "<group>"; };
 		015D788E13C6394600BCD7C4 /* Popover.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Popover.html; sourceTree = "<group>"; };
 		015D789413C6536400BCD7C4 /* Unread.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Unread.png; sourceTree = "<group>"; };
 		015D78A013C6747100BCD7C4 /* Basecamp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Basecamp.png; sourceTree = "<group>"; };
@@ -237,6 +240,8 @@
 				01B2BE7913C4E76400304D6A /* GithubAccount.m */,
 				0141479E1486B019000D63E5 /* UserVoiceAccount.h */,
 				0141479F1486B019000D63E5 /* UserVoiceAccount.m */,
+				01524F4314BFB45F00913D84 /* TrelloAccount.h */,
+				01524F4414BFB45F00913D84 /* TrelloAccount.m */,
 			);
 			name = Accounts;
 			sourceTree = "<group>";
@@ -605,6 +610,7 @@
 				014147B01486B258000D63E5 /* XPathQuery.m in Sources */,
 				014147B81486B575000D63E5 /* NSString+English.m in Sources */,
 				014147BB1486BAB5000D63E5 /* ISO8601DateFormatter.m in Sources */,
+				01524F4514BFB45F00913D84 /* TrelloAccount.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

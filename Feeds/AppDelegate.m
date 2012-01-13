@@ -24,6 +24,11 @@
 @implementation AppDelegate
 @synthesize refreshTimer, popoverTimer, lastHighlightedItem;
 
+- (void)applicationWillFinishLaunching:(NSNotification *)notification {
+    // listen for "Open URL" events sent to this app by the user clicking on a "feedsapp://something" link.
+    [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
     // show the dock icon immediately if necessary
@@ -82,6 +87,13 @@
 #endif
 
     [self accountsChanged:nil];
+}
+
+- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
+    NSString *urlAsString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
+    NSURL *url = [NSURL URLWithString:urlAsString];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"GetURL" object:self userInfo:
+     [NSDictionary dictionaryWithObject:url forKey:@"URL"]];
 }
 
 - (NSTimeInterval)refreshInterval {

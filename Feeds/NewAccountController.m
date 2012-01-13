@@ -4,6 +4,7 @@
 #import "DribbbleAccount.h"
 #import "GithubAccount.h"
 #import "UserVoiceAccount.h"
+#import "TrelloAccount.h"
 
 static NSArray *accountTypes = nil;
 
@@ -22,6 +23,7 @@ static NSArray *accountTypes = nil;
                         [NSDictionary dictionaryWithObjectsAndKeys:@"Dribbble",@"name",[DribbbleAccount class],@"class",nil],
                         [NSDictionary dictionaryWithObjectsAndKeys:@"Github",@"name",[GithubAccount class],@"class",nil],
                         [NSDictionary dictionaryWithObjectsAndKeys:@"Highrise",@"name",[HighriseAccount class],@"class",nil],
+                        [NSDictionary dictionaryWithObjectsAndKeys:@"Trello",@"name",[TrelloAccount class],@"class",nil],
                         [NSDictionary dictionaryWithObjectsAndKeys:@"UserVoice",@"name",[UserVoiceAccount class],@"class",nil],
                         nil];
     }
@@ -29,10 +31,12 @@ static NSArray *accountTypes = nil;
 
 - (id)initWithDelegate:(id<NewAccountControllerDelegate>)theDelegate {
     delegate = theDelegate;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openURL:) name:@"GetURL" object:nil];
     return [super initWithWindowNibName:@"NewAccountController"];
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.account = nil;
     self.password = nil;
     [super dealloc];
@@ -69,6 +73,7 @@ static NSArray *accountTypes = nil;
     [usernameField setHidden:![accountClass requiresUsername]];
     [passwordLabel setHidden:![accountClass requiresPassword]];
     [passwordField setHidden:![accountClass requiresPassword]];
+    [authButton setHidden:[accountClass requiredAuthURL] == nil];
     
     if ([accountClass requiresDomain])
         [domainField becomeFirstResponder];
@@ -89,6 +94,15 @@ static NSArray *accountTypes = nil;
     if ([accountClass requiresPassword] && [[passwordField stringValue] length] == 0) canContinue = NO;
 
     [OKButton setEnabled:canContinue];
+}
+
+- (void)authPressed:(id)sender {
+    Class accountClass = [self selectedAccountClass];
+    [[NSWorkspace sharedWorkspace] openURL:[accountClass requiredAuthURL]];
+}
+
+- (void)openURL:(NSNotification *)notification {
+    NSLog(@"GOT URL: %@", [notification.userInfo objectForKey:@"URL"]);
 }
 
 - (void)OKPressed:(id)sender {

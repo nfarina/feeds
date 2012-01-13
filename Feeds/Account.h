@@ -25,6 +25,7 @@ typedef enum {
 + (BOOL) requiresDomain;
 + (BOOL) requiresUsername;
 + (BOOL) requiresPassword;
++ (NSURL *) requiredAuthURL;
 + (NSString *)domainSuffix;
 
 @property (nonatomic, assign) id<AccountDelegate> delegate;

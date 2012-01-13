@@ -14,6 +14,7 @@ static NSMutableArray *allAccounts = nil;
 + (BOOL)requiresDomain { return NO; }
 + (BOOL)requiresUsername { return NO; }
 + (BOOL)requiresPassword { return NO; }
++ (NSURL *)requiredAuthURL { return nil; }
 + (NSString *)domainSuffix { return @""; }
 
 #pragma mark Account Persistence

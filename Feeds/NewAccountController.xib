@@ -413,7 +413,7 @@
 												<string key="NSFrame">{{-2, 169}, {122, 17}}</string>
 												<reference key="NSSuperview" ref="734218820"/>
 												<reference key="NSWindow"/>
-												<reference key="NSNextKeyView" ref="390019229"/>
+												<reference key="NSNextKeyView" ref="197625266"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSTextFieldCell" key="NSCell" id="713240922">
 													<int key="NSCellFlags">68288064</int>
@@ -643,6 +643,30 @@
 												</object>
 												<bool key="NSEditable">YES</bool>
 											</object>
+											<object class="NSButton" id="197625266">
+												<reference key="NSNextResponder" ref="734218820"/>
+												<int key="NSvFlags">268</int>
+												<string key="NSFrame">{{119, 98}, {102, 32}}</string>
+												<reference key="NSSuperview" ref="734218820"/>
+												<reference key="NSWindow"/>
+												<reference key="NSNextKeyView" ref="390019229"/>
+												<string key="NSReuseIdentifierKey">_NS:687</string>
+												<bool key="NSEnabled">YES</bool>
+												<object class="NSButtonCell" key="NSCell" id="270230079">
+													<int key="NSCellFlags">67239424</int>
+													<int key="NSCellFlags2">134217728</int>
+													<string key="NSContents">Authorize</string>
+													<reference key="NSSupport" ref="374177389"/>
+													<string key="NSCellIdentifier">_NS:687</string>
+													<reference key="NSControlView" ref="197625266"/>
+													<int key="NSButtonFlags">-2038284033</int>
+													<int key="NSButtonFlags2">129</int>
+													<string key="NSAlternateContents"/>
+													<string key="NSKeyEquivalent"/>
+													<int key="NSPeriodicDelay">200</int>
+													<int key="NSPeriodicInterval">25</int>
+												</object>
+											</object>
 										</object>
 										<string key="NSFrame">{{10, 7}, {403, 331}}</string>
 										<reference key="NSSuperview" ref="444333316"/>
@@ -669,7 +693,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="452644035"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1366, 746}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
@@ -839,6 +863,22 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
+						<string key="label">authButton</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="197625266"/>
+					</object>
+					<int key="connectionID">106</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">authPressed:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="197625266"/>
+					</object>
+					<int key="connectionID">107</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="817115163"/>
 						<reference key="destination" ref="1001"/>
@@ -997,6 +1037,7 @@
 							<reference ref="524276708"/>
 							<reference ref="756198727"/>
 							<reference ref="815187090"/>
+							<reference ref="197625266"/>
 						</object>
 						<reference key="parent" ref="216670239"/>
 					</object>
@@ -1283,6 +1324,20 @@
 						<reference key="object" ref="1002659558"/>
 						<reference key="parent" ref="452644035"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">104</int>
+						<reference key="object" ref="197625266"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="270230079"/>
+						</object>
+						<reference key="parent" ref="734218820"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">105</int>
+						<reference key="object" ref="270230079"/>
+						<reference key="parent" ref="197625266"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -1300,6 +1355,8 @@
 					<string>10.IBPluginDependency</string>
 					<string>101.IBPluginDependency</string>
 					<string>102.IBPluginDependency</string>
+					<string>104.IBPluginDependency</string>
+					<string>105.IBPluginDependency</string>
 					<string>11.IBPluginDependency</string>
 					<string>12.IBPluginDependency</string>
 					<string>13.IBPluginDependency</string>
@@ -1408,6 +1465,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -1422,7 +1481,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">103</int>
+			<int key="maxID">107</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1436,10 +1495,12 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>OKPressed:</string>
 							<string>accountTypeChanged:</string>
+							<string>authPressed:</string>
 							<string>cancelPressed:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1451,6 +1512,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>OKPressed:</string>
 							<string>accountTypeChanged:</string>
+							<string>authPressed:</string>
 							<string>cancelPressed:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -1461,6 +1523,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">accountTypeChanged:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">authPressed:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -1475,6 +1541,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>OKButton</string>
 							<string>accountTypeButton</string>
+							<string>authButton</string>
 							<string>domainField</string>
 							<string>domainInvalid</string>
 							<string>domainLabel</string>
@@ -1494,6 +1561,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSButton</string>
 							<string>NSPopUpButton</string>
+							<string>NSButton</string>
 							<string>NSTextField</string>
 							<string>NSImageView</string>
 							<string>NSTextField</string>
@@ -1516,6 +1584,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>OKButton</string>
 							<string>accountTypeButton</string>
+							<string>authButton</string>
 							<string>domainField</string>
 							<string>domainInvalid</string>
 							<string>domainLabel</string>
@@ -1540,6 +1609,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">accountTypeButton</string>
 								<string key="candidateClassName">NSPopUpButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">authButton</string>
+								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">domainField</string>
