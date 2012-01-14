@@ -38,12 +38,9 @@
     
     NSDictionary *me = [data objectFromJSONData];
     self.username = [me objectForKey:@"username"];
-    
+
     NSString *mainFeedString = [NSString stringWithFormat:@"https://api.trello.com/1/members/me/notifications?key=53e6bb99cefe4914e88d06c76308e357&token=%@", token];
-    Feed *mainFeed = [Feed feedWithURLString:mainFeedString title:@"All Notifications" account:self];
-    
-    //    if ([firstName length] > 0 && [lastName length] > 0)
-    //        mainFeed.author = [NSString stringWithFormat:@"%@ %@.", firstName, [lastName substringToIndex:1]];
+    Feed *mainFeed = [Feed feedWithURLString:mainFeedString title:@"All Notifications" author:self.username account:self];
     
     self.feeds = [NSArray arrayWithObject:mainFeed];
     
