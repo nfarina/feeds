@@ -93,7 +93,7 @@ static NSMutableArray *registeredClasses = nil;
     [dict setObject:self.type forKey:@"type"];
     if (domain) [dict setObject:self.domain forKey:@"domain"];
     if (username) [dict setObject:self.username forKey:@"username"];
-    [dict setObject:[feeds valueForKey:@"dictionaryRepresentation"] forKey:@"feeds"];
+    if (feeds) [dict setObject:[feeds valueForKey:@"dictionaryRepresentation"] forKey:@"feeds"];
     return dict;
 }
 

@@ -84,6 +84,10 @@
 		01F64A2F14C236CE00AAABD7 /* UserVoice.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F64A2C14C236CE00AAABD7 /* UserVoice.png */; };
 		01F64A3014C236CE00AAABD7 /* Trello.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F64A2D14C236CE00AAABD7 /* Trello.png */; };
 		01F64A3114C236CE00AAABD7 /* Beanstalk.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F64A2E14C236CE00AAABD7 /* Beanstalk.png */; };
+		01F64A3414C23F5100AAABD7 /* TrelloAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F64A3214C23F5100AAABD7 /* TrelloAccount.png */; };
+		01F64A3514C23F5100AAABD7 /* TrelloNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F64A3314C23F5100AAABD7 /* TrelloNotify.png */; };
+		01F64A3814C2468C00AAABD7 /* BeanstalkAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F64A3614C2468C00AAABD7 /* BeanstalkAccount.png */; };
+		01F64A3D14C249F300AAABD7 /* BeanstalkNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F64A3C14C249F300AAABD7 /* BeanstalkNotify.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -216,6 +220,10 @@
 		01F64A2C14C236CE00AAABD7 /* UserVoice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserVoice.png; sourceTree = "<group>"; };
 		01F64A2D14C236CE00AAABD7 /* Trello.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Trello.png; sourceTree = "<group>"; };
 		01F64A2E14C236CE00AAABD7 /* Beanstalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Beanstalk.png; sourceTree = "<group>"; };
+		01F64A3214C23F5100AAABD7 /* TrelloAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrelloAccount.png; sourceTree = "<group>"; };
+		01F64A3314C23F5100AAABD7 /* TrelloNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrelloNotify.png; sourceTree = "<group>"; };
+		01F64A3614C2468C00AAABD7 /* BeanstalkAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BeanstalkAccount.png; sourceTree = "<group>"; };
+		01F64A3C14C249F300AAABD7 /* BeanstalkNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BeanstalkNotify.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -321,7 +329,11 @@
 				019EE0EB14702FEE00B67B74 /* GithubNotify.png */,
 				01F64A2C14C236CE00AAABD7 /* UserVoice.png */,
 				01F64A2D14C236CE00AAABD7 /* Trello.png */,
+				01F64A3214C23F5100AAABD7 /* TrelloAccount.png */,
+				01F64A3314C23F5100AAABD7 /* TrelloNotify.png */,
 				01F64A2E14C236CE00AAABD7 /* Beanstalk.png */,
+				01F64A3614C2468C00AAABD7 /* BeanstalkAccount.png */,
+				01F64A3C14C249F300AAABD7 /* BeanstalkNotify.png */,
 			);
 			name = "Service Icons";
 			sourceTree = "<group>";
@@ -589,6 +601,10 @@
 				01F64A2F14C236CE00AAABD7 /* UserVoice.png in Resources */,
 				01F64A3014C236CE00AAABD7 /* Trello.png in Resources */,
 				01F64A3114C236CE00AAABD7 /* Beanstalk.png in Resources */,
+				01F64A3414C23F5100AAABD7 /* TrelloAccount.png in Resources */,
+				01F64A3514C23F5100AAABD7 /* TrelloNotify.png in Resources */,
+				01F64A3814C2468C00AAABD7 /* BeanstalkAccount.png in Resources */,
+				01F64A3D14C249F300AAABD7 /* BeanstalkNotify.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,4 +7,8 @@
 + (BOOL)requiresUsername { return NO; }
 + (BOOL)requiresPassword { return NO; }
 
+- (void)validateWithPassword:(NSString *)password {
+    [self.delegate account:self validationDidCompleteWithPassword:nil];
+}
+
 @end

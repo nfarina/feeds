@@ -201,7 +201,7 @@
         for (FeedItem *item in feed.items) {
             if (!item.notified && notifications++ < MAX_GROWLS) {
                 [GrowlApplicationBridge
-                 notifyWithTitle:[item.title truncatedAfterIndex:45]
+                 notifyWithTitle:[item.title.stringByDecodingCharacterEntities truncatedAfterIndex:45]
                  description:[[item.content stringByFlatteningHTML] truncatedAfterIndex:45]
                  notificationName:@"NewItem"
                  iconData:feed.account.notifyIconData
