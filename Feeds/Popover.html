@@ -11,7 +11,11 @@
             margin-top: 7px;
             text-shadow: 0 1px 0 white;
         }
-        div.title {
+        .title {
+            /* Some feeds (like Github) include the title in the content as well, so let's hide that. */
+            display:none;
+        }
+        div.feeds-title {
             font-size: 17px;
             font-weight: bold;
             margin: 7px;
@@ -21,14 +25,14 @@
             overflow: hidden;
             white-space: nowrap;*/
         }
-        div.author {
+        div.feeds-author {
             color: #777;
             font-size: 10px;
             font-weight: bold;
             margin: 7px;
             margin-top: 1px;
         }
-        div.content {
+        div.feeds-content {
             margin: 7px;
             font-size: 11px;
         }
@@ -76,9 +80,9 @@
 <body>
     <div id="container">
         
-        <div class="title">%@</div>
-        <div class="author">%@</div>
-        <div class="content">
+        <div class="feeds-title">%@</div>
+        <div class="feeds-author">%@</div>
+        <div class="feeds-content">
             %@
         </div>
         <div style="clear:both"></div>
