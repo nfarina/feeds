@@ -88,8 +88,6 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
 }
 
 - (void)refresh {
-    if (![[URL host] isEqualToString:@"api.trello.com"]) return;
-    
     NSMutableURLRequest *URLRequest;
     if ([URL user] && [URL password])
         URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL username:[URL user] password:[URL password]];
