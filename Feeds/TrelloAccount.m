@@ -10,6 +10,51 @@
     return [NSURL URLWithString:@"https://trello.com/1/connect?key=53e6bb99cefe4914e88d06c76308e357&name=Feeds&return_url=feedsapp://trello/auth"];
 }
 
+- (void)authWasFinishedWithURL:(NSURL *)url {
+    NSString *fragment = [url fragment]; // #token=xyz
+    
+    if (![fragment beginsWithString:@"token="]) {
+        [self.delegate account:self validationDidFailWithMessage:@"" field:AccountFailingFieldAuth];
+        return;
+    }
+    
+    NSArray *parts = [fragment componentsSeparatedByString:@"="];
+    NSString *token = [parts objectAtIndex:1]; // xyz
+    
+    [self validateWithPassword:token];
+}
+
+- (void)validateWithPassword:(NSString *)token {
+
+    NSString *URL = [NSString stringWithFormat:@"https://api.trello.com/1/members/me?key=53e6bb99cefe4914e88d06c76308e357&token=%@", token];
+    
+    self.request = [SMWebRequest requestWithURL:[NSURL URLWithString:URL] delegate:nil context:token];
+    [request addTarget:self action:@selector(meRequestComplete:context:) forRequestEvents:SMWebRequestEventComplete];
+    [request addTarget:self action:@selector(meRequestError:) forRequestEvents:SMWebRequestEventError];
+    [request start];
+}
+
+- (void)meRequestComplete:(NSData *)data context:(NSString *)token {
+    
+    NSDictionary *me = [data objectFromJSONData];
+    self.username = [me objectForKey:@"username"];
+    
+    NSString *mainFeedString = [NSString stringWithFormat:@"https://api.trello.com/1/members/me/notifications?key=53e6bb99cefe4914e88d06c76308e357&token=%@", token];
+    Feed *mainFeed = [Feed feedWithURLString:mainFeedString title:@"All Notifications" account:self];
+    
+    //    if ([firstName length] > 0 && [lastName length] > 0)
+    //        mainFeed.author = [NSString stringWithFormat:@"%@ %@.", firstName, [lastName substringToIndex:1]];
+    
+    self.feeds = [NSArray arrayWithObject:mainFeed];
+    
+    [self.delegate account:self validationDidCompleteWithPassword:token];
+}
+
+- (void)meRequestError:(NSError *)error {
+    NSLog(@"Error! %@", error);
+    [self.delegate account:self validationDidFailWithMessage:error.localizedDescription field:AccountFailingFieldUnknown];
+}
+
 + (NSArray *)itemsForRequest:(SMWebRequest *)request data:(NSData *)data {
     if ([request.request.URL.host isEqualToString:@"api.trello.com"]) {
         
@@ -85,33 +130,6 @@
         return items;
     }
     else return nil;
-}
-
-- (void)authWasFinishedWithURL:(NSURL *)url {
-    NSString *fragment = [url fragment]; // #token=xyz
-
-    if (![fragment beginsWithString:@"token="]) {
-        [self.delegate account:self validationDidFailWithMessage:@"" field:AccountFailingFieldAuth];
-        return;
-    }
-    
-    NSArray *parts = [fragment componentsSeparatedByString:@"="];
-    NSString *token = [parts objectAtIndex:1]; // xyz
-    
-    [self validateWithPassword:token];
-}
-
-- (void)validateWithPassword:(NSString *)token {
-    
-    NSString *mainFeedString = [NSString stringWithFormat:@"https://api.trello.com/1/members/me/notifications?key=53e6bb99cefe4914e88d06c76308e357&token=%@", token];
-    Feed *mainFeed = [Feed feedWithURLString:mainFeedString title:@"All Notifications" account:self];
-    
-//    if ([firstName length] > 0 && [lastName length] > 0)
-//        mainFeed.author = [NSString stringWithFormat:@"%@ %@.", firstName, [lastName substringToIndex:1]];
-    
-    self.feeds = [NSArray arrayWithObject:mainFeed];
-    
-    [self.delegate account:self validationDidCompleteWithPassword:token];
 }
 
 @end
