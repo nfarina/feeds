@@ -19,8 +19,8 @@
         for (NSDictionary *notification in notifications) {
             
             FeedItem *item = [[FeedItem new] autorelease];
-            item.title = [notification objectForKey:@"type"];
             
+            NSString *type = [notification objectForKey:@"type"];
             NSDictionary *data = [notification objectForKey:@"data"];
             NSDictionary *org = [[data objectForKey:@"organization"] objectForKey:@"id"];
             NSDictionary *board = [[data objectForKey:@"board"] objectForKey:@"id"];
@@ -36,6 +36,48 @@
   
             if (URLString)
                 item.link = [NSURL URLWithString:URLString];
+
+            NSString *title = nil;
+            
+            if ([type isEqualToString:@"addedToBoard"])
+                title = @"Added to board {board}";
+            else if ([type isEqualToString:@"addedToCard"])
+                title = @"Added to card {card}";
+            else if ([type isEqualToString:@"addAdminToBoard"])
+                title = @"Added as admin to board {board}";
+            else if ([type isEqualToString:@"addAdminToOrganization"])
+                title = @"Added as admin to organization {org}";
+            else if ([type isEqualToString:@"changeCard"])
+                title = @"Changed card {card}";
+            else if ([type isEqualToString:@"closeBoard"])
+                title = @"Closed board {board}";
+            else if ([type isEqualToString:@"commentCard"])
+                title = @"Comment on card {card}";
+            else if ([type isEqualToString:@"invitedToBoard"])
+                title = @"Invited to board {board}";
+            else if ([type isEqualToString:@"invitedToOrganization"])
+                title = @"Invited to organization {org}";
+            else if ([type isEqualToString:@"removedFromBoard"])
+                title = @"Removed from board {board}";
+            else if ([type isEqualToString:@"removedFromCard"])
+                title = @"Removed from card {card}";
+            else if ([type isEqualToString:@"removedFromOrganization"])
+                title = @"Removed from organization {org}";
+            else if ([type isEqualToString:@"mentionedOnCard"])
+                title = @"Mentioned on card {card}";
+            else
+                title = type;
+            
+            title = [title stringByReplacingOccurrencesOfString:@"{org}" withString:
+                     [[data objectForKey:@"organization"] objectForKey:@"name"] ?: @""];
+            title = [title stringByReplacingOccurrencesOfString:@"{board}" withString:
+                     [[data objectForKey:@"board"] objectForKey:@"name"] ?: @""];
+            title = [title stringByReplacingOccurrencesOfString:@"{card}" withString:
+                     [[data objectForKey:@"card"] objectForKey:@"name"] ?: @""];
+            
+            item.title = title;
+            item.author = @"";
+            item.content = [data objectForKey:@"text"];
             
             [items addObject:item];
         }
