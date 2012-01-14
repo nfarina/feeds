@@ -57,18 +57,27 @@
         
         NSMutableArray *items = [NSMutableArray array];
         NSArray *notifications = [data objectFromJSONData];
+
+        // cache this, it's expensive to create (and not threadsafe)
+        ISO8601DateFormatter *formatter = [[[ISO8601DateFormatter alloc] init] autorelease];
         
         for (NSDictionary *notification in notifications) {
             
             FeedItem *item = [[FeedItem new] autorelease];
             
             NSString *type = [notification objectForKey:@"type"];
+            NSString *date = [notification objectForKey:@"date"];
             NSDictionary *data = [notification objectForKey:@"data"];
             NSDictionary *org = [[data objectForKey:@"organization"] objectForKey:@"id"];
             NSDictionary *board = [[data objectForKey:@"board"] objectForKey:@"id"];
             NSDictionary *card = [[data objectForKey:@"card"] objectForKey:@"id"];
             NSString *URLString = nil;
+
+            item.published = [formatter dateFromString:date];
+            item.updated = item.published;
             
+            if (!item.published) NSLog(@"Couldn't parse date %@", date);
+
             if (card && board)
                 URLString = [NSString stringWithFormat:@"https://trello.com/card/board/%@/%@",board,card];
             else if (board)
@@ -82,31 +91,31 @@
             NSString *title = nil;
             
             if ([type isEqualToString:@"addedToBoard"])
-                title = @"Added to board {board}";
+                title = @"added to board {board}";
             else if ([type isEqualToString:@"addedToCard"])
-                title = @"Added to card {card}";
+                title = @"added to card {card}";
             else if ([type isEqualToString:@"addAdminToBoard"])
-                title = @"Added as admin to board {board}";
+                title = @"added as admin to board {board}";
             else if ([type isEqualToString:@"addAdminToOrganization"])
-                title = @"Added as admin to organization {org}";
+                title = @"added as admin to organization {org}";
             else if ([type isEqualToString:@"changeCard"])
-                title = @"Changed card {card}";
+                title = @"changed card {card}";
             else if ([type isEqualToString:@"closeBoard"])
-                title = @"Closed board {board}";
+                title = @"closed board {board}";
             else if ([type isEqualToString:@"commentCard"])
-                title = @"Comment on card {card}";
+                title = @"comment on card {card}";
             else if ([type isEqualToString:@"invitedToBoard"])
-                title = @"Invited to board {board}";
+                title = @"invited to board {board}";
             else if ([type isEqualToString:@"invitedToOrganization"])
-                title = @"Invited to organization {org}";
+                title = @"invited to organization {org}";
             else if ([type isEqualToString:@"removedFromBoard"])
-                title = @"Removed from board {board}";
+                title = @"removed from board {board}";
             else if ([type isEqualToString:@"removedFromCard"])
-                title = @"Removed from card {card}";
+                title = @"removed from card {card}";
             else if ([type isEqualToString:@"removedFromOrganization"])
-                title = @"Removed from organization {org}";
+                title = @"removed from organization {org}";
             else if ([type isEqualToString:@"mentionedOnCard"])
-                title = @"Mentioned on card {card}";
+                title = @"mentioned on card {card}";
             else
                 title = type;
             

@@ -80,6 +80,10 @@
 		01F616F313AEAA2700EBB24E /* PreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F616F113AEAA2600EBB24E /* PreferencesController.xib */; };
 		01F616F613AFA14F00EBB24E /* General.icns in Resources */ = {isa = PBXBuildFile; fileRef = 01F616F413AFA14F00EBB24E /* General.icns */; };
 		01F616F713AFA14F00EBB24E /* Accounts.icns in Resources */ = {isa = PBXBuildFile; fileRef = 01F616F513AFA14F00EBB24E /* Accounts.icns */; };
+		01F64A2B14C2318B00AAABD7 /* BeanstalkAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F64A2A14C2318B00AAABD7 /* BeanstalkAccount.m */; };
+		01F64A2F14C236CE00AAABD7 /* UserVoice.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F64A2C14C236CE00AAABD7 /* UserVoice.png */; };
+		01F64A3014C236CE00AAABD7 /* Trello.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F64A2D14C236CE00AAABD7 /* Trello.png */; };
+		01F64A3114C236CE00AAABD7 /* Beanstalk.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F64A2E14C236CE00AAABD7 /* Beanstalk.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -207,6 +211,11 @@
 		01F616F113AEAA2600EBB24E /* PreferencesController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PreferencesController.xib; path = en.lproj/PreferencesController.xib; sourceTree = "<group>"; };
 		01F616F413AFA14F00EBB24E /* General.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = General.icns; sourceTree = "<group>"; };
 		01F616F513AFA14F00EBB24E /* Accounts.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Accounts.icns; sourceTree = "<group>"; };
+		01F64A2914C2318B00AAABD7 /* BeanstalkAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeanstalkAccount.h; sourceTree = "<group>"; };
+		01F64A2A14C2318B00AAABD7 /* BeanstalkAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeanstalkAccount.m; sourceTree = "<group>"; };
+		01F64A2C14C236CE00AAABD7 /* UserVoice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserVoice.png; sourceTree = "<group>"; };
+		01F64A2D14C236CE00AAABD7 /* Trello.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Trello.png; sourceTree = "<group>"; };
+		01F64A2E14C236CE00AAABD7 /* Beanstalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Beanstalk.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,6 +253,8 @@
 				0141479F1486B019000D63E5 /* UserVoiceAccount.m */,
 				01524F4314BFB45F00913D84 /* TrelloAccount.h */,
 				01524F4414BFB45F00913D84 /* TrelloAccount.m */,
+				01F64A2914C2318B00AAABD7 /* BeanstalkAccount.h */,
+				01F64A2A14C2318B00AAABD7 /* BeanstalkAccount.m */,
 			);
 			name = Accounts;
 			sourceTree = "<group>";
@@ -308,6 +319,9 @@
 				015D78A413C6753500BCD7C4 /* Github.png */,
 				01B0AE7F1448C5940020AF67 /* GithubAccount.png */,
 				019EE0EB14702FEE00B67B74 /* GithubNotify.png */,
+				01F64A2C14C236CE00AAABD7 /* UserVoice.png */,
+				01F64A2D14C236CE00AAABD7 /* Trello.png */,
+				01F64A2E14C236CE00AAABD7 /* Beanstalk.png */,
 			);
 			name = "Service Icons";
 			sourceTree = "<group>";
@@ -572,6 +586,9 @@
 				019EE0EA147027E200B67B74 /* DribbbleNotify.png in Resources */,
 				019EE0EC14702FEE00B67B74 /* GithubNotify.png in Resources */,
 				01524F6614C11CC400913D84 /* Default.png in Resources */,
+				01F64A2F14C236CE00AAABD7 /* UserVoice.png in Resources */,
+				01F64A3014C236CE00AAABD7 /* Trello.png in Resources */,
+				01F64A3114C236CE00AAABD7 /* Beanstalk.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -615,6 +632,7 @@
 				014147B81486B575000D63E5 /* NSString+English.m in Sources */,
 				014147BB1486BAB5000D63E5 /* ISO8601DateFormatter.m in Sources */,
 				01524F4514BFB45F00913D84 /* TrelloAccount.m in Sources */,
+				01F64A2B14C2318B00AAABD7 /* BeanstalkAccount.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -652,6 +670,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
@@ -663,6 +682,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 			};
 			name = Debug;

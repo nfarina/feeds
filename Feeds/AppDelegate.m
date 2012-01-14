@@ -222,6 +222,7 @@
         [allItems addObjectsFromArray:feed.items];
     
     [allItems sortUsingSelector:@selector(compareItemByPublishedDate:)];
+
     while ([allItems count] > MAX_ITEMS)
         [allItems removeObjectAtIndex:MAX_ITEMS];
     

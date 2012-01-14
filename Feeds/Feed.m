@@ -268,38 +268,40 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
 
 - (NSAttributedString *)attributedStringHighlighted:(BOOL)highlighted {
 
-    NSString *authorSpace = [author stringByAppendingString:@" "];
-    NSString *titleWithoutAuthor = title;
-    
-    if (!authorSpace || [titleWithoutAuthor rangeOfString:authorSpace].location == 0)
-        titleWithoutAuthor = [titleWithoutAuthor substringFromIndex:authorSpace.length];
-    
-    titleWithoutAuthor = [titleWithoutAuthor truncatedAfterIndex:40-author.length];
-    
-    NSMutableAttributedString *attributed;
-    
-    if (author)
-        attributed = [[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@",author,titleWithoutAuthor]] autorelease];
-    else
-        attributed = [[[NSMutableAttributedString alloc] initWithString:titleWithoutAuthor] autorelease];
-    
-    NSColor *authorColor = highlighted ? [NSColor selectedMenuItemTextColor] : [NSColor disabledControlTextColor]; 
-    
-    NSDictionary *authorAtts = [NSDictionary dictionaryWithObjectsAndKeys:
-                                [NSFont systemFontOfSize:13.0f],NSFontAttributeName,
-                                authorColor,NSForegroundColorAttributeName,nil];
-    
+    NSString *decodedTitle = [title stringByDecodingCharacterEntities];
+    NSString *decodedAuthor = [author stringByDecodingCharacterEntities];
+
     NSDictionary *titleAtts = [NSDictionary dictionaryWithObjectsAndKeys:
                                [NSFont systemFontOfSize:13.0f],NSFontAttributeName,nil];
-    
-    NSRange authorRange = NSMakeRange(0, author.length);
-    NSRange titleRange = NSMakeRange(author.length > 0 ? author.length+1 : 0, titleWithoutAuthor.length);
-    
-    if (author)
+
+    if (decodedAuthor.length) {
+        NSString *authorSpace = [decodedAuthor stringByAppendingString:@" "];
+        
+        if ([decodedTitle rangeOfString:authorSpace].location == 0)
+            decodedTitle = [decodedTitle substringFromIndex:authorSpace.length];
+        
+        decodedTitle = [decodedTitle truncatedAfterIndex:40-decodedAuthor.length];
+        
+        NSMutableAttributedString *attributed = [[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@",decodedAuthor,decodedTitle]] autorelease];
+        
+        NSColor *authorColor = highlighted ? [NSColor selectedMenuItemTextColor] : [NSColor disabledControlTextColor]; 
+        
+        NSDictionary *authorAtts = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [NSFont systemFontOfSize:13.0f],NSFontAttributeName,
+                                    authorColor,NSForegroundColorAttributeName,nil];
+                
+        NSRange authorRange = NSMakeRange(0, decodedAuthor.length);
+        NSRange titleRange = NSMakeRange(decodedAuthor.length+1, decodedTitle.length);
+        
         [attributed addAttributes:authorAtts range:authorRange];
-    
-    [attributed addAttributes:titleAtts range:titleRange];
-    return attributed;
+        [attributed addAttributes:titleAtts range:titleRange];
+        return attributed;
+    }
+    else {
+        NSMutableAttributedString *attributed = [[[NSMutableAttributedString alloc] initWithString:decodedTitle] autorelease];
+        [attributed addAttributes:titleAtts range:NSMakeRange(0, decodedTitle.length)];
+        return attributed;
+    }
 }
 
 @end
