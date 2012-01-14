@@ -22,6 +22,7 @@
 		014147BB1486BAB5000D63E5 /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 014147BA1486BAB5000D63E5 /* ISO8601DateFormatter.m */; };
 		01518F7E13C54F480043AB98 /* CG+Geometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 01518F7D13C54F480043AB98 /* CG+Geometry.m */; };
 		01524F4514BFB45F00913D84 /* TrelloAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01524F4414BFB45F00913D84 /* TrelloAccount.m */; };
+		01524F6614C11CC400913D84 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 01524F6514C11CC400913D84 /* Default.png */; };
 		015D788F13C6394600BCD7C4 /* Popover.html in Resources */ = {isa = PBXBuildFile; fileRef = 015D788E13C6394600BCD7C4 /* Popover.html */; };
 		015D789513C6536400BCD7C4 /* Unread.png in Resources */ = {isa = PBXBuildFile; fileRef = 015D789413C6536400BCD7C4 /* Unread.png */; };
 		015D78A113C6747100BCD7C4 /* Basecamp.png in Resources */ = {isa = PBXBuildFile; fileRef = 015D78A013C6747100BCD7C4 /* Basecamp.png */; };
@@ -125,6 +126,7 @@
 		01518F7D13C54F480043AB98 /* CG+Geometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CG+Geometry.m"; sourceTree = "<group>"; };
 		01524F4314BFB45F00913D84 /* TrelloAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrelloAccount.h; sourceTree = "<group>"; };
 		01524F4414BFB45F00913D84 /* TrelloAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrelloAccount.m; sourceTree = "<group>"; };
+		01524F6514C11CC400913D84 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		015D788E13C6394600BCD7C4 /* Popover.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Popover.html; sourceTree = "<group>"; };
 		015D789413C6536400BCD7C4 /* Unread.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Unread.png; sourceTree = "<group>"; };
 		015D78A013C6747100BCD7C4 /* Basecamp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Basecamp.png; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 		015D789E13C6733D00BCD7C4 /* Service Icons */ = {
 			isa = PBXGroup;
 			children = (
+				01524F6514C11CC400913D84 /* Default.png */,
 				015D78A013C6747100BCD7C4 /* Basecamp.png */,
 				01B0AE821448C94A0020AF67 /* BasecampAccount.png */,
 				019EE0E51470268C00B67B74 /* BasecampNotify.png */,
@@ -568,6 +571,7 @@
 				019EE0E81470278300B67B74 /* HighriseNotify.png in Resources */,
 				019EE0EA147027E200B67B74 /* DribbbleNotify.png in Resources */,
 				019EE0EC14702FEE00B67B74 /* GithubNotify.png in Resources */,
+				01524F6614C11CC400913D84 /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

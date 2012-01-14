@@ -115,7 +115,7 @@ static NSMutableArray *registeredClasses = nil;
 }
 
 - (NSImage *)menuIconImage {
-    return [NSImage imageNamed:[self.type stringByAppendingString:@".png"]];
+    return [NSImage imageNamed:[self.type stringByAppendingString:@".png"]] ?: [NSImage imageNamed:@"Default.png"];
 }
 
 - (NSImage *)accountIconImage {
