@@ -163,13 +163,14 @@
         // refresh the available feeds by reauthenticating to this account
         Account *selectedAccount = [[Account allAccounts] objectAtIndex:tableView.selectedRow];
         selectedAccount.delegate = self;
-        [selectedAccount validateWithPassword:[selectedAccount findPassword]];
         
         findFeedsProgress.hidden = NO;
         findFeedsLabel.hidden = NO;
         [findFeedsLabel setStringValue:@"Finding feeds…"];
         [findFeedsProgress startAnimation:nil];
         self.oldFeeds = selectedAccount.feeds; // preserve old feeds because existing FeedItems in our main menu might point to them (weak links)
+        
+        [selectedAccount validateWithPassword:[selectedAccount findPassword]];
     }
     else {
         [findFeedsProgress stopAnimation:nil];
@@ -191,7 +192,7 @@
     [findFeedsLabel setStringValue:message];
 }
 
-- (void)accountValidationDidComplete:(Account *)account {
+- (void)account:(Account *)account validationDidCompleteWithPassword:(NSString *)password {
     [findFeedsProgress stopAnimation:nil];
     [findFeedsProgress setHidden:YES];
     [findFeedsLabel setHidden:YES];

@@ -6,8 +6,6 @@
 #import "UserVoiceAccount.h"
 #import "TrelloAccount.h"
 
-static NSArray *accountTypes = nil;
-
 @interface NewAccountController ()
 @property (nonatomic, retain) Account *account;
 @property (nonatomic, copy) NSString *password;
@@ -15,19 +13,6 @@ static NSArray *accountTypes = nil;
 
 @implementation NewAccountController
 @synthesize account, password;
-
-+ (void)initialize {
-    if (self == [NewAccountController class]) {
-        accountTypes = [[NSArray alloc] initWithObjects:
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"Basecamp",@"name",[BasecampAccount class],@"class",nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"Dribbble",@"name",[DribbbleAccount class],@"class",nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"Github",@"name",[GithubAccount class],@"class",nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"Highrise",@"name",[HighriseAccount class],@"class",nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"Trello",@"name",[TrelloAccount class],@"class",nil],
-                        [NSDictionary dictionaryWithObjectsAndKeys:@"UserVoice",@"name",[UserVoiceAccount class],@"class",nil],
-                        nil];
-    }
-}
 
 - (id)initWithDelegate:(id<NewAccountControllerDelegate>)theDelegate {
     delegate = theDelegate;
@@ -43,8 +28,8 @@ static NSArray *accountTypes = nil;
 }
 
 - (void)awakeFromNib {
-    for (NSDictionary *accountType in accountTypes) {
-        NSString *name = [accountType objectForKey:@"name"];
+    for (Class cls in [Account registeredClasses]) {
+        NSString *name = [cls friendlyAccountName];
         [accountTypeButton addItemWithTitle:name];
     }
     [progress setHidden:YES];
@@ -59,8 +44,11 @@ static NSArray *accountTypes = nil;
 }
 
 - (Class)selectedAccountClass {
-    NSDictionary *accountType = [accountTypes objectAtIndex:[accountTypeButton indexOfSelectedItem]];
-    return [accountType objectForKey:@"class"];
+    return [[Account registeredClasses] objectAtIndex:[accountTypeButton indexOfSelectedItem]];
+}
+
+- (NSString *)selectedAccountName {
+    return [self.selectedAccountClass friendlyAccountName];
 }
 
 - (void)accountTypeChanged:(id)sender {
@@ -73,7 +61,6 @@ static NSArray *accountTypes = nil;
     [usernameField setHidden:![accountClass requiresUsername]];
     [passwordLabel setHidden:![accountClass requiresPassword]];
     [passwordField setHidden:![accountClass requiresPassword]];
-    [authButton setHidden:[accountClass requiredAuthURL] == nil];
     
     if ([accountClass requiresDomain])
         [domainField becomeFirstResponder];
@@ -96,33 +83,38 @@ static NSArray *accountTypes = nil;
     [OKButton setEnabled:canContinue];
 }
 
-- (void)authPressed:(id)sender {
-    Class accountClass = [self selectedAccountClass];
-    [[NSWorkspace sharedWorkspace] openURL:[accountClass requiredAuthURL]];
-}
-
-- (void)openURL:(NSNotification *)notification {
-    NSLog(@"GOT URL: %@", [notification.userInfo objectForKey:@"URL"]);
-}
-
 - (void)OKPressed:(id)sender {
     
     self.account = [[[[self selectedAccountClass] alloc] init] autorelease];
     account.delegate = self;
-    account.domain = [domainField stringValue];
-    account.username = [usernameField stringValue];
-    self.password = [passwordField stringValue];
-    [account validateWithPassword:password];
+
+    Class accountClass = [self selectedAccountClass];
+
+    if ([accountClass requiredAuthURL]) {
+        [[NSWorkspace sharedWorkspace] openURL:[accountClass requiredAuthURL]];
+        [messageField setStringValue:[NSString stringWithFormat:@"Authenticating with %@…",self.selectedAccountName]];
+    }
+    else {
+        account.domain = [domainField stringValue];
+        account.username = [usernameField stringValue];
+        self.password = [passwordField stringValue];
+        [account validateWithPassword:password];
+        [messageField setStringValue:@"Validating account…"];
+    }
     
     [OKButton setEnabled:NO];
     [progress setHidden:NO];
     [progress startAnimation:nil];
     [messageField setHidden:NO];
-    [messageField setStringValue:@"Validating account…"];
     [warningIcon setHidden:YES];
     [domainInvalid setHidden:YES];
     [usernameInvalid setHidden:YES];
     [passwordInvalid setHidden:YES];
+}
+
+- (void)openURL:(NSNotification *)notification {
+    NSURL *URL = [notification.userInfo objectForKey:@"URL"];
+    [account authWasFinishedWithURL:URL];
 }
 
 - (void)account:(Account *)account validationDidContinueWithMessage:(NSString *)message {
@@ -147,8 +139,11 @@ static NSArray *accountTypes = nil;
         [passwordInvalid setHidden:NO];
 }
 
-- (void)accountValidationDidComplete:(Account *)theAccount {
+- (void)account:(Account *)theAccount validationDidCompleteWithPassword:(NSString *)changedPassword {
 
+    if (changedPassword)
+        self.password = changedPassword;
+    
     [account savePassword:password];
     
     [progress stopAnimation:nil];

@@ -2,6 +2,7 @@
 
 @implementation DribbbleAccount
 
++ (void)load { [Account registerClass:self]; }
 + (BOOL)requiresUsername { return YES; }
 
 - (void)validateWithPassword:(NSString *)password {
@@ -21,7 +22,7 @@
                   [Feed feedWithURLString:[NSString stringWithFormat:@"http://dribbble.com/%@/shots/following.rss", username] title:@"Following Activity" account:self],
                   nil];
     
-    [self.delegate accountValidationDidComplete:self];
+    [self.delegate account:self validationDidCompleteWithPassword:nil];
 }
 
 - (void)meRequestError:(NSError *)error {

@@ -12,14 +12,13 @@
     IBOutlet NSTextField *domainField, *usernameField, *passwordField, *messageField;
     IBOutlet NSProgressIndicator *progress;
     IBOutlet NSImageView *warningIcon, *domainInvalid, *usernameInvalid, *passwordInvalid;
-    IBOutlet NSButton *OKButton, *authButton;
+    IBOutlet NSButton *OKButton;
 }
 
 - (id)initWithDelegate:(id<NewAccountControllerDelegate>)delegate;
 
 - (IBAction)accountTypeChanged:(id)sender;
 
-- (IBAction)authPressed:(id)sender;
 - (IBAction)cancelPressed:(id)sender;
 - (IBAction)OKPressed:(id)sender;
 

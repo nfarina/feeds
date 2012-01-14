@@ -2,6 +2,7 @@
 
 @implementation BasecampAccount
 
++ (void)load { [Account registerClass:self]; }
 + (BOOL)requiresDomain { return YES; }
 + (BOOL)requiresUsername { return YES; }
 + (BOOL)requiresPassword { return YES; }
@@ -33,7 +34,7 @@
     
     self.feeds = [NSArray arrayWithObject:mainFeed];
     
-    [self.delegate accountValidationDidComplete:self];
+    [self.delegate account:self validationDidCompleteWithPassword:nil];
 }
 
 - (void)meRequestError:(NSError *)error {

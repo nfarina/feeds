@@ -2,6 +2,7 @@
 
 @implementation UserVoiceAccount
 
++ (void)load { [Account registerClass:self]; }
 + (BOOL)requiresDomain { return YES; }
 + (NSString *)domainSuffix { return @".uservoice.com"; }
 
@@ -37,7 +38,7 @@
     }
     
     self.feeds = foundFeeds;
-    [self.delegate accountValidationDidComplete:self];
+    [self.delegate account:self validationDidCompleteWithPassword:nil];
 }
 
 - (void)forumRequestError:(NSError *)error {

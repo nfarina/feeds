@@ -88,15 +88,26 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
 }
 
 - (void)refresh {
-    NSMutableURLRequest *URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL username:[URL user] password:[URL password]];
+    if (![[URL host] isEqualToString:@"api.trello.com"]) return;
+    
+    NSMutableURLRequest *URLRequest;
+    if ([URL user] && [URL password])
+        URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL username:[URL user] password:[URL password]];
+    else
+        URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL];
+    
     URLRequest.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
     self.request = [SMWebRequest requestWithURLRequest:URLRequest delegate:(id<SMWebRequestDelegate>)[self class] context:nil];
     [request addTarget:self action:@selector(refreshComplete:) forRequestEvents:SMWebRequestEventComplete];
+    [request addTarget:self action:@selector(refreshError:) forRequestEvents:SMWebRequestEventError];
     [request start];
 }
 
 // This method is called on a background thread. Don't touch your instance members!
 + (id)webRequest:(SMWebRequest *)webRequest resultObjectForData:(NSData *)data context:(id)context {
+
+    NSArray *customItems = [Account itemsForRequest:webRequest data:data];
+    if (customItems) return customItems;
     
     SMXMLDocument *document = [SMXMLDocument documentWithData:data error:NULL];
     NSMutableArray *items = [NSMutableArray array];
@@ -170,6 +181,10 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
         item.feed = self;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kFeedUpdatedNotification object:self];
+}
+
+- (void)refreshError:(NSError *)error {
+    NSLog(@"Error: %@", error);
 }
 
 @end
@@ -258,12 +273,17 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
     NSString *authorSpace = [author stringByAppendingString:@" "];
     NSString *titleWithoutAuthor = title;
     
-    if ([titleWithoutAuthor rangeOfString:authorSpace].location == 0)
+    if (!authorSpace || [titleWithoutAuthor rangeOfString:authorSpace].location == 0)
         titleWithoutAuthor = [titleWithoutAuthor substringFromIndex:authorSpace.length];
     
     titleWithoutAuthor = [titleWithoutAuthor truncatedAfterIndex:40-author.length];
     
-    NSMutableAttributedString *attributed = [[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@",author,titleWithoutAuthor]] autorelease];
+    NSMutableAttributedString *attributed;
+    
+    if (author)
+        attributed = [[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@",author,titleWithoutAuthor]] autorelease];
+    else
+        attributed = [[[NSMutableAttributedString alloc] initWithString:titleWithoutAuthor] autorelease];
     
     NSColor *authorColor = highlighted ? [NSColor selectedMenuItemTextColor] : [NSColor disabledControlTextColor]; 
     
@@ -275,9 +295,11 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
                                [NSFont systemFontOfSize:13.0f],NSFontAttributeName,nil];
     
     NSRange authorRange = NSMakeRange(0, author.length);
-    NSRange titleRange = NSMakeRange(author.length+1, titleWithoutAuthor.length);
+    NSRange titleRange = NSMakeRange(author.length > 0 ? author.length+1 : 0, titleWithoutAuthor.length);
     
-    [attributed addAttributes:authorAtts range:authorRange];
+    if (author)
+        [attributed addAttributes:authorAtts range:authorRange];
+    
     [attributed addAttributes:titleAtts range:titleRange];
     return attributed;
 }

@@ -11,6 +11,27 @@ static NSMutableArray *allAccounts = nil;
 @implementation Account
 @synthesize delegate, domain, username, request, feeds;
 
+static NSMutableArray *registeredClasses = nil;
+
++ (NSArray *)registeredClasses { return registeredClasses; }
++ (void)registerClass:(Class)cls {
+    if (!registeredClasses) registeredClasses = [NSMutableArray new];
+    [registeredClasses addObject:cls];
+}
+
++ (NSArray *)itemsForRequest:(SMWebRequest *)request data:(NSData *)data {
+    if ([self class] == [Account class])
+        for (Class accountClass in registeredClasses) {
+            NSArray *items = [accountClass itemsForRequest:request data:data];
+            if (items) return items;
+        }
+    return nil;
+}
+
++ (NSString *)friendlyAccountName {
+    return [NSStringFromClass(self) stringByReplacingOccurrencesOfString:@"Account" withString:@""];
+}
+
 + (BOOL)requiresDomain { return NO; }
 + (BOOL)requiresUsername { return NO; }
 + (BOOL)requiresPassword { return NO; }
@@ -119,6 +140,10 @@ static NSMutableArray *allAccounts = nil;
 
 - (void)cancelValidation {
     self.request = nil;
+}
+
+- (void)authWasFinishedWithURL:(NSURL *)url {
+    // no default implementation
 }
 
 - (NSString *)findPassword:(SecKeychainItemRef *)itemRef {

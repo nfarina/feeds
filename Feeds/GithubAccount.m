@@ -2,6 +2,7 @@
 
 @implementation GithubAccount
 
++ (void)load { [Account registerClass:self]; }
 + (BOOL)requiresUsername { return YES; }
 + (BOOL)requiresPassword { return YES; }
 
@@ -83,7 +84,7 @@
     
     self.feeds = foundFeeds;
     
-    [self.delegate accountValidationDidComplete:self];
+    [self.delegate account:self validationDidCompleteWithPassword:nil];
 }
 
 - (void)orgRequestError:(NSError *)error {
