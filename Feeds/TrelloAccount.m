@@ -20,6 +20,23 @@
             
             FeedItem *item = [[FeedItem new] autorelease];
             item.title = [notification objectForKey:@"type"];
+            
+            NSDictionary *data = [notification objectForKey:@"data"];
+            NSDictionary *org = [[data objectForKey:@"organization"] objectForKey:@"id"];
+            NSDictionary *board = [[data objectForKey:@"board"] objectForKey:@"id"];
+            NSDictionary *card = [[data objectForKey:@"card"] objectForKey:@"id"];
+            NSString *URLString = nil;
+            
+            if (card && board)
+                URLString = [NSString stringWithFormat:@"https://trello.com/card/board/%@/%@",board,card];
+            else if (board)
+                URLString = [NSString stringWithFormat:@"https://trello.com/board/%@",board];
+            else if (org)
+                URLString = [NSString stringWithFormat:@"https://trello.com/org/%@",org];
+  
+            if (URLString)
+                item.link = [NSURL URLWithString:URLString];
+            
             [items addObject:item];
         }
         
