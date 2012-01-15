@@ -35,6 +35,11 @@
     [progress setHidden:YES];
     [messageField setHidden:YES];
     [usernameField becomeFirstResponder];
+    
+#if DEBUG
+//    [accountTypeButton selectItemWithTitle:@"Beanstalk"];
+#endif
+    
     [self accountTypeChanged:nil];
 }
 

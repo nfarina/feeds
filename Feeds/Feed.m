@@ -31,7 +31,7 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
 @end
 
 @implementation Feed
-@synthesize URL, title, author, items, request, disabled, account;
+@synthesize URL, title, author, items, request, disabled, account, requiresBasicAuth;
 
 - (void)dealloc {
     self.URL = nil;
@@ -41,11 +41,6 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
     self.request = nil;
     self.account = nil;
     [super dealloc];
-}
-
-- (void)setRequest:(SMWebRequest *)value {
-    [request removeTarget:self];
-    [request release], request = [value retain];
 }
 
 + (Feed *)feedWithURLString:(NSString *)URLString title:(NSString *)title account:(Account *)account {
@@ -67,6 +62,7 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
     feed.title = [dict objectForKey:@"title"];
     feed.author = [dict objectForKey:@"author"];
     feed.disabled = [[dict objectForKey:@"disabled"] boolValue];
+    feed.requiresBasicAuth = [[dict objectForKey:@"requiresBasicAuth"] boolValue];
     feed.account = account;
     return feed;
 }
@@ -77,19 +73,23 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
     if (title) [dict setObject:title forKey:@"title"];
     if (author) [dict setObject:author forKey:@"author"];
     [dict setObject:[NSNumber numberWithBool:disabled] forKey:@"disabled"];
+    [dict setObject:[NSNumber numberWithBool:requiresBasicAuth] forKey:@"requiresBasicAuth"];
     return dict;
 }
 
 - (BOOL)isEqual:(Feed *)other {
     if ([other isKindOfClass:[Feed class]])
-        return [URL isEqual:other.URL] && [title isEqual:other.title] && ((!author && !other.author) || [author isEqual:other.author]);
+        return [URL isEqual:other.URL] && [title isEqual:other.title] && ((!author && !other.author) || [author isEqual:other.author]) && requiresBasicAuth == other.requiresBasicAuth;
     else
         return NO;
 }
 
 - (void)refresh {
     NSMutableURLRequest *URLRequest;
-    if ([URL user] && [URL password])
+    
+    if (requiresBasicAuth)
+        URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL username:account.username password:[account findPassword]];
+    else if ([URL user] && [URL password])
         URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL username:[URL user] password:[URL password]];
     else
         URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL];
@@ -162,7 +162,7 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
         
         // mark as notified any item that was "created" by ourself, because we don't need to be reminded about stuff we did ourself.
         for (FeedItem *item in items)
-            if ([item.author isEqual:author])
+            if ([(item.authorIdentifier ?: item.author) isEqual:author]) // prefer authorIdentifier if present
                 item.notified = item.viewed = YES;
     }
     else {
@@ -188,7 +188,7 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
 @end
 
 @implementation FeedItem
-@synthesize title, author, content, link, comments, published, updated, notified, viewed, feed;
+@synthesize title, author, authorIdentifier, content, link, comments, published, updated, notified, viewed, feed;
 
 - (void)dealloc {
     self.title = self.author = self.content = nil;
@@ -268,7 +268,7 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
 
 - (NSAttributedString *)attributedStringHighlighted:(BOOL)highlighted {
 
-    NSString *decodedTitle = [title stringByDecodingCharacterEntities];
+    NSString *decodedTitle = [(title.length ? title : content) stringByDecodingCharacterEntities]; // fallback to content if no title
     NSString *decodedAuthor = [author stringByDecodingCharacterEntities];
 
     NSDictionary *titleAtts = [NSDictionary dictionaryWithObjectsAndKeys:

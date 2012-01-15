@@ -334,9 +334,19 @@
 
     WebView *webView = (WebView *)[popover contentViewController].view;
     
+    NSString *titleOrFallback = item.title;
+    
+    if (!titleOrFallback.length) {
+        if (item.feed.account.domain)
+            titleOrFallback = [NSString stringWithFormat:@"%@ (%@)", item.feed.title, item.feed.account.domain];
+        else
+            titleOrFallback = item.feed.title;
+    }
+        
+    
     NSString *templatePath = [[NSBundle mainBundle] pathForResource:@"Popover" ofType:@"html"];
     NSString *template = [NSString stringWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:NULL];
-    NSString *rendered = [NSString stringWithFormat:template, [item.title truncatedAfterIndex:75], item.author, item.content ?: @""];
+    NSString *rendered = [NSString stringWithFormat:template, [titleOrFallback truncatedAfterIndex:75], item.author, item.content ?: @""];
     
     webView.alphaValue = 0;
     [webView.mainFrame loadHTMLString:rendered baseURL:nil];

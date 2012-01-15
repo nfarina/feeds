@@ -1,4 +1,4 @@
 #import "Account.h"
 
-@interface BeanstalkAccount : Account
+@interface BeanstalkAccount : Account <SMWebRequestDelegate>
 @end

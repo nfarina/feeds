@@ -8,13 +8,13 @@ extern NSString *kFeedUpdatedNotification;
     NSString *title, *author;
     NSArray *items; // of FeedItem
     SMWebRequest *request;
-    BOOL disabled;
+    BOOL disabled, requiresBasicAuth;
     Account *account; // not retained
 }
 @property (nonatomic, retain) NSURL *URL;
 @property (nonatomic, copy) NSString *title, *author;
 @property (nonatomic, copy) NSArray *items;
-@property (nonatomic, assign) BOOL disabled;
+@property (nonatomic, assign) BOOL disabled, requiresBasicAuth;
 @property (nonatomic, assign) Account *account;
 
 + (Feed *)feedWithURLString:(NSString *)URLString title:(NSString *)title account:(Account *)account;
@@ -28,13 +28,13 @@ extern NSString *kFeedUpdatedNotification;
 @end
 
 @interface FeedItem : NSObject {
-    NSString *title, *author, *content, *strippedContent;
+    NSString *title, *author, *authorIdentifier, *content, *strippedContent;
     NSURL *link, *comments;
     NSDate *published, *updated;
     BOOL notified, viewed;
     Feed *feed; // not retained
 }
-@property (nonatomic, copy) NSString *title, *author, *content;
+@property (nonatomic, copy) NSString *title, *author, *authorIdentifier, *content;
 @property (nonatomic, retain) NSURL *link, *comments;
 @property (nonatomic, retain) NSDate *published, *updated;
 @property (nonatomic, assign) BOOL notified, viewed;

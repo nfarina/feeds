@@ -88,6 +88,8 @@
 		01F64A3514C23F5100AAABD7 /* TrelloNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F64A3314C23F5100AAABD7 /* TrelloNotify.png */; };
 		01F64A3814C2468C00AAABD7 /* BeanstalkAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F64A3614C2468C00AAABD7 /* BeanstalkAccount.png */; };
 		01F64A3D14C249F300AAABD7 /* BeanstalkNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F64A3C14C249F300AAABD7 /* BeanstalkNotify.png */; };
+		01F64A4014C24C5000AAABD7 /* UserVoiceAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F64A3E14C24C5000AAABD7 /* UserVoiceAccount.png */; };
+		01F64A4114C24C5000AAABD7 /* UserVoiceNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F64A3F14C24C5000AAABD7 /* UserVoiceNotify.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -224,6 +226,8 @@
 		01F64A3314C23F5100AAABD7 /* TrelloNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrelloNotify.png; sourceTree = "<group>"; };
 		01F64A3614C2468C00AAABD7 /* BeanstalkAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BeanstalkAccount.png; sourceTree = "<group>"; };
 		01F64A3C14C249F300AAABD7 /* BeanstalkNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BeanstalkNotify.png; sourceTree = "<group>"; };
+		01F64A3E14C24C5000AAABD7 /* UserVoiceAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserVoiceAccount.png; sourceTree = "<group>"; };
+		01F64A3F14C24C5000AAABD7 /* UserVoiceNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserVoiceNotify.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -328,6 +332,8 @@
 				01B0AE7F1448C5940020AF67 /* GithubAccount.png */,
 				019EE0EB14702FEE00B67B74 /* GithubNotify.png */,
 				01F64A2C14C236CE00AAABD7 /* UserVoice.png */,
+				01F64A3E14C24C5000AAABD7 /* UserVoiceAccount.png */,
+				01F64A3F14C24C5000AAABD7 /* UserVoiceNotify.png */,
 				01F64A2D14C236CE00AAABD7 /* Trello.png */,
 				01F64A3214C23F5100AAABD7 /* TrelloAccount.png */,
 				01F64A3314C23F5100AAABD7 /* TrelloNotify.png */,
@@ -605,6 +611,8 @@
 				01F64A3514C23F5100AAABD7 /* TrelloNotify.png in Resources */,
 				01F64A3814C2468C00AAABD7 /* BeanstalkAccount.png in Resources */,
 				01F64A3D14C249F300AAABD7 /* BeanstalkNotify.png in Resources */,
+				01F64A4014C24C5000AAABD7 /* UserVoiceAccount.png in Resources */,
+				01F64A4114C24C5000AAABD7 /* UserVoiceNotify.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
