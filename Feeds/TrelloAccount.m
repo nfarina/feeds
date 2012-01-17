@@ -52,7 +52,7 @@
     [self.delegate account:self validationDidFailWithMessage:error.localizedDescription field:AccountFailingFieldUnknown];
 }
 
-+ (NSArray *)itemsForRequest:(SMWebRequest *)request data:(NSData *)data {
++ (NSArray *)itemsForRequest:(SMWebRequest *)request data:(NSData *)data username:(NSString *)username password:(NSString *)token {
     if ([request.request.URL.host isEqualToString:@"api.trello.com"]) {
         
         NSMutableArray *items = [NSMutableArray array];
@@ -67,6 +67,7 @@
             
             NSString *type = [notification objectForKey:@"type"];
             NSString *date = [notification objectForKey:@"date"];
+            NSStream *creatorIdentifier = [notification objectForKey:@"idMemberCreator"];
             NSDictionary *data = [notification objectForKey:@"data"];
             NSDictionary *org = [[data objectForKey:@"organization"] objectForKey:@"id"];
             NSDictionary *board = [[data objectForKey:@"board"] objectForKey:@"id"];
@@ -91,31 +92,31 @@
             NSString *title = nil;
             
             if ([type isEqualToString:@"addedToBoard"])
-                title = @"added to board {board}";
+                title = @"added you to board {board}";
             else if ([type isEqualToString:@"addedToCard"])
-                title = @"added to card {card}";
+                title = @"added you to card {card}";
             else if ([type isEqualToString:@"addAdminToBoard"])
-                title = @"added as admin to board {board}";
+                title = @"added you as admin to board {board}";
             else if ([type isEqualToString:@"addAdminToOrganization"])
-                title = @"added as admin to organization {org}";
+                title = @"added you as admin to organization {org}";
             else if ([type isEqualToString:@"changeCard"])
                 title = @"changed card {card}";
             else if ([type isEqualToString:@"closeBoard"])
                 title = @"closed board {board}";
             else if ([type isEqualToString:@"commentCard"])
-                title = @"comment on card {card}";
+                title = @"commented on card {card}";
             else if ([type isEqualToString:@"invitedToBoard"])
-                title = @"invited to board {board}";
+                title = @"invited you to board {board}";
             else if ([type isEqualToString:@"invitedToOrganization"])
-                title = @"invited to organization {org}";
+                title = @"invited you to organization {org}";
             else if ([type isEqualToString:@"removedFromBoard"])
-                title = @"removed from board {board}";
+                title = @"removed you from board {board}";
             else if ([type isEqualToString:@"removedFromCard"])
-                title = @"removed from card {card}";
+                title = @"removed you from card {card}";
             else if ([type isEqualToString:@"removedFromOrganization"])
-                title = @"removed from organization {org}";
+                title = @"removed you from organization {org}";
             else if ([type isEqualToString:@"mentionedOnCard"])
-                title = @"mentioned on card {card}";
+                title = @"mentioned you on card {card}";
             else
                 title = type;
             
@@ -126,8 +127,18 @@
             title = [title stringByReplacingOccurrencesOfString:@"{card}" withString:
                      [[data objectForKey:@"card"] objectForKey:@"name"] ?: @""];
             
+            if (creatorIdentifier) {
+                // go out and fetch the author's username since we only have their ID
+                NSString *authorLookup = [NSString stringWithFormat:@"https://api.trello.com/1/members/%@?key=53e6bb99cefe4914e88d06c76308e357&token=%@", creatorIdentifier, token];
+                NSData *data = [self extraDataWithContentsOfURL:[NSURL URLWithString:authorLookup]];
+                if (!data) return [NSArray array];
+                
+                NSDictionary *member = [data objectFromJSONData];
+                NSString *memberName = [member objectForKey:@"fullName"];
+                item.author = memberName;
+            }
+            
             item.title = title;
-            item.author = @"";
             item.content = [data objectForKey:@"text"];
             
             [items addObject:item];

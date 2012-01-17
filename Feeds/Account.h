@@ -34,7 +34,11 @@ typedef enum {
 + (NSString *)domainSuffix;
 
 // opportunity to parse custom feed data
-+ (NSArray *)itemsForRequest:(SMWebRequest *)request data:(NSData *)data;
++ (NSArray *)itemsForRequest:(SMWebRequest *)request data:(NSData *)data username:(NSString *)username password:(NSString *)password;
+
+// helper for said opportunity (threadsafe)
++ (NSData *)extraDataWithContentsOfURL:(NSURL *)URL;
++ (NSData *)extraDataWithContentsOfURL:(NSURL *)URL username:(NSString *)username password:(NSString *)password;
 
 @property (nonatomic, assign) id<AccountDelegate> delegate;
 @property (nonatomic, copy) NSString *domain, *username;

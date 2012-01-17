@@ -19,13 +19,51 @@ static NSMutableArray *registeredClasses = nil;
     [registeredClasses addObject:cls];
 }
 
-+ (NSArray *)itemsForRequest:(SMWebRequest *)request data:(NSData *)data {
++ (NSArray *)itemsForRequest:(SMWebRequest *)request data:(NSData *)data username:(NSString *)username password:(NSString *)password {
     if ([self class] == [Account class])
         for (Class accountClass in registeredClasses) {
-            NSArray *items = [accountClass itemsForRequest:request data:data];
+            NSArray *items = [accountClass itemsForRequest:request data:data username:username password:password];
             if (items) return items;
         }
     return nil;
+}
+
+// threadsafe
++ (NSData *)extraDataWithContentsOfURL:(NSURL *)URL {
+    return [self extraDataWithContentsOfURL:URL username:nil password:nil];
+}
+
++ (NSData *)extraDataWithContentsOfURL:(NSURL *)URL username:(NSString *)username password:(NSString *)password {
+    static NSMutableDictionary *cache = nil;
+    
+    @synchronized (self) {
+        if (!cache) cache = [NSMutableDictionary new];
+        NSData *result = [cache objectForKey:URL];
+        if (result) return result;
+    }
+
+    NSMutableURLRequest *request;
+    
+    if (username && password)
+        request = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL username:username password:password];
+    else
+        request = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL];
+    
+    request.timeoutInterval = 5; // we could have a lot of these requests to make, don't let it take too long
+    NSURLResponse *response = nil;
+    NSError *error = nil;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    
+    if (error)
+        NSLog(@"Error while fetching extra data at (%@): %@", URL, error);
+    else {
+        NSLog(@"Fetched extra for %@", NSStringFromClass(self));
+        @synchronized (self) {
+            [cache setObject:data forKey:URL];
+        }
+    }
+    
+    return data;
 }
 
 + (NSString *)friendlyAccountName {
@@ -56,8 +94,8 @@ static NSMutableArray *registeredClasses = nil;
 }
 
 + (void)saveAccounts {
-    NSArray *accounts = [allAccounts valueForKey:@"dictionaryRepresentation"];
-    [[NSUserDefaults standardUserDefaults] setObject:accounts forKey:@"accounts"];
+//    NSArray *accounts = [allAccounts valueForKey:@"dictionaryRepresentation"];
+//    [[NSUserDefaults standardUserDefaults] setObject:accounts forKey:@"accounts"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [[NSNotificationCenter defaultCenter] postNotificationName:kAccountsChangedNotification object:nil];
 }
@@ -153,7 +191,8 @@ static NSMutableArray *registeredClasses = nil;
                                                      itemRef);
     
     if (status != noErr) {
-        NSLog(@"Find password failed. (OSStatus: %d)\n", (int)status);
+        if (status != errSecItemNotFound)
+            NSLog(@"Find password failed. (OSStatus: %d)\n", (int)status);
         return nil;
     }
     

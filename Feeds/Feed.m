@@ -87,24 +87,36 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
 - (void)refresh {
     NSMutableURLRequest *URLRequest;
     
-    if (requiresBasicAuth)
-        URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL username:account.username password:[account findPassword]];
-    else if ([URL user] && [URL password])
+    NSString *username = account.username, *password = account.findPassword;
+    
+    if (requiresBasicAuth) // this feed requires the secure user/pass we stored in the keychain
+        URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL username:username password:password];
+    else if ([URL user] && [URL password]) // maybe the user/pass is built into the URL already?
         URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL username:[URL user] password:[URL password]];
-    else
+    else // just a normal URL.
         URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL];
     
-    URLRequest.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-    self.request = [SMWebRequest requestWithURLRequest:URLRequest delegate:(id<SMWebRequestDelegate>)[self class] context:nil];
+    URLRequest.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData; // goes without saying that we only care about fresh data for Feeds
+    
+    // build a useful context of extra data for custom feed processors like Trello and Beanstalk. Since those processors may need to fetch
+    // additional data from their respective APIs, they may need the account usernamd and password, if applicable.
+    NSMutableDictionary *context = [NSMutableDictionary dictionary];
+    if (username) [context setObject:username forKey:@"username"];
+    if (password) [context setObject:password forKey:@"password"];
+    
+    self.request = [SMWebRequest requestWithURLRequest:URLRequest delegate:(id<SMWebRequestDelegate>)[self class] context:context];
     [request addTarget:self action:@selector(refreshComplete:) forRequestEvents:SMWebRequestEventComplete];
     [request addTarget:self action:@selector(refreshError:) forRequestEvents:SMWebRequestEventError];
     [request start];
 }
 
 // This method is called on a background thread. Don't touch your instance members!
-+ (id)webRequest:(SMWebRequest *)webRequest resultObjectForData:(NSData *)data context:(id)context {
++ (id)webRequest:(SMWebRequest *)webRequest resultObjectForData:(NSData *)data context:(NSDictionary *)context {
 
-    NSArray *customItems = [Account itemsForRequest:webRequest data:data];
+    NSString *username = [context objectForKey:@"username"];
+    NSString *password = [context objectForKey:@"password"];
+    
+    NSArray *customItems = [Account itemsForRequest:webRequest data:data username:username password:password];
     if (customItems) return customItems;
     
     SMXMLDocument *document = [SMXMLDocument documentWithData:data error:NULL];
