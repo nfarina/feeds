@@ -32,7 +32,7 @@
     changesetsFeed.requiresBasicAuth = YES;
 
     NSString *releases = [NSString stringWithFormat:@"https://%@.beanstalkapp.com/api/releases.json", domain];
-    Feed *releasesFeed = [Feed feedWithURLString:releases title:@"Releases" account:self];
+    Feed *releasesFeed = [Feed feedWithURLString:releases title:@"Deployments" account:self];
     releasesFeed.author = [user objectForKey:@"id"]; // store author by unique identifier instead of name
     releasesFeed.requiresBasicAuth = YES;
 

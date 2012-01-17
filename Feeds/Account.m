@@ -94,8 +94,8 @@ static NSMutableArray *registeredClasses = nil;
 }
 
 + (void)saveAccounts {
-//    NSArray *accounts = [allAccounts valueForKey:@"dictionaryRepresentation"];
-//    [[NSUserDefaults standardUserDefaults] setObject:accounts forKey:@"accounts"];
+    NSArray *accounts = [allAccounts valueForKey:@"dictionaryRepresentation"];
+    [[NSUserDefaults standardUserDefaults] setObject:accounts forKey:@"accounts"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [[NSNotificationCenter defaultCenter] postNotificationName:kAccountsChangedNotification object:nil];
 }
