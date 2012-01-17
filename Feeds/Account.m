@@ -19,10 +19,10 @@ static NSMutableArray *registeredClasses = nil;
     [registeredClasses addObject:cls];
 }
 
-+ (NSArray *)itemsForRequest:(SMWebRequest *)request data:(NSData *)data username:(NSString *)username password:(NSString *)password {
++ (NSArray *)itemsForRequest:(SMWebRequest *)request data:(NSData *)data domain:(NSString *)domain username:(NSString *)username password:(NSString *)password {
     if ([self class] == [Account class])
         for (Class accountClass in registeredClasses) {
-            NSArray *items = [accountClass itemsForRequest:request data:data username:username password:password];
+            NSArray *items = [accountClass itemsForRequest:request data:data domain:domain username:username password:password];
             if (items) return items;
         }
     return nil;

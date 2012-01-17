@@ -52,7 +52,7 @@
     [self.delegate account:self validationDidFailWithMessage:error.localizedDescription field:AccountFailingFieldUnknown];
 }
 
-+ (NSArray *)itemsForRequest:(SMWebRequest *)request data:(NSData *)data username:(NSString *)username password:(NSString *)token {
++ (NSArray *)itemsForRequest:(SMWebRequest *)request data:(NSData *)data domain:(NSString *)domain username:(NSString *)username password:(NSString *)token {
     if ([request.request.URL.host isEqualToString:@"api.trello.com"]) {
         
         NSMutableArray *items = [NSMutableArray array];

@@ -71,7 +71,7 @@
         [self.delegate account:self validationDidFailWithMessage:error.localizedDescription field:AccountFailingFieldUnknown];
 }
 
-+ (NSArray *)itemsForRequest:(SMWebRequest *)request data:(NSData *)data username:(NSString *)username password:(NSString *)password {
++ (NSArray *)itemsForRequest:(SMWebRequest *)request data:(NSData *)data domain:(NSString *)domain username:(NSString *)username password:(NSString *)password {
     if ([request.request.URL.host endsWithString:@".beanstalkapp.com"]) {
         
         NSMutableArray *items = [NSMutableArray array];
@@ -92,17 +92,23 @@
                 NSNumber *userIdentifier = [revision objectForKey:@"user_id"];
                 NSString *date = [revision objectForKey:@"time"];
                 NSString *message = [revision objectForKey:@"message"];
+                NSString *hash = [revision objectForKey:@"hash_id"];
+                NSString *revisionIdentifier = [revision objectForKey:@"revision"];
+                NSString *repositoryTitle = nil;
                 NSString *repositoryName = nil;
+                NSString *repositoryType = nil;
 
                 if (repositoryIdentifier) {
                     // go out and fetch the repository name since we only have its ID
-                    NSString *repositoryLookup = [NSString stringWithFormat:@"https://meridian.beanstalkapp.com/api/repositories/%@.json", repositoryIdentifier];
+                    NSString *repositoryLookup = [NSString stringWithFormat:@"https://%@.beanstalkapp.com/api/repositories/%@.json", domain, repositoryIdentifier];
                     NSData *data = [self extraDataWithContentsOfURL:[NSURL URLWithString:repositoryLookup] username:username password:password];
                     if (!data) return [NSArray array];
                     
                     NSDictionary *response = [data objectFromJSONData];
                     NSDictionary *repository = [response objectForKey:@"repository"];
-                    repositoryName = [repository objectForKey:@"title"];
+                    repositoryTitle = [repository objectForKey:@"title"];
+                    repositoryName = [repository objectForKey:@"name"];
+                    repositoryType = [repository objectForKey:@"vcs"]; // "git" or svn ("SVN"?)
                 }
                 
                 FeedItem *item = [[FeedItem new] autorelease];
@@ -111,9 +117,15 @@
                 item.authorIdentifier = [userIdentifier stringValue];
                 item.author = [revision objectForKey:@"author"];
                 item.content = message;
-                item.title = [NSString stringWithFormat:@"%@ released to %@", item.author, repositoryName, message];
-                item.link = [NSURL URLWithString:
-                             [NSString stringWithFormat:@"https://%@.beanstalkapp.com/meridian/changesets/ba2c18cf9705a964294b39a59c299aa6743e58e0"]];
+                item.title = [NSString stringWithFormat:@"%@ released to %@", item.author, repositoryTitle, message];
+                
+                if ([repositoryType isEqualToString:@"git"])
+                    item.link = [NSURL URLWithString:
+                                 [NSString stringWithFormat:@"https://%@.beanstalkapp.com/%@/changesets/%@", domain, repositoryName, hash]];
+                else
+                    item.link = [NSURL URLWithString:
+                                 [NSString stringWithFormat:@"https://%@.beanstalkapp.com/%@/changesets/%@", domain, repositoryName, revisionIdentifier]];
+                
                 [items addObject:item];
             }
         }
@@ -124,6 +136,7 @@
             for (NSDictionary *releaseData in releases) {
                 
                 NSDictionary *release = [releaseData objectForKey:@"release"];
+                NSString *deploymentIdentifier = [release objectForKey:@"id"];
                 NSNumber *repositoryIdentifier = [release objectForKey:@"repository_id"];
                 NSNumber *userIdentifier = [release objectForKey:@"user_id"];
                 NSString *date = [release objectForKey:@"updated_at"];
@@ -134,7 +147,7 @@
                 
                 if (repositoryIdentifier) {
                     // go out and fetch the repository name since we only have its ID
-                    NSString *repositoryLookup = [NSString stringWithFormat:@"https://meridian.beanstalkapp.com/api/repositories/%@.json", repositoryIdentifier];
+                    NSString *repositoryLookup = [NSString stringWithFormat:@"https://%@.beanstalkapp.com/api/repositories/%@.json", domain, repositoryIdentifier];
                     NSData *data = [self extraDataWithContentsOfURL:[NSURL URLWithString:repositoryLookup] username:username password:password];
                     if (!data) return [NSArray array];
                     
@@ -145,7 +158,7 @@
 
                 if (userIdentifier) {
                     // go out and fetch the user's name since we only have their ID
-                    NSString *userLookup = [NSString stringWithFormat:@"https://meridian.beanstalkapp.com/api/users/%@.json", userIdentifier];
+                    NSString *userLookup = [NSString stringWithFormat:@"https://%@.beanstalkapp.com/api/users/%@.json", domain, userIdentifier];
                     NSData *data = [self extraDataWithContentsOfURL:[NSURL URLWithString:userLookup] username:username password:password];
                     if (!data) return [NSArray array];
                     
@@ -161,6 +174,10 @@
                 item.author = userName;
                 item.title = [NSString stringWithFormat:@"%@ deployed to %@ (%@)", item.author, environment, state, comment];
                 item.content = comment;
+
+                item.link = [NSURL URLWithString:
+                             [NSString stringWithFormat:@"https://%@.beanstalkapp.com/%@/deployments/%@", domain, repositoryName, deploymentIdentifier]];
+
                 [items addObject:item];
             }
         }

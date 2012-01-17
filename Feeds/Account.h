@@ -34,7 +34,7 @@ typedef enum {
 + (NSString *)domainSuffix;
 
 // opportunity to parse custom feed data
-+ (NSArray *)itemsForRequest:(SMWebRequest *)request data:(NSData *)data username:(NSString *)username password:(NSString *)password;
++ (NSArray *)itemsForRequest:(SMWebRequest *)request data:(NSData *)data domain:(NSString *)domain username:(NSString *)username password:(NSString *)password;
 
 // helper for said opportunity (threadsafe)
 + (NSData *)extraDataWithContentsOfURL:(NSURL *)URL;

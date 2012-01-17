@@ -87,7 +87,7 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
 - (void)refresh {
     NSMutableURLRequest *URLRequest;
     
-    NSString *username = account.username, *password = account.findPassword;
+    NSString *domain = account.domain, *username = account.username, *password = account.findPassword;
     
     if (requiresBasicAuth) // this feed requires the secure user/pass we stored in the keychain
         URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL username:username password:password];
@@ -101,6 +101,7 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
     // build a useful context of extra data for custom feed processors like Trello and Beanstalk. Since those processors may need to fetch
     // additional data from their respective APIs, they may need the account usernamd and password, if applicable.
     NSMutableDictionary *context = [NSMutableDictionary dictionary];
+    if (domain) [context setObject:domain forKey:@"domain"];
     if (username) [context setObject:username forKey:@"username"];
     if (password) [context setObject:password forKey:@"password"];
     
@@ -113,10 +114,11 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
 // This method is called on a background thread. Don't touch your instance members!
 + (id)webRequest:(SMWebRequest *)webRequest resultObjectForData:(NSData *)data context:(NSDictionary *)context {
 
+    NSString *domain = [context objectForKey:@"domain"];
     NSString *username = [context objectForKey:@"username"];
     NSString *password = [context objectForKey:@"password"];
     
-    NSArray *customItems = [Account itemsForRequest:webRequest data:data username:username password:password];
+    NSArray *customItems = [Account itemsForRequest:webRequest data:data domain:domain username:username password:password];
     if (customItems) return customItems;
     
     SMXMLDocument *document = [SMXMLDocument documentWithData:data error:NULL];
