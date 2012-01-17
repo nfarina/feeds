@@ -117,7 +117,7 @@
                 item.authorIdentifier = [userIdentifier stringValue];
                 item.author = [revision objectForKey:@"author"];
                 item.content = message;
-                item.title = [NSString stringWithFormat:@"%@ released to %@", item.author, repositoryTitle, message];
+                item.title = [NSString stringWithFormat:@"%@ committed to %@", item.author, repositoryTitle, message];
                 
                 if ([repositoryType isEqualToString:@"git"])
                     item.link = [NSURL URLWithString:
@@ -143,7 +143,8 @@
                 NSString *comment = [release objectForKey:@"comment"];
                 NSString *environment = [release objectForKey:@"environment_name"];
                 NSString *state = [release objectForKey:@"state"];
-                NSString *repositoryName = nil, *userName = nil;
+                NSString *repositoryName = nil;
+                NSString *userName = nil;
                 
                 if (repositoryIdentifier) {
                     // go out and fetch the repository name since we only have its ID
@@ -153,7 +154,7 @@
                     
                     NSDictionary *response = [data objectFromJSONData];
                     NSDictionary *repository = [response objectForKey:@"repository"];
-                    repositoryName = [repository objectForKey:@"title"];
+                    repositoryName = [repository objectForKey:@"name"];
                 }
 
                 if (userIdentifier) {
@@ -174,7 +175,6 @@
                 item.author = userName;
                 item.title = [NSString stringWithFormat:@"%@ deployed to %@ (%@)", item.author, environment, state, comment];
                 item.content = comment;
-
                 item.link = [NSURL URLWithString:
                              [NSString stringWithFormat:@"https://%@.beanstalkapp.com/%@/deployments/%@", domain, repositoryName, deploymentIdentifier]];
 
