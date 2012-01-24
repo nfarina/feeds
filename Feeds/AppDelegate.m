@@ -2,6 +2,8 @@
 #import "Feed.h"
 #import "StatusItemView.h"
 
+// TODO: Growl popup shows author too?
+
 #define MAX_ITEMS 30
 #define MAX_GROWLS 3
 #define POPOVER_INTERVAL 0.5
