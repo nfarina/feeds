@@ -3,6 +3,8 @@
 
 extern NSString *kFeedUpdatedNotification;
 
+NSDate *AutoFormatDate(NSString *dateString);
+
 @interface Feed : NSObject {
     NSURL *URL;
     NSString *title, *author;
@@ -40,9 +42,11 @@ extern NSString *kFeedUpdatedNotification;
 @property (nonatomic, assign) BOOL notified, viewed;
 @property (nonatomic, assign) Feed *feed;
 
+@property (nonatomic, readonly) NSString *authorAndTitle;
+
 // creates a new FeedItem by parsing an XML element
-+ (FeedItem *)itemWithRSSItemElement:(SMXMLElement *)element formatter:(ISO8601DateFormatter *)formatter;
-+ (FeedItem *)itemWithATOMEntryElement:(SMXMLElement *)element formatter:(ISO8601DateFormatter *)formatter;
++ (FeedItem *)itemWithRSSItemElement:(SMXMLElement *)element;
++ (FeedItem *)itemWithATOMEntryElement:(SMXMLElement *)element;
 
 - (NSComparisonResult)compareItemByPublishedDate:(FeedItem *)item;
 

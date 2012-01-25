@@ -205,8 +205,8 @@
         for (FeedItem *item in feed.items) {
             if (!item.notified && notifications++ < MAX_GROWLS) {
                 [GrowlApplicationBridge
-                 notifyWithTitle:[item.title.stringByDecodingCharacterEntities truncatedAfterIndex:45]
-                 description:[[item.content stringByFlatteningHTML] truncatedAfterIndex:45]
+                 notifyWithTitle:[item.authorAndTitle.stringByDecodingCharacterEntities truncatedAfterIndex:45]
+                 description:[[item.content.stringByFlatteningHTML stringByCondensingSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] truncatedAfterIndex:90]
                  notificationName:@"NewItem"
                  iconData:feed.account.notifyIconData
                  priority:(signed int)0
@@ -232,7 +232,7 @@
     
     [allItems sortUsingSelector:@selector(compareItemByPublishedDate:)];
     
-//    NSLog(@"ITEMS: %@", allItems);
+    //NSLog(@"ITEMS: %@", allItems);
     
     while ([allItems count] > MAX_ITEMS)
         [allItems removeObjectAtIndex:MAX_ITEMS];

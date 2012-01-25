@@ -3,14 +3,49 @@
 
 NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
 
-//NSDateFormatter *RSSDateFormatter() {
-//    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
-//    [formatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"] autorelease]];
-//    [formatter setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss Z"];
-//    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-//    return formatter;
-//}
-//
+NSDateFormatter *RSSDateFormatter() {
+    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
+    [formatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"] autorelease]];
+    [formatter setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss Z"];
+    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    return formatter;
+}
+
+NSDate *AutoFormatDate(NSString *dateString) {
+    static ISO8601DateFormatter *iso8601Formatter = nil; // "2012-01-25T11:12:26Z"
+    static NSDateFormatter *rssDateFormatter = nil; // "Sat, 21 Jan 2012 19:22:02 -0500"
+    static NSDateFormatter *beanstalkDateFormatter = nil; // "2011/09/12 13:24:05 +0800"
+    
+    // date formatters are NOT threadsafe!
+    @synchronized ([Feed class]) {
+        if (!iso8601Formatter) iso8601Formatter = [ISO8601DateFormatter new];
+        if (!rssDateFormatter) rssDateFormatter = [RSSDateFormatter() retain];
+        
+        if (!beanstalkDateFormatter) {
+            beanstalkDateFormatter = [[NSDateFormatter alloc] init];
+            [beanstalkDateFormatter setDateFormat:@"yyyy'/'MM'/'dd HH':'mm':'ss ZZZ"];
+        }
+        
+        // try ISO 8601 first
+        NSDate *date = [iso8601Formatter dateFromString:dateString];
+
+        // no luck? try RSS
+        if (date.timeIntervalSinceReferenceDate < 1)
+            date = [rssDateFormatter dateFromString:dateString];
+        
+        // no luck? try beanstalk
+        if (date.timeIntervalSinceReferenceDate < 1)
+            date = [beanstalkDateFormatter dateFromString:dateString];
+        
+        if (date.timeIntervalSinceReferenceDate > 1)
+            return date;
+        else {
+            NSLog(@"Couldn't parse date %@", dateString);
+            return nil;
+        }
+    }
+}
+
 //NSDateFormatter *ATOMDateFormatter() {
 //    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
 //    [formatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"] autorelease]];
@@ -124,23 +159,20 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
     SMXMLDocument *document = [SMXMLDocument documentWithData:data error:NULL];
     NSMutableArray *items = [NSMutableArray array];
 
-    // cache this, it's expensive to create (and not threadsafe)
-    ISO8601DateFormatter *formatter = [[[ISO8601DateFormatter alloc] init] autorelease];
-
     // are we speaking RSS or ATOM here?
     if ([document.root.name isEqual:@"rss"]) {
 
         NSArray *itemsXml = [[document.root childNamed:@"channel"] childrenNamed:@"item"];
         
         for (SMXMLElement *itemXml in itemsXml)
-            [items addObject:[FeedItem itemWithRSSItemElement:itemXml formatter:formatter]];
+            [items addObject:[FeedItem itemWithRSSItemElement:itemXml]];
     }
     else if ([document.root.name isEqual:@"feed"]) {
 
         NSArray *itemsXml = [document.root childrenNamed:@"entry"];
         
         for (SMXMLElement *itemXml in itemsXml)
-            [items addObject:[FeedItem itemWithATOMEntryElement:itemXml formatter:formatter]];
+            [items addObject:[FeedItem itemWithATOMEntryElement:itemXml]];
 
     }
     else {
@@ -212,7 +244,7 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
     [super dealloc];
 }
 
-+ (FeedItem *)itemWithRSSItemElement:(SMXMLElement *)element formatter:(ISO8601DateFormatter *)formatter {
++ (FeedItem *)itemWithRSSItemElement:(SMXMLElement *)element {
     FeedItem *item = [[FeedItem new] autorelease];
     item.title = [element childNamed:@"title"].value;
     item.author = [element childNamed:@"author"].value;
@@ -230,15 +262,12 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
     
     NSString *published = [element childNamed:@"pubDate"].value;
     
-    item.published = [formatter dateFromString:published];
+    item.published = AutoFormatDate(published);
     item.updated = item.published;
-    
-    if (!item.published) NSLog(@"Couldn't parse date %@", published);
-
     return item;
 }
 
-+ (FeedItem *)itemWithATOMEntryElement:(SMXMLElement *)element formatter:(ISO8601DateFormatter *)formatter {
++ (FeedItem *)itemWithATOMEntryElement:(SMXMLElement *)element {
     FeedItem *item = [[FeedItem new] autorelease];
     item.title = [element childNamed:@"title"].value;
     item.author = [element valueWithPath:@"author.name"];
@@ -252,11 +281,8 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
     NSString *published = [element childNamed:@"published"].value;
     NSString *updated = [element childNamed:@"updated"].value;
     
-    item.published = [formatter dateFromString:published];
-    item.updated = [formatter dateFromString:updated];
-
-    if (!item.published) NSLog(@"Couldn't parse date %@", published);
-
+    item.published = AutoFormatDate(published);
+    item.updated = AutoFormatDate(updated);
     return item;
 }
 
@@ -269,13 +295,13 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
     else return NO;
 }
 
+- (NSString *)authorAndTitle {
+    return author && ![title beginsWithString:author] ? [NSString stringWithFormat:@"%@: %@",author,title] : title;
+}
+
 - (NSString *)description {
-    
-    NSString *titleAndAuthor = author ? [NSString stringWithFormat:@"%@ %@",author,title] : title;
-    titleAndAuthor = [titleAndAuthor.stringByDecodingCharacterEntities truncatedAfterIndex:25];
-    
     return [NSString stringWithFormat:@"FeedItem (%@ - %@)\n)",
-            published,titleAndAuthor, nil];
+            published,[self.authorAndTitle.stringByDecodingCharacterEntities truncatedAfterIndex:25], nil];
 }
 
 - (NSComparisonResult)compareItemByPublishedDate:(FeedItem *)item {

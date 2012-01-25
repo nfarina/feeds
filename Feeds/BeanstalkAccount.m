@@ -76,11 +76,6 @@
         
         NSMutableArray *items = [NSMutableArray array];
         
-        // cache this, it's expensive to create (and not threadsafe)
-        // we need to parse shit like "2011/09/12 13:24:05 +0800"
-        NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
-        [formatter setDateFormat:@"yyyy'/'MM'/'dd HH':'mm':'ss ZZZ"];
-
         if ([request.request.URL.path isEqualToString:@"/api/changesets.json"]) {
             
             NSArray *changesets = [data objectFromJSONData];
@@ -112,7 +107,7 @@
                 }
                 
                 FeedItem *item = [[FeedItem new] autorelease];
-                item.published = [formatter dateFromString:date];
+                item.published = AutoFormatDate(date);
                 item.updated = item.published;
                 item.authorIdentifier = [userIdentifier stringValue];
                 item.author = [revision objectForKey:@"author"];
@@ -169,7 +164,7 @@
                 }
 
                 FeedItem *item = [[FeedItem new] autorelease];
-                item.published = [formatter dateFromString:date];
+                item.published = AutoFormatDate(date);
                 item.updated = item.published;
                 item.authorIdentifier = [userIdentifier stringValue];
                 item.author = userName;

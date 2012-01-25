@@ -58,9 +58,6 @@
         NSMutableArray *items = [NSMutableArray array];
         NSArray *notifications = [data objectFromJSONData];
 
-        // cache this, it's expensive to create (and not threadsafe)
-        ISO8601DateFormatter *formatter = [[[ISO8601DateFormatter alloc] init] autorelease];
-        
         for (NSDictionary *notification in notifications) {
             
             FeedItem *item = [[FeedItem new] autorelease];
@@ -74,7 +71,7 @@
             NSDictionary *card = [[data objectForKey:@"card"] objectForKey:@"id"];
             NSString *URLString = nil;
 
-            item.published = [formatter dateFromString:date];
+            item.published = AutoFormatDate(date);
             item.updated = item.published;
             
             if (!item.published) NSLog(@"Couldn't parse date %@", date);
