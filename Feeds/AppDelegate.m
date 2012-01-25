@@ -19,6 +19,7 @@
 - (void)hotKeysChanged;
 - (void)reachabilityChanged;
 - (void)refreshFeeds;
+- (void)rebuildItems;
 - (void)openBrowserWithURL:(NSURL *)url;
 - (void)updateStatusItemIcon;
 @end
@@ -135,6 +136,7 @@
 
 - (void)accountsChanged:(NSNotification *)notification {
     menuNeedsRebuild = YES;
+    [self rebuildItems]; // this will remove any items in feeds that may have just been removed
     [self refreshFeeds];
 }
 
@@ -216,7 +218,12 @@
     // mark all as notified
     for (FeedItem *item in feed.items)
         item.notified = YES;
-    
+
+    [self rebuildItems];
+    [self updateStatusItemIcon];
+}
+
+- (void)rebuildItems {
     // rebuild allItems array
     [allItems removeAllObjects];
     
@@ -224,14 +231,14 @@
         [allItems addObjectsFromArray:feed.items];
     
     [allItems sortUsingSelector:@selector(compareItemByPublishedDate:)];
-
+    
+//    NSLog(@"ITEMS: %@", allItems);
+    
     while ([allItems count] > MAX_ITEMS)
         [allItems removeObjectAtIndex:MAX_ITEMS];
-    
-    [self updateStatusItemIcon];
 }
 
-- (void)rebuildItems {
+- (void)rebuildMenuItems {
     
     while (![menu itemAtIndex:0].isSeparatorItem)
         [menu removeItemAtIndex:0];
@@ -265,7 +272,7 @@
 
 - (void)menuWillOpen:(NSMenu *)menu {
     if (menuNeedsRebuild)
-        [self rebuildItems];
+        [self rebuildMenuItems];
 }
 
 - (void)highlightMenuItem:(NSMenuItem *)menuItem {

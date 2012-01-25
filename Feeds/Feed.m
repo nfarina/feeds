@@ -270,10 +270,12 @@ NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"FeedItem (\n\ttitle: %@\n\tauthor:%@\n\tlink:%@\n\tcontent:%@\n)",
-            title,author,link,
-            [content truncatedAfterIndex:25],
-            nil];
+    
+    NSString *titleAndAuthor = author ? [NSString stringWithFormat:@"%@ %@",author,title] : title;
+    titleAndAuthor = [titleAndAuthor.stringByDecodingCharacterEntities truncatedAfterIndex:25];
+    
+    return [NSString stringWithFormat:@"FeedItem (%@ - %@)\n)",
+            published,titleAndAuthor, nil];
 }
 
 - (NSComparisonResult)compareItemByPublishedDate:(FeedItem *)item {
