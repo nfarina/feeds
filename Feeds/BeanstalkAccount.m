@@ -107,6 +107,7 @@
                 }
                 
                 FeedItem *item = [[FeedItem new] autorelease];
+                item.rawDate = date;
                 item.published = AutoFormatDate(date);
                 item.updated = item.published;
                 item.authorIdentifier = [userIdentifier stringValue];
@@ -164,6 +165,7 @@
                 }
 
                 FeedItem *item = [[FeedItem new] autorelease];
+                item.rawDate = date;
                 item.published = AutoFormatDate(date);
                 item.updated = item.published;
                 item.authorIdentifier = [userIdentifier stringValue];

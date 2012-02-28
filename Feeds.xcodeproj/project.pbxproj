@@ -90,6 +90,7 @@
 		01F64A3D14C249F300AAABD7 /* BeanstalkNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F64A3C14C249F300AAABD7 /* BeanstalkNotify.png */; };
 		01F64A4014C24C5000AAABD7 /* UserVoiceAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F64A3E14C24C5000AAABD7 /* UserVoiceAccount.png */; };
 		01F64A4114C24C5000AAABD7 /* UserVoiceNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F64A3F14C24C5000AAABD7 /* UserVoiceNotify.png */; };
+		01F7120714F9551700A32AB9 /* NSDate+TimeAgo.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F7120614F9498000A32AB9 /* NSDate+TimeAgo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -228,6 +229,8 @@
 		01F64A3C14C249F300AAABD7 /* BeanstalkNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BeanstalkNotify.png; sourceTree = "<group>"; };
 		01F64A3E14C24C5000AAABD7 /* UserVoiceAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserVoiceAccount.png; sourceTree = "<group>"; };
 		01F64A3F14C24C5000AAABD7 /* UserVoiceNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserVoiceNotify.png; sourceTree = "<group>"; };
+		01F7120514F9498000A32AB9 /* NSDate+TimeAgo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimeAgo.h"; sourceTree = "<group>"; };
+		01F7120614F9498000A32AB9 /* NSDate+TimeAgo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeAgo.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -298,6 +301,8 @@
 				019EE0F1147044CA00B67B74 /* LoginItems.m */,
 				014147B91486BAB5000D63E5 /* ISO8601DateFormatter.h */,
 				014147BA1486BAB5000D63E5 /* ISO8601DateFormatter.m */,
+				01F7120514F9498000A32AB9 /* NSDate+TimeAgo.h */,
+				01F7120614F9498000A32AB9 /* NSDate+TimeAgo.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -549,7 +554,7 @@
 		01937C7513A03F5000BCE1D4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = "Spotlight Mobile";
 			};
 			buildConfigurationList = 01937C7813A03F5000BCE1D4 /* Build configuration list for PBXProject "Feeds" */;
@@ -623,6 +628,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01F7120714F9551700A32AB9 /* NSDate+TimeAgo.m in Sources */,
 				01937C9013A03F5000BCE1D4 /* main.m in Sources */,
 				01937C9613A03F5000BCE1D4 /* AppDelegate.m in Sources */,
 				01937CB013A05A3A00BCE1D4 /* SMWebRequest.m in Sources */,

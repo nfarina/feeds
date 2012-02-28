@@ -8,6 +8,7 @@
 #define MAX_GROWLS 3
 #define POPOVER_INTERVAL 0.5
 #define POPOVER_WIDTH 402
+#define PER_ITEM_SHIM_STRATEGY 0
 
 @interface AppDelegate ()
 @property (nonatomic, retain) NSTimer *refreshTimer, *popoverTimer;
@@ -62,10 +63,12 @@
         webView.policyDelegate = self;
         webView.autoresizingMask = NSViewWidthSizable|NSViewHeightSizable;
         [popover contentViewController].view = webView;
-        
+
+        #if !PER_ITEM_SHIM_STRATEGY
         shimItem = [[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""];
         shimItem.view = [[[NSView alloc] initWithFrame:NSMakeRect(0, 0, 1, 1)] autorelease];
         [menu addItem:shimItem];
+        #endif
     }
 
     allItems = [NSMutableArray new];
@@ -256,8 +259,15 @@
             menuItem.onStateImage = [NSImage imageNamed:@"Unread.png"];
             menuItem.state = NSOnState;
         }
-
+        
+        #if PER_ITEM_SHIM_STRATEGY
+        [menu insertItem:menuItem atIndex:i*2];
+        NSMenuItem *shim = [[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""];
+        shim.view = [[[NSView alloc] initWithFrame:NSMakeRect(0, 0, 1, 1)] autorelease];
+        [menu insertItem:shim atIndex:i*2]; // above
+        #else
         [menu insertItem:menuItem atIndex:i];
+        #endif
     }
     
     if ([allItems count] == 0) {
@@ -351,22 +361,38 @@
         else
             titleOrFallback = item.feed.title;
     }
-        
+    
+    NSString *author = [titleOrFallback containsString:item.author] ? nil : item.author; // don't repeat the author in the subtitle if they are mentioned in the title
+    NSString *time = item.published.timeAgo;
+    NSString *authorAndTime = author ? [NSString stringWithFormat:@"%@ - %@",author,time] : time;
+    
+    #if USER_DEBUG
+    authorAndTime = [authorAndTime stringByAppendingFormat:@" (%@)", item.rawDate];
+    #endif
     
     NSString *templatePath = [[NSBundle mainBundle] pathForResource:@"Popover" ofType:@"html"];
     NSString *template = [NSString stringWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:NULL];
-    NSString *rendered = [NSString stringWithFormat:template, [titleOrFallback truncatedAfterIndex:75], item.author, item.content ?: @""];
+    NSString *rendered = [NSString stringWithFormat:template, [titleOrFallback truncatedAfterIndex:75], authorAndTime, item.content ?: @""];
     
     webView.alphaValue = 0;
     [webView.mainFrame loadHTMLString:rendered baseURL:nil];
-    
+
+    #if PER_ITEM_SHIM_STRATEGY
+    NSMenuItem *shim = [menu itemAtIndex:[menu indexOfItem:menuItem]-1];
+    NSRect frame = shim.view.superview.frame;
+    frame.origin.y -= 10; // the shim sits on the top of the menu item it represents - this will nudge it down to vertically center over the item.
+    #else
+    NSMenuItem *shim = shimItem;
     NSRect frame = shimItem.view.superview.frame;
     
     NSInteger shimIndex = [menu indexOfItem:shimItem];
     NSInteger itemIndex = [menu indexOfItem:menuItem];
     
-    frame.origin.y += 6 + (19.333333 * (shimIndex-itemIndex-1));
-    [popover showRelativeToRect:frame ofView:shimItem.view.superview.superview preferredEdge:NSMinXEdge];
+    frame.origin.y += 12 + (19.333333 * (shimIndex-itemIndex-1));
+    #endif
+    
+    if (shim.view.superview.superview)
+        [popover showRelativeToRect:frame ofView:shim.view.superview.superview preferredEdge:NSMinXEdge];
 }
 
 - (void)webView:(WebView *)webView decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id<WebPolicyDecisionListener>)listener {	

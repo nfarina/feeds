@@ -26,16 +26,19 @@ NSDate *AutoFormatDate(NSString *dateString) {
             [beanstalkDateFormatter setDateFormat:@"yyyy'/'MM'/'dd HH':'mm':'ss ZZZ"];
         }
         
-        // try ISO 8601 first
-        NSDate *date = [iso8601Formatter dateFromString:dateString];
+        NSDate *date = nil;
+        
+        // if the string contains forward-slashes, it's beanstalk.
+        if ([dateString containsString:@"/"])
+            date = [beanstalkDateFormatter dateFromString:dateString];
+        
+        // try ISO 8601 next
+        if (date.timeIntervalSinceReferenceDate < 1)
+            date = [iso8601Formatter dateFromString:dateString];
 
         // no luck? try RSS
         if (date.timeIntervalSinceReferenceDate < 1)
             date = [rssDateFormatter dateFromString:dateString];
-        
-        // no luck? try beanstalk
-        if (date.timeIntervalSinceReferenceDate < 1)
-            date = [beanstalkDateFormatter dateFromString:dateString];
         
         if (date.timeIntervalSinceReferenceDate > 1)
             return date;
@@ -156,8 +159,14 @@ NSDate *AutoFormatDate(NSString *dateString) {
     NSArray *customItems = [Account itemsForRequest:webRequest data:data domain:domain username:username password:password];
     if (customItems) return customItems;
     
-    SMXMLDocument *document = [SMXMLDocument documentWithData:data error:NULL];
+    NSError *error = nil;
+    SMXMLDocument *document = [SMXMLDocument documentWithData:data error:&error];
     NSMutableArray *items = [NSMutableArray array];
+    
+    if (error) {
+        NSLog(@"Error parsing XML feed result for %@ - %@", webRequest.request.URL, error);
+        return nil;
+    }
 
     // are we speaking RSS or ATOM here?
     if ([document.root.name isEqual:@"rss"]) {
@@ -234,10 +243,10 @@ NSDate *AutoFormatDate(NSString *dateString) {
 @end
 
 @implementation FeedItem
-@synthesize title, author, authorIdentifier, content, link, comments, published, updated, notified, viewed, feed;
+@synthesize title, author, authorIdentifier, content, link, comments, published, updated, notified, viewed, feed, rawDate;
 
 - (void)dealloc {
-    self.title = self.author = self.content = nil;
+    self.title = self.author = self.content = self.rawDate = nil;
     self.link = self.comments = nil;
     self.published = self.updated = nil;
     self.feed = nil;
@@ -262,6 +271,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
     
     NSString *published = [element childNamed:@"pubDate"].value;
     
+    item.rawDate = published;
     item.published = AutoFormatDate(published);
     item.updated = item.published;
     return item;
@@ -281,6 +291,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
     NSString *published = [element childNamed:@"published"].value;
     NSString *updated = [element childNamed:@"updated"].value;
     
+    item.rawDate = published;
     item.published = AutoFormatDate(published);
     item.updated = AutoFormatDate(updated);
     return item;

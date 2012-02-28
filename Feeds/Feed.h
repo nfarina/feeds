@@ -30,13 +30,13 @@ NSDate *AutoFormatDate(NSString *dateString);
 @end
 
 @interface FeedItem : NSObject {
-    NSString *title, *author, *authorIdentifier, *content, *strippedContent;
+    NSString *title, *author, *authorIdentifier, *content, *strippedContent, *rawDate;
     NSURL *link, *comments;
     NSDate *published, *updated;
     BOOL notified, viewed;
     Feed *feed; // not retained
 }
-@property (nonatomic, copy) NSString *title, *author, *authorIdentifier, *content;
+@property (nonatomic, copy) NSString *title, *author, *authorIdentifier, *content, *rawDate;
 @property (nonatomic, retain) NSURL *link, *comments;
 @property (nonatomic, retain) NSDate *published, *updated;
 @property (nonatomic, assign) BOOL notified, viewed;

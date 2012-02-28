@@ -71,6 +71,7 @@
             NSDictionary *card = [[data objectForKey:@"card"] objectForKey:@"id"];
             NSString *URLString = nil;
 
+            item.rawDate = date;
             item.published = AutoFormatDate(date);
             item.updated = item.published;
             
