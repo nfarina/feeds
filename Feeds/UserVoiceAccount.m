@@ -18,7 +18,7 @@
 
 - (void)forumRequestComplete:(NSData *)data {
     
-    TFHpple *html = [[TFHpple alloc] initWithHTMLData:data];
+    TFHpple *html = [[[TFHpple alloc] initWithHTMLData:data] autorelease];
     NSArray *links = [html searchWithXPathQuery:@"//link[@type='application/atom+xml']"];
     
     NSMutableArray *foundFeeds = [NSMutableArray array];
