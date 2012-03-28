@@ -129,7 +129,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
     
     if (requiresBasicAuth) // this feed requires the secure user/pass we stored in the keychain
         URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL username:username password:password];
-    else if ([URL user] && [URL password]) // maybe the user/pass is built into the URL already?
+    else if ([URL user] && [URL password]) // maybe the user/pass is built into the URL already? (this is the case for services like Basecamp that use "tokens" built into the URL)
         URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL username:[URL user] password:[URL password]];
     else // just a normal URL.
         URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL];
