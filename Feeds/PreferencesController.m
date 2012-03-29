@@ -117,7 +117,7 @@
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     Account *account = [[Account allAccounts] objectAtIndex:row];
-    return [NSDictionary dictionaryWithObjectsAndKeys:[[account class] friendlyAccountName], @"type", account.username, @"username", account.domain, @"domain", nil];
+    return [NSDictionary dictionaryWithObjectsAndKeys:account.type, @"type", [[account class] friendlyAccountName], @"name", account.username, @"username", account.domain, @"domain", nil];
 }
 
 - (BOOL)tableView:(NSTableView *)tableView shouldShowCellExpansionForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {

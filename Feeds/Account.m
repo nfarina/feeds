@@ -77,6 +77,8 @@ static NSMutableArray *registeredClasses = nil;
 + (BOOL)requiresUsername { return NO; }
 + (BOOL)requiresPassword { return NO; }
 + (NSURL *)requiredAuthURL { return nil; }
++ (NSString *)domainLabel { return @"Domain:"; }
++ (NSString *)domainPrefix { return @"http://"; }
 + (NSString *)domainSuffix { return @""; }
 
 #pragma mark Account Persistence

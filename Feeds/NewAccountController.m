@@ -37,7 +37,7 @@
     [usernameField becomeFirstResponder];
     
 #if DEBUG
-//    [accountTypeButton selectItemWithTitle:@"Beanstalk"];
+    [accountTypeButton selectItemWithTitle:@"Basecamp Next"];
 #endif
     
     [self accountTypeChanged:nil];
@@ -59,13 +59,26 @@
 - (void)accountTypeChanged:(id)sender {
     Class accountClass = [self selectedAccountClass];
     [domainLabel setHidden:![accountClass requiresDomain]];
+    [domainLabel setStringValue:[accountClass domainLabel]];
     [domainPrefix setHidden:![accountClass requiresDomain]];
+    [domainPrefix setStringValue:[accountClass domainPrefix]];
+    [domainSuffix setHidden:![accountClass requiresDomain]];
     [domainSuffix setStringValue:[accountClass domainSuffix]];
     [domainField setHidden:![accountClass requiresDomain]];
     [usernameLabel setHidden:![accountClass requiresUsername]];
     [usernameField setHidden:![accountClass requiresUsername]];
     [passwordLabel setHidden:![accountClass requiresPassword]];
     [passwordField setHidden:![accountClass requiresPassword]];
+    
+    // layout the domain prefix/suffix left-to-right
+    [domainPrefix sizeToFit];
+    NSRect domainFieldFrame = domainField.frame;
+    domainFieldFrame.origin.x = domainPrefix.frame.origin.x + domainPrefix.frame.size.width;
+    domainField.frame = domainFieldFrame;
+    
+    NSRect domainSuffixFrame = domainSuffix.frame;
+    domainSuffixFrame.origin.x = domainFieldFrame.origin.x + domainFieldFrame.size.width + 2;
+    domainSuffix.frame = domainSuffixFrame;
     
     if ([accountClass requiresDomain])
         [domainField becomeFirstResponder];

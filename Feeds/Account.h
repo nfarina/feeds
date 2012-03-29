@@ -30,7 +30,11 @@ typedef enum {
 + (BOOL) requiresDomain;
 + (BOOL) requiresUsername;
 + (BOOL) requiresPassword;
+
+// "new feed" dialog customizations
 + (NSURL *) requiredAuthURL;
++ (NSString *)domainLabel;
++ (NSString *)domainPrefix;
 + (NSString *)domainSuffix;
 
 // opportunity to parse custom feed data

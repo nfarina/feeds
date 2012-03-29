@@ -243,7 +243,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
 @end
 
 @implementation FeedItem
-@synthesize title, author, authorIdentifier, content, link, comments, published, updated, notified, viewed, feed, rawDate;
+@synthesize title, author, authorIdentifier, project, content, link, comments, published, updated, notified, viewed, feed, rawDate;
 
 - (void)dealloc {
     self.title = self.author = self.content = self.rawDate = nil;

@@ -12,6 +12,9 @@
 		0108CEDD13BB8CB90000ECE1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0108CEDC13BB8CB80000ECE1 /* Security.framework */; };
 		0108CEE013BBA3AC0000ECE1 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 0108CEDF13BBA3AC0000ECE1 /* NSString+Base64.m */; };
 		0117B30613AD27CB0018AB7C /* NSArray+Linqish.m in Sources */ = {isa = PBXBuildFile; fileRef = 0117B30513AD27CB0018AB7C /* NSArray+Linqish.m */; };
+		011989371524C79100046F71 /* BasecampNext.png in Resources */ = {isa = PBXBuildFile; fileRef = 011989341524C79100046F71 /* BasecampNext.png */; };
+		011989381524C79100046F71 /* BasecampNextAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 011989351524C79100046F71 /* BasecampNextAccount.png */; };
+		011989391524C79100046F71 /* BasecampNextNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 011989361524C79100046F71 /* BasecampNextNotify.png */; };
 		0125C6CD13C7C8B10006BB1A /* NSView+PrintHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0125C6CC13C7C8B10006BB1A /* NSView+PrintHierarchy.m */; };
 		014147A01486B019000D63E5 /* UserVoiceAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 0141479F1486B019000D63E5 /* UserVoiceAccount.m */; };
 		014147AE1486B258000D63E5 /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 014147A91486B258000D63E5 /* TFHpple.m */; };
@@ -31,6 +34,7 @@
 		015D78A713C6753500BCD7C4 /* Github.png in Resources */ = {isa = PBXBuildFile; fileRef = 015D78A413C6753500BCD7C4 /* Github.png */; };
 		015E0ED814475D2E000A611D /* AccountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 015E0ED714475D2E000A611D /* AccountCell.m */; };
 		015E0EE614478DB6000A611D /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 015E0EE514478DB6000A611D /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		0181D973152492D400D1E78B /* BasecampNextAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 0181D972152492D400D1E78B /* BasecampNextAccount.m */; };
 		01937C8313A03F5000BCE1D4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01937C8213A03F5000BCE1D4 /* Cocoa.framework */; };
 		01937C8D13A03F5000BCE1D4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01937C8B13A03F5000BCE1D4 /* InfoPlist.strings */; };
 		01937C9013A03F5000BCE1D4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937C8F13A03F5000BCE1D4 /* main.m */; };
@@ -118,6 +122,9 @@
 		0108CEDF13BBA3AC0000ECE1 /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
 		0117B30413AD27CB0018AB7C /* NSArray+Linqish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Linqish.h"; sourceTree = "<group>"; };
 		0117B30513AD27CB0018AB7C /* NSArray+Linqish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Linqish.m"; sourceTree = "<group>"; };
+		011989341524C79100046F71 /* BasecampNext.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BasecampNext.png; sourceTree = "<group>"; };
+		011989351524C79100046F71 /* BasecampNextAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BasecampNextAccount.png; sourceTree = "<group>"; };
+		011989361524C79100046F71 /* BasecampNextNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BasecampNextNotify.png; sourceTree = "<group>"; };
 		0125C6CB13C7C8B10006BB1A /* NSView+PrintHierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+PrintHierarchy.h"; sourceTree = "<group>"; };
 		0125C6CC13C7C8B10006BB1A /* NSView+PrintHierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+PrintHierarchy.m"; sourceTree = "<group>"; };
 		0141479E1486B019000D63E5 /* UserVoiceAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserVoiceAccount.h; sourceTree = "<group>"; };
@@ -148,6 +155,8 @@
 		015E0ED714475D2E000A611D /* AccountCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountCell.m; sourceTree = "<group>"; };
 		015E0EE414478DB6000A611D /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		015E0EE514478DB6000A611D /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		0181D971152492D400D1E78B /* BasecampNextAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasecampNextAccount.h; sourceTree = "<group>"; };
+		0181D972152492D400D1E78B /* BasecampNextAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasecampNextAccount.m; sourceTree = "<group>"; };
 		01937C7E13A03F5000BCE1D4 /* Feeds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Feeds.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01937C8213A03F5000BCE1D4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		01937C8513A03F5000BCE1D4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -270,6 +279,8 @@
 				01524F4414BFB45F00913D84 /* TrelloAccount.m */,
 				01F64A2914C2318B00AAABD7 /* BeanstalkAccount.h */,
 				01F64A2A14C2318B00AAABD7 /* BeanstalkAccount.m */,
+				0181D971152492D400D1E78B /* BasecampNextAccount.h */,
+				0181D972152492D400D1E78B /* BasecampNextAccount.m */,
 			);
 			name = Accounts;
 			sourceTree = "<group>";
@@ -327,6 +338,9 @@
 				015D78A013C6747100BCD7C4 /* Basecamp.png */,
 				01B0AE821448C94A0020AF67 /* BasecampAccount.png */,
 				019EE0E51470268C00B67B74 /* BasecampNotify.png */,
+				011989341524C79100046F71 /* BasecampNext.png */,
+				011989351524C79100046F71 /* BasecampNextAccount.png */,
+				011989361524C79100046F71 /* BasecampNextNotify.png */,
 				015D78A213C6753500BCD7C4 /* Dribbble.png */,
 				01B0AE861448CC310020AF67 /* DribbbleAccount.png */,
 				019EE0E9147027E200B67B74 /* DribbbleNotify.png */,
@@ -618,6 +632,9 @@
 				01F64A3D14C249F300AAABD7 /* BeanstalkNotify.png in Resources */,
 				01F64A4014C24C5000AAABD7 /* UserVoiceAccount.png in Resources */,
 				01F64A4114C24C5000AAABD7 /* UserVoiceNotify.png in Resources */,
+				011989371524C79100046F71 /* BasecampNext.png in Resources */,
+				011989381524C79100046F71 /* BasecampNextAccount.png in Resources */,
+				011989391524C79100046F71 /* BasecampNextNotify.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -663,6 +680,7 @@
 				014147BB1486BAB5000D63E5 /* ISO8601DateFormatter.m in Sources */,
 				01524F4514BFB45F00913D84 /* TrelloAccount.m in Sources */,
 				01F64A2B14C2318B00AAABD7 /* BeanstalkAccount.m in Sources */,
+				0181D973152492D400D1E78B /* BasecampNextAccount.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

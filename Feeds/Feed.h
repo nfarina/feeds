@@ -36,7 +36,7 @@ NSDate *AutoFormatDate(NSString *dateString);
     BOOL notified, viewed;
     Feed *feed; // not retained
 }
-@property (nonatomic, copy) NSString *title, *author, *authorIdentifier, *content, *rawDate;
+@property (nonatomic, copy) NSString *title, *author, *authorIdentifier, *project, *content, *rawDate;
 @property (nonatomic, retain) NSURL *link, *comments;
 @property (nonatomic, retain) NSDate *published, *updated;
 @property (nonatomic, assign) BOOL notified, viewed;

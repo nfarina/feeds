@@ -6,11 +6,12 @@
 
 	NSDictionary *dict = self.objectValue;
     NSString *type = [dict objectForKey:@"type"];
-    NSString *name = [dict objectForKey:@"username"];
+    NSString *name = [dict objectForKey:@"name"];
+    NSString *username = [dict objectForKey:@"username"];
     NSImage *icon = [NSImage imageNamed:[type stringByAppendingString:@"Account.png"]];
 
-    if (!name.length)
-        name = [dict objectForKey:@"domain"];
+    if (!username.length)
+        username = [dict objectForKey:@"domain"];
 
     // We have to do some work otherwise the image will be drawn Y-flipped
 	[[NSGraphicsContext currentContext] saveGraphicsState]; {
@@ -39,7 +40,7 @@
         userColor = [NSColor colorWithDeviceWhite:0.6 alpha:1];
     }
 
-    NSFont *typeFont = [NSFont systemFontOfSize:type.length > 10 ? 12 : 13];
+    NSFont *typeFont = [NSFont systemFontOfSize:name.length > 10 ? 12 : 13];
 	NSDictionary *typeAttributes = [NSDictionary dictionaryWithObjectsAndKeys:typeColor, NSForegroundColorAttributeName, typeFont, NSFontAttributeName, nil];
 
     NSRect typeRect = cellFrame;
@@ -48,7 +49,7 @@
     typeRect.size.width -= (36+9);
     typeRect.size.height = typeFont.pointSize + 4;
     
-	[type drawWithRect:typeRect options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine attributes:typeAttributes];
+	[name drawWithRect:typeRect options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine attributes:typeAttributes];
 
     NSFont *userFont = [NSFont systemFontOfSize:11];
 	NSDictionary *userAttributes = [NSDictionary dictionaryWithObjectsAndKeys:userColor, NSForegroundColorAttributeName, userFont, NSFontAttributeName, nil];
@@ -56,7 +57,7 @@
     NSRect userRect = typeRect;
     userRect.origin.y += 16;
 
-    [name drawWithRect:userRect options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine attributes:userAttributes];
+    [username drawWithRect:userRect options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine attributes:userAttributes];
 }
 
 @end

@@ -89,7 +89,7 @@
 #if DEBUG
 //    ProcessSerialNumber psn = { 0, kCurrentProcess }; 
 //    TransformProcessType(&psn, kProcessTransformToForegroundApplication);
-//    [self openPreferences:nil];
+    [self openPreferences:nil];
 #endif
 
     [self accountsChanged:nil];
@@ -145,7 +145,13 @@
 
 - (void)refreshFeeds {
     NSLog(@"Refreshing feeds...");
-    [[self allFeeds] makeObjectsPerformSelector:@selector(refresh)];
+#if DEBUG
+    for (Feed *feed in self.allFeeds)
+        if ([feed.account.type isEqualToString:@"BasecampNext"] || [feed.account.type isEqualToString:@"Highrise"])
+            [feed refresh];
+#else
+    [self.allFeeds makeObjectsPerformSelector:@selector(refresh)];
+#endif
 }
 
 - (void)updateStatusItemIcon {
@@ -356,7 +362,9 @@
     NSString *titleOrFallback = item.title;
     
     if (!titleOrFallback.length) {
-        if (item.feed.account.domain)
+        if (item.project)
+            titleOrFallback = item.project;
+        else if (item.feed.account.domain)
             titleOrFallback = [NSString stringWithFormat:@"%@ (%@)", item.feed.title, item.feed.account.domain];
         else
             titleOrFallback = item.feed.title;
