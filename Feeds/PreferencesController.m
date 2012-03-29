@@ -46,7 +46,7 @@
 #if DEBUG
     [toolbar setSelectedItemIdentifier:@"accounts"];
     [self selectAccountsTab:nil];
-//    [self addAccount:nil];
+    [self addAccount:nil];
 #else
     [self.window setLevel: NSTornOffMenuWindowLevel]; // a.k.a. "Always On Top"
 #endif
@@ -117,7 +117,7 @@
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     Account *account = [[Account allAccounts] objectAtIndex:row];
-    return [NSDictionary dictionaryWithObjectsAndKeys:account.type, @"type", account.username, @"username", account.domain, @"domain", nil];
+    return [NSDictionary dictionaryWithObjectsAndKeys:[[account class] friendlyAccountName], @"type", account.username, @"username", account.domain, @"domain", nil];
 }
 
 - (BOOL)tableView:(NSTableView *)tableView shouldShowCellExpansionForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
@@ -134,6 +134,8 @@
     
     [Account addAccount:account];
     [tableView reloadData];
+    [tableView scrollRowToVisible:tableView.numberOfRows-1];
+    [tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:tableView.numberOfRows-1] byExtendingSelection:NO];
     
     [NSApp endSheet:controller.window];
     [controller release];

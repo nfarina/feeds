@@ -39,7 +39,7 @@
         userColor = [NSColor colorWithDeviceWhite:0.6 alpha:1];
     }
 
-    NSFont *typeFont = [NSFont systemFontOfSize:13];
+    NSFont *typeFont = [NSFont systemFontOfSize:type.length > 10 ? 12 : 13];
 	NSDictionary *typeAttributes = [NSDictionary dictionaryWithObjectsAndKeys:typeColor, NSForegroundColorAttributeName, typeFont, NSFontAttributeName, nil];
 
     NSRect typeRect = cellFrame;
@@ -47,7 +47,7 @@
     typeRect.origin.y += 4;
     typeRect.size.width -= (36+9);
     typeRect.size.height = typeFont.pointSize + 4;
-        
+    
 	[type drawWithRect:typeRect options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine attributes:typeAttributes];
 
     NSFont *userFont = [NSFont systemFontOfSize:11];
