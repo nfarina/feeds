@@ -13,7 +13,10 @@ static NSMutableArray *allAccounts = nil;
 
 static NSMutableArray *registeredClasses = nil;
 
-+ (NSArray *)registeredClasses { return registeredClasses; }
++ (NSArray *)registeredClasses { 
+    NSArray *descriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"friendlyAccountName" ascending:YES]];
+    return [registeredClasses sortedArrayUsingDescriptors:descriptors];
+}
 + (void)registerClass:(Class)cls {
     if (!registeredClasses) registeredClasses = [NSMutableArray new];
     [registeredClasses addObject:cls];
