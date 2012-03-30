@@ -27,12 +27,12 @@ typedef enum {
 + (NSString *)friendlyAccountName; // default implementation chops off the Account suffix
 
 // creation options, returns YES by default
++ (BOOL) requiresAuth;
 + (BOOL) requiresDomain;
 + (BOOL) requiresUsername;
 + (BOOL) requiresPassword;
 
 // "new feed" dialog customizations
-+ (NSURL *) requiredAuthURL;
 + (NSString *)domainLabel;
 + (NSString *)domainPrefix;
 + (NSString *)domainSuffix;
@@ -61,6 +61,7 @@ typedef enum {
 - (void)validateWithPassword:(NSString *)password;
 - (void)cancelValidation;
 
+- (void)beginAuth;
 - (void)authWasFinishedWithURL:(NSURL *)url;
 
 - (NSString *)findPassword;

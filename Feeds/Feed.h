@@ -10,13 +10,13 @@ NSDate *AutoFormatDate(NSString *dateString);
     NSString *title, *author;
     NSArray *items; // of FeedItem
     SMWebRequest *request;
-    BOOL disabled, requiresBasicAuth;
+    BOOL disabled, requiresBasicAuth, requiresOAuth2;
     Account *account; // not retained
 }
 @property (nonatomic, retain) NSURL *URL;
 @property (nonatomic, copy) NSString *title, *author;
 @property (nonatomic, copy) NSArray *items;
-@property (nonatomic, assign) BOOL disabled, requiresBasicAuth;
+@property (nonatomic, assign) BOOL disabled, requiresBasicAuth, requiresOAuth2;
 @property (nonatomic, assign) Account *account;
 
 + (Feed *)feedWithURLString:(NSString *)URLString title:(NSString *)title account:(Account *)account;

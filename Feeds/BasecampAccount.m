@@ -6,6 +6,7 @@
 + (BOOL)requiresDomain { return YES; }
 + (BOOL)requiresUsername { return YES; }
 + (BOOL)requiresPassword { return YES; }
++ (NSString *)friendlyAccountName { return @"Basecamp Classic"; }
 + (NSString *)domainSuffix { return @".basecamphq.com"; }
 
 - (void)validateWithPassword:(NSString *)password {

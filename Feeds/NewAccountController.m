@@ -37,7 +37,7 @@
     [usernameField becomeFirstResponder];
     
 #if DEBUG
-    [accountTypeButton selectItemWithTitle:@"Basecamp Next"];
+    [accountTypeButton selectItemWithTitle:@"Basecamp"];
 #endif
     
     [self accountTypeChanged:nil];
@@ -108,8 +108,8 @@
 
     Class accountClass = [self selectedAccountClass];
 
-    if ([accountClass requiredAuthURL]) {
-        [[NSWorkspace sharedWorkspace] openURL:[accountClass requiredAuthURL]];
+    if ([accountClass requiresAuth]) {
+        [account beginAuth];
         [messageField setStringValue:[NSString stringWithFormat:@"Authenticating with %@…",self.selectedAccountName]];
     }
     else {

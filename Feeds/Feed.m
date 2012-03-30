@@ -69,7 +69,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
 @end
 
 @implementation Feed
-@synthesize URL, title, author, items, request, disabled, account, requiresBasicAuth;
+@synthesize URL, title, author, items, request, disabled, account, requiresBasicAuth, requiresOAuth2;
 
 - (void)dealloc {
     self.URL = nil;
@@ -101,6 +101,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
     feed.author = [dict objectForKey:@"author"];
     feed.disabled = [[dict objectForKey:@"disabled"] boolValue];
     feed.requiresBasicAuth = [[dict objectForKey:@"requiresBasicAuth"] boolValue];
+    feed.requiresOAuth2 = [[dict objectForKey:@"requiresOAuth2"] boolValue];
     feed.account = account;
     return feed;
 }
@@ -112,6 +113,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
     if (author) [dict setObject:author forKey:@"author"];
     [dict setObject:[NSNumber numberWithBool:disabled] forKey:@"disabled"];
     [dict setObject:[NSNumber numberWithBool:requiresBasicAuth] forKey:@"requiresBasicAuth"];
+    [dict setObject:[NSNumber numberWithBool:requiresOAuth2] forKey:@"requiresOAuth2"];
     return dict;
 }
 

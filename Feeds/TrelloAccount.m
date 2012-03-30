@@ -3,11 +3,14 @@
 @implementation TrelloAccount
 
 + (void)load { [Account registerClass:self]; }
++ (BOOL)requiresAuth { return YES; }
 + (BOOL)requiresDomain { return NO; }
 + (BOOL)requiresUsername { return NO; }
 + (BOOL)requiresPassword { return NO; }
-+ (NSURL *)requiredAuthURL {
-    return [NSURL URLWithString:@"https://trello.com/1/connect?key=53e6bb99cefe4914e88d06c76308e357&name=Feeds&return_url=feedsapp://trello/auth"];
+
+- (void)beginAuth {
+    NSURL *URL = [NSURL URLWithString:@"https://trello.com/1/connect?key=53e6bb99cefe4914e88d06c76308e357&name=Feeds&return_url=feedsapp://trello/auth"];
+    [[NSWorkspace sharedWorkspace] openURL:URL];
 }
 
 - (void)authWasFinishedWithURL:(NSURL *)url {

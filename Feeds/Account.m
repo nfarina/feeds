@@ -73,10 +73,10 @@ static NSMutableArray *registeredClasses = nil;
     return [NSStringFromClass(self) stringByReplacingOccurrencesOfString:@"Account" withString:@""];
 }
 
++ (BOOL)requiresAuth { return NO; }
 + (BOOL)requiresDomain { return NO; }
 + (BOOL)requiresUsername { return NO; }
 + (BOOL)requiresPassword { return NO; }
-+ (NSURL *)requiredAuthURL { return nil; }
 + (NSString *)domainLabel { return @"Domain:"; }
 + (NSString *)domainPrefix { return @"http://"; }
 + (NSString *)domainSuffix { return @""; }
@@ -180,6 +180,9 @@ static NSMutableArray *registeredClasses = nil;
 
 - (void)cancelValidation {
     self.request = nil;
+}
+
+- (void)beginAuth {
 }
 
 - (void)authWasFinishedWithURL:(NSURL *)url {
