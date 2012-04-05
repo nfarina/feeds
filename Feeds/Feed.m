@@ -131,6 +131,8 @@ NSDate *AutoFormatDate(NSString *dateString) {
     
     if (requiresBasicAuth) // this feed requires the secure user/pass we stored in the keychain
         URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL username:username password:password];
+    else if (requiresOAuth2) // like basecamp next
+        URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL OAuth2Token:password];
     else if ([URL user] && [URL password]) // maybe the user/pass is built into the URL already? (this is the case for services like Basecamp that use "tokens" built into the URL)
         URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL username:[URL user] password:[URL password]];
     else // just a normal URL.
@@ -218,9 +220,13 @@ NSDate *AutoFormatDate(NSString *dateString) {
         self.items = merged;
         
         // mark as notified any item that was "created" by ourself, because we don't need to be reminded about stuff we did ourself.
-        for (FeedItem *item in items)
+        for (FeedItem *item in items) {
             if ([(item.authorIdentifier ?: item.author) isEqual:author]) // prefer authorIdentifier if present
+                item.authoredByMe = YES;
+            
+            if (item.authoredByMe)
                 item.notified = item.viewed = YES;
+        }
     }
     else {
         NSLog(@"ALL NEW ITEMS FOR FEED %@", URL);
@@ -245,7 +251,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
 @end
 
 @implementation FeedItem
-@synthesize title, author, authorIdentifier, project, content, link, comments, published, updated, notified, viewed, feed, rawDate;
+@synthesize title, author, authorIdentifier, project, content, link, comments, published, updated, notified, viewed, feed, rawDate, authoredByMe;
 
 - (void)dealloc {
     self.title = self.author = self.content = self.rawDate = nil;

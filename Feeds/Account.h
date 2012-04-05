@@ -42,7 +42,7 @@ typedef enum {
 
 // helper for said opportunity (threadsafe)
 + (NSData *)extraDataWithContentsOfURL:(NSURL *)URL;
-+ (NSData *)extraDataWithContentsOfURL:(NSURL *)URL username:(NSString *)username password:(NSString *)password;
++ (NSData *)extraDataWithContentsOfURL:(NSURL *)URL username:(NSString *)username password:(NSString *)password OAuth2Token:(NSString *)token;
 
 @property (nonatomic, assign) id<AccountDelegate> delegate;
 @property (nonatomic, copy) NSString *domain, *username;

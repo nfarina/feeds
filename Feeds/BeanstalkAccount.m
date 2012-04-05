@@ -96,7 +96,7 @@
                 if (repositoryIdentifier) {
                     // go out and fetch the repository name since we only have its ID
                     NSString *repositoryLookup = [NSString stringWithFormat:@"https://%@.beanstalkapp.com/api/repositories/%@.json", domain, repositoryIdentifier];
-                    NSData *data = [self extraDataWithContentsOfURL:[NSURL URLWithString:repositoryLookup] username:username password:password];
+                    NSData *data = [self extraDataWithContentsOfURL:[NSURL URLWithString:repositoryLookup] username:username password:password OAuth2Token:nil];
                     if (!data) return [NSArray array];
                     
                     NSDictionary *response = [data objectFromJSONData];
@@ -145,7 +145,7 @@
                 if (repositoryIdentifier) {
                     // go out and fetch the repository name since we only have its ID
                     NSString *repositoryLookup = [NSString stringWithFormat:@"https://%@.beanstalkapp.com/api/repositories/%@.json", domain, repositoryIdentifier];
-                    NSData *data = [self extraDataWithContentsOfURL:[NSURL URLWithString:repositoryLookup] username:username password:password];
+                    NSData *data = [self extraDataWithContentsOfURL:[NSURL URLWithString:repositoryLookup] username:username password:password OAuth2Token:nil];
                     if (!data) return [NSArray array];
                     
                     NSDictionary *response = [data objectFromJSONData];
@@ -156,7 +156,7 @@
                 if (userIdentifier) {
                     // go out and fetch the user's name since we only have their ID
                     NSString *userLookup = [NSString stringWithFormat:@"https://%@.beanstalkapp.com/api/users/%@.json", domain, userIdentifier];
-                    NSData *data = [self extraDataWithContentsOfURL:[NSURL URLWithString:userLookup] username:username password:password];
+                    NSData *data = [self extraDataWithContentsOfURL:[NSURL URLWithString:userLookup] username:username password:password OAuth2Token:nil];
                     if (!data) return [NSArray array];
                     
                     NSDictionary *response = [data objectFromJSONData];

@@ -33,10 +33,10 @@ static NSMutableArray *registeredClasses = nil;
 
 // threadsafe
 + (NSData *)extraDataWithContentsOfURL:(NSURL *)URL {
-    return [self extraDataWithContentsOfURL:URL username:nil password:nil];
+    return [self extraDataWithContentsOfURL:URL username:nil password:nil OAuth2Token:nil];
 }
 
-+ (NSData *)extraDataWithContentsOfURL:(NSURL *)URL username:(NSString *)username password:(NSString *)password {
++ (NSData *)extraDataWithContentsOfURL:(NSURL *)URL username:(NSString *)username password:(NSString *)password OAuth2Token:(NSString *)token {
     static NSMutableDictionary *cache = nil;
     
     @synchronized (self) {
@@ -47,7 +47,9 @@ static NSMutableArray *registeredClasses = nil;
 
     NSMutableURLRequest *request;
     
-    if (username && password)
+    if (token)
+        request = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL OAuth2Token:token];
+    else if (username && password)
         request = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL username:username password:password];
     else
         request = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL];

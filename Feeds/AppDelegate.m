@@ -147,7 +147,7 @@
     NSLog(@"Refreshing feeds...");
 #if DEBUG
     for (Feed *feed in self.allFeeds)
-        if ([feed.account.type isEqualToString:@"BasecampNext"] || [feed.account.type isEqualToString:@"Highrise"])
+        if ([feed.account.type isEqualToString:@"BasecampNext"])
             [feed refresh];
 #else
     [self.allFeeds makeObjectsPerformSelector:@selector(refresh)];
