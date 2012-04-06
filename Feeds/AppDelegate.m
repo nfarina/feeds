@@ -102,7 +102,11 @@
 }
 
 - (NSTimeInterval)refreshInterval {
+#if DEBUG
+    return 5;
+#else
     return [[NSUserDefaults standardUserDefaults] integerForKey:@"RefreshInterval"] ?: DEFAULT_REFRESH_INTERVAL;
+#endif
 }
 
 - (void)setRefreshTimer:(NSTimer *)value {

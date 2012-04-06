@@ -1,6 +1,8 @@
 #import "Feed.h"
 #import "Account.h"
 
+#define MAX_FEED_ITEMS 50
+
 NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
 
 NSDateFormatter *RSSDateFormatter() {
@@ -69,7 +71,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
 @end
 
 @implementation Feed
-@synthesize URL, title, author, items, request, disabled, account, requiresBasicAuth, requiresOAuth2Token;
+@synthesize URL, title, author, items, request, disabled, account, requiresBasicAuth, requiresOAuth2Token, incremental;
 
 - (void)dealloc {
     self.URL = nil;
@@ -99,9 +101,10 @@ NSDate *AutoFormatDate(NSString *dateString) {
     feed.URL = [NSURL URLWithString:[dict objectForKey:@"url"]];
     feed.title = [dict objectForKey:@"title"];
     feed.author = [dict objectForKey:@"author"];
-    feed.disabled = [[dict objectForKey:@"disabled"] boolValue];
+    feed.incremental = [[dict objectForKey:@"incremental"] boolValue];
     feed.requiresBasicAuth = [[dict objectForKey:@"requiresBasicAuth"] boolValue];
     feed.requiresOAuth2Token = [[dict objectForKey:@"requiresOAuth2Token"] boolValue];
+    feed.disabled = [[dict objectForKey:@"disabled"] boolValue];
     feed.account = account;
     return feed;
 }
@@ -111,9 +114,10 @@ NSDate *AutoFormatDate(NSString *dateString) {
     [dict setObject:[URL absoluteString] forKey:@"url"];
     if (title) [dict setObject:title forKey:@"title"];
     if (author) [dict setObject:author forKey:@"author"];
-    [dict setObject:[NSNumber numberWithBool:disabled] forKey:@"disabled"];
+    [dict setObject:[NSNumber numberWithBool:incremental] forKey:@"incremental"];
     [dict setObject:[NSNumber numberWithBool:requiresBasicAuth] forKey:@"requiresBasicAuth"];
     [dict setObject:[NSNumber numberWithBool:requiresOAuth2Token] forKey:@"requiresOAuth2Token"];
+    [dict setObject:[NSNumber numberWithBool:disabled] forKey:@"disabled"];
     return dict;
 }
 
@@ -124,19 +128,21 @@ NSDate *AutoFormatDate(NSString *dateString) {
         return NO;
 }
 
-- (void)refresh {
+- (void)refresh { [self refreshWithURL:URL]; }
+
+- (void)refreshWithURL:(NSURL *)refreshURL {
     NSMutableURLRequest *URLRequest;
     
     NSString *domain = account.domain, *username = account.username, *password = account.findPassword;
     
     if (requiresBasicAuth) // this feed requires the secure user/pass we stored in the keychain
-        URLRequest = [NSMutableURLRequest requestWithURL:URL username:username password:password];
+        URLRequest = [NSMutableURLRequest requestWithURL:refreshURL username:username password:password];
     else if (requiresOAuth2Token) // like basecamp next
-        URLRequest = [NSMutableURLRequest requestWithURL:URL OAuth2Token:[OAuth2Token tokenWithStringRepresentation:password]];
-    else if ([URL user] && [URL password]) // maybe the user/pass is built into the URL already? (this is the case for services like Basecamp that use "tokens" built into the URL)
-        URLRequest = [NSMutableURLRequest requestWithURL:URL username:[URL user] password:[URL password]];
+        URLRequest = [NSMutableURLRequest requestWithURL:refreshURL OAuth2Token:[OAuth2Token tokenWithStringRepresentation:password]];
+    else if ([refreshURL user] && [refreshURL password]) // maybe the user/pass is built into the URL already? (this is the case for services like Basecamp that use "tokens" built into the URL)
+        URLRequest = [NSMutableURLRequest requestWithURL:refreshURL username:[refreshURL user] password:[refreshURL password]];
     else // just a normal URL.
-        URLRequest = [NSMutableURLRequest requestWithURL:URL];
+        URLRequest = [NSMutableURLRequest requestWithURL:refreshURL];
     
     URLRequest.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData; // goes without saying that we only care about fresh data for Feeds
     
@@ -208,15 +214,36 @@ NSDate *AutoFormatDate(NSString *dateString) {
     if (items) {
         NSMutableArray *merged = [NSMutableArray array];
         
-        for (FeedItem *newItem in newItems) {
-            int i = (int)[items indexOfObject:newItem];
-            if (items != nil && i >= 0)
-                [merged addObject:[items objectAtIndex:i]]; // preserve existing item
-            else {
+        if (incremental) {
+
+            // populate the final set, newest item to oldest.
+            
+            for (FeedItem *newItem in newItems) {
                 NSLog(@"NEW ITEM FOR FEED %@: %@", URL, newItem);
                 [merged addObject:newItem];
             }
+
+            for (FeedItem *oldItem in items) {
+                int i = (int)[newItems indexOfObject:oldItem]; // have we updated this item?
+                if (i < 0)
+                    [merged addObject:oldItem];
+            }
+            
+            // necessary for incremental feeds where we keep collecting items
+            while (merged.count > MAX_FEED_ITEMS) [merged removeLastObject];
         }
+        else {
+            for (FeedItem *newItem in newItems) {
+                int i = (int)[items indexOfObject:newItem];
+                if (i >= 0)
+                    [merged addObject:[items objectAtIndex:i]]; // preserve existing item
+                else {
+                    NSLog(@"NEW ITEM FOR FEED %@: %@", URL, newItem);
+                    [merged addObject:newItem];
+                }
+            }
+        }
+
         self.items = merged;
         
         // mark as notified any item that was "created" by ourself, because we don't need to be reminded about stuff we did ourself.
@@ -251,10 +278,10 @@ NSDate *AutoFormatDate(NSString *dateString) {
 @end
 
 @implementation FeedItem
-@synthesize title, author, authorIdentifier, project, content, link, comments, published, updated, notified, viewed, feed, rawDate, authoredByMe;
+@synthesize identifier, title, author, authorIdentifier, project, content, link, comments, published, updated, notified, viewed, feed, rawDate, authoredByMe;
 
 - (void)dealloc {
-    self.title = self.author = self.content = self.rawDate = nil;
+    self.identifier = self.title = self.author = self.content = self.rawDate = nil;
     self.link = self.comments = nil;
     self.published = self.updated = nil;
     self.feed = nil;
@@ -307,6 +334,10 @@ NSDate *AutoFormatDate(NSString *dateString) {
 
 - (BOOL)isEqual:(FeedItem *)other {
     if ([other isKindOfClass:[FeedItem class]]) {
+        // can we compare by some notiong of a unique identifier?
+        if (identifier && other.identifier) return NSEqualStrings(identifier, other.identifier);
+        
+        // ok, compare by content.
         // order is important - content comes last because it's expensive to compare but typically it'll short-circuit before getting there.
         return NSEqualObjects(link, other.link) && NSEqualStrings(title, other.title) && NSEqualStrings(author, other.author) && NSEqualStrings(content, other.content);
          // && [updated isEqual:other.updated]; // ignore updated, it creates too many false positives

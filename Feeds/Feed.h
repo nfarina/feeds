@@ -10,13 +10,13 @@ NSDate *AutoFormatDate(NSString *dateString);
     NSString *title, *author;
     NSArray *items; // of FeedItem
     SMWebRequest *request;
-    BOOL disabled, requiresBasicAuth, requiresOAuth2Token;
+    BOOL disabled, requiresBasicAuth, requiresOAuth2Token, incremental;
     Account *account; // not retained
 }
 @property (nonatomic, retain) NSURL *URL;
 @property (nonatomic, copy) NSString *title, *author;
 @property (nonatomic, copy) NSArray *items;
-@property (nonatomic, assign) BOOL disabled, requiresBasicAuth, requiresOAuth2Token;
+@property (nonatomic, assign) BOOL disabled, requiresBasicAuth, requiresOAuth2Token, incremental;
 @property (nonatomic, assign) Account *account;
 
 + (Feed *)feedWithURLString:(NSString *)URLString title:(NSString *)title account:(Account *)account;
@@ -26,17 +26,18 @@ NSDate *AutoFormatDate(NSString *dateString);
 - (NSDictionary *)dictionaryRepresentation;
 
 - (void)refresh;
+- (void)refreshWithURL:(NSURL *)refreshURL; // some accounts (like basecamp next) append things like "since=" to the "base" URL
 
 @end
 
 @interface FeedItem : NSObject {
-    NSString *title, *author, *authorIdentifier, *content, *strippedContent, *rawDate, *project;
+    NSString *identifier, *title, *author, *authorIdentifier, *content, *strippedContent, *rawDate, *project; // not all items have identifiers
     NSURL *link, *comments;
     NSDate *published, *updated;
     BOOL notified, viewed, authoredByMe;
     Feed *feed; // not retained
 }
-@property (nonatomic, copy) NSString *title, *author, *authorIdentifier, *project, *content, *rawDate;
+@property (nonatomic, copy) NSString *identifier, *title, *author, *authorIdentifier, *project, *content, *rawDate;
 @property (nonatomic, retain) NSURL *link, *comments;
 @property (nonatomic, retain) NSDate *published, *updated;
 @property (nonatomic, assign) BOOL notified, viewed, authoredByMe;

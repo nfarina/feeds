@@ -109,6 +109,7 @@
             NSString *accountFeedString = [NSString stringWithFormat:@"https://basecamp.com/%@/api/v1/events.json", accountIdentifier];
             
             Feed *feed = [Feed feedWithURLString:accountFeedString title:accountName author:author account:self];
+            feed.incremental = YES;
             feed.requiresOAuth2Token = YES;
             [foundFeeds addObject:feed];
         }
@@ -159,8 +160,18 @@
             [Account saveAccountsAndNotify:NO]; // not a notification-worthy change
         }
         
-        // NOW refresh feeds
-        [super refreshFeeds:feedsToRefresh];
+        // NOW refresh feeds (manually - since we have to append since=
+        for (Feed *feed in self.enabledFeeds) {
+            
+            NSURL *URL = feed.URL;
+            
+            // if the feed has items already, append since= to the URL so we only get new ones.
+            FeedItem *latestItem = feed.items.firstObject;
+            if (latestItem)
+                URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?since=%@",URL.absoluteString,latestItem.rawDate]];
+            
+            [feed refreshWithURL:URL];
+        }
     }
     else NSLog(@"NO TOKEN: %@", [data objectFromJSONData]);
 }
@@ -168,11 +179,6 @@
 - (void)refreshTokenRequestError:(NSError *)error {
     NSLog(@"ERROR WHILE REFRESHING: %@", error);
 }
-
-
-// TODO: EXCHANGE REFRESH TOKENS, BLAH
-
-// https://launchpad.37signals.com/authorization/token?type=refresh&client_id=ddb287c5f0f3d6ec0dbc0ee708a733b6506621d8&client_secret=32e106ca8eac91f0afc407d309ed436176f1bc3d&grant_type=refresh_token&refresh_token=BAhbByIB/3siZXhwaXJlc19hdCI6IjIwMjItMDMtMzBUMTQ6MjQ6MjNaIiwidXNlcl9pZHMiOls4MTg3NDIsMjM5NzU3MCw1MjMxMTM3LDQwNzA3NDksODE1NzgzNiw4NDQzNDE2LDg1MTg0MjUsODUzMTAzNyw4NTMxMDU2LDg3OTY5NjksMTEwODQ4NTddLCJ2ZXJzaW9uIjoxLCJjbGllbnRfaWQiOiJkZGIyODdjNWYwZjNkNmVjMGRiYzBlZTcwOGE3MzNiNjUwNjYyMWQ4IiwiYXBpX2RlYWRib2x0IjoiNDg3NTk1OTJmMTQzNDVlMTQ1MDM3ZTM3ZTk5MzM5YWIifXU6CVRpbWUNzosewJD0cmE=--8955445c46abc2e0e5abf423a9f171a97d595e52
 
 // TODO: USE SINCE-DATE
 
