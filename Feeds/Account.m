@@ -9,7 +9,7 @@ static NSMutableArray *allAccounts = nil;
 @end
 
 @implementation Account
-@synthesize delegate, domain, username, request, tokenRequest, feeds;
+@synthesize delegate, domain, username, request, tokenRequest, feeds, lastRefresh, lastTokenRefresh;
 
 static NSMutableArray *registeredClasses = nil;
 
@@ -77,6 +77,8 @@ static NSMutableArray *registeredClasses = nil;
 + (NSString *)domainLabel { return @"Domain:"; }
 + (NSString *)domainPrefix { return @"http://"; }
 + (NSString *)domainSuffix { return @""; }
+
+- (NSTimeInterval)refreshInterval { return 10*60; } // 15 minutes
 
 - (NSArray *)enabledFeeds {
     NSMutableArray *enabledFeeds = [NSMutableArray array];
@@ -155,6 +157,7 @@ static NSMutableArray *registeredClasses = nil;
     self.domain = self.username = nil;
     self.request = self.tokenRequest = nil;
     self.feeds = nil;
+    self.lastRefresh = self.lastTokenRefresh = nil;
     [super dealloc];
 }
 
@@ -290,6 +293,8 @@ static NSMutableArray *registeredClasses = nil;
 #pragma mark Feed Refreshing
 
 - (void)refreshEnabledFeeds {
+    NSLog(@"Refreshing feeds for account %@", self);
+    self.lastRefresh = [NSDate date];
     [self refreshFeeds:self.enabledFeeds];
 }
 

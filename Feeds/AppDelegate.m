@@ -79,7 +79,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedUpdated:) name:kFeedUpdatedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedFailed:) name:kSMWebRequestError object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged) name:kReachabilityChangedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshIntervalChanged) name:@"RefreshIntervalChanged" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshIntervalChanged) name:@"RefreshIntervalChanged" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hotKeysChanged) name:@"FeedsHotKeysChanged" object:nil];
     
     [self hotKeysChanged];
@@ -101,13 +101,9 @@
      [NSDictionary dictionaryWithObject:url forKey:@"URL"]];
 }
 
-- (NSTimeInterval)refreshInterval {
-#if DEBUG
-    return 5;
-#else
-    return [[NSUserDefaults standardUserDefaults] integerForKey:@"RefreshInterval"] ?: DEFAULT_REFRESH_INTERVAL;
-#endif
-}
+//- (NSTimeInterval)refreshInterval {
+//    return [[NSUserDefaults standardUserDefaults] integerForKey:@"RefreshInterval"] ?: DEFAULT_REFRESH_INTERVAL;
+//}
 
 - (void)setRefreshTimer:(NSTimer *)value {
     [refreshTimer invalidate];
@@ -119,9 +115,9 @@
     [popoverTimer release], popoverTimer = [value retain];
 }
 
-- (void)refreshIntervalChanged {
-    [self reachabilityChanged]; // trigger a timer reset
-}
+//- (void)refreshIntervalChanged {
+//    [self reachabilityChanged]; // trigger a timer reset
+//}
 
 - (void)hotKeysChanged {
     [hotKeyCenter unregisterHotKeysWithTarget:self];
@@ -138,14 +134,13 @@
 }
 
 - (void)refreshFeeds {
-    NSLog(@"Refreshing feeds...");
-#if DEBUG
-    for (Account *account in [Account allAccounts])
-        if ([account.type isEqualToString:@"BasecampNext"])
+    for (Account *account in [Account allAccounts]) {
+//        if ([account.type isEqualToString:@"BasecampNext"])
+        
+        // only refresh if needed
+        if (([NSDate timeIntervalSinceReferenceDate] - account.lastRefresh.timeIntervalSinceReferenceDate) > account.refreshInterval)
             [account refreshEnabledFeeds];
-#else
-    [[Account allAccounts] makeObjectsPerformSelector:@selector(refreshEnabledFeeds)];
-#endif
+    }
 }
 
 - (void)updateStatusItemIcon {
@@ -172,7 +167,7 @@
         NSLog(@"Internet is reachable. Refreshing and resetting timer.");
         
         [self refreshFeeds];
-        self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:self.refreshInterval target:self selector:@selector(refreshFeeds) userInfo:nil repeats:YES];
+        self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(refreshFeeds) userInfo:nil repeats:YES];
     }
     else {
         NSLog(@"Internet is NOT reachable. Killing timer.");

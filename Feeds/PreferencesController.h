@@ -9,7 +9,7 @@
     IBOutlet NSButton *removeButton, *showNotificationsButton, *launchAtStartupButton, *hideDockIconButton;
     IBOutlet SRRecorderControl *keyRecorderControl;
     IBOutlet NSView *generalView, *accountsView;
-    IBOutlet NSPopUpButton *refreshIntervalButton;
+//    IBOutlet NSPopUpButton *refreshIntervalButton;
     IBOutlet NSProgressIndicator *findFeedsProgress;
     IBOutlet NSTextField *findFeedsLabel;
     IBOutlet NSImageView *findFeedsWarning;
@@ -27,7 +27,7 @@
 - (IBAction)addAccount:(id)sender;
 - (IBAction)removeAccount:(id)sender;
 
-- (IBAction)refreshIntervalChanged:(id)sender;
+//- (IBAction)refreshIntervalChanged:(id)sender;
 - (IBAction)showNotificationsChanged:(id)sender;
 - (IBAction)launchAtStartupChanged:(id)sender;
 - (IBAction)hideDockIconChanged:(id)sender;;

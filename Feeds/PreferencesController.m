@@ -16,8 +16,8 @@
     [self selectGeneralTab:nil];
     [self tableViewSelectionDidChange:nil];
     
-    NSTimeInterval refreshInterval = [[NSUserDefaults standardUserDefaults] integerForKey:@"RefreshInterval"] ?: DEFAULT_REFRESH_INTERVAL;
-    [refreshIntervalButton selectItemWithTag:refreshInterval];
+//    NSTimeInterval refreshInterval = [[NSUserDefaults standardUserDefaults] integerForKey:@"RefreshInterval"] ?: DEFAULT_REFRESH_INTERVAL;
+//    [refreshIntervalButton selectItemWithTag:refreshInterval];
     
     BOOL disableNotifications = [[NSUserDefaults standardUserDefaults] boolForKey:@"DisableNotifications"];
     showNotificationsButton.state = (disableNotifications ? NSOffState : NSOnState);
@@ -46,7 +46,7 @@
 #if DEBUG
     [toolbar setSelectedItemIdentifier:@"accounts"];
     [self selectAccountsTab:nil];
-    [self addAccount:nil];
+//    [self addAccount:nil];
 #else
     [self.window setLevel: NSTornOffMenuWindowLevel]; // a.k.a. "Always On Top"
 #endif
@@ -83,11 +83,11 @@
 
 #pragma mark General
 
-- (void)refreshIntervalChanged:(id)sender {
-    NSTimeInterval refreshInterval = refreshIntervalButton.selectedItem.tag; // cleverly the menuitem "tag" is the refresh interval
-    [[NSUserDefaults standardUserDefaults] setInteger:refreshInterval forKey:@"RefreshInterval"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshIntervalChanged" object:nil];
-}
+//- (void)refreshIntervalChanged:(id)sender {
+//    NSTimeInterval refreshInterval = refreshIntervalButton.selectedItem.tag; // cleverly the menuitem "tag" is the refresh interval
+//    [[NSUserDefaults standardUserDefaults] setInteger:refreshInterval forKey:@"RefreshInterval"];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshIntervalChanged" object:nil];
+//}
 
 - (void)shortcutRecorder:(SRRecorderControl *)aRecorder keyComboDidChange:(KeyCombo)newKeyCombo {
     [[NSUserDefaults standardUserDefaults] setInteger:newKeyCombo.code forKey:@"OpenMenuKeyCode"];

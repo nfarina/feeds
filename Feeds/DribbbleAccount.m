@@ -5,6 +5,8 @@
 + (void)load { [Account registerClass:self]; }
 + (BOOL)requiresUsername { return YES; }
 
+- (NSTimeInterval)refreshInterval { return 15*60; } // 15 minutes to respect dribbble's request.
+
 - (void)validateWithPassword:(NSString *)password {
     
     NSString *URL = [NSString stringWithFormat:@"http://dribbble.com/%@/activity/incoming.rss", username];

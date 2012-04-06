@@ -127,24 +127,48 @@
 
 #pragma mark Refreshing Feeds and Tokens
 
+- (NSTimeInterval)refreshInterval { return 60; } // one minute
+
+- (void)actualRefreshFeeds {
+    for (Feed *feed in self.enabledFeeds) {
+        
+        NSURL *URL = feed.URL;
+        
+        // if the feed has items already, append since= to the URL so we only get new ones.
+        FeedItem *latestItem = feed.items.firstObject;
+        if (latestItem)
+            URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?since=%@",URL.absoluteString,latestItem.rawDate]];
+        
+        [feed refreshWithURL:URL];
+    }
+}
+
 - (void)refreshFeeds:(NSArray *)feedsToRefresh {
 
-    // refresh our access_token first.
-    NSString *password = self.findPassword;
-    OAuth2Token *token = [OAuth2Token tokenWithStringRepresentation:password];
-
-    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://launchpad.37signals.com/authorization/token?type=refresh&client_id=%@&client_secret=%@&grant_type=refresh_token&refresh_token=%@", BASECAMP_NEXT_OAUTH_KEY,BASECAMP_NEXT_OAUTH_SECRET,token.refresh_token.stringByEscapingForURLArgument]];
-    
-    NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURL:URL];
-    URLRequest.HTTPMethod = @"POST";
-    
-    self.tokenRequest = [SMWebRequest requestWithURLRequest:URLRequest delegate:nil context:feedsToRefresh];
-    [tokenRequest addTarget:self action:@selector(refreshTokenRequestComplete:feeds:) forRequestEvents:SMWebRequestEventComplete];
-    [tokenRequest addTarget:self action:@selector(refreshTokenRequestError:) forRequestEvents:SMWebRequestEventError];
-    [tokenRequest start];
+    if (([NSDate timeIntervalSinceReferenceDate] - self.lastTokenRefresh.timeIntervalSinceReferenceDate) > 60*60*24) { // refresh token at least every 24 hours
+        
+        // refresh our access_token first.
+        NSLog(@"Refresh token for %@", self);
+        
+        NSString *password = self.findPassword;
+        OAuth2Token *token = [OAuth2Token tokenWithStringRepresentation:password];
+        
+        NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://launchpad.37signals.com/authorization/token?type=refresh&client_id=%@&client_secret=%@&grant_type=refresh_token&refresh_token=%@", BASECAMP_NEXT_OAUTH_KEY,BASECAMP_NEXT_OAUTH_SECRET,token.refresh_token.stringByEscapingForURLArgument]];
+        
+        NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURL:URL];
+        URLRequest.HTTPMethod = @"POST";
+        
+        self.tokenRequest = [SMWebRequest requestWithURLRequest:URLRequest delegate:nil context:feedsToRefresh];
+        [tokenRequest addTarget:self action:@selector(refreshTokenRequestComplete:feeds:) forRequestEvents:SMWebRequestEventComplete];
+        [tokenRequest addTarget:self action:@selector(refreshTokenRequestError:) forRequestEvents:SMWebRequestEventError];
+        [tokenRequest start];
+    }
+    else [self actualRefreshFeeds];
 }
 
 - (void)refreshTokenRequestComplete:(NSData *)data feeds:(NSArray *)feedsToRefresh {
+    
+    self.lastTokenRefresh = [NSDate date];
     
     NSString *password = self.findPassword;
     OAuth2Token *token = [OAuth2Token tokenWithStringRepresentation:password];
@@ -160,18 +184,8 @@
             [Account saveAccountsAndNotify:NO]; // not a notification-worthy change
         }
         
-        // NOW refresh feeds (manually - since we have to append since=
-        for (Feed *feed in self.enabledFeeds) {
-            
-            NSURL *URL = feed.URL;
-            
-            // if the feed has items already, append since= to the URL so we only get new ones.
-            FeedItem *latestItem = feed.items.firstObject;
-            if (latestItem)
-                URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?since=%@",URL.absoluteString,latestItem.rawDate]];
-            
-            [feed refreshWithURL:URL];
-        }
+        // NOW refresh feeds
+        [self actualRefreshFeeds];
     }
     else NSLog(@"NO TOKEN: %@", [data objectFromJSONData]);
 }
@@ -179,8 +193,6 @@
 - (void)refreshTokenRequestError:(NSError *)error {
     NSLog(@"ERROR WHILE REFRESHING: %@", error);
 }
-
-// TODO: USE SINCE-DATE
 
 #pragma mark Parsing Response
 

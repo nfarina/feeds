@@ -18,6 +18,7 @@ typedef enum {
     SMWebRequest *request; // convenience for subclassers, will be properly cancelled and cleaned up on dealloc
     SMWebRequest *tokenRequest; // similar convenience for subclasses who need to refresh oauth tokens.
     NSArray *feeds; // of Feed
+    NSDate *lastRefresh, *lastTokenRefresh;
 }
 
 // discriminator
@@ -52,6 +53,7 @@ typedef enum {
 @property (nonatomic, readonly) NSImage *menuIconImage, *accountIconImage;
 @property (nonatomic, readonly) NSData *notifyIconData;
 @property (nonatomic, readonly) NSArray *enabledFeeds;
+@property (nonatomic, retain) NSDate *lastRefresh, *lastTokenRefresh;
 
 + (NSArray *)allAccounts;
 + (void)addAccount:(Account *)account;
@@ -72,6 +74,7 @@ typedef enum {
 - (void)savePassword:(NSString *)password;
 - (void)deletePassword;
 
+- (NSTimeInterval)refreshInterval; // default is 10 minutes
 - (void)refreshEnabledFeeds;
 - (void)refreshFeeds:(NSArray *)feeds;
 
