@@ -30,7 +30,7 @@ NSDate *AutoFormatDate(NSString *dateString);
 @end
 
 @interface FeedItem : NSObject {
-    NSString *title, *author, *authorIdentifier, *content, *strippedContent, *rawDate;
+    NSString *title, *author, *authorIdentifier, *content, *strippedContent, *rawDate, *project;
     NSURL *link, *comments;
     NSDate *published, *updated;
     BOOL notified, viewed, authoredByMe;
