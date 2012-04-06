@@ -37,7 +37,7 @@
 #ifdef EXPIRATION_DATE
     NSTimeInterval timeLeft = AutoFormatDate([EXPIRATION_DATE stringByAppendingString:@"T11:00:50-05:00"]).timeIntervalSinceReferenceDate - [NSDate timeIntervalSinceReferenceDate];
     if (timeLeft > 0) {
-        [[NSAlert alertWithMessageText:@"Test Version" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"This test version of Feeds will expire in %i days.",(int)(timeLeft/60/60/24)] runModal];
+        [[NSAlert alertWithMessageText:@"Test Version" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"This test version of Feeds will expire in %i days. Additionally, changes to your accounts will not be saved (for data integrity purposes).",(int)(timeLeft/60/60/24)] runModal];
     }
     else {
         NSLog(@"Trial over.");
