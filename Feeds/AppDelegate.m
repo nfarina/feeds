@@ -34,6 +34,18 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
+#ifdef EXPIRATION_DATE
+    NSTimeInterval timeLeft = AutoFormatDate([EXPIRATION_DATE stringByAppendingString:@"T11:00:50-05:00"]).timeIntervalSinceReferenceDate - [NSDate timeIntervalSinceReferenceDate];
+    if (timeLeft > 0) {
+        [[NSAlert alertWithMessageText:@"Test Version" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"This test version of Feeds will expire in %i days.",(int)(timeLeft/60/60/24)] runModal];
+    }
+    else {
+        NSLog(@"Trial over.");
+        [[NSAlert alertWithMessageText:@"Test Expired" defaultButton:@"Quit" alternateButton:nil otherButton:nil informativeTextWithFormat:@"This test version of Feeds has expired."] runModal];
+        exit(0);
+    }
+#endif
+    
     // show the dock icon immediately if necessary
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HideDockIcon"]) {
         ProcessSerialNumber psn = { 0, kCurrentProcess }; 
@@ -364,9 +376,9 @@
     NSString *time = item.published.timeAgo;
     NSString *authorAndTime = author ? [NSString stringWithFormat:@"%@ - %@",author,time] : time;
     
-    #if USER_DEBUG
-    authorAndTime = [authorAndTime stringByAppendingFormat:@" (%@)", item.rawDate];
-    #endif
+//    #if USER_DEBUG
+//    authorAndTime = [authorAndTime stringByAppendingFormat:@" (%@)", item.rawDate];
+//    #endif
     
     NSString *templatePath = [[NSBundle mainBundle] pathForResource:@"Popover" ofType:@"html"];
     NSString *template = [NSString stringWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:NULL];

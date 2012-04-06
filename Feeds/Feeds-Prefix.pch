@@ -25,4 +25,4 @@
 #import "NSString+URLArgument.h"
 #endif
 
-#define USER_DEBUG 0
+#define EXPIRATION_DATE @"2012-05-01"
