@@ -16,6 +16,7 @@ typedef enum {
     id<AccountDelegate> delegate; // nonretained
     NSString *domain, *username;
     SMWebRequest *request; // convenience for subclassers, will be properly cancelled and cleaned up on dealloc
+    SMWebRequest *tokenRequest; // similar convenience for subclasses who need to refresh oauth tokens.
     NSArray *feeds; // of Feed
 }
 
@@ -25,6 +26,7 @@ typedef enum {
 + (NSArray *)registeredClasses; // of Class
 + (void)registerClass:(Class)cls;
 + (NSString *)friendlyAccountName; // default implementation chops off the Account suffix
++ (NSString *)shortAccountName; // for display in the list-of-accounts table view, defaults to +friendlyAccountName
 
 // creation options, returns YES by default
 + (BOOL) requiresAuth;
@@ -42,18 +44,20 @@ typedef enum {
 
 // helper for said opportunity (threadsafe)
 + (NSData *)extraDataWithContentsOfURL:(NSURL *)URL;
-+ (NSData *)extraDataWithContentsOfURL:(NSURL *)URL username:(NSString *)username password:(NSString *)password OAuth2Token:(NSString *)token;
++ (NSData *)extraDataWithContentsOfURLRequest:(NSMutableURLRequest *)URLRequest;
 
 @property (nonatomic, assign) id<AccountDelegate> delegate;
 @property (nonatomic, copy) NSString *domain, *username;
 @property (nonatomic, copy) NSArray *feeds;
 @property (nonatomic, readonly) NSImage *menuIconImage, *accountIconImage;
 @property (nonatomic, readonly) NSData *notifyIconData;
+@property (nonatomic, readonly) NSArray *enabledFeeds;
 
 + (NSArray *)allAccounts;
 + (void)addAccount:(Account *)account;
 + (void)removeAccount:(Account *)account;
 + (void)saveAccounts;
++ (void)saveAccountsAndNotify:(BOOL)notify;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 - (NSDictionary *)dictionaryRepresentation;
@@ -68,8 +72,11 @@ typedef enum {
 - (void)savePassword:(NSString *)password;
 - (void)deletePassword;
 
+- (void)refreshEnabledFeeds;
+- (void)refreshFeeds:(NSArray *)feeds;
+
 // for subclassers
-@property (nonatomic, retain) SMWebRequest *request;
+@property (nonatomic, retain) SMWebRequest *request, *tokenRequest;
 
 @end
 

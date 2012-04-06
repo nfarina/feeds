@@ -13,7 +13,6 @@
 @interface AppDelegate ()
 @property (nonatomic, retain) NSTimer *refreshTimer, *popoverTimer;
 @property (nonatomic, retain) NSMenuItem *lastHighlightedItem;
-- (NSArray *)allFeeds;
 - (void)highlightMenuItem:(NSMenuItem *)menuItem;
 - (void)showPopoverForMenuItem:(NSMenuItem *)menuItem;
 - (void)accountsChanged:(NSNotification *)notification;
@@ -87,8 +86,8 @@
     [self reachabilityChanged];
     
 #if DEBUG
-//    ProcessSerialNumber psn = { 0, kCurrentProcess }; 
-//    TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+    ProcessSerialNumber psn = { 0, kCurrentProcess }; 
+    TransformProcessType(&psn, kProcessTransformToForegroundApplication);
     [self openPreferences:nil];
 #endif
 
@@ -116,15 +115,6 @@
     [popoverTimer release], popoverTimer = [value retain];
 }
 
-- (NSArray *)allFeeds {
-    NSMutableArray *feeds = [NSMutableArray array];
-    for (Account *account in [Account allAccounts])
-        for (Feed *feed in account.feeds)
-            if (!feed.disabled)
-                [feeds addObject:feed];
-    return feeds;
-}
-
 - (void)refreshIntervalChanged {
     [self reachabilityChanged]; // trigger a timer reset
 }
@@ -146,11 +136,11 @@
 - (void)refreshFeeds {
     NSLog(@"Refreshing feeds...");
 #if DEBUG
-    for (Feed *feed in self.allFeeds)
-        if ([feed.account.type isEqualToString:@"BasecampNext"])
-            [feed refresh];
+    for (Account *account in [Account allAccounts])
+        if ([account.type isEqualToString:@"BasecampNext"])
+            [account refreshEnabledFeeds];
 #else
-    [self.allFeeds makeObjectsPerformSelector:@selector(refresh)];
+    [[Account allAccounts] makeObjectsPerformSelector:@selector(refreshEnabledFeeds)];
 #endif
 }
 
@@ -236,8 +226,9 @@
     // rebuild allItems array
     [allItems removeAllObjects];
     
-    for (Feed *feed in self.allFeeds)
-        [allItems addObjectsFromArray:feed.items];
+    for (Account *account in [Account allAccounts])
+        for (Feed *feed in account.feeds)
+            [allItems addObjectsFromArray:feed.items];
     
     [allItems sortUsingSelector:@selector(compareItemByPublishedDate:)];
     

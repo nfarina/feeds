@@ -9,7 +9,7 @@ static NSMutableArray *allAccounts = nil;
 @end
 
 @implementation Account
-@synthesize delegate, domain, username, request, feeds;
+@synthesize delegate, domain, username, request, tokenRequest, feeds;
 
 static NSMutableArray *registeredClasses = nil;
 
@@ -33,38 +33,29 @@ static NSMutableArray *registeredClasses = nil;
 
 // threadsafe
 + (NSData *)extraDataWithContentsOfURL:(NSURL *)URL {
-    return [self extraDataWithContentsOfURL:URL username:nil password:nil OAuth2Token:nil];
+    return [self extraDataWithContentsOfURLRequest:[NSMutableURLRequest requestWithURL:URL]];
 }
 
-+ (NSData *)extraDataWithContentsOfURL:(NSURL *)URL username:(NSString *)username password:(NSString *)password OAuth2Token:(NSString *)token {
++ (NSData *)extraDataWithContentsOfURLRequest:(NSMutableURLRequest *)request {
     static NSMutableDictionary *cache = nil;
     
     @synchronized (self) {
         if (!cache) cache = [NSMutableDictionary new];
-        NSData *result = [cache objectForKey:URL];
+        NSData *result = [cache objectForKey:request.URL];
         if (result) return result;
     }
 
-    NSMutableURLRequest *request;
-    
-    if (token)
-        request = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL OAuth2Token:token];
-    else if (username && password)
-        request = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL username:username password:password];
-    else
-        request = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL];
-    
     request.timeoutInterval = 5; // we could have a lot of these requests to make, don't let it take too long
     NSURLResponse *response = nil;
     NSError *error = nil;
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     
     if (error)
-        NSLog(@"Error while fetching extra data at (%@): %@", URL, error);
+        NSLog(@"Error while fetching extra data at (%@): %@", request.URL, error);
     else {
         NSLog(@"Fetched extra for %@", NSStringFromClass(self));
         @synchronized (self) {
-            [cache setObject:data forKey:URL];
+            [cache setObject:data forKey:request.URL];
         }
     }
     
@@ -75,6 +66,10 @@ static NSMutableArray *registeredClasses = nil;
     return [NSStringFromClass(self) stringByReplacingOccurrencesOfString:@"Account" withString:@""];
 }
 
++ (NSString *)shortAccountName {
+    return [self friendlyAccountName];
+}
+
 + (BOOL)requiresAuth { return NO; }
 + (BOOL)requiresDomain { return NO; }
 + (BOOL)requiresUsername { return NO; }
@@ -82,6 +77,14 @@ static NSMutableArray *registeredClasses = nil;
 + (NSString *)domainLabel { return @"Domain:"; }
 + (NSString *)domainPrefix { return @"http://"; }
 + (NSString *)domainSuffix { return @""; }
+
+- (NSArray *)enabledFeeds {
+    NSMutableArray *enabledFeeds = [NSMutableArray array];
+    for (Feed *feed in feeds)
+        if (!feed.disabled)
+            [enabledFeeds addObject:feed];
+    return enabledFeeds;
+}
 
 #pragma mark Account Persistence
 
@@ -100,13 +103,16 @@ static NSMutableArray *registeredClasses = nil;
     return allAccounts;
 }
 
-+ (void)saveAccounts {
++ (void)saveAccounts { [self saveAccountsAndNotify:YES]; }
+
++ (void)saveAccountsAndNotify:(BOOL)notify {
 #if !USER_DEBUG
     NSArray *accounts = [allAccounts valueForKey:@"dictionaryRepresentation"];
     [[NSUserDefaults standardUserDefaults] setObject:accounts forKey:@"accounts"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 #endif
-    [[NSNotificationCenter defaultCenter] postNotificationName:kAccountsChangedNotification object:nil];
+    if (notify)
+        [[NSNotificationCenter defaultCenter] postNotificationName:kAccountsChangedNotification object:nil];
 }
 
 + (void)addAccount:(Account *)account {
@@ -147,7 +153,7 @@ static NSMutableArray *registeredClasses = nil;
 - (void)dealloc {
     self.delegate = nil;
     self.domain = self.username = nil;
-    self.request = nil;
+    self.request = self.tokenRequest = nil;
     self.feeds = nil;
     [super dealloc];
 }
@@ -279,6 +285,16 @@ static NSMutableArray *registeredClasses = nil;
         feed.disabled = ![object boolValue];
         [Account saveAccounts];
     }
+}
+
+#pragma mark Feed Refreshing
+
+- (void)refreshEnabledFeeds {
+    [self refreshFeeds:self.enabledFeeds];
+}
+
+- (void)refreshFeeds:(NSArray *)feedsToRefresh {
+    [feedsToRefresh makeObjectsPerformSelector:@selector(refresh)];
 }
 
 @end

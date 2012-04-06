@@ -16,9 +16,9 @@
     return [self requestWithURL:[NSURL URLWithString:URLString] username:username password:password];
 }
 
-+ (NSMutableURLRequest *)requestWithURL:(NSURL *)URL OAuth2Token:(NSString *)token {
++ (NSMutableURLRequest *)requestWithURL:(NSURL *)URL OAuth2Token:(OAuth2Token *)token; {
     
-    NSString *authHeader = [@"Bearer " stringByAppendingString:token];
+    NSString *authHeader = [@"Bearer " stringByAppendingString:token.access_token];
     
     NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:URL] autorelease];
     [request setValue:authHeader forHTTPHeaderField:@"Authorization"];
@@ -26,7 +26,7 @@
     return request;
 }
 
-+ (NSMutableURLRequest *)requestWithURLString:(NSString *)URLString OAuth2Token:(NSString *)token {
++ (NSMutableURLRequest *)requestWithURLString:(NSString *)URLString OAuth2Token:(OAuth2Token *)token; {
     return [self requestWithURL:[NSURL URLWithString:URLString] OAuth2Token:token];
 }
 

@@ -69,7 +69,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
 @end
 
 @implementation Feed
-@synthesize URL, title, author, items, request, disabled, account, requiresBasicAuth, requiresOAuth2;
+@synthesize URL, title, author, items, request, disabled, account, requiresBasicAuth, requiresOAuth2Token;
 
 - (void)dealloc {
     self.URL = nil;
@@ -101,7 +101,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
     feed.author = [dict objectForKey:@"author"];
     feed.disabled = [[dict objectForKey:@"disabled"] boolValue];
     feed.requiresBasicAuth = [[dict objectForKey:@"requiresBasicAuth"] boolValue];
-    feed.requiresOAuth2 = [[dict objectForKey:@"requiresOAuth2"] boolValue];
+    feed.requiresOAuth2Token = [[dict objectForKey:@"requiresOAuth2Token"] boolValue];
     feed.account = account;
     return feed;
 }
@@ -113,7 +113,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
     if (author) [dict setObject:author forKey:@"author"];
     [dict setObject:[NSNumber numberWithBool:disabled] forKey:@"disabled"];
     [dict setObject:[NSNumber numberWithBool:requiresBasicAuth] forKey:@"requiresBasicAuth"];
-    [dict setObject:[NSNumber numberWithBool:requiresOAuth2] forKey:@"requiresOAuth2"];
+    [dict setObject:[NSNumber numberWithBool:requiresOAuth2Token] forKey:@"requiresOAuth2Token"];
     return dict;
 }
 
@@ -130,13 +130,13 @@ NSDate *AutoFormatDate(NSString *dateString) {
     NSString *domain = account.domain, *username = account.username, *password = account.findPassword;
     
     if (requiresBasicAuth) // this feed requires the secure user/pass we stored in the keychain
-        URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL username:username password:password];
-    else if (requiresOAuth2) // like basecamp next
-        URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL OAuth2Token:password];
+        URLRequest = [NSMutableURLRequest requestWithURL:URL username:username password:password];
+    else if (requiresOAuth2Token) // like basecamp next
+        URLRequest = [NSMutableURLRequest requestWithURL:URL OAuth2Token:[OAuth2Token tokenWithStringRepresentation:password]];
     else if ([URL user] && [URL password]) // maybe the user/pass is built into the URL already? (this is the case for services like Basecamp that use "tokens" built into the URL)
-        URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL username:[URL user] password:[URL password]];
+        URLRequest = [NSMutableURLRequest requestWithURL:URL username:[URL user] password:[URL password]];
     else // just a normal URL.
-        URLRequest = (NSMutableURLRequest *)[NSMutableURLRequest requestWithURL:URL];
+        URLRequest = [NSMutableURLRequest requestWithURL:URL];
     
     URLRequest.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData; // goes without saying that we only care about fresh data for Feeds
     
