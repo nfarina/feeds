@@ -23,6 +23,7 @@
 #import "ISO8601DateFormatter.h"
 #import "NSDate+TimeAgo.h"
 #import "NSString+URLArgument.h"
+#import "NSAlert+Foreground.h"
 #endif
 
 #ifndef DEBUG
