@@ -34,7 +34,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
-#ifdef EXPIRATION_DATE
+    #ifdef EXPIRATION_DATE
     NSTimeInterval timeLeft = AutoFormatDate([EXPIRATION_DATE stringByAppendingString:@"T11:00:50-05:00"]).timeIntervalSinceReferenceDate - [NSDate timeIntervalSinceReferenceDate];
     if (timeLeft > 0) {
         [[NSAlert alertWithMessageText:@"Test Version" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"This test version of Feeds will expire in %i days. Additionally, changes to your accounts will not be saved (for data integrity purposes).",(int)(timeLeft/60/60/24)] runModal];
@@ -44,7 +44,7 @@
         [[NSAlert alertWithMessageText:@"Test Expired" defaultButton:@"Quit" alternateButton:nil otherButton:nil informativeTextWithFormat:@"This test version of Feeds has expired."] runModal];
         exit(0);
     }
-#endif
+    #endif
     
     // show the dock icon immediately if necessary
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HideDockIcon"]) {
@@ -147,7 +147,10 @@
 
 - (void)refreshFeeds {
     for (Account *account in [Account allAccounts]) {
-//        if ([account.type isEqualToString:@"BasecampNext"])
+        
+        #ifdef ISOLATE_ACCOUNT
+        if (![NSStringFromClass(account.class) isEqualToString:ISOLATE_ACCOUNT]) continue;
+        #endif
         
         // only refresh if needed
         if (([NSDate timeIntervalSinceReferenceDate] - account.lastRefresh.timeIntervalSinceReferenceDate) > account.refreshInterval)

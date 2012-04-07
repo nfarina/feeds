@@ -71,6 +71,7 @@
 		01D7CB8E13B02F62001B133A /* NewAccountController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D7CB8D13B02F62001B133A /* NewAccountController.xib */; };
 		01D84E1B152F33FA00267C15 /* OAuth2Token.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D84E1A152F33FA00267C15 /* OAuth2Token.m */; };
 		01D84E2A152F442900267C15 /* NSString+URLArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D84E29152F42EE00267C15 /* NSString+URLArgument.m */; };
+		01D84E3A153018D100267C15 /* DropmarkAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D84E39153018D100267C15 /* DropmarkAccount.m */; };
 		01EB9C3913C4F26E00A9C131 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 01EB9C3713C4F26E00A9C131 /* RegexKitLite.m */; };
 		01EB9C3D13C4F36E00A9C131 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 01EB9C3B13C4F35A00A9C131 /* libicucore.dylib */; };
 		01F5D6C713B3B89600EA479D /* StatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F5D6C513B3B89600EA479D /* StatusItemView.m */; };
@@ -213,6 +214,8 @@
 		01D84E1A152F33FA00267C15 /* OAuth2Token.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuth2Token.m; sourceTree = "<group>"; };
 		01D84E28152F42EE00267C15 /* NSString+URLArgument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+URLArgument.h"; sourceTree = "<group>"; };
 		01D84E29152F42EE00267C15 /* NSString+URLArgument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLArgument.m"; sourceTree = "<group>"; };
+		01D84E38153018D100267C15 /* DropmarkAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; path = DropmarkAccount.h; sourceTree = "<group>"; };
+		01D84E39153018D100267C15 /* DropmarkAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropmarkAccount.m; sourceTree = "<group>"; };
 		01EB9C3713C4F26E00A9C131 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
 		01EB9C3813C4F26E00A9C131 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
 		01EB9C3B13C4F35A00A9C131 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
@@ -287,6 +290,8 @@
 				01F64A2A14C2318B00AAABD7 /* BeanstalkAccount.m */,
 				0181D971152492D400D1E78B /* BasecampNextAccount.h */,
 				0181D972152492D400D1E78B /* BasecampNextAccount.m */,
+				01D84E38153018D100267C15 /* DropmarkAccount.h */,
+				01D84E39153018D100267C15 /* DropmarkAccount.m */,
 			);
 			name = Accounts;
 			sourceTree = "<group>";
@@ -423,6 +428,7 @@
 				01937C9413A03F5000BCE1D4 /* AppDelegate.h */,
 				01937C9513A03F5000BCE1D4 /* AppDelegate.m */,
 				01D7CB8213B02C92001B133A /* Model */,
+				0108CECC13BB1B080000ECE1 /* Accounts */,
 				01D7CB9213B104DA001B133A /* Views */,
 				01D7CB8113B02C74001B133A /* Controllers */,
 				0117B30313AD27640018AB7C /* Helpers */,
@@ -533,7 +539,6 @@
 				0108CECF13BB1B4F0000ECE1 /* Account.m */,
 				01937CB713A05B8600BCE1D4 /* Feed.h */,
 				01937CB813A05B8700BCE1D4 /* Feed.m */,
-				0108CECC13BB1B080000ECE1 /* Accounts */,
 				01D84E19152F33F900267C15 /* OAuth2Token.h */,
 				01D84E1A152F33FA00267C15 /* OAuth2Token.m */,
 			);
@@ -693,6 +698,7 @@
 				0181D973152492D400D1E78B /* BasecampNextAccount.m in Sources */,
 				01D84E1B152F33FA00267C15 /* OAuth2Token.m in Sources */,
 				01D84E2A152F442900267C15 /* NSString+URLArgument.m in Sources */,
+				01D84E3A153018D100267C15 /* DropmarkAccount.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

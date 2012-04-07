@@ -31,14 +31,14 @@
     for (Class cls in [Account registeredClasses]) {
         NSString *name = [cls friendlyAccountName];
         [accountTypeButton addItemWithTitle:name];
+        
+        #ifdef ISOLATE_ACCOUNT
+        if ([NSStringFromClass(cls) isEqualToString:ISOLATE_ACCOUNT]) [accountTypeButton selectItemWithTitle:name];
+        #endif
     }
     [progress setHidden:YES];
     [messageField setHidden:YES];
     [usernameField becomeFirstResponder];
-    
-#if DEBUG
-    [accountTypeButton selectItemWithTitle:@"Basecamp"];
-#endif
     
     [self accountTypeChanged:nil];
 }
@@ -66,6 +66,7 @@
     [domainSuffix setStringValue:[accountClass domainSuffix]];
     [domainField setHidden:![accountClass requiresDomain]];
     [usernameLabel setHidden:![accountClass requiresUsername]];
+    [usernameLabel setStringValue:[accountClass usernameLabel]];
     [usernameField setHidden:![accountClass requiresUsername]];
     [passwordLabel setHidden:![accountClass requiresPassword]];
     [passwordField setHidden:![accountClass requiresPassword]];

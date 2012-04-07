@@ -24,12 +24,12 @@ BOOL NSEqualObjects(id a, id b) {
 		return self;
 }
 
-- (BOOL) containsString:(NSString *)substring {
+- (BOOL)containsString:(NSString *)substring {
 	return [self containsString:substring options:0];
 }
 
 - (BOOL)containsString:(NSString *)substring options:(NSStringCompareOptions)mask {
-	return [self rangeOfString:substring options:mask].location != NSNotFound;
+	return substring && [self rangeOfString:substring options:mask].location != NSNotFound;
 }
 
 - (BOOL)beginsWithString:(NSString *)substring {
@@ -37,7 +37,7 @@ BOOL NSEqualObjects(id a, id b) {
 }
 
 - (BOOL)beginsWithString:(NSString *)substring options:(NSStringCompareOptions)mask {
-	return [self rangeOfString:substring options:mask].location == 0;
+	return substring && [self rangeOfString:substring options:mask].location == 0;
 }
 
 - (BOOL)endsWithString:(NSString *)substring {
@@ -45,7 +45,7 @@ BOOL NSEqualObjects(id a, id b) {
 }
 
 - (BOOL)endsWithString:(NSString *)substring options:(NSStringCompareOptions)mask {
-	return [self rangeOfString:substring options:mask].location == ([self length] - [substring length]);
+	return substring && [self rangeOfString:substring options:mask].location == ([self length] - [substring length]);
 }
 
 @end

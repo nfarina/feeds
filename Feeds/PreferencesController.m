@@ -46,7 +46,9 @@
 #if DEBUG
     [toolbar setSelectedItemIdentifier:@"accounts"];
     [self selectAccountsTab:nil];
-//    [self addAccount:nil];
+    #ifdef ISOLATE_ACCOUNT
+    [self addAccount:nil];
+    #endif
 #else
     [self.window setLevel: NSTornOffMenuWindowLevel]; // a.k.a. "Always On Top"
 #endif

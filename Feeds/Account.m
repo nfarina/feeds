@@ -74,6 +74,7 @@ static NSMutableArray *registeredClasses = nil;
 + (BOOL)requiresDomain { return NO; }
 + (BOOL)requiresUsername { return NO; }
 + (BOOL)requiresPassword { return NO; }
++ (NSString *)usernameLabel { return @"User name:"; }
 + (NSString *)domainLabel { return @"Domain:"; }
 + (NSString *)domainPrefix { return @"http://"; }
 + (NSString *)domainSuffix { return @""; }

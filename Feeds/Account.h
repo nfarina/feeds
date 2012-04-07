@@ -36,6 +36,7 @@ typedef enum {
 + (BOOL) requiresPassword;
 
 // "new feed" dialog customizations
++ (NSString *)usernameLabel;
 + (NSString *)domainLabel;
 + (NSString *)domainPrefix;
 + (NSString *)domainSuffix;
