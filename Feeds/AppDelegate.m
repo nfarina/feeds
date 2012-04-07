@@ -13,7 +13,7 @@
 #endif
 #define MAX_GROWLS 3
 #define POPOVER_INTERVAL 0.5
-#define POPOVER_WIDTH 402
+#define POPOVER_WIDTH 416
 
 @interface AppDelegate ()
 @property (nonatomic, retain) NSTimer *refreshTimer, *popoverTimer;
@@ -246,7 +246,7 @@
     [allItems removeAllObjects];
     
     for (Account *account in [Account allAccounts])
-        for (Feed *feed in account.feeds)
+        for (Feed *feed in account.enabledFeeds)
             [allItems addObjectsFromArray:feed.items];
     
     [allItems sortUsingSelector:@selector(compareItemByPublishedDate:)];

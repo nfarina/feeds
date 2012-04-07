@@ -287,6 +287,7 @@ static NSMutableArray *registeredClasses = nil;
     Feed *feed = [feeds objectAtIndex:row];
     if ([tableColumn.identifier isEqual:@"showColumn"]) {
         feed.disabled = ![object boolValue];
+        self.lastRefresh = nil; // force refresh on this feed
         [Account saveAccounts];
     }
 }
