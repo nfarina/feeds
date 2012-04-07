@@ -92,8 +92,8 @@
     NSDictionary *identity = [response objectForKey:@"identity"];
     NSString *author = [[identity objectForKey:@"id"] stringValue];
     
-    // update our "username" with our author name - this will cause our account to look nice in the list.
-    self.username = [NSString stringWithFormat:@"%@ %@", [identity objectForKey:@"first_name"] ?: @"", [identity objectForKey:@"last_name"] ?: @""];
+    // update our "username" with our email - this will cause our account to look nice in the list.
+    self.username = [identity objectForKey:@"email_address"];
     
     NSArray *accounts = [response objectForKey:@"accounts"];
     
