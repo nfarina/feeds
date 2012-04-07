@@ -4,11 +4,16 @@
 
 // TODO: Growl popup shows author too?
 
+#ifdef DEBUG
+#define PER_ITEM_SHIM_STRATEGY 1
+#define MAX_ITEMS 9999
+#else
+#define PER_ITEM_SHIM_STRATEGY 0
 #define MAX_ITEMS 30
+#endif
 #define MAX_GROWLS 3
 #define POPOVER_INTERVAL 0.5
 #define POPOVER_WIDTH 402
-#define PER_ITEM_SHIM_STRATEGY 0
 
 @interface AppDelegate ()
 @property (nonatomic, retain) NSTimer *refreshTimer, *popoverTimer;
@@ -148,8 +153,8 @@
 - (void)refreshFeeds {
     for (Account *account in [Account allAccounts]) {
         
-        #ifdef ISOLATE_ACCOUNT
-        if (![NSStringFromClass(account.class) isEqualToString:ISOLATE_ACCOUNT]) continue;
+        #ifdef ISOLATE_ACCOUNTS
+        if (![ISOLATE_ACCOUNTS containsObject:NSStringFromClass(account.class)]) continue;
         #endif
         
         // only refresh if needed
@@ -375,18 +380,34 @@
             titleOrFallback = item.feed.title;
     }
     
-    NSString *author = [titleOrFallback containsString:item.author] ? nil : item.author; // don't repeat the author in the subtitle if they are mentioned in the title
+    NSString *author = item.author;
+    
+    if ([titleOrFallback beginsWithString:item.author]) {
+        // remove the author from the front of the title if the title begins with the author name
+        titleOrFallback = [titleOrFallback substringFromIndex:item.author.length];
+    }
+    else if ([titleOrFallback containsString:item.author]) {
+        // don't repeat the author in the subtitle if they are mentioned in the title
+        author = nil;
+    }
+    
     NSString *time = item.published.timeAgo;
     NSString *authorAndTime = author ? [NSString stringWithFormat:@"%@ - %@",author,time] : time;
     
 //    #if USER_DEBUG
 //    authorAndTime = [authorAndTime stringByAppendingFormat:@" (%@)", item.rawDate];
 //    #endif
+
+    static NSString *css = nil;
+    if (!css) {
+        NSString *cssPath = [[NSBundle mainBundle] pathForResource:@"Popover" ofType:@"css"];
+        css = [[NSString stringWithContentsOfFile:cssPath encoding:NSUTF8StringEncoding error:NULL] retain];
+    }
     
     NSString *templatePath = [[NSBundle mainBundle] pathForResource:@"Popover" ofType:@"html"];
     NSString *template = [NSString stringWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:NULL];
-    NSString *rendered = [NSString stringWithFormat:template, [titleOrFallback truncatedAfterIndex:75], authorAndTime, item.content ?: @""];
-    
+    NSString *rendered = [NSString stringWithFormat:template, css, [titleOrFallback truncatedAfterIndex:75], authorAndTime, item.content ?: @""];
+
     webView.alphaValue = 0;
     [webView.mainFrame loadHTMLString:rendered baseURL:nil];
 

@@ -32,8 +32,8 @@
         NSString *name = [cls friendlyAccountName];
         [accountTypeButton addItemWithTitle:name];
         
-        #ifdef ISOLATE_ACCOUNT
-        if ([NSStringFromClass(cls) isEqualToString:ISOLATE_ACCOUNT]) [accountTypeButton selectItemWithTitle:name];
+        #ifdef ISOLATE_ACCOUNTS
+        if ([NSStringFromClass(cls) isEqualToString:[ISOLATE_ACCOUNTS firstObject]]) [accountTypeButton selectItemWithTitle:name];
         #endif
     }
     [progress setHidden:YES];

@@ -1,0 +1,46 @@
+html, body {
+    background: transparent;
+}
+body {
+    font-family: Lucida Grande;
+    font-size: 12px;
+    margin: 0;
+    margin-top: 7px;
+    text-shadow: 0 1px 0 white;
+}
+.title {
+    /* Some feeds (like Github) include the title in the content as well, so let's hide that. */
+    display:none;
+}
+div.feeds-title {
+    font-size: 17px;
+    font-weight: bold;
+    margin: 7px;
+    margin-bottom: 0;
+    /*max-height: 50px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;*/
+}
+div.feeds-author {
+    color: #777;
+    font-size: 10px;
+    font-weight: bold;
+    margin: 7px;
+    margin-top: 1px;
+}
+div.feeds-content {
+    margin: 7px;
+    font-size: 11px;
+}
+img {
+    border: 1px solid rgba(0,0,0,0.2);
+    -webkit-border-radius: 2px;
+    margin: 0 10px 10px 0;
+    max-width: 200px;
+    max-height: 200px;
+}
+a {
+    color: inherit;
+    text-decoration: inherit;
+}

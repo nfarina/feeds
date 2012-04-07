@@ -1,0 +1,52 @@
+<html>
+<head>
+    <style>
+        %@
+    </style>
+    <script>
+        
+        commands = [];
+        executing = false;
+
+        function executeCommand(cmd) {
+            commands.push("cmd://" + cmd);
+            if (!executing) sendNextCommand();
+        }
+        function sendNextCommand() {
+            window.location = commands.shift();
+            executing = true;
+        }
+        function commandReceived() {
+            executing = false;
+            if (commands.length > 0)
+                setTimeout(sendNextCommand,50);
+        }
+
+        function adjustHeight() {
+            executeCommand(document.getElementById("container").offsetHeight + 17);
+            
+            document.body.style.overflow = "hidden";
+        }
+        
+        window.onload = function() {
+            adjustHeight();
+        }
+    </script>
+</head>
+<body>
+    <div id="container">
+        
+        <div class="feeds-title">%@</div>
+        <div class="feeds-author">%@</div>
+        <div class="feeds-content">
+            %@
+        </div>
+        <div style="clear:both"></div>
+        
+    </div>
+    
+    <script>
+        adjustHeight();
+    </script>
+</body>
+</html>

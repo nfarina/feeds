@@ -46,7 +46,7 @@
 #if DEBUG
     [toolbar setSelectedItemIdentifier:@"accounts"];
     [self selectAccountsTab:nil];
-    #ifdef ISOLATE_ACCOUNT
+    #ifdef ISOLATE_ACCOUNTS
     [self addAccount:nil];
     #endif
 #else

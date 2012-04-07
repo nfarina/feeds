@@ -291,9 +291,15 @@ NSDate *AutoFormatDate(NSString *dateString) {
 + (FeedItem *)itemWithRSSItemElement:(SMXMLElement *)element {
     FeedItem *item = [[FeedItem new] autorelease];
     item.title = [element childNamed:@"title"].value;
-    item.author = [element childNamed:@"author"].value;
     item.content = [element childNamed:@"description"].value;
+
+    SMXMLElement *author = [element childNamed:@"author"];
     
+    if ([author childNamed:@"name"])
+        item.author = [author valueWithPath:@"name"];
+    else
+        item.author = author.value;
+
     if ([element childNamed:@"link"])
         item.link = [NSURL URLWithString:[element childNamed:@"link"].value];
     
@@ -301,9 +307,9 @@ NSDate *AutoFormatDate(NSString *dateString) {
         item.comments = [NSURL URLWithString:[element childNamed:@"comments"].value];
     
     // basecamp
-    if (!item.author && [element childNamed:@"creator"])
+    if (!item.author.length && [element childNamed:@"creator"])
         item.author = [element valueWithPath:@"creator"];
-    
+
     NSString *published = [element childNamed:@"pubDate"].value;
     
     item.rawDate = published;

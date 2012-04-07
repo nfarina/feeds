@@ -72,6 +72,7 @@
 		01D84E1B152F33FA00267C15 /* OAuth2Token.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D84E1A152F33FA00267C15 /* OAuth2Token.m */; };
 		01D84E2A152F442900267C15 /* NSString+URLArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D84E29152F42EE00267C15 /* NSString+URLArgument.m */; };
 		01D84E3A153018D100267C15 /* DropmarkAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D84E39153018D100267C15 /* DropmarkAccount.m */; };
+		01D84E3E15308E3900267C15 /* Popover.css in Resources */ = {isa = PBXBuildFile; fileRef = 01D84E3D15308E3900267C15 /* Popover.css */; };
 		01EB9C3913C4F26E00A9C131 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 01EB9C3713C4F26E00A9C131 /* RegexKitLite.m */; };
 		01EB9C3D13C4F36E00A9C131 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 01EB9C3B13C4F35A00A9C131 /* libicucore.dylib */; };
 		01F5D6C713B3B89600EA479D /* StatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F5D6C513B3B89600EA479D /* StatusItemView.m */; };
@@ -148,7 +149,7 @@
 		01524F4314BFB45F00913D84 /* TrelloAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrelloAccount.h; sourceTree = "<group>"; };
 		01524F4414BFB45F00913D84 /* TrelloAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrelloAccount.m; sourceTree = "<group>"; };
 		01524F6514C11CC400913D84 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		015D788E13C6394600BCD7C4 /* Popover.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Popover.html; sourceTree = "<group>"; };
+		015D788E13C6394600BCD7C4 /* Popover.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = Popover.html; path = Popover/Popover.html; sourceTree = "<group>"; };
 		015D789413C6536400BCD7C4 /* Unread.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Unread.png; sourceTree = "<group>"; };
 		015D78A013C6747100BCD7C4 /* Basecamp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Basecamp.png; sourceTree = "<group>"; };
 		015D78A213C6753500BCD7C4 /* Dribbble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dribbble.png; sourceTree = "<group>"; };
@@ -214,8 +215,9 @@
 		01D84E1A152F33FA00267C15 /* OAuth2Token.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuth2Token.m; sourceTree = "<group>"; };
 		01D84E28152F42EE00267C15 /* NSString+URLArgument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+URLArgument.h"; sourceTree = "<group>"; };
 		01D84E29152F42EE00267C15 /* NSString+URLArgument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLArgument.m"; sourceTree = "<group>"; };
-		01D84E38153018D100267C15 /* DropmarkAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; path = DropmarkAccount.h; sourceTree = "<group>"; };
+		01D84E38153018D100267C15 /* DropmarkAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropmarkAccount.h; sourceTree = "<group>"; };
 		01D84E39153018D100267C15 /* DropmarkAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropmarkAccount.m; sourceTree = "<group>"; };
+		01D84E3D15308E3900267C15 /* Popover.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = Popover.css; path = Popover/Popover.css; sourceTree = "<group>"; };
 		01EB9C3713C4F26E00A9C131 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
 		01EB9C3813C4F26E00A9C131 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
 		01EB9C3B13C4F35A00A9C131 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
@@ -448,6 +450,7 @@
 				01937C8F13A03F5000BCE1D4 /* main.m */,
 				01937C9113A03F5000BCE1D4 /* Credits.rtf */,
 				015D788E13C6394600BCD7C4 /* Popover.html */,
+				01D84E3D15308E3900267C15 /* Popover.css */,
 				01B7FBE213FDB60200ACC29B /* ApplicationIcon.icns */,
 			);
 			name = "Supporting Files";
@@ -650,6 +653,7 @@
 				011989371524C79100046F71 /* BasecampNext.png in Resources */,
 				011989381524C79100046F71 /* BasecampNextAccount.png in Resources */,
 				011989391524C79100046F71 /* BasecampNextNotify.png in Resources */,
+				01D84E3E15308E3900267C15 /* Popover.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
