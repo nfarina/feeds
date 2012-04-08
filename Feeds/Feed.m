@@ -297,11 +297,22 @@ NSDate *AutoFormatDate(NSString *dateString) {
     
     if ([author childNamed:@"name"])
         item.author = [author valueWithPath:@"name"];
-    else
+    else {
         item.author = author.value;
+        
+        // with RSS 2.0, author must be an email address, but you can have the full name in parens.
+        // we'll pull that out if it's in there.
+        NSString *authorName = [item.author stringByMatching:@"[^@]+@[^@\\(]+\\(([^\\)]+)\\)" capture:1];
+        if (authorName.length) item.author = authorName;
+    }
 
-    if ([element childNamed:@"link"])
-        item.link = [NSURL URLWithString:[element childNamed:@"link"].value];
+    SMXMLElement *guid = [element childNamed:@"guid"]; // RSS 2.0
+    SMXMLElement *link = [element childNamed:@"link"]; // RSS 1.0?
+    
+    if (guid && NSEqualStrings([guid attributeNamed:@"isPermaLink"],@"true"))
+        item.link = [NSURL URLWithString:guid.value];
+    else if (link)
+        item.link = [NSURL URLWithString:link.value];
     
     if ([element childNamed:@"comments"])
         item.comments = [NSURL URLWithString:[element childNamed:@"comments"].value];
