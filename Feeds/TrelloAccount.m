@@ -140,6 +140,9 @@
                 item.author = memberName;
             }
             
+            if (item.author.length)
+                title = [NSString stringWithFormat:@"%@ %@", item.author, title];
+            
             item.title = title;
             item.content = [data objectForKey:@"text"];
             

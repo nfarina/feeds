@@ -382,11 +382,11 @@
     
     NSString *author = item.author;
     
-    if ([titleOrFallback beginsWithString:item.author]) {
+    /*if ([titleOrFallback beginsWithString:item.author]) {
         // remove the author from the front of the title if the title begins with the author name
         titleOrFallback = [titleOrFallback substringFromIndex:item.author.length];
     }
-    else if ([titleOrFallback containsString:item.author]) {
+    else*/ if ([titleOrFallback containsString:item.author]) {
         // don't repeat the author in the subtitle if they are mentioned in the title
         author = nil;
     }

@@ -17,6 +17,7 @@
 		011989391524C79100046F71 /* BasecampNextNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 011989361524C79100046F71 /* BasecampNextNotify.png */; };
 		0125C6CD13C7C8B10006BB1A /* NSView+PrintHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0125C6CC13C7C8B10006BB1A /* NSView+PrintHierarchy.m */; };
 		0133CEA61530974B00CF6647 /* NSAlert+Foreground.m in Sources */ = {isa = PBXBuildFile; fileRef = 0133CEA21530973E00CF6647 /* NSAlert+Foreground.m */; };
+		0133CEA81532381300CF6647 /* Dropmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 0133CEA71532381300CF6647 /* Dropmark.png */; };
 		014147A01486B019000D63E5 /* UserVoiceAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 0141479F1486B019000D63E5 /* UserVoiceAccount.m */; };
 		014147AE1486B258000D63E5 /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 014147A91486B258000D63E5 /* TFHpple.m */; };
 		014147AF1486B258000D63E5 /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 014147AB1486B258000D63E5 /* TFHppleElement.m */; };
@@ -134,6 +135,7 @@
 		0125C6CC13C7C8B10006BB1A /* NSView+PrintHierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+PrintHierarchy.m"; sourceTree = "<group>"; };
 		0133CEA11530973E00CF6647 /* NSAlert+Foreground.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSAlert+Foreground.h"; sourceTree = "<group>"; };
 		0133CEA21530973E00CF6647 /* NSAlert+Foreground.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSAlert+Foreground.m"; sourceTree = "<group>"; };
+		0133CEA71532381300CF6647 /* Dropmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dropmark.png; sourceTree = "<group>"; };
 		0141479E1486B019000D63E5 /* UserVoiceAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserVoiceAccount.h; sourceTree = "<group>"; };
 		0141479F1486B019000D63E5 /* UserVoiceAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserVoiceAccount.m; sourceTree = "<group>"; };
 		014147A81486B258000D63E5 /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 				015D78A213C6753500BCD7C4 /* Dribbble.png */,
 				01B0AE861448CC310020AF67 /* DribbbleAccount.png */,
 				019EE0E9147027E200B67B74 /* DribbbleNotify.png */,
+				0133CEA71532381300CF6647 /* Dropmark.png */,
 				015D78A313C6753500BCD7C4 /* Highrise.png */,
 				01B0AE841448CACD0020AF67 /* HighriseAccount.png */,
 				019EE0E71470278300B67B74 /* HighriseNotify.png */,
@@ -659,6 +662,7 @@
 				011989381524C79100046F71 /* BasecampNextAccount.png in Resources */,
 				011989391524C79100046F71 /* BasecampNextNotify.png in Resources */,
 				01D84E3E15308E3900267C15 /* Popover.css in Resources */,
+				0133CEA81532381300CF6647 /* Dropmark.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
