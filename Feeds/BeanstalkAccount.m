@@ -7,6 +7,7 @@
 + (NSString *)domainSuffix { return @".beanstalkapp.com"; }
 + (BOOL)requiresUsername { return YES; }
 + (BOOL)requiresPassword { return YES; }
+- (NSTimeInterval)refreshInterval { return 5*60; } // 5 minutes (via Ilya@Beanstalk)
 
 - (void)validateWithPassword:(NSString *)password {
     
