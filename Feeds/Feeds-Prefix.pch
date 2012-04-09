@@ -27,7 +27,7 @@
 #endif
 
 #ifndef DEBUG
-#define EXPIRATION_DATE @"2012-05-01"
+//#define EXPIRATION_DATE @"2012-05-01"
 #endif
 
 #ifdef DEBUG
