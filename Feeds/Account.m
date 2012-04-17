@@ -295,7 +295,7 @@ static NSMutableArray *registeredClasses = nil;
 #pragma mark Feed Refreshing
 
 - (void)refreshEnabledFeeds {
-    NSLog(@"Refreshing feeds for account %@", self);
+    //NSLog(@"Refreshing feeds for account %@", self);
     self.lastRefresh = [NSDate date];
     [self refreshFeeds:self.enabledFeeds];
 }
