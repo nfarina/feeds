@@ -34,7 +34,8 @@
         Feed *feed = [Feed feedWithURLString:href title:title account:self];
         feed.disabled = ![title containsString:@"All activity"]; // by default, enable "All activity", disable the rest.
         
-        [foundFeeds addObject:feed];
+        if (![foundFeeds containsObject:feed]) // sometimes their HTML contains duplicate feed links.
+            [foundFeeds addObject:feed];
     }
     
     self.feeds = foundFeeds;
