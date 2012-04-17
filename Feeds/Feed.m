@@ -364,7 +364,14 @@ NSDate *AutoFormatDate(NSString *dateString) {
 }
 
 - (NSString *)authorAndTitle {
-    return author && ![title beginsWithString:author] ? [NSString stringWithFormat:@"%@: %@",author,title] : title;
+    if (author && title && ![title beginsWithString:author])
+        return [NSString stringWithFormat:@"%@: %@",author,title];
+    else if (title)
+        return title;
+    else if (author)
+        return author;
+    else
+        return @"";
 }
 
 - (NSString *)description {
