@@ -123,7 +123,8 @@ NSDate *AutoFormatDate(NSString *dateString) {
 
 - (BOOL)isEqual:(Feed *)other {
     if ([other isKindOfClass:[Feed class]])
-        return [URL isEqual:other.URL] && [title isEqual:other.title] && ((!author && !other.author) || [author isEqual:other.author]) && requiresBasicAuth == other.requiresBasicAuth;
+        return [URL isEqual:other.URL] && [title isEqual:other.title] && ((!author && !other.author) || [author isEqual:other.author]) && 
+            requiresBasicAuth == other.requiresBasicAuth && requiresOAuth2Token == other.requiresOAuth2Token && incremental == other.incremental;
     else
         return NO;
 }
