@@ -135,8 +135,15 @@
         
         // if the feed has items already, append since= to the URL so we only get new ones.
         FeedItem *latestItem = feed.items.firstObject;
-        if (latestItem)
-            URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?since=%@",URL.absoluteString,latestItem.rawDate]];
+        
+        if (latestItem) {
+            NSDateFormatter *formatter = [NSDateFormatter new];
+            [formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZ"];
+            [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"America/Chicago"]];
+            NSString *chicagoDate = [formatter stringFromDate:latestItem.published];
+            
+            URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?since=%@",URL.absoluteString,chicagoDate]];
+        }
         
         [feed refreshWithURL:URL];
     }
