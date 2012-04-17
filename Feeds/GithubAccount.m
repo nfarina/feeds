@@ -19,7 +19,7 @@
 - (void)privateFeedRequestComplete:(NSData *)data password:(NSString *)password {
     
     // OK your username is valid, now look for your API token
-    NSString *URL = @"https://github.com/account/admin";
+    NSString *URL = @"https://github.com/";
     
     self.request = [SMWebRequest requestWithURLRequest:[NSURLRequest requestWithURLString:URL username:username password:password] delegate:nil context:password];
     [request addTarget:self action:@selector(tokenRequestComplete:password:) forRequestEvents:SMWebRequestEventComplete];
@@ -36,10 +36,13 @@
 }
 
 - (void)tokenRequestComplete:(NSData *)data password:(NSString *)password {
-    
-    NSString *html = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-    NSString *pattern = @"API Token.*<code>([0-9a-f]+)</code>";
-    NSString *token = [html stringByMatching:pattern options:RKLMultiline|RKLDotAll inRange:NSMakeRange(0, [html length]) capture:1 error:NULL];
+
+    TFHpple *html = [[[TFHpple alloc] initWithHTMLData:data] autorelease];
+    NSArray *links = [html searchWithXPathQuery:@"//link[@type='application/atom+xml']"];
+    TFHppleElement *firstLink = links.firstObject;
+    NSString *href = [firstLink.attributes objectForKey:@"href"];
+    NSString *pattern = @"\\?token=([0-9a-f]+)";
+    NSString *token = [href stringByMatching:pattern capture:1];
     
     if ([token length]) {
 
