@@ -148,21 +148,15 @@
     [controller release];
 }
 
-- (IBAction)removeAccount:(id)sender {
-    Account *account = [[Account allAccounts] objectAtIndex:[tableView selectedRow]];
-    [Account removeAccount:account];
-    [tableView reloadData];
-}
-
-- (void)tableViewSelectionDidChange:(NSNotification *)notification {
+- (void)updateDetailView {
     [removeButton setEnabled:tableView.selectedRow >= 0];
-
+    
     // cancel any pending account validation
     [[Account allAccounts] makeObjectsPerformSelector:@selector(cancelValidation)];
     [[Account allAccounts] makeObjectsPerformSelector:@selector(setDelegate:) withObject:nil];
     feedsTableView.dataSource = nil;
     [findFeedsWarning setHidden:YES];
-
+    
     if (tableView.selectedRow >= 0) {
         // refresh the available feeds by reauthenticating to this account
         Account *selectedAccount = [[Account allAccounts] objectAtIndex:tableView.selectedRow];
@@ -181,6 +175,22 @@
         findFeedsProgress.hidden = YES;
         findFeedsLabel.hidden = YES;
     }
+}
+
+- (IBAction)removeAccount:(id)sender {
+    Account *account = [[Account allAccounts] objectAtIndex:[tableView selectedRow]];
+    [Account removeAccount:account];
+    NSUInteger previouslySelectedRow = tableView.selectedRow;
+    [tableView reloadData];
+    
+    // technically, removing an account from the middle of the list won't call tableViewSelectionDidChange: because, technically, the selected index is the same.
+    // so we can't rely on that getting called every time.
+    if (tableView.selectedRow == previouslySelectedRow)
+        [self updateDetailView];
+}
+
+- (void)tableViewSelectionDidChange:(NSNotification *)notification {
+    [self updateDetailView];
 }
 
 - (void)account:(Account *)account validationDidContinueWithMessage:(NSString *)message {
