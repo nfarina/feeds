@@ -98,6 +98,8 @@
                 title = @"added you to board {board}";
             else if ([type isEqualToString:@"addedToCard"])
                 title = @"added you to card {card}";
+            else if ([type isEqualToString:@"addedMemberToCard"])
+                title = @"added {member} to card {card}";
             else if ([type isEqualToString:@"addAdminToBoard"])
                 title = @"added you as admin to board {board}";
             else if ([type isEqualToString:@"addAdminToOrganization"])
