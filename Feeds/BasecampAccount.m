@@ -36,7 +36,7 @@
     
     self.feeds = [NSArray arrayWithObject:mainFeed];
     
-    [self.delegate account:self validationDidCompleteWithPassword:nil];
+    [self.delegate account:self validationDidCompleteWithNewPassword:nil];
 }
 
 - (void)meRequestError:(NSError *)error {

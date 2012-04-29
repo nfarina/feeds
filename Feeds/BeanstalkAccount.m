@@ -39,7 +39,7 @@
 
     self.feeds = [NSArray arrayWithObjects:changesetsFeed, releasesFeed, nil];
 
-    [self.delegate account:self validationDidCompleteWithPassword:nil];
+    [self.delegate account:self validationDidCompleteWithNewPassword:nil];
 }
 
 - (NSURLRequest *)webRequest:(SMWebRequest *)webRequest willSendRequest:(NSURLRequest *)newRequest redirectResponse:(NSURLResponse *)redirectResponse {
@@ -73,7 +73,7 @@
 }
 
 + (NSArray *)itemsForRequest:(SMWebRequest *)request data:(NSData *)data domain:(NSString *)domain username:(NSString *)username password:(NSString *)password {
-    if ([request.request.URL.host endsWithString:@".beanstalkapp.com"]) {
+    if ([request.request.URL.host endsWithString:self.domainSuffix]) {
         
         NSMutableArray *items = [NSMutableArray array];
         

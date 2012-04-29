@@ -24,7 +24,7 @@
                   [Feed feedWithURLString:[NSString stringWithFormat:@"http://dribbble.com/%@/shots/following.rss", username] title:@"Following Activity" account:self],
                   nil];
     
-    [self.delegate account:self validationDidCompleteWithPassword:nil];
+    [self.delegate account:self validationDidCompleteWithNewPassword:nil];
 }
 
 - (void)meRequestError:(NSError *)error {

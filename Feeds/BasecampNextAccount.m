@@ -118,7 +118,7 @@
     
     self.feeds = foundFeeds;
     
-    [self.delegate account:self validationDidCompleteWithPassword:password];
+    [self.delegate account:self validationDidCompleteWithNewPassword:password];
 }
 
 - (void)handleGenericError:(NSError *)error {

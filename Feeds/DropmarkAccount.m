@@ -29,7 +29,7 @@
     feed.requiresBasicAuth = YES;
     self.feeds = [NSArray arrayWithObject:feed];
     
-    [self.delegate account:self validationDidCompleteWithPassword:password];
+    [self.delegate account:self validationDidCompleteWithNewPassword:password];
 }
 
 - (void)rssRequestError:(NSError *)error {

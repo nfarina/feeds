@@ -27,9 +27,9 @@
 #endif
 
 #ifndef DEBUG
-//#define EXPIRATION_DATE @"2012-05-17"
+//#define EXPIRATION_DATE @"2012-06-01"
 #endif
 
 #ifdef DEBUG
-//#define ISOLATE_ACCOUNTS [NSArray arrayWithObjects:@"DropmarkAccount",nil]
+#define ISOLATE_ACCOUNTS [NSArray arrayWithObjects:@"ZendeskAccount",nil]
 #endif

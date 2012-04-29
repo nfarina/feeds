@@ -158,7 +158,7 @@
         [passwordInvalid setHidden:NO];
 }
 
-- (void)account:(Account *)theAccount validationDidCompleteWithPassword:(NSString *)changedPassword {
+- (void)account:(Account *)theAccount validationDidCompleteWithNewPassword:(NSString *)changedPassword {
 
     if (changedPassword)
         self.password = changedPassword;

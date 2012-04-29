@@ -89,6 +89,6 @@ typedef enum {
 
 - (void)account:(Account *)account validationDidContinueWithMessage:(NSString *)message;
 - (void)account:(Account *)account validationDidFailWithMessage:(NSString *)message field:(AccountFailingField)field;
-- (void)account:(Account *)account validationDidCompleteWithPassword:(NSString *)password;
+- (void)account:(Account *)account validationDidCompleteWithNewPassword:(NSString *)password;
 
 @end

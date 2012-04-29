@@ -87,7 +87,7 @@
     
     self.feeds = foundFeeds;
     
-    [self.delegate account:self validationDidCompleteWithPassword:nil];
+    [self.delegate account:self validationDidCompleteWithNewPassword:nil];
 }
 
 - (void)orgRequestError:(NSError *)error {

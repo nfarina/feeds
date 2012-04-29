@@ -67,6 +67,7 @@
 		01B2BE7713C4C39B00304D6A /* DribbbleAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE7613C4C39B00304D6A /* DribbbleAccount.m */; };
 		01B2BE7A13C4E76400304D6A /* GithubAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE7913C4E76400304D6A /* GithubAccount.m */; };
 		01B7FBE313FDB60200ACC29B /* ApplicationIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 01B7FBE213FDB60200ACC29B /* ApplicationIcon.icns */; };
+		01BD35E2154D985200170BDD /* ZendeskAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BD35E1154D985200170BDD /* ZendeskAccount.m */; };
 		01C359B113C4B6C400D803BD /* HighriseAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C359B013C4B6C400D803BD /* HighriseAccount.m */; };
 		01C4F93513C597C000DB0CCB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C4F93213C597AC00DB0CCB /* WebKit.framework */; };
 		01D4A3BC13C434B400CE07CC /* NSURLRequest+Authorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D4A3BB13C434B400CE07CC /* NSURLRequest+Authorization.m */; };
@@ -211,6 +212,8 @@
 		01B2BE7813C4E76400304D6A /* GithubAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GithubAccount.h; sourceTree = "<group>"; };
 		01B2BE7913C4E76400304D6A /* GithubAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GithubAccount.m; sourceTree = "<group>"; };
 		01B7FBE213FDB60200ACC29B /* ApplicationIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = ApplicationIcon.icns; path = ../ApplicationIcon.icns; sourceTree = "<group>"; };
+		01BD35E0154D985200170BDD /* ZendeskAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZendeskAccount.h; sourceTree = "<group>"; };
+		01BD35E1154D985200170BDD /* ZendeskAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZendeskAccount.m; sourceTree = "<group>"; };
 		01C359AF13C4B6C400D803BD /* HighriseAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighriseAccount.h; sourceTree = "<group>"; };
 		01C359B013C4B6C400D803BD /* HighriseAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighriseAccount.m; sourceTree = "<group>"; };
 		01C4F93213C597AC00DB0CCB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -303,6 +306,8 @@
 				0181D972152492D400D1E78B /* BasecampNextAccount.m */,
 				01D84E38153018D100267C15 /* DropmarkAccount.h */,
 				01D84E39153018D100267C15 /* DropmarkAccount.m */,
+				01BD35E0154D985200170BDD /* ZendeskAccount.h */,
+				01BD35E1154D985200170BDD /* ZendeskAccount.m */,
 			);
 			name = Accounts;
 			sourceTree = "<group>";
@@ -721,6 +726,7 @@
 				01D84E2A152F442900267C15 /* NSString+URLArgument.m in Sources */,
 				01D84E3A153018D100267C15 /* DropmarkAccount.m in Sources */,
 				0133CEA61530974B00CF6647 /* NSAlert+Foreground.m in Sources */,
+				01BD35E2154D985200170BDD /* ZendeskAccount.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

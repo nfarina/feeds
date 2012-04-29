@@ -206,7 +206,7 @@
     [findFeedsLabel setStringValue:message];
 }
 
-- (void)account:(Account *)account validationDidCompleteWithPassword:(NSString *)password {
+- (void)account:(Account *)account validationDidCompleteWithNewPassword:(NSString *)password {
     [findFeedsProgress stopAnimation:nil];
     [findFeedsProgress setHidden:YES];
     [findFeedsLabel setHidden:YES];
