@@ -79,7 +79,7 @@ static NSMutableArray *registeredClasses = nil;
 + (NSString *)domainPrefix { return @"http://"; }
 + (NSString *)domainSuffix { return @""; }
 
-- (NSTimeInterval)refreshInterval { return 10*60; } // 15 minutes
+- (NSTimeInterval)refreshInterval { return 10*60; } // 10 minutes
 
 - (NSArray *)enabledFeeds {
     NSMutableArray *enabledFeeds = [NSMutableArray array];
