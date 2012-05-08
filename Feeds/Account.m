@@ -162,6 +162,16 @@ static NSMutableArray *registeredClasses = nil;
     [super dealloc];
 }
 
+- (void)setRequest:(SMWebRequest *)request_ {
+    [request removeTarget:self];
+    [request release], [request = request_ retain];
+}
+
+- (void)setTokenRequest:(SMWebRequest *)tokenRequest_ {
+    [tokenRequest removeTarget:self];
+    [tokenRequest release], tokenRequest = [tokenRequest_ retain];
+}
+
 - (NSString *)type {
     return [NSStringFromClass([self class]) stringByReplacingOccurrencesOfString:@"Account" withString:@""];
 }

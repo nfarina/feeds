@@ -83,6 +83,11 @@ NSDate *AutoFormatDate(NSString *dateString) {
     [super dealloc];
 }
 
+- (void)setRequest:(SMWebRequest *)request_ {
+    [request removeTarget:self];
+    [request release], request = [request_ retain];
+}
+
 + (Feed *)feedWithURLString:(NSString *)URLString title:(NSString *)title account:(Account *)account {
     return [self feedWithURLString:URLString title:title author:nil account:account];
 }
