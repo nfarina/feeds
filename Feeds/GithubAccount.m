@@ -47,7 +47,7 @@
     if ([token length]) {
 
         // Now look for organizations
-        NSString *URL = @"https://github.com/api/v2/json/organizations";
+        NSString *URL = @"https://api.github.com/user/orgs";
         
         self.request = [SMWebRequest requestWithURLRequest:[NSURLRequest requestWithURLString:URL username:username password:password] delegate:nil context:token];
         [request addTarget:self action:@selector(orgRequestComplete:token:) forRequestEvents:SMWebRequestEventComplete];
@@ -67,9 +67,8 @@
 
 - (void)orgRequestComplete:(NSData *)data token:(NSString *)token {
 
-    // Sample result: {"organizations":[{"gravatar_id":"a0c3a0214c5f9a5701e892255fb3d87f","type":"Organization","login":"spotlightmobile"}]}
-    NSDictionary *dict = [data objectFromJSONData];
-    NSArray *orgs = [dict objectForKey:@"organizations"];
+    // Sample result: [{"avatar_url" = "...", id = 321558, login = spotlightmobile, url = "..."}]
+    NSArray *orgs = [data objectFromJSONData];
     
     NSString *mainFeedString = [NSString stringWithFormat:@"https://github.com/%@.private.atom?token=%@", username, token];
     NSString *mainFeedTitle = [NSString stringWithFormat:@"News Feed (%@)", username];

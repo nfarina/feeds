@@ -7,7 +7,7 @@
     char *base64Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 	NSMutableString *result = [[NSMutableString new] autorelease];
 	int i;
-	int len = [self length];
+	int len = (int)[self length];
 	int paddingBytes = 0;
     
 	for (i = 0; i < len; i+=3)

@@ -64,7 +64,7 @@
         [self validateWithPassword:token.stringRepresentation];
     }
     else {
-        NSString *message = [NSString stringWithFormat:@"There was an error while authenticating with Basecamp: \"%@\"", &error];
+        NSString *message = [NSString stringWithFormat:@"There was an error while authenticating with Basecamp: \"%@\"", error];
         [self.delegate account:self validationDidFailWithMessage:message field:AccountFailingFieldAuth];
     }
 }

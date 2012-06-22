@@ -1196,7 +1196,10 @@ static void rkl_handleDelayedAssert(id self, SEL _cmd, id exception) {
     else {
       id functionString = [exception objectForKey:@"function"], fileString = [exception objectForKey:@"file"], descriptionString = [exception objectForKey:@"description"], lineNumber = [exception objectForKey:@"line"];
       RKLCHardAbortAssert((functionString != NULL) && (fileString != NULL) && (descriptionString != NULL) && (lineNumber != NULL));
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wformat-security"
       [[NSAssertionHandler currentHandler] handleFailureInFunction:functionString file:fileString lineNumber:(NSInteger)[lineNumber longValue] description:descriptionString];
+#pragma clang diagnostic pop
     }
   }
 }

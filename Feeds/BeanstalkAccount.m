@@ -114,7 +114,7 @@
                 item.authorIdentifier = [userIdentifier stringValue];
                 item.author = [revision objectForKey:@"author"];
                 item.content = message;
-                item.title = [NSString stringWithFormat:@"%@ committed to %@", item.author, repositoryTitle, message];
+                item.title = [NSString stringWithFormat:@"%@ committed to %@", item.author, repositoryTitle];
                 
                 if ([repositoryType isEqualToString:@"git"])
                     item.link = [NSURL URLWithString:
@@ -171,7 +171,7 @@
                 item.updated = item.published;
                 item.authorIdentifier = [userIdentifier stringValue];
                 item.author = userName;
-                item.title = [NSString stringWithFormat:@"%@ deployed to %@ (%@)", item.author, environment, state, comment];
+                item.title = [NSString stringWithFormat:@"%@ deployed to %@ (%@)", item.author, environment, state];
                 item.content = comment;
                 item.link = [NSURL URLWithString:
                              [NSString stringWithFormat:@"https://%@.beanstalkapp.com/%@/deployments/%@", domain, repositoryName, deploymentIdentifier]];

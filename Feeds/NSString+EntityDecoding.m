@@ -17,7 +17,7 @@ NSString* NSStringFromCharacterCode(int code)
 		return [codesBelow160 objectAtIndex:code-128];
 	}
 	
-	return [NSString stringWithFormat: @"%C", code];
+	return [NSString stringWithFormat: @"%d", code];
 }
 
 @implementation NSString (EntityDecoding)
