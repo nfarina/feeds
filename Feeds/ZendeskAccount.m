@@ -3,7 +3,7 @@
 
 @implementation ZendeskAccount
 
-+ (void)load { [Account registerClass:self]; }
+//+ (void)load { [Account registerClass:self]; }
 + (BOOL)requiresDomain { return YES; }
 + (NSString *)domainSuffix { return @".zendesk.com"; }
 + (NSString *)usernameLabel { return @"Email Address:"; }
