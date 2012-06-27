@@ -39,6 +39,9 @@
 		015E0ED814475D2E000A611D /* AccountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 015E0ED714475D2E000A611D /* AccountCell.m */; };
 		015E0EE614478DB6000A611D /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 015E0EE514478DB6000A611D /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0181D973152492D400D1E78B /* BasecampNextAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 0181D972152492D400D1E78B /* BasecampNextAccount.m */; };
+		0191D77F159BB3B100C49952 /* ZendeskNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 0191D77C159BB3B100C49952 /* ZendeskNotify.png */; };
+		0191D780159BB3B100C49952 /* ZendeskAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 0191D77D159BB3B100C49952 /* ZendeskAccount.png */; };
+		0191D781159BB3B100C49952 /* Zendesk.png in Resources */ = {isa = PBXBuildFile; fileRef = 0191D77E159BB3B100C49952 /* Zendesk.png */; };
 		01937C8313A03F5000BCE1D4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01937C8213A03F5000BCE1D4 /* Cocoa.framework */; };
 		01937C8D13A03F5000BCE1D4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01937C8B13A03F5000BCE1D4 /* InfoPlist.strings */; };
 		01937C9013A03F5000BCE1D4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937C8F13A03F5000BCE1D4 /* main.m */; };
@@ -171,6 +174,9 @@
 		015E0EE514478DB6000A611D /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		0181D971152492D400D1E78B /* BasecampNextAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasecampNextAccount.h; sourceTree = "<group>"; };
 		0181D972152492D400D1E78B /* BasecampNextAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BasecampNextAccount.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		0191D77C159BB3B100C49952 /* ZendeskNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZendeskNotify.png; sourceTree = "<group>"; };
+		0191D77D159BB3B100C49952 /* ZendeskAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZendeskAccount.png; sourceTree = "<group>"; };
+		0191D77E159BB3B100C49952 /* Zendesk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Zendesk.png; sourceTree = "<group>"; };
 		01937C7E13A03F5000BCE1D4 /* Feeds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Feeds.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01937C8213A03F5000BCE1D4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		01937C8513A03F5000BCE1D4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -366,6 +372,9 @@
 			isa = PBXGroup;
 			children = (
 				01524F6514C11CC400913D84 /* Default.png */,
+				0191D77C159BB3B100C49952 /* ZendeskNotify.png */,
+				0191D77D159BB3B100C49952 /* ZendeskAccount.png */,
+				0191D77E159BB3B100C49952 /* Zendesk.png */,
 				015D78A013C6747100BCD7C4 /* Basecamp.png */,
 				01B0AE821448C94A0020AF67 /* BasecampAccount.png */,
 				019EE0E51470268C00B67B74 /* BasecampNotify.png */,
@@ -676,6 +685,9 @@
 				0133CEAC1532A9A900CF6647 /* DropmarkNotify.png in Resources */,
 				0133CEAD1532A9A900CF6647 /* DropmarkAccount.png in Resources */,
 				0133CEAE1532A9A900CF6647 /* Dropmark.png in Resources */,
+				0191D77F159BB3B100C49952 /* ZendeskNotify.png in Resources */,
+				0191D780159BB3B100C49952 /* ZendeskAccount.png in Resources */,
+				0191D781159BB3B100C49952 /* Zendesk.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

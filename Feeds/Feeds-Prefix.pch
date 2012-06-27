@@ -31,5 +31,5 @@
 #endif
 
 #ifdef DEBUG
-//#define ISOLATE_ACCOUNTS [NSArray arrayWithObjects:@"GithubAccount",nil]
+//#define ISOLATE_ACCOUNTS [NSArray arrayWithObjects:@"ZendeskAccount",nil]
 #endif
