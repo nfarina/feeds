@@ -9,7 +9,7 @@
 
 - (void)validateWithPassword:(NSString *)password {
     
-    NSString *URL = [NSString stringWithFormat:@"http://dribbble.com/%@/activity/incoming.rss", username];
+    NSString *URL = [NSString stringWithFormat:@"http://dribbble.com/%@/shots/following.rss", username];
     
     self.request = [SMWebRequest requestWithURL:[NSURL URLWithString:URL] delegate:nil context:NULL];
     [request addTarget:self action:@selector(meRequestComplete:) forRequestEvents:SMWebRequestEventComplete];
