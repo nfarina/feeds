@@ -75,9 +75,11 @@ static NSMutableArray *registeredClasses = nil;
 + (BOOL)requiresUsername { return NO; }
 + (BOOL)requiresPassword { return NO; }
 + (NSString *)usernameLabel { return @"User name:"; }
++ (NSString *)passwordLabel { return @"Password:"; }
 + (NSString *)domainLabel { return @"Domain:"; }
 + (NSString *)domainPrefix { return @"http://"; }
 + (NSString *)domainSuffix { return @""; }
++ (NSString *)domainPlaceholder { return @""; }
 
 - (NSTimeInterval)refreshInterval { return 10*60; } // 10 minutes
 

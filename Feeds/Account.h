@@ -37,9 +37,11 @@ typedef enum {
 
 // "new feed" dialog customizations
 + (NSString *)usernameLabel;
++ (NSString *)passwordLabel;
 + (NSString *)domainLabel;
 + (NSString *)domainPrefix;
 + (NSString *)domainSuffix;
++ (NSString *)domainPlaceholder;
 
 // opportunity to parse custom feed data
 + (NSArray *)itemsForRequest:(SMWebRequest *)request data:(NSData *)data domain:(NSString *)domain username:(NSString *)username password:(NSString *)password;
@@ -88,6 +90,7 @@ typedef enum {
 @protocol AccountDelegate <NSObject>
 
 - (void)account:(Account *)account validationDidContinueWithMessage:(NSString *)message;
+- (void)account:(Account *)account validationDidRequireUsernameAndPasswordWithMessage:(NSString *)message;
 - (void)account:(Account *)account validationDidFailWithMessage:(NSString *)message field:(AccountFailingField)field;
 - (void)account:(Account *)account validationDidCompleteWithNewPassword:(NSString *)password;
 

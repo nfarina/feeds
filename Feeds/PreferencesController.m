@@ -213,6 +213,10 @@
     [findFeedsLabel setStringValue:message];
 }
 
+- (void)account:(Account *)account validationDidRequireUsernameAndPasswordWithMessage:(NSString *)message {
+    [self account:account validationDidFailWithMessage:message field:AccountFailingFieldUnknown];
+}
+
 - (void)account:(Account *)account validationDidFailWithMessage:(NSString *)message field:(AccountFailingField)field {
 
     [findFeedsProgress stopAnimation:nil];

@@ -65,22 +65,37 @@
     [domainSuffix setHidden:![accountClass requiresDomain]];
     [domainSuffix setStringValue:[accountClass domainSuffix]];
     [domainField setHidden:![accountClass requiresDomain]];
+    [[domainField cell] setPlaceholderString:[accountClass domainPlaceholder]];
     [usernameLabel setHidden:![accountClass requiresUsername]];
     [usernameLabel setStringValue:[accountClass usernameLabel]];
     [usernameField setHidden:![accountClass requiresUsername]];
     [passwordLabel setHidden:![accountClass requiresPassword]];
+    [passwordLabel setStringValue:[accountClass passwordLabel]];
     [passwordField setHidden:![accountClass requiresPassword]];
     
     // layout the domain prefix/suffix left-to-right
     [domainPrefix sizeToFit];
-    NSRect domainFieldFrame = domainField.frame;
-    domainFieldFrame.origin.x = domainPrefix.frame.origin.x + domainPrefix.frame.size.width;
-    domainField.frame = domainFieldFrame;
+    [domainSuffix sizeToFit];
     
+    CGFloat prefixWidth = domainPrefix.stringValue.length ? domainPrefix.frame.size.width : 0;
+    CGFloat suffixWidth = domainSuffix.stringValue.length ? domainSuffix.frame.size.width : 0;
+    CGFloat domainX = accountTypeButton.frame.origin.x;
+    CGFloat totalWidth = accountTypeButton.frame.size.width;
+    
+    if (prefixWidth == 0) domainX += 2; // nudge everything to the left if no prefix
+    if (suffixWidth == 0) suffixWidth = 3; // make the box a bit smaller if no suffix
+    
+    // align the suffix to the right
     NSRect domainSuffixFrame = domainSuffix.frame;
-    domainSuffixFrame.origin.x = domainFieldFrame.origin.x + domainFieldFrame.size.width + 2;
+    domainSuffixFrame.origin.x = domainX + totalWidth - suffixWidth;
     domainSuffix.frame = domainSuffixFrame;
-    
+
+    // put the domain field between the prefix and suffix
+    NSRect domainFieldFrame = domainField.frame;
+    domainFieldFrame.origin.x = domainX + prefixWidth;
+    domainFieldFrame.size.width = totalWidth - prefixWidth - suffixWidth - 2;
+    domainField.frame = domainFieldFrame;
+
     if ([accountClass requiresDomain])
         [domainField becomeFirstResponder];
     else if ([accountClass requiresUsername])
@@ -138,6 +153,15 @@
 
 - (void)account:(Account *)account validationDidContinueWithMessage:(NSString *)message {
     [messageField setStringValue:message];
+}
+
+- (void)account:(Account *)theAccount validationDidRequireUsernameAndPasswordWithMessage:(NSString *)message {
+    [usernameField setHidden:NO];
+    [usernameLabel setHidden:NO];
+    [passwordField setHidden:NO];
+    [passwordLabel setHidden:NO];
+    [self account:account validationDidFailWithMessage:message field:AccountFailingFieldUnknown];
+    [usernameField becomeFirstResponder];
 }
 
 - (void)account:(Account *)account validationDidFailWithMessage:(NSString *)message field:(AccountFailingField)field {

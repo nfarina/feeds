@@ -16,6 +16,7 @@
 		011989381524C79100046F71 /* BasecampNextAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 011989351524C79100046F71 /* BasecampNextAccount.png */; };
 		011989391524C79100046F71 /* BasecampNextNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 011989361524C79100046F71 /* BasecampNextNotify.png */; };
 		0125C6CD13C7C8B10006BB1A /* NSView+PrintHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0125C6CC13C7C8B10006BB1A /* NSView+PrintHierarchy.m */; };
+		012734BE15DFFB4E00512361 /* GenericFeedAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 012734BD15DFFB4E00512361 /* GenericFeedAccount.m */; };
 		0133CEA61530974B00CF6647 /* NSAlert+Foreground.m in Sources */ = {isa = PBXBuildFile; fileRef = 0133CEA21530973E00CF6647 /* NSAlert+Foreground.m */; };
 		0133CEAC1532A9A900CF6647 /* DropmarkNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 0133CEA91532A9A900CF6647 /* DropmarkNotify.png */; };
 		0133CEAD1532A9A900CF6647 /* DropmarkAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 0133CEAA1532A9A900CF6647 /* DropmarkAccount.png */; };
@@ -139,6 +140,8 @@
 		011989361524C79100046F71 /* BasecampNextNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BasecampNextNotify.png; sourceTree = "<group>"; };
 		0125C6CB13C7C8B10006BB1A /* NSView+PrintHierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+PrintHierarchy.h"; sourceTree = "<group>"; };
 		0125C6CC13C7C8B10006BB1A /* NSView+PrintHierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+PrintHierarchy.m"; sourceTree = "<group>"; };
+		012734BC15DFFB4E00512361 /* GenericFeedAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericFeedAccount.h; sourceTree = "<group>"; };
+		012734BD15DFFB4E00512361 /* GenericFeedAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericFeedAccount.m; sourceTree = "<group>"; };
 		0133CEA11530973E00CF6647 /* NSAlert+Foreground.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSAlert+Foreground.h"; sourceTree = "<group>"; };
 		0133CEA21530973E00CF6647 /* NSAlert+Foreground.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSAlert+Foreground.m"; sourceTree = "<group>"; };
 		0133CEA91532A9A900CF6647 /* DropmarkNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DropmarkNotify.png; sourceTree = "<group>"; };
@@ -314,6 +317,8 @@
 				01D84E39153018D100267C15 /* DropmarkAccount.m */,
 				01BD35E0154D985200170BDD /* ZendeskAccount.h */,
 				01BD35E1154D985200170BDD /* ZendeskAccount.m */,
+				012734BC15DFFB4E00512361 /* GenericFeedAccount.h */,
+				012734BD15DFFB4E00512361 /* GenericFeedAccount.m */,
 			);
 			name = Accounts;
 			sourceTree = "<group>";
@@ -739,6 +744,7 @@
 				01D84E3A153018D100267C15 /* DropmarkAccount.m in Sources */,
 				0133CEA61530974B00CF6647 /* NSAlert+Foreground.m in Sources */,
 				01BD35E2154D985200170BDD /* ZendeskAccount.m in Sources */,
+				012734BE15DFFB4E00512361 /* GenericFeedAccount.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

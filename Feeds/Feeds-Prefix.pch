@@ -31,5 +31,5 @@
 #endif
 
 #ifdef DEBUG
-//#define ISOLATE_ACCOUNTS [NSArray arrayWithObjects:@"DribbbleAccount",nil]
+#define ISOLATE_ACCOUNTS [NSArray arrayWithObjects:@"GenericFeedAccount",nil]
 #endif
