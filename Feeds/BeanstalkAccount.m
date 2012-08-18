@@ -86,6 +86,7 @@
                 NSDictionary *revision = [changeset objectForKey:@"revision_cache"];
                 NSNumber *repositoryIdentifier = [revision objectForKey:@"repository_id"];
                 NSNumber *userIdentifier = [revision objectForKey:@"user_id"];
+                if ((id)userIdentifier == [NSNull null]) userIdentifier = nil; // this could be null!
                 NSString *date = [revision objectForKey:@"time"];
                 NSString *message = [revision objectForKey:@"message"];
                 NSString *hash = [revision objectForKey:@"hash_id"];
@@ -136,6 +137,7 @@
                 NSString *deploymentIdentifier = [release objectForKey:@"id"];
                 NSNumber *repositoryIdentifier = [release objectForKey:@"repository_id"];
                 NSNumber *userIdentifier = [release objectForKey:@"user_id"];
+                if ((id)userIdentifier == [NSNull null]) userIdentifier = nil; // this could be null!
                 NSString *date = [release objectForKey:@"updated_at"];
                 NSString *comment = [release objectForKey:@"comment"];
                 NSString *environment = [release objectForKey:@"environment_name"];
