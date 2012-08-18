@@ -255,6 +255,15 @@
     [self updateStatusItemIcon];
 }
 
+- (void)markAllItemsAsRead:(id)sender {
+
+    // mark all as viewed
+    for (FeedItem *item in allItems)
+        item.viewed = YES;
+
+    [self updateStatusItemIcon];
+}
+
 - (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification {
     return YES;
 }
@@ -312,6 +321,7 @@
     
     if ([allItems count] == 0) {
         NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:@"No Items" action:NULL keyEquivalent:@""] autorelease];
+        [menuItem setEnabled:NO];
         [menu insertItem:menuItem atIndex:0];
     }
 }
@@ -323,6 +333,11 @@
 - (void)menuWillOpen:(NSMenu *)menu {
     if (menuNeedsRebuild)
         [self rebuildMenuItems];
+    
+    [markAllItemsAsReadItem setEnabled:NO];
+    for (FeedItem *item in allItems)
+        if (!item.viewed)
+            [markAllItemsAsReadItem setEnabled:YES];
     
     [[NSUserNotificationCenter defaultUserNotificationCenter] removeAllDeliveredNotifications];
 }

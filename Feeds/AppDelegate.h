@@ -3,6 +3,7 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSMenuDelegate, GrowlApplicationBridgeDelegate, NSUserNotificationCenterDelegate> {
     IBOutlet NSMenu *menu;
+    IBOutlet NSMenuItem *markAllItemsAsReadItem;
     NSStatusItem *statusItem;
     StatusItemView *statusItemView;
     NSMutableArray *allItems;
@@ -19,6 +20,7 @@
     NSMenuItem *shimItem;
 }
 
+- (IBAction)markAllItemsAsRead:(id)sender;
 - (IBAction)openPreferences:(id)sender;
 
 @end
