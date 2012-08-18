@@ -195,7 +195,15 @@ static NSMutableArray *registeredClasses = nil;
 }
 
 - (NSString *)description {
-    return [domain length] ? [self.type stringByAppendingFormat:@" (%@)",domain] : self.type;
+    return [domain length] ? [self.type stringByAppendingFormat:@" (%@)",self.friendlyDomain] : self.type;
+}
+
+- (NSString *)friendlyDomain {
+    if ([self.domain beginsWithString:@"http://"] || [self.domain beginsWithString:@"https://"]) {
+        NSURL *URL = [NSURL URLWithString:self.domain];
+        return URL.host;
+    }
+    else return self.domain;
 }
 
 - (void)validateWithPassword:(NSString *)password {

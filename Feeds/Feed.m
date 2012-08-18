@@ -176,37 +176,54 @@ NSDate *AutoFormatDate(NSString *dateString) {
     if (customItems) return customItems;
     
     NSError *error = nil;
-    SMXMLDocument *document = [SMXMLDocument documentWithData:data error:&error];
-    NSMutableArray *items = [NSMutableArray array];
+    NSArray *items = [self feedItemsWithData:data discoveredTitle:NULL error:&error];
     
     if (error) {
         NSLog(@"Error parsing XML feed result for %@ - %@", webRequest.request.URL, error);
         return nil;
     }
 
+    return items;
+}
+
++ (NSArray *)feedItemsWithData:(NSData *)data discoveredTitle:(NSString **)title error:(NSError **)error {
+    
+    // try parsing the XML first
+    SMXMLDocument *document = [SMXMLDocument documentWithData:data error:error];
+    if ((*error)) return nil;
+
+    NSMutableArray *items = [NSMutableArray array];
+    
     // are we speaking RSS or ATOM here?
     if ([document.root.name isEqual:@"rss"]) {
-
+    
+        if (title) *title = [document.root valueWithPath:@"channel.title"];
+        
         NSArray *itemsXml = [[document.root childNamed:@"channel"] childrenNamed:@"item"];
         
         for (SMXMLElement *itemXml in itemsXml)
             [items addObject:[FeedItem itemWithRSSItemElement:itemXml]];
     }
     else if ([document.root.name isEqual:@"feed"]) {
-
+        
+        if (title) *title = [document.root valueWithPath:@"title"];
+        
         NSArray *itemsXml = [document.root childrenNamed:@"entry"];
         
         for (SMXMLElement *itemXml in itemsXml)
             [items addObject:[FeedItem itemWithATOMEntryElement:itemXml]];
-
     }
     else {
-        NSLog(@"Unknown feed root element: <%@>", document.root.name);
+        NSString *message = [NSString stringWithFormat:@"Unknown feed root element: <%@>", document.root.name];
+        if (error) *error = [NSError errorWithDomain:@"Feed" code:0 userInfo:
+                  [NSDictionary dictionaryWithObject:message forKey:NSLocalizedDescriptionKey]];
         return nil;
     }
     
+    if (error) *error = nil;
     return items;
 }
+
 
 - (void)refreshComplete:(NSArray *)newItems {
 

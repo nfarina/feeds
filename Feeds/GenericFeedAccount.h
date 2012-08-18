@@ -1,4 +1,6 @@
 #import "Account.h"
 
-@interface GenericFeedAccount : Account
+@interface GenericFeedAccount : Account {
+    BOOL attemptedAutoFeedDiscovery;
+}
 @end

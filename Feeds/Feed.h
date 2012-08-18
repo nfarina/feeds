@@ -25,6 +25,8 @@ NSDate *AutoFormatDate(NSString *dateString);
 + (Feed *)feedWithDictionary:(NSDictionary *)dict account:(Account *)account;
 - (NSDictionary *)dictionaryRepresentation;
 
++ (NSArray *)feedItemsWithData:(NSData *)data discoveredTitle:(NSString **)title error:(NSError **)error;
+
 - (void)refresh;
 - (void)refreshWithURL:(NSURL *)refreshURL; // some accounts (like basecamp next) append things like "since=" to the "base" URL
 
