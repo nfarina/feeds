@@ -26,8 +26,6 @@
     else
         URLRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:fixedDomain]];
     
-    attemptedAutoFeedDiscovery = NO; // reset this in case you're trying again
-    
     self.request = [SMWebRequest requestWithURLRequest:URLRequest delegate:nil context:NULL];
     [request addTarget:self action:@selector(feedRequestComplete:) forRequestEvents:SMWebRequestEventComplete];
     [request addTarget:self action:@selector(feedRequestError:) forRequestEvents:SMWebRequestEventError];
@@ -36,49 +34,62 @@
 
 - (void)feedRequestComplete:(NSData *)data {
     
-    // only do this once per validation attempt
-    if (!attemptedAutoFeedDiscovery) {
-        attemptedAutoFeedDiscovery = YES;
+    // did this request return HTML? Look for feeds in there.
+    NSString *contentType = [[(NSHTTPURLResponse *)self.request.response allHeaderFields] objectForKey:@"Content-Type"];
+    
+    if ([contentType isEqualToString:@"text/html"] || [contentType beginsWithString:@"text/html;"]) {
         
-        // did this request return HTML? Maybe we can find a feed in there.
-        NSString *contentType = [[(NSHTTPURLResponse *)self.request.response allHeaderFields] objectForKey:@"Content-Type"];
-        if ([contentType isEqualToString:@"text/html"] || [contentType beginsWithString:@"text/html;"]) {
+        NSMutableArray *foundFeeds = [NSMutableArray array];
+
+        TFHpple *html = [[[TFHpple alloc] initWithHTMLData:data] autorelease];
+        NSArray *rssLinks = [html searchWithXPathQuery:@"//link[@type='application/rss+xml']"];
+        NSArray *atomLinks = [html searchWithXPathQuery:@"//link[@type='application/atom+xml']"];
+        
+        for (TFHppleElement *link in rssLinks) {
+            NSString *href = [link.attributes objectForKey:@"href"];
+            NSString *title = [link.attributes objectForKey:@"title"] ?: @"RSS Feed";
             
-            TFHpple *html = [[[TFHpple alloc] initWithHTMLData:data] autorelease];
-            NSArray *rssLinks = [html searchWithXPathQuery:@"//link[@type='application/rss+xml']"];
-            NSArray *atomLinks = [html searchWithXPathQuery:@"//link[@type='application/atom+xml']"];
-            
-            for (TFHppleElement *link in [rssLinks arrayByAddingObjectsFromArray:atomLinks]) {
-                NSString *href = [link.attributes objectForKey:@"href"];
-                
-                if (href.length) {
-                    // try re-requesting this instead
-                    self.request = [SMWebRequest requestWithURL:[NSURL URLWithString:href] delegate:nil context:NULL];
-                    [request addTarget:self action:@selector(feedRequestComplete:) forRequestEvents:SMWebRequestEventComplete];
-                    [request addTarget:self action:@selector(feedRequestError:) forRequestEvents:SMWebRequestEventError];
-                    [request start];
-                    return;
-                }
+            if (href.length) {
+                Feed *feed = [Feed feedWithURLString:href title:title account:self];
+                if (![foundFeeds containsObject:feed]) [foundFeeds addObject:feed]; // check for duplicates
             }
         }
+        
+        for (TFHppleElement *link in atomLinks) {
+            NSString *href = [link.attributes objectForKey:@"href"];
+            NSString *title = [link.attributes objectForKey:@"title"] ?: @"Atom Feed";
+            
+            if (href.length) {
+                Feed *feed = [Feed feedWithURLString:href title:title account:self];
+                if (![foundFeeds containsObject:feed]) [foundFeeds addObject:feed]; // check for duplicates
+            }
+        }
+        
+        if (foundFeeds.count)
+            self.feeds = foundFeeds;
+        else {
+            [self.delegate account:self validationDidFailWithMessage:@"Could not discover any feeds at the given URL. Try specifying the complete URL to the feed." field:AccountFailingFieldDomain];
+            return;
+        }
     }
-    
-    // make sure we can parse this feed, and snag the title if we can!
-    NSString *title; NSError *error;
-    NSArray *items = [Feed feedItemsWithData:data discoveredTitle:&title error:&error];
-    
-    if (items == nil) {
-        NSString *message = [NSString stringWithFormat:@"Could not parse the given feed. Error: %@", error.localizedDescription];
-        [self.delegate account:self validationDidFailWithMessage:message field:AccountFailingFieldUnknown];
-        return;
+    else {
+        // make sure we can parse this feed, and snag the title if we can!
+        NSString *title; NSError *error;
+        NSArray *items = [Feed feedItemsWithData:data discoveredTitle:&title error:&error];
+        
+        if (items == nil) {
+            NSString *message = [NSString stringWithFormat:@"Could not parse the given feed. Error: %@", error.localizedDescription];
+            [self.delegate account:self validationDidFailWithMessage:message field:AccountFailingFieldUnknown];
+            return;
+        }
+        
+        Feed *feed = [Feed feedWithURLString:self.request.request.URL.absoluteString title:(title ?: @"All Items") account:self];
+        
+        if (username.length)
+            feed.requiresBasicAuth = YES;
+        
+        self.feeds = [NSArray arrayWithObject:feed];
     }
-    
-    Feed *feed = [Feed feedWithURLString:self.request.request.URL.absoluteString title:(title ?: @"All Items") account:self];
-
-    if (username.length)
-        feed.requiresBasicAuth = YES;
-    
-    self.feeds = [NSArray arrayWithObject:feed];
     
     [self.delegate account:self validationDidCompleteWithNewPassword:nil];
 }

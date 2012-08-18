@@ -332,10 +332,12 @@ NSDate *AutoFormatDate(NSString *dateString) {
     SMXMLElement *guid = [element childNamed:@"guid"]; // RSS 2.0
     SMXMLElement *link = [element childNamed:@"link"]; // RSS 1.0?
     
-    if (guid && NSEqualStrings([guid attributeNamed:@"isPermaLink"],@"true"))
+    if (guid && guid.value && NSEqualStrings([guid attributeNamed:@"isPermaLink"],@"true"))
         item.link = [NSURL URLWithString:guid.value];
-    else if (link)
+    else if (link && link.value)
         item.link = [NSURL URLWithString:link.value];
+    else if (link && [link attributeNamed:@"href"])
+        item.link = [NSURL URLWithString:[link attributeNamed:@"href"]];
     
     if ([element childNamed:@"comments"])
         item.comments = [NSURL URLWithString:[element childNamed:@"comments"].value];
@@ -408,7 +410,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
 - (NSAttributedString *)attributedStringHighlighted:(BOOL)highlighted {
 
     NSString *decodedTitle = [(title.length ? title : content) stringByDecodingCharacterEntities]; // fallback to content if no title
-    NSString *decodedAuthor = [author stringByDecodingCharacterEntities];
+    NSString *decodedAuthor = [[author stringByDecodingCharacterEntities] truncatedWithString:@"" afterIndex:20];
 
     NSDictionary *titleAtts = [NSDictionary dictionaryWithObjectsAndKeys:
                                [NSFont systemFontOfSize:13.0f],NSFontAttributeName,nil];
@@ -437,6 +439,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
         return attributed;
     }
     else {
+        decodedTitle = [decodedTitle truncatedAfterIndex:40];
         NSMutableAttributedString *attributed = [[[NSMutableAttributedString alloc] initWithString:decodedTitle] autorelease];
         [attributed addAttributes:titleAtts range:NSMakeRange(0, decodedTitle.length)];
         return attributed;
