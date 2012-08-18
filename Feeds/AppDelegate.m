@@ -2,9 +2,7 @@
 #import "Feed.h"
 #import "StatusItemView.h"
 
-// TODO: Growl popup shows author too?
-
-#ifdef DEBUG
+#ifdef DEBUG_DISABLED
 #define PER_ITEM_SHIM_STRATEGY 1
 #define MAX_ITEMS 9999
 #else
@@ -57,7 +55,13 @@
         TransformProcessType(&psn, kProcessTransformToForegroundApplication);
     }
 
+    // migrate any old preferences
+    [PreferencesController migrateSettings];
+    
     [GrowlApplicationBridge setGrowlDelegate:self];
+    
+    if (NSClassFromString(@"NSUserNotificationCenter"))
+        [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
 
     hotKeyCenter = [DDHotKeyCenter new];
     
@@ -96,19 +100,22 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedUpdated:) name:kFeedUpdatedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedFailed:) name:kSMWebRequestError object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged) name:kReachabilityChangedNotification object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshIntervalChanged) name:@"RefreshIntervalChanged" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hotKeysChanged) name:@"FeedsHotKeysChanged" object:nil];
-    
+        
     [self hotKeysChanged];
     [self reachabilityChanged];
     
 #if DEBUG
     ProcessSerialNumber psn = { 0, kCurrentProcess }; 
     TransformProcessType(&psn, kProcessTransformToForegroundApplication);
-    [self openPreferences:nil];
+//    [self openPreferences:nil];
 #endif
 
     [self accountsChanged:nil];
+    
+    // did we open as the result of clicking a notification? (rare!)
+    NSUserNotification *notification = [aNotification.userInfo objectForKey:NSApplicationLaunchUserNotificationKey];
+    if (notification) [self userNotificationCenter:nil didActivateNotification:notification];
 }
 
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
@@ -117,10 +124,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"GetURL" object:self userInfo:
      [NSDictionary dictionaryWithObject:url forKey:@"URL"]];
 }
-
-//- (NSTimeInterval)refreshInterval {
-//    return [[NSUserDefaults standardUserDefaults] integerForKey:@"RefreshInterval"] ?: DEFAULT_REFRESH_INTERVAL;
-//}
 
 - (void)setRefreshTimer:(NSTimer *)value {
     [refreshTimer invalidate];
@@ -131,10 +134,6 @@
     [popoverTimer invalidate];
     [popoverTimer release], popoverTimer = [value retain];
 }
-
-//- (void)refreshIntervalChanged {
-//    [self reachabilityChanged]; // trigger a timer reset
-//}
 
 - (void)hotKeysChanged {
     [hotKeyCenter unregisterHotKeysWithTarget:self];
@@ -214,12 +213,26 @@
     menuNeedsRebuild = YES;
 
     Feed *feed = [notification object];
-    int notifications = 0;
     
-    // Show Growl notifications if the user wants
-    BOOL disableNotifications = [[NSUserDefaults standardUserDefaults] boolForKey:@"DisableNotifications"];
+    // Show notifications if the user wants
+    NotificationType notificationType = (NotificationType)[[NSUserDefaults standardUserDefaults] integerForKey:@"NotificationType"];
     
-    if (!disableNotifications)
+    if (notificationType == NotificationTypeUserNotificationCenter) {
+        for (FeedItem *item in feed.items.reverseObjectEnumerator) {
+            if (!item.notified) {
+                NSUserNotification *notification = [[[NSUserNotification alloc] init] autorelease];
+                
+                notification.title = item.authorAndTitle.stringByDecodingCharacterEntities;
+                notification.informativeText = [item.content.stringByFlatteningHTML stringByCondensingSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                notification.hasActionButton = NO;
+                notification.userInfo = [NSDictionary dictionaryWithObject:item.link.absoluteString forKey:@"FeedItemLink"];
+                
+                [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+            }
+        }
+    }
+    else if (notificationType == NotificationTypeGrowl) {
+        int notifications = 0;
         for (FeedItem *item in feed.items) {
             if (!item.notified && notifications++ < MAX_GROWLS) {
                 [GrowlApplicationBridge
@@ -232,6 +245,7 @@
                  clickContext:[item.link absoluteString]];
             }
         }
+    }
     
     // mark all as notified
     for (FeedItem *item in feed.items)
@@ -239,6 +253,16 @@
 
     [self rebuildItems];
     [self updateStatusItemIcon];
+}
+
+- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification {
+    return YES;
+}
+
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification {
+    [[NSUserNotificationCenter defaultUserNotificationCenter] removeDeliveredNotification:notification];
+    NSString *link = [notification.userInfo objectForKey:@"FeedItemLink"];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:link]];
 }
 
 - (void)rebuildItems {
@@ -299,6 +323,8 @@
 - (void)menuWillOpen:(NSMenu *)menu {
     if (menuNeedsRebuild)
         [self rebuildMenuItems];
+    
+    [[NSUserNotificationCenter defaultUserNotificationCenter] removeAllDeliveredNotifications];
 }
 
 - (void)highlightMenuItem:(NSMenuItem *)menuItem {

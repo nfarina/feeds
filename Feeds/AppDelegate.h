@@ -1,7 +1,7 @@
 #import "PreferencesController.h"
 #import "StatusItemView.h"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate, NSMenuDelegate, GrowlApplicationBridgeDelegate> {
+@interface AppDelegate : NSObject <NSApplicationDelegate, NSMenuDelegate, GrowlApplicationBridgeDelegate, NSUserNotificationCenterDelegate> {
     IBOutlet NSMenu *menu;
     NSStatusItem *statusItem;
     StatusItemView *statusItemView;

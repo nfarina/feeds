@@ -4,6 +4,24 @@
 @implementation PreferencesController
 @synthesize oldFeeds;
 
++ (void)migrateSettings {
+    NotificationType notificationType = (NotificationType)[[NSUserDefaults standardUserDefaults] integerForKey:@"NotificationType"];
+    
+    // if you had disabled notifications in a previous version, we can migrate that setting
+    BOOL disabledNotifications = [[NSUserDefaults standardUserDefaults] boolForKey:@"DisableNotifications"];
+    if (disabledNotifications)
+        notificationType = NotificationTypeDisabled;
+
+    // remove this setting regardless
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"DisableNotifications"];
+
+    // Select Growl if User Notification Center was defaulted to but is not available
+    if (notificationType == NotificationTypeUserNotificationCenter && !NSClassFromString(@"NSUserNotificationCenter")) {
+        notificationType = NotificationTypeGrowl;
+        [[NSUserDefaults standardUserDefaults] setInteger:notificationType forKey:@"NotificationType"];
+    }
+}
+
 - (id)initPreferencesController {
     if ([super initWithWindowNibName:@"PreferencesController"]) {
         // Initialization code here.
@@ -16,11 +34,15 @@
     [self selectGeneralTab:nil];
     [self tableViewSelectionDidChange:nil];
     
-//    NSTimeInterval refreshInterval = [[NSUserDefaults standardUserDefaults] integerForKey:@"RefreshInterval"] ?: DEFAULT_REFRESH_INTERVAL;
-//    [refreshIntervalButton selectItemWithTag:refreshInterval];
-    
-    BOOL disableNotifications = [[NSUserDefaults standardUserDefaults] boolForKey:@"DisableNotifications"];
-    showNotificationsButton.state = (disableNotifications ? NSOffState : NSOnState);
+    // if we don't have Notification Center available (pre-mountain-lion) then we can't select it
+    if (!NSClassFromString(@"NSUserNotificationCenter")) {
+        // hide the fact that Growl exists (you don't have a choice now)
+        [notificationTypeButton removeItemAtIndex:0];
+        notificationTypeGrowlItem.title = @"Enabled";
+    }
+
+    NotificationType notificationType = (NotificationType)[[NSUserDefaults standardUserDefaults] integerForKey:@"NotificationType"];
+    [notificationTypeButton selectItemWithTag:notificationType];
 
     KeyCombo combo;
     combo.code = [[NSUserDefaults standardUserDefaults] integerForKey:@"OpenMenuKeyCode"];
@@ -85,21 +107,15 @@
 
 #pragma mark General
 
-//- (void)refreshIntervalChanged:(id)sender {
-//    NSTimeInterval refreshInterval = refreshIntervalButton.selectedItem.tag; // cleverly the menuitem "tag" is the refresh interval
-//    [[NSUserDefaults standardUserDefaults] setInteger:refreshInterval forKey:@"RefreshInterval"];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshIntervalChanged" object:nil];
-//}
-
 - (void)shortcutRecorder:(SRRecorderControl *)aRecorder keyComboDidChange:(KeyCombo)newKeyCombo {
     [[NSUserDefaults standardUserDefaults] setInteger:newKeyCombo.code forKey:@"OpenMenuKeyCode"];
     [[NSUserDefaults standardUserDefaults] setInteger:newKeyCombo.flags forKey:@"OpenMenuKeyFlags"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"FeedsHotKeysChanged" object:nil];
 }
 
-- (void)showNotificationsChanged:(id)sender {
-    BOOL showNotifications = (showNotificationsButton.state == NSOnState);
-    [[NSUserDefaults standardUserDefaults] setBool:!showNotifications forKey:@"DisableNotifications"];
+- (void)notificationTypeChanged:(id)sender {
+    NotificationType notificationType = (NotificationType)notificationTypeButton.selectedTag;
+    [[NSUserDefaults standardUserDefaults] setInteger:notificationType forKey:@"NotificationType"];
 }
 
 - (void)launchAtStartupChanged:(id)sender {

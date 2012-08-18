@@ -2,19 +2,28 @@
 
 #define DEFAULT_REFRESH_INTERVAL 30*60; // default to 30 minutes if none specified
 
+typedef enum {
+    NotificationTypeUserNotificationCenter = 0,
+    NotificationTypeGrowl = 1,
+    NotificationTypeDisabled = 2
+} NotificationType;
+
 @interface PreferencesController : NSWindowController <NSToolbarDelegate, NSTabViewDelegate, NSTableViewDataSource, NSTableViewDelegate, NewAccountControllerDelegate, AccountDelegate> {
     IBOutlet NSToolbar *toolbar;
     IBOutlet NSTabView *tabView;
     IBOutlet NSTableView *tableView, *feedsTableView;
-    IBOutlet NSButton *removeButton, *showNotificationsButton, *launchAtStartupButton, *hideDockIconButton;
+    IBOutlet NSButton *removeButton, *launchAtStartupButton, *hideDockIconButton;
+    IBOutlet NSPopUpButton *notificationTypeButton;
+    IBOutlet NSMenuItem *notificationTypeGrowlItem;
     IBOutlet SRRecorderControl *keyRecorderControl;
     IBOutlet NSView *generalView, *accountsView;
-//    IBOutlet NSPopUpButton *refreshIntervalButton;
     IBOutlet NSProgressIndicator *findFeedsProgress;
     IBOutlet NSTextField *findFeedsLabel;
     IBOutlet NSImageView *findFeedsWarning;
     NSArray *oldFeeds;
 }
+
++ (void)migrateSettings; // from an older version of Feeds
 
 @property (nonatomic, copy) NSArray *oldFeeds;
 
@@ -27,8 +36,7 @@
 - (IBAction)addAccount:(id)sender;
 - (IBAction)removeAccount:(id)sender;
 
-//- (IBAction)refreshIntervalChanged:(id)sender;
-- (IBAction)showNotificationsChanged:(id)sender;
+- (IBAction)notificationTypeChanged:(id)sender;
 - (IBAction)launchAtStartupChanged:(id)sender;
 - (IBAction)hideDockIconChanged:(id)sender;;
 
