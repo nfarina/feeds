@@ -157,7 +157,8 @@
         #endif
         
         // only refresh if needed
-        if (([NSDate timeIntervalSinceReferenceDate] - account.lastRefresh.timeIntervalSinceReferenceDate) > account.refreshInterval)
+        NSTimeInterval timeSinceRefresh = [NSDate timeIntervalSinceReferenceDate] - account.lastRefresh.timeIntervalSinceReferenceDate;
+        if (timeSinceRefresh > account.refreshIntervalOrDefault)
             [account refreshEnabledFeeds];
     }
 }

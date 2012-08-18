@@ -69,7 +69,7 @@
     [toolbar setSelectedItemIdentifier:@"accounts"];
     [self selectAccountsTab:nil];
     #ifdef ISOLATE_ACCOUNTS
-    [self addAccount:nil];
+//    [self addAccount:nil];
     #endif
 #else
     [self.window setLevel: NSTornOffMenuWindowLevel]; // a.k.a. "Always On Top"
@@ -170,9 +170,11 @@
 
 - (void)updateDetailView {
     [removeButton setEnabled:tableView.selectedRow >= 0];
-    
-    // update Feeds panel
-    
+    [self updateFeedsPanel];
+    [self updateOptionsPanel];
+}
+
+- (void)updateFeedsPanel {
     // cancel any pending account validation
     [[Account allAccounts] makeObjectsPerformSelector:@selector(cancelValidation)];
     [[Account allAccounts] makeObjectsPerformSelector:@selector(setDelegate:) withObject:nil];
@@ -196,9 +198,6 @@
         findFeedsProgress.hidden = YES;
         findFeedsLabel.hidden = YES;
     }
-    
-    // update Options panel
-    [accountNameLabel setStringValue:self.selectedAccount.name ?: [[self.selectedAccount class] friendlyAccountName]];
 }
 
 - (IBAction)removeAccount:(id)sender {
@@ -263,6 +262,18 @@
 
 #pragma mark Options
 
+- (void)updateOptionsPanel {
+    [accountNameLabel setStringValue:self.selectedAccount.name ?: [[self.selectedAccount class] friendlyAccountName]];
+    [refreshIntervalButton selectItemWithTag:self.selectedAccount.refreshInterval / 60];
+
+    // update the default interval item title
+//    int minutes = [self.selectedAccount.class defaultRefreshInterval] / 60;
+//    if (minutes == 1)
+//        [defaultRefreshIntervalItem setTitle:@"Default (every minute)"];
+//    else
+//        [defaultRefreshIntervalItem setTitle:[NSString stringWithFormat:@"Default (%i minutes)", minutes]];
+}
+
 - (void)accountNameChanged:(id)sender {
     NSString *name = accountNameLabel.stringValue;
     if (!name.length || [name isEqualToString:[[self.selectedAccount class] shortAccountName]])
@@ -273,7 +284,15 @@
 }
 
 - (void)refreshIntervalChanged:(id)sender {
-    
+    NSTimeInterval interval = refreshIntervalButton.selectedTag * 60; // we store the interval in minutes in the "Tag" property
+    self.selectedAccount.refreshInterval = interval;
+    [Account saveAccounts];
+}
+
+- (void)menuWillOpen:(NSMenu *)menu {
+    // you can only see the "Every 1 minute" option if you hold Option before clicking the refresh interval popup
+    BOOL optionHeldDown = ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) != 0;
+    [oneMinuteRefreshIntervalItem setHidden:!optionHeldDown];
 }
 
 @end

@@ -8,13 +8,13 @@ typedef enum {
     NotificationTypeDisabled = 2
 } NotificationType;
 
-@interface PreferencesController : NSWindowController <NSToolbarDelegate, NSTabViewDelegate, NSTableViewDataSource, NSTableViewDelegate, NewAccountControllerDelegate, AccountDelegate> {
+@interface PreferencesController : NSWindowController <NSToolbarDelegate, NSTabViewDelegate, NSTableViewDataSource, NSTableViewDelegate, NSMenuDelegate, NewAccountControllerDelegate, AccountDelegate> {
     IBOutlet NSToolbar *toolbar;
     IBOutlet NSTabView *tabView;
     IBOutlet NSTableView *tableView, *feedsTableView;
     IBOutlet NSButton *removeButton, *launchAtStartupButton, *hideDockIconButton;
     IBOutlet NSPopUpButton *notificationTypeButton, *refreshIntervalButton;
-    IBOutlet NSMenuItem *notificationTypeGrowlItem, *defaultRefreshIntervalItem;
+    IBOutlet NSMenuItem *notificationTypeGrowlItem, *defaultRefreshIntervalItem, *oneMinuteRefreshIntervalItem;
     IBOutlet SRRecorderControl *keyRecorderControl;
     IBOutlet NSView *generalView, *accountsView;
     IBOutlet NSProgressIndicator *findFeedsProgress;

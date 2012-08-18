@@ -15,6 +15,7 @@ typedef enum {
 @interface Account : NSObject <NSTableViewDataSource> {
     id<AccountDelegate> delegate; // nonretained
     NSString *name, *domain, *username;
+    NSTimeInterval refreshInterval;
     SMWebRequest *request; // convenience for subclassers, will be properly cancelled and cleaned up on dealloc
     SMWebRequest *tokenRequest; // similar convenience for subclasses who need to refresh oauth tokens.
     NSArray *feeds; // of Feed
@@ -28,6 +29,7 @@ typedef enum {
 + (void)registerClass:(Class)cls;
 + (NSString *)friendlyAccountName; // default implementation chops off the Account suffix
 + (NSString *)shortAccountName; // for display in the list-of-accounts table view, defaults to +friendlyAccountName
++ (NSTimeInterval)defaultRefreshInterval; // default is 10 minutes
 
 // creation options, returns YES by default
 + (BOOL) requiresAuth;
@@ -52,6 +54,7 @@ typedef enum {
 
 @property (nonatomic, assign) id<AccountDelegate> delegate;
 @property (nonatomic, copy) NSString *name, *domain, *username;
+@property (nonatomic, assign) NSTimeInterval refreshInterval;
 @property (nonatomic, copy) NSArray *feeds;
 @property (nonatomic, readonly) NSImage *menuIconImage, *accountIconImage;
 @property (nonatomic, readonly) NSData *notifyIconData;
@@ -77,11 +80,12 @@ typedef enum {
 - (void)savePassword:(NSString *)password;
 - (void)deletePassword;
 
-- (NSTimeInterval)refreshInterval; // default is 10 minutes
 - (void)refreshEnabledFeeds;
 - (void)refreshFeeds:(NSArray *)feeds;
 
 - (NSString *)friendlyDomain; // default implementation detects a URL and returns only the domain name if it's a full URL
+
+- (NSTimeInterval)refreshIntervalOrDefault;
 
 // for subclassers
 @property (nonatomic, retain) SMWebRequest *request, *tokenRequest;

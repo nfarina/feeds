@@ -13,7 +13,7 @@
 + (BOOL)requiresUsername { return NO; }
 + (BOOL)requiresPassword { return NO; }
 + (NSString *)friendlyAccountName { return @"Basecamp"; }
-- (NSTimeInterval)refreshInterval { return 60; } // one minute
++ (NSTimeInterval)defaultRefreshInterval { return 60; } // one minute
 
 - (void)beginAuth {
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://launchpad.37signals.com/authorization/new?client_id=%@&redirect_uri=%@&type=web_server",BASECAMP_NEXT_OAUTH_KEY, BASECAMP_NEXT_REDIRECT]];

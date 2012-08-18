@@ -4,8 +4,7 @@
 
 + (void)load { [Account registerClass:self]; }
 + (BOOL)requiresUsername { return YES; }
-
-- (NSTimeInterval)refreshInterval { return 15*60; } // 15 minutes to respect dribbble's request.
++ (NSTimeInterval)defaultRefreshInterval { return 15*60; } // 15 minutes to respect dribbble's request.
 
 - (void)validateWithPassword:(NSString *)password {
     

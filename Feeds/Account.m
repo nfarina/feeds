@@ -9,7 +9,7 @@ static NSMutableArray *allAccounts = nil;
 @end
 
 @implementation Account
-@synthesize delegate, name, domain, username, request, tokenRequest, feeds, lastRefresh, lastTokenRefresh;
+@synthesize delegate, name, domain, username, refreshInterval, request, tokenRequest, feeds, lastRefresh, lastTokenRefresh;
 
 static NSMutableArray *registeredClasses = nil;
 
@@ -80,8 +80,7 @@ static NSMutableArray *registeredClasses = nil;
 + (NSString *)domainPrefix { return @"http://"; }
 + (NSString *)domainSuffix { return @""; }
 + (NSString *)domainPlaceholder { return @""; }
-
-- (NSTimeInterval)refreshInterval { return 10*60; } // 10 minutes
++ (NSTimeInterval)defaultRefreshInterval { return 10*60; } // 10 minutes
 
 - (NSArray *)enabledFeeds {
     NSMutableArray *enabledFeeds = [NSMutableArray array];
@@ -143,6 +142,7 @@ static NSMutableArray *registeredClasses = nil;
     self.name = [dict objectForKey:@"name"];
     self.domain = [dict objectForKey:@"domain"];
     self.username = [dict objectForKey:@"username"];
+    self.refreshInterval = [[dict objectForKey:@"refreshInterval"] integerValue];
     self.feeds = [[dict objectForKey:@"feeds"] selectUsingBlock:^id(NSDictionary *dict) { return [Feed feedWithDictionary:dict account:self]; }];
     return self;
 }
@@ -153,6 +153,7 @@ static NSMutableArray *registeredClasses = nil;
     if (name) [dict setObject:name forKey:@"name"];
     if (domain) [dict setObject:domain forKey:@"domain"];
     if (username) [dict setObject:username forKey:@"username"];
+    if (refreshInterval) [dict setObject:@(refreshInterval) forKey:@"refreshInterval"];
     if (feeds) [dict setObject:[feeds valueForKey:@"dictionaryRepresentation"] forKey:@"feeds"];
     return dict;
 }
@@ -206,6 +207,10 @@ static NSMutableArray *registeredClasses = nil;
         return URL.host;
     }
     else return self.domain;
+}
+
+- (NSTimeInterval)refreshIntervalOrDefault {
+    return refreshInterval ?: [[self class] defaultRefreshInterval];
 }
 
 - (void)validateWithPassword:(NSString *)password {
