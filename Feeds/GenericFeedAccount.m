@@ -8,7 +8,7 @@
 + (NSString *)domainLabel { return @"Feed URL:"; }
 + (NSString *)domainPrefix { return @""; }
 + (NSString *)domainSuffix { return @""; }
-+ (NSString *)domainPlaceholder { return @"http://example.com/feed.rss"; }
++ (NSString *)domainPlaceholder { return @"example.com"; }
 
 - (void)validateWithPassword:(NSString *)password {
 
