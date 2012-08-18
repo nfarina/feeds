@@ -3,12 +3,12 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1080</int>
 		<string key="IBDocument.SystemVersion">12A269</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2829</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2549</string>
 		<string key="IBDocument.AppKitVersion">1187</string>
 		<string key="IBDocument.HIToolboxVersion">624.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">2829</string>
+			<string key="NS.object.0">2549</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSBox</string>
@@ -202,7 +202,7 @@
 											<object class="NSTextField" id="752904320">
 												<reference key="NSNextResponder" ref="4345005"/>
 												<int key="NSvFlags">268</int>
-												<string key="NSFrame">{{87, 306}, {123, 17}}</string>
+												<string key="NSFrame">{{61, 306}, {150, 17}}</string>
 												<reference key="NSSuperview" ref="4345005"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="570058477"/>
@@ -211,7 +211,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="876793589">
 													<int key="NSCellFlags">68157504</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">New activity alerts:</string>
+													<string key="NSContents">New item notifications:</string>
 													<reference key="NSSupport" ref="461831584"/>
 													<string key="NSCellIdentifier">_NS:3944</string>
 													<reference key="NSControlView" ref="752904320"/>
@@ -976,6 +976,7 @@
 					<string key="NSFrameSize">{501, 337}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
+					<reference key="NSNextKeyView" ref="517972414"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1366, 746}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
@@ -1340,11 +1341,11 @@
 							</object>
 							<reference ref="423277526"/>
 							<reference ref="570058477"/>
-							<reference ref="752904320"/>
 							<reference ref="777672983"/>
 							<reference ref="790559665"/>
 							<reference ref="568544955"/>
 							<reference ref="783686849"/>
+							<reference ref="752904320"/>
 						</array>
 						<reference key="parent" ref="461897664"/>
 					</object>
