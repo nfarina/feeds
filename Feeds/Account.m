@@ -9,7 +9,7 @@ static NSMutableArray *allAccounts = nil;
 @end
 
 @implementation Account
-@synthesize delegate, domain, username, request, tokenRequest, feeds, lastRefresh, lastTokenRefresh;
+@synthesize delegate, name, domain, username, request, tokenRequest, feeds, lastRefresh, lastTokenRefresh;
 
 static NSMutableArray *registeredClasses = nil;
 
@@ -140,6 +140,7 @@ static NSMutableArray *registeredClasses = nil;
 
 - (id)initWithDictionary:(NSDictionary *)dict {
     self = [super init];
+    self.name = [dict objectForKey:@"name"];
     self.domain = [dict objectForKey:@"domain"];
     self.username = [dict objectForKey:@"username"];
     self.feeds = [[dict objectForKey:@"feeds"] selectUsingBlock:^id(NSDictionary *dict) { return [Feed feedWithDictionary:dict account:self]; }];
@@ -149,15 +150,16 @@ static NSMutableArray *registeredClasses = nil;
 - (NSDictionary *)dictionaryRepresentation {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setObject:self.type forKey:@"type"];
-    if (domain) [dict setObject:self.domain forKey:@"domain"];
-    if (username) [dict setObject:self.username forKey:@"username"];
+    if (name) [dict setObject:name forKey:@"name"];
+    if (domain) [dict setObject:domain forKey:@"domain"];
+    if (username) [dict setObject:username forKey:@"username"];
     if (feeds) [dict setObject:[feeds valueForKey:@"dictionaryRepresentation"] forKey:@"feeds"];
     return dict;
 }
 
 - (void)dealloc {
     self.delegate = nil;
-    self.domain = self.username = nil;
+    self.name = self.domain = self.username = nil;
     self.request = self.tokenRequest = nil;
     self.feeds = nil;
     self.lastRefresh = self.lastTokenRefresh = nil;

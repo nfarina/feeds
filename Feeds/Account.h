@@ -14,7 +14,7 @@ typedef enum {
 
 @interface Account : NSObject <NSTableViewDataSource> {
     id<AccountDelegate> delegate; // nonretained
-    NSString *domain, *username;
+    NSString *name, *domain, *username;
     SMWebRequest *request; // convenience for subclassers, will be properly cancelled and cleaned up on dealloc
     SMWebRequest *tokenRequest; // similar convenience for subclasses who need to refresh oauth tokens.
     NSArray *feeds; // of Feed
@@ -51,7 +51,7 @@ typedef enum {
 + (NSData *)extraDataWithContentsOfURLRequest:(NSMutableURLRequest *)URLRequest;
 
 @property (nonatomic, assign) id<AccountDelegate> delegate;
-@property (nonatomic, copy) NSString *domain, *username;
+@property (nonatomic, copy) NSString *name, *domain, *username;
 @property (nonatomic, copy) NSArray *feeds;
 @property (nonatomic, readonly) NSImage *menuIconImage, *accountIconImage;
 @property (nonatomic, readonly) NSData *notifyIconData;

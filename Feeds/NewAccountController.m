@@ -65,7 +65,7 @@
     [domainSuffix setHidden:![accountClass requiresDomain]];
     [domainSuffix setStringValue:[accountClass domainSuffix]];
     [domainField setHidden:![accountClass requiresDomain]];
-    [[domainField cell] setPlaceholderString:[accountClass domainPlaceholder]];
+    [domainField.cell setPlaceholderString:[accountClass domainPlaceholder]];
     [usernameLabel setHidden:![accountClass requiresUsername]];
     [usernameLabel setStringValue:[accountClass usernameLabel]];
     [usernameField setHidden:![accountClass requiresUsername]];

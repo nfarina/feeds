@@ -23,11 +23,11 @@
     SMXMLDocument *document = [SMXMLDocument documentWithData:data error:NULL];
     //NSLog(@"Document: %@", document);
 
-    NSString *name = [document.root valueWithPath:@"name"];
+    NSString *myName = [document.root valueWithPath:@"name"];
     NSString *token = [document.root valueWithPath:@"token"];
 
     NSString *firstName = nil, *lastName = nil;
-    NSArray *parts = [name componentsSeparatedByString:@" "];
+    NSArray *parts = [myName componentsSeparatedByString:@" "];
     
     if ([parts count] == 2) {
         firstName = [parts objectAtIndex:0];

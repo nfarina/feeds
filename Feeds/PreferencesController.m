@@ -133,9 +133,13 @@
     return [[Account allAccounts] count];
 }
 
+- (Account *)selectedAccount {
+    return [[Account allAccounts] objectAtIndex:tableView.selectedRow];
+}
+
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     Account *account = [[Account allAccounts] objectAtIndex:row];
-    return [NSDictionary dictionaryWithObjectsAndKeys:account.type, @"type", [[account class] shortAccountName], @"name", account.username, @"username", account.friendlyDomain, @"domain", nil];
+    return [NSDictionary dictionaryWithObjectsAndKeys:account.type, @"type", account.name ?: [[account class] shortAccountName], @"name", account.username, @"username", account.friendlyDomain, @"domain", nil];
 }
 
 - (BOOL)tableView:(NSTableView *)tableView shouldShowCellExpansionForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
@@ -167,6 +171,8 @@
 - (void)updateDetailView {
     [removeButton setEnabled:tableView.selectedRow >= 0];
     
+    // update Feeds panel
+    
     // cancel any pending account validation
     [[Account allAccounts] makeObjectsPerformSelector:@selector(cancelValidation)];
     [[Account allAccounts] makeObjectsPerformSelector:@selector(setDelegate:) withObject:nil];
@@ -175,22 +181,24 @@
     
     if (tableView.selectedRow >= 0) {
         // refresh the available feeds by reauthenticating to this account
-        Account *selectedAccount = [[Account allAccounts] objectAtIndex:tableView.selectedRow];
-        selectedAccount.delegate = self;
+        self.selectedAccount.delegate = self;
         
         findFeedsProgress.hidden = NO;
         findFeedsLabel.hidden = NO;
         [findFeedsLabel setStringValue:@"Finding feeds…"];
         [findFeedsProgress startAnimation:nil];
-        self.oldFeeds = selectedAccount.feeds; // preserve old feeds because existing FeedItems in our main menu might point to them (weak links)
+        self.oldFeeds = self.selectedAccount.feeds; // preserve old feeds because existing FeedItems in our main menu might point to them (weak links)
         
-        [selectedAccount validateWithPassword:[selectedAccount findPassword]];
+        [self.selectedAccount validateWithPassword:[self.selectedAccount findPassword]];
     }
     else {
         [findFeedsProgress stopAnimation:nil];
         findFeedsProgress.hidden = YES;
         findFeedsLabel.hidden = YES;
     }
+    
+    // update Options panel
+    [accountNameLabel setStringValue:self.selectedAccount.name ?: [[self.selectedAccount class] friendlyAccountName]];
 }
 
 - (IBAction)removeAccount:(id)sender {
@@ -251,6 +259,21 @@
     }
     
     feedsTableView.dataSource = account;
+}
+
+#pragma mark Options
+
+- (void)accountNameChanged:(id)sender {
+    NSString *name = accountNameLabel.stringValue;
+    if (!name.length || [name isEqualToString:[[self.selectedAccount class] shortAccountName]])
+        name = nil;
+    self.selectedAccount.name = name;
+    [tableView reloadData];
+    [Account saveAccounts];
+}
+
+- (void)refreshIntervalChanged:(id)sender {
+    
 }
 
 @end

@@ -3,7 +3,7 @@
 @implementation GenericFeedAccount
 
 + (void)load { [Account registerClass:self]; }
-+ (NSString *)friendlyAccountName { return @"RSS/Atom Feed"; }
++ (NSString *)friendlyAccountName { return @"RSS/Atom"; }
 + (BOOL)requiresDomain { return YES; }
 + (NSString *)domainLabel { return @"Feed URL:"; }
 + (NSString *)domainPrefix { return @""; }

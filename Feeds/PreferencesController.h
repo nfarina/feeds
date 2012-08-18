@@ -13,12 +13,12 @@ typedef enum {
     IBOutlet NSTabView *tabView;
     IBOutlet NSTableView *tableView, *feedsTableView;
     IBOutlet NSButton *removeButton, *launchAtStartupButton, *hideDockIconButton;
-    IBOutlet NSPopUpButton *notificationTypeButton;
-    IBOutlet NSMenuItem *notificationTypeGrowlItem;
+    IBOutlet NSPopUpButton *notificationTypeButton, *refreshIntervalButton;
+    IBOutlet NSMenuItem *notificationTypeGrowlItem, *defaultRefreshIntervalItem;
     IBOutlet SRRecorderControl *keyRecorderControl;
     IBOutlet NSView *generalView, *accountsView;
     IBOutlet NSProgressIndicator *findFeedsProgress;
-    IBOutlet NSTextField *findFeedsLabel;
+    IBOutlet NSTextField *findFeedsLabel, *accountNameLabel;
     IBOutlet NSImageView *findFeedsWarning;
     NSArray *oldFeeds;
 }
@@ -38,6 +38,9 @@ typedef enum {
 
 - (IBAction)notificationTypeChanged:(id)sender;
 - (IBAction)launchAtStartupChanged:(id)sender;
-- (IBAction)hideDockIconChanged:(id)sender;;
+- (IBAction)hideDockIconChanged:(id)sender;
+
+- (IBAction)accountNameChanged:(id)sender;
+- (IBAction)refreshIntervalChanged:(id)sender;
 
 @end
