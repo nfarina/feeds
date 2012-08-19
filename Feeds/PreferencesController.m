@@ -16,7 +16,7 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"DisableNotifications"];
 
     // Select Growl if User Notification Center was defaulted to but is not available
-    if (notificationType == NotificationTypeUserNotificationCenter && !NSClassFromString(@"NSUserNotificationCenter")) {
+    if (!HAS_NOTIFICATION_CENTER && notificationType == NotificationTypeUserNotificationCenter) {
         notificationType = NotificationTypeGrowl;
         [[NSUserDefaults standardUserDefaults] setInteger:notificationType forKey:@"NotificationType"];
     }
@@ -35,7 +35,7 @@
     [self tableViewSelectionDidChange:nil];
     
     // if we don't have Notification Center available (pre-mountain-lion) then we can't select it
-    if (!NSClassFromString(@"NSUserNotificationCenter")) {
+    if (!HAS_NOTIFICATION_CENTER) {
         // hide the fact that Growl exists (you don't have a choice now)
         [notificationTypeButton removeItemAtIndex:0];
         notificationTypeGrowlItem.title = @"Enabled";

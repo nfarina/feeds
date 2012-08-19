@@ -16,15 +16,6 @@
 @interface AppDelegate ()
 @property (nonatomic, retain) NSTimer *refreshTimer, *popoverTimer;
 @property (nonatomic, retain) NSMenuItem *lastHighlightedItem;
-- (void)highlightMenuItem:(NSMenuItem *)menuItem;
-- (void)showPopoverForMenuItem:(NSMenuItem *)menuItem;
-- (void)accountsChanged:(NSNotification *)notification;
-- (void)hotKeysChanged;
-- (void)reachabilityChanged;
-- (void)refreshFeeds;
-- (void)rebuildItems;
-- (void)openBrowserWithURL:(NSURL *)url;
-- (void)updateStatusItemIcon;
 @end
 
 @implementation AppDelegate
@@ -60,7 +51,7 @@
     
     [GrowlApplicationBridge setGrowlDelegate:self];
     
-    if (NSClassFromString(@"NSUserNotificationCenter"))
+    if (HAS_NOTIFICATION_CENTER)
         [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
 
     hotKeyCenter = [DDHotKeyCenter new];
@@ -72,8 +63,8 @@
     statusItem.enabled = YES;
     statusItem.view = statusItemView;
 
-    if (NSClassFromString(@"NSPopover")) {
-        popover = [[NSClassFromString(@"NSPopover") alloc] init];
+    if (HAS_POPOVER) {
+        popover = [[NSPopover alloc] init];
         [popover setContentViewController:[[[NSViewController alloc] init] autorelease]];
         [popover setBehavior:NSPopoverBehaviorTransient];
         [popover setAnimates:NO];
@@ -87,7 +78,6 @@
         #if !PER_ITEM_SHIM_STRATEGY
         shimItem = [[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""];
         shimItem.view = [[[NSView alloc] initWithFrame:NSMakeRect(0, 0, 1, 1)] autorelease];
-        [menu addItem:shimItem];
         #endif
     }
 
@@ -113,9 +103,16 @@
 
     [self accountsChanged:nil];
     
-    // did we open as the result of clicking a notification? (rare!)
-    NSUserNotification *notification = [aNotification.userInfo objectForKey:NSApplicationLaunchUserNotificationKey];
-    if (notification) [self userNotificationCenter:nil didActivateNotification:notification];
+    if (HAS_NOTIFICATION_CENTER) {
+        
+        // setup our timer that checks periodically to see if you've dismissed any delivered NSUserNotifications so
+        // we can update our menu
+        checkUserNotificationsTimer = [[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(checkUserNotifications) userInfo:nil repeats:YES] retain];
+        
+        // did we open as the result of clicking a notification? (rare!)
+        NSUserNotification *notification = [aNotification.userInfo objectForKey:NSApplicationLaunchUserNotificationKey];
+        if (notification) [self userNotificationCenter:nil didActivateNotification:notification];
+    }
 }
 
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
@@ -218,7 +215,7 @@
     // Show notifications if the user wants
     NotificationType notificationType = (NotificationType)[[NSUserDefaults standardUserDefaults] integerForKey:@"NotificationType"];
     
-    if (notificationType == NotificationTypeUserNotificationCenter) {
+    if (HAS_NOTIFICATION_CENTER && notificationType == NotificationTypeUserNotificationCenter) {
         for (FeedItem *item in feed.items.reverseObjectEnumerator) {
             if (!item.notified) {
                 NSUserNotification *notification = [[[NSUserNotification alloc] init] autorelease];
@@ -262,17 +259,14 @@
     for (FeedItem *item in allItems)
         item.viewed = YES;
 
+    if (HAS_NOTIFICATION_CENTER)
+        [[NSUserNotificationCenter defaultUserNotificationCenter] removeAllDeliveredNotifications];
+    
     [self updateStatusItemIcon];
 }
 
 - (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification {
     return YES;
-}
-
-- (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification {
-    [[NSUserNotificationCenter defaultUserNotificationCenter] removeDeliveredNotification:notification];
-    NSString *link = [notification.userInfo objectForKey:@"FeedItemLink"];
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:link]];
 }
 
 - (void)rebuildItems {
@@ -320,7 +314,11 @@
         #endif
     }
     
-    if ([allItems count] == 0) {
+    if (allItems.count) {
+        // put the shim last
+        [menu insertItem:shimItem atIndex:allItems.count];
+    }
+    else {
         NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:@"No Items" action:NULL keyEquivalent:@""] autorelease];
         [menuItem setEnabled:NO];
         [menu insertItem:menuItem atIndex:0];
@@ -339,8 +337,6 @@
     for (FeedItem *item in allItems)
         if (!item.viewed)
             [markAllItemsAsReadItem setEnabled:YES];
-    
-    [[NSUserNotificationCenter defaultUserNotificationCenter] removeAllDeliveredNotifications];
 }
 
 - (void)highlightMenuItem:(NSMenuItem *)menuItem {
@@ -373,7 +369,7 @@
     else
         [self highlightMenuItem:nil];
     
-    if (popover) {
+    if (HAS_POPOVER) {
 
         if (menuItem.tag > 0) {
             if ([popover isShown]) {
@@ -407,7 +403,7 @@
     FeedItem *item = [allItems objectAtIndex:menuItem.tag-1];
 
     menuItem.state = NSOffState;
-    item.viewed = YES;
+    [self markItemAsViewed:item];
 
     WebView *webView = (WebView *)[popover contentViewController].view;
     
@@ -464,7 +460,7 @@
     NSInteger shimIndex = [menu indexOfItem:shimItem];
     NSInteger itemIndex = [menu indexOfItem:menuItem];
     
-    frame.origin.y += 12 + (19.333333 * (shimIndex-itemIndex-1));
+    frame.origin.y += ((shimIndex-itemIndex)*20) - 10; // 10 to get to middle of the cell
     #endif
     
     if (shim.view.superview.superview)
@@ -509,9 +505,43 @@
     FeedItem *item = [allItems objectAtIndex:menuItem.tag-1];
     
     menuItem.state = NSOffState;
-    item.viewed = YES;
+    [self markItemAsViewed:item];
     
-    [self openBrowserWithURL:item.link];
+    [[NSWorkspace sharedWorkspace] openURL:item.link];
+}
+
+- (void)markItemAsViewed:(FeedItem *)item {
+    item.viewed = YES;
+    [self updateStatusItemIcon];
+    menuNeedsRebuild = YES;
+
+    if (HAS_NOTIFICATION_CENTER) {
+        // if the item is in notification center, remove it
+        for (NSUserNotification *notification in [NSUserNotificationCenter defaultUserNotificationCenter].deliveredNotifications) {
+            NSString *link = [notification.userInfo objectForKey:@"FeedItemLink"];
+            if ([link isEqualToString:item.link.absoluteString])
+                [[NSUserNotificationCenter defaultUserNotificationCenter] removeDeliveredNotification:notification];
+        }
+    }
+}
+
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification {
+    NSString *link = [notification.userInfo objectForKey:@"FeedItemLink"];
+    
+    // if you activate the notification, that's the same as viewing an item.
+    for (FeedItem *item in allItems)
+        if ([item.link.absoluteString isEqual:link])
+            [self markItemAsViewed:item];
+    
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:link]];
+}
+
+- (void)checkUserNotifications {
+    // this is all so you can click the little "X" in notification center and have the corresponding items
+    // magically get "viewed" in feeds.
+
+    if ([NSUserNotificationCenter defaultUserNotificationCenter].deliveredNotifications.count == 0)
+        [self markAllItemsAsRead:nil];
 }
 
 - (void)growlNotificationWasClicked:(NSString *)URLString {
@@ -519,25 +549,11 @@
         
         // if you click the growl notification, that's the same as viewing an item.
         for (FeedItem *item in allItems)
-            if ([item.link.absoluteString isEqual:URLString]) {
-                item.viewed = YES;
-                [self updateStatusItemIcon];
-                menuNeedsRebuild = YES;
-            }
-        
-        [self openBrowserWithURL:[NSURL URLWithString:URLString]];
-    }
-}
+            if ([item.link.absoluteString isEqual:URLString])
+                [self markItemAsViewed:item];
 
-- (void)openBrowserWithURL:(NSURL *)url {
-	
-	NSString *bundlePath = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultBrowser"];
-	if ([bundlePath length]) {
-		NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
-		[[NSWorkspace sharedWorkspace] openURLs:[NSArray arrayWithObject:url] withAppBundleIdentifier:[bundle bundleIdentifier] options:0 additionalEventParamDescriptor:nil launchIdentifiers:NULL];
-	}
-	else
-		[[NSWorkspace sharedWorkspace] openURL:url];
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URLString]];
+    }
 }
 
 - (IBAction)openPreferences:(id)sender {

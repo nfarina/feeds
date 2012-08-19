@@ -833,6 +833,7 @@
 				GCC_PREFIX_HEADER = "Feeds/Feeds-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Feeds/Feeds-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
 				PRODUCT_NAME = Feeds;
 				WRAPPER_EXTENSION = app;
 			};
@@ -853,6 +854,7 @@
 				GCC_PREFIX_HEADER = "Feeds/Feeds-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Feeds/Feeds-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
 				PRODUCT_NAME = Feeds;
 				WRAPPER_EXTENSION = app;
 			};

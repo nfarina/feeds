@@ -27,9 +27,13 @@
 #endif
 
 #ifndef DEBUG
-//#define EXPIRATION_DATE @"2012-09-18"
+#define EXPIRATION_DATE @"2012-09-18"
 #endif
 
 #ifdef DEBUG
-#define ISOLATE_ACCOUNTS [NSArray arrayWithObjects:@"GenericFeedAccount",nil]
+//#define ISOLATE_ACCOUNTS [NSArray arrayWithObjects:@"GenericFeedAccount",nil]
 #endif
+
+// Compatibility stuff
+#define HAS_POPOVER (NSClassFromString(@"NSPopover") != nil)
+#define HAS_NOTIFICATION_CENTER (NSClassFromString(@"NSUserNotificationCenter") != nil)
