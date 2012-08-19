@@ -162,7 +162,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
     // build a useful context of extra data for custom feed processors like Trello and Beanstalk. Since those processors may need to fetch
     // additional data from their respective APIs, they may need the account usernamd and password, if applicable.
     NSMutableDictionary *context = [NSMutableDictionary dictionary];
-    context[@"accountClass"] = [self.account class];
+    [context setObject:[self.account class] forKey:@"accountClass"];
     if (domain) [context setObject:domain forKey:@"domain"];
     if (username) [context setObject:username forKey:@"username"];
     if (password) [context setObject:password forKey:@"password"];
@@ -176,7 +176,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
 // This method is called on a background thread. Don't touch your instance members!
 + (id)webRequest:(SMWebRequest *)webRequest resultObjectForData:(NSData *)data context:(NSDictionary *)context {
 
-    Class accountClass = context[@"accountClass"];
+    Class accountClass = [context objectForKey:@"accountClass"];
     NSString *domain = [context objectForKey:@"domain"];
     NSString *username = [context objectForKey:@"username"];
     NSString *password = [context objectForKey:@"password"];
