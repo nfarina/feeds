@@ -59,10 +59,23 @@
         NSString *actorEmail = [actor objectForKey:@"email"];
         NSString *actorName = [actor objectForKey:@"name"];
         NSString *title = [activity objectForKey:@"title"]; // description really
-        NSString *URLString = [activity objectForKey:@"url"];
+        NSDictionary *target = [activity objectForKey:@"target"]; // the ticket
+        NSDictionary *ticket = [target objectForKey:@"ticket"];
+        NSNumber *ticketIdentifier = [ticket objectForKey:@"id"];
+        NSString *ticketSubject = [ticket objectForKey:@"subject"];
+        NSDictionary *object = [activity objectForKey:@"object"]; // the comment or whatever that this activity reports about
+        NSDictionary *comment = [object objectForKey:@"comment"]; // if present
+        NSDictionary *commentValue = [comment objectForKey:@"value"];
         
         // Zendesk's "title" is weird - spaces seem to be insignificant (lots of extra spaces), but newlines are significant.
-        NSString *content = [[title stringByCondensingSet:[NSCharacterSet whitespaceCharacterSet]] stringByReplacingOccurrencesOfString:@"\n" withString:@"<br/>"];
+        //NSString *content = [[title stringByCondensingSet:[NSCharacterSet whitespaceCharacterSet]] stringByReplacingOccurrencesOfString:@"\n" withString:@"<br/>"];
+        
+        NSString *content = [NSString stringWithFormat:@"Subject: <b>%@</b>", ticketSubject];
+        
+        if (commentValue)
+            content = [content stringByAppendingFormat:@"<hr/><i>&ldquo;%@&rdquo;</i>", commentValue];
+        
+        NSString *URLString = [NSString stringWithFormat:@"https://%@.zendesk.com/tickets/%@",domain,ticketIdentifier];
         
         FeedItem *item = [[FeedItem new] autorelease];
         item.identifier = [identifier stringValue];
@@ -72,7 +85,7 @@
         item.authorIdentifier = actorEmail;
         item.author = actorName;
         item.content = content;
-        //item.title = [title stringByFlatteningHTML]; // seems to be unnecessary
+        item.title = [title stringByFlatteningHTML]; // seems to be unnecessary
         item.link = [NSURL URLWithString:URLString];
         
         [items addObject:item];
