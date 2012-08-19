@@ -438,10 +438,17 @@ const int ddLogLevel = LOG_LEVEL_INFO;
     if (!titleOrFallback.length) {
         if (item.project)
             titleOrFallback = item.project;
-        else if (item.feed.account.domain)
+        else if (item.feed.account.name.length)
+            titleOrFallback = [NSString stringWithFormat:@"%@ (%@)", item.feed.title, item.feed.account.name];
+        else if (item.feed.account.domain.length)
             titleOrFallback = [NSString stringWithFormat:@"%@ (%@)", item.feed.title, item.feed.account.domain];
         else
             titleOrFallback = item.feed.title;
+    }
+    else {
+        // if you've picked a custom name, put it in parens after
+        if (item.feed.account.name.length)
+            titleOrFallback = [NSString stringWithFormat:@"%@ (%@)", item.title, item.feed.account.name];
     }
     
     NSString *author = item.author;

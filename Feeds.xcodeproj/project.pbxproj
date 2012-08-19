@@ -89,6 +89,7 @@
 		01EB9C3913C4F26E00A9C131 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 01EB9C3713C4F26E00A9C131 /* RegexKitLite.m */; };
 		01EB9C3D13C4F36E00A9C131 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 01EB9C3B13C4F35A00A9C131 /* libicucore.dylib */; };
 		01F2ABB215E15FA400AE57F0 /* ErrorReport.txt in Resources */ = {isa = PBXBuildFile; fileRef = 01F2ABB115E15FA400AE57F0 /* ErrorReport.txt */; };
+		01F2ABB615E176D500AE57F0 /* PivotalTrackerAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F2ABB515E176D500AE57F0 /* PivotalTrackerAccount.m */; };
 		01F5D6C713B3B89600EA479D /* StatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F5D6C513B3B89600EA479D /* StatusItemView.m */; };
 		01F6169713AD3DCB00EBB24E /* StatusItem.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F6169413AD3DCB00EBB24E /* StatusItem.png */; };
 		01F6169813AD3DCB00EBB24E /* StatusItemSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F6169513AD3DCB00EBB24E /* StatusItemSelected.png */; };
@@ -256,6 +257,8 @@
 		01EB9C3813C4F26E00A9C131 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
 		01EB9C3B13C4F35A00A9C131 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		01F2ABB115E15FA400AE57F0 /* ErrorReport.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ErrorReport.txt; sourceTree = "<group>"; };
+		01F2ABB415E176D400AE57F0 /* PivotalTrackerAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PivotalTrackerAccount.h; sourceTree = "<group>"; };
+		01F2ABB515E176D500AE57F0 /* PivotalTrackerAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PivotalTrackerAccount.m; sourceTree = "<group>"; };
 		01F5D6C513B3B89600EA479D /* StatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemView.m; sourceTree = "<group>"; };
 		01F5D6C613B3B89600EA479D /* StatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemView.h; sourceTree = "<group>"; };
 		01F6169413AD3DCB00EBB24E /* StatusItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItem.png; sourceTree = "<group>"; };
@@ -311,6 +314,8 @@
 		0108CECC13BB1B080000ECE1 /* Accounts */ = {
 			isa = PBXGroup;
 			children = (
+				012734BC15DFFB4E00512361 /* GenericFeedAccount.h */,
+				012734BD15DFFB4E00512361 /* GenericFeedAccount.m */,
 				0108CED113BB1EC00000ECE1 /* BasecampAccount.h */,
 				0108CED213BB1EC00000ECE1 /* BasecampAccount.m */,
 				01C359AF13C4B6C400D803BD /* HighriseAccount.h */,
@@ -331,8 +336,8 @@
 				01D84E39153018D100267C15 /* DropmarkAccount.m */,
 				01BD35E0154D985200170BDD /* ZendeskAccount.h */,
 				01BD35E1154D985200170BDD /* ZendeskAccount.m */,
-				012734BC15DFFB4E00512361 /* GenericFeedAccount.h */,
-				012734BD15DFFB4E00512361 /* GenericFeedAccount.m */,
+				01F2ABB415E176D400AE57F0 /* PivotalTrackerAccount.h */,
+				01F2ABB515E176D500AE57F0 /* PivotalTrackerAccount.m */,
 			);
 			name = Accounts;
 			sourceTree = "<group>";
@@ -782,6 +787,7 @@
 				013BE6EE15E14F7E0002F51E /* DDLog.m in Sources */,
 				013BE6EF15E14F7E0002F51E /* DDTTYLogger.m in Sources */,
 				013BE6F015E14F7E0002F51E /* DDASLLogger.m in Sources */,
+				01F2ABB615E176D500AE57F0 /* PivotalTrackerAccount.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

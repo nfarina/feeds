@@ -202,48 +202,45 @@
 #pragma mark Parsing Response
 
 + (NSArray *)itemsForRequest:(SMWebRequest *)request data:(NSData *)data domain:(NSString *)domain username:(NSString *)username password:(NSString *)password {
-    if ([request.request.URL.host isEqualToString:@"basecamp.com"]) {
         
-        OAuth2Token *token = [OAuth2Token tokenWithStringRepresentation:password];
-        
-        // first we have to know who *we* are, and our author ID is different for each basecamp account (of course).
-        // so we'll look it up if needed.
-        NSURL *authorLookup = [NSURL URLWithString:@"people/me.json" relativeToURL:request.request.URL];
-        NSData *authorData = [self extraDataWithContentsOfURLRequest:[NSMutableURLRequest requestWithURL:authorLookup OAuth2Token:token]];
-        NSDictionary *response = [authorData objectFromJSONData];
-        NSString *authorIdentifier = [[response objectForKey:@"id"] stringValue];
-        
-        NSMutableArray *items = [NSMutableArray array];
+    OAuth2Token *token = [OAuth2Token tokenWithStringRepresentation:password];
+    
+    // first we have to know who *we* are, and our author ID is different for each basecamp account (of course).
+    // so we'll look it up if needed.
+    NSURL *authorLookup = [NSURL URLWithString:@"people/me.json" relativeToURL:request.request.URL];
+    NSData *authorData = [self extraDataWithContentsOfURLRequest:[NSMutableURLRequest requestWithURL:authorLookup OAuth2Token:token]];
+    NSDictionary *response = [authorData objectFromJSONData];
+    NSString *authorIdentifier = [[response objectForKey:@"id"] stringValue];
+    
+    NSMutableArray *items = [NSMutableArray array];
 
-        NSArray *events = [data objectFromJSONData];
+    NSArray *events = [data objectFromJSONData];
+    
+    for (NSDictionary *event in events) {
         
-        for (NSDictionary *event in events) {
-            
-            NSString *date = [event objectForKey:@"created_at"];
-            NSDictionary *bucket = [event objectForKey:@"bucket"];
-            NSDictionary *creator = [event objectForKey:@"creator"];
-            NSString *creatorIdentifier = [[creator objectForKey:@"id"] stringValue];
+        NSString *date = [event objectForKey:@"created_at"];
+        NSDictionary *bucket = [event objectForKey:@"bucket"];
+        NSDictionary *creator = [event objectForKey:@"creator"];
+        NSString *creatorIdentifier = [[creator objectForKey:@"id"] stringValue];
 
-            NSString *URL = [event objectForKey:@"url"];
-            URL = [URL stringByReplacingOccurrencesOfString:@"/api/v1/" withString:@"/"];
-            URL = [URL stringByReplacingOccurrencesOfString:@".json" withString:@""];
+        NSString *URL = [event objectForKey:@"url"];
+        URL = [URL stringByReplacingOccurrencesOfString:@"/api/v1/" withString:@"/"];
+        URL = [URL stringByReplacingOccurrencesOfString:@".json" withString:@""];
 
-            FeedItem *item = [[FeedItem new] autorelease];
-            item.rawDate = date;
-            item.published = AutoFormatDate(date);
-            item.updated = item.published;
-            item.author = [creator objectForKey:@"name"];
-            item.authoredByMe = [creatorIdentifier isEqualToString:authorIdentifier];
-            item.content = [event objectForKey:@"summary"];
-            item.project = [bucket objectForKey:@"name"];
-            item.link = [NSURL URLWithString:URL];
+        FeedItem *item = [[FeedItem new] autorelease];
+        item.rawDate = date;
+        item.published = AutoFormatDate(date);
+        item.updated = item.published;
+        item.author = [creator objectForKey:@"name"];
+        item.authoredByMe = [creatorIdentifier isEqualToString:authorIdentifier];
+        item.content = [event objectForKey:@"summary"];
+        item.project = [bucket objectForKey:@"name"];
+        item.link = [NSURL URLWithString:URL];
 //            item.title = [NSString stringWithFormat:@"%@ %@", item.author, item.content];
-            [items addObject:item];
-        }
-        
-        return items;
+        [items addObject:item];
     }
-    else return nil;
+    
+    return items;
 }
 
 @end

@@ -71,12 +71,13 @@ NSDate *AutoFormatDate(NSString *dateString) {
 @end
 
 @implementation Feed
-@synthesize URL, title, author, items, request, disabled, account, requiresBasicAuth, requiresOAuth2Token, incremental;
+@synthesize URL, title, author, items, request, disabled, account, requestHeaders, requiresBasicAuth, requiresOAuth2Token, incremental;
 
 - (void)dealloc {
     self.URL = nil;
     self.title = nil;
     self.author = nil;
+    self.requestHeaders = nil;
     self.items = nil;
     self.request = nil;
     self.account = nil;
@@ -106,6 +107,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
     feed.URL = [NSURL URLWithString:[dict objectForKey:@"url"]];
     feed.title = [dict objectForKey:@"title"];
     feed.author = [dict objectForKey:@"author"];
+    feed.requestHeaders = [dict objectForKey:@"requestHeaders"];
     feed.incremental = [[dict objectForKey:@"incremental"] boolValue];
     feed.requiresBasicAuth = [[dict objectForKey:@"requiresBasicAuth"] boolValue];
     feed.requiresOAuth2Token = [[dict objectForKey:@"requiresOAuth2Token"] boolValue];
@@ -119,6 +121,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
     [dict setObject:[URL absoluteString] forKey:@"url"];
     if (title) [dict setObject:title forKey:@"title"];
     if (author) [dict setObject:author forKey:@"author"];
+    if (requestHeaders) [dict setObject:requestHeaders forKey:@"requestHeaders"];
     [dict setObject:[NSNumber numberWithBool:incremental] forKey:@"incremental"];
     [dict setObject:[NSNumber numberWithBool:requiresBasicAuth] forKey:@"requiresBasicAuth"];
     [dict setObject:[NSNumber numberWithBool:requiresOAuth2Token] forKey:@"requiresOAuth2Token"];
@@ -150,11 +153,16 @@ NSDate *AutoFormatDate(NSString *dateString) {
     else // just a normal URL.
         URLRequest = [NSMutableURLRequest requestWithURL:refreshURL];
     
+    // add any additional request headers
+    for (NSString *field in requestHeaders)
+        [URLRequest setValue:[requestHeaders objectForKey:field] forHTTPHeaderField:field];
+    
     URLRequest.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData; // goes without saying that we only care about fresh data for Feeds
     
     // build a useful context of extra data for custom feed processors like Trello and Beanstalk. Since those processors may need to fetch
     // additional data from their respective APIs, they may need the account usernamd and password, if applicable.
     NSMutableDictionary *context = [NSMutableDictionary dictionary];
+    context[@"accountClass"] = [self.account class];
     if (domain) [context setObject:domain forKey:@"domain"];
     if (username) [context setObject:username forKey:@"username"];
     if (password) [context setObject:password forKey:@"password"];
@@ -168,12 +176,13 @@ NSDate *AutoFormatDate(NSString *dateString) {
 // This method is called on a background thread. Don't touch your instance members!
 + (id)webRequest:(SMWebRequest *)webRequest resultObjectForData:(NSData *)data context:(NSDictionary *)context {
 
+    Class accountClass = context[@"accountClass"];
     NSString *domain = [context objectForKey:@"domain"];
     NSString *username = [context objectForKey:@"username"];
     NSString *password = [context objectForKey:@"password"];
     
-    NSArray *customItems = [Account itemsForRequest:webRequest data:data domain:domain username:username password:password];
-    if (customItems) return customItems;
+    if ([(id)accountClass respondsToSelector:@selector(itemsForRequest:data:domain:username:password:)])
+        return [accountClass itemsForRequest:webRequest data:data domain:domain username:username password:password];
     
     NSError *error = nil;
     NSArray *items = [self feedItemsWithData:data discoveredTitle:NULL error:&error];

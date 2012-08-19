@@ -6,17 +6,22 @@ extern NSString *kFeedUpdatedNotification;
 NSDate *AutoFormatDate(NSString *dateString);
 
 @interface Feed : NSObject {
+    // stored properties
     NSURL *URL;
     NSString *title, *author;
-    NSArray *items; // of FeedItem
-    SMWebRequest *request;
     BOOL disabled, requiresBasicAuth, requiresOAuth2Token, incremental;
+    NSDictionary *requestHeaders; // some authentication systems want tokens and stuff in the headers
+
+    // used only at runtime
+    SMWebRequest *request;
+    NSArray *items; // of FeedItem
     Account *account; // not retained
 }
 @property (nonatomic, retain) NSURL *URL;
 @property (nonatomic, copy) NSString *title, *author;
-@property (nonatomic, copy) NSArray *items;
+@property (nonatomic, copy) NSDictionary *requestHeaders;
 @property (nonatomic, assign) BOOL disabled, requiresBasicAuth, requiresOAuth2Token, incremental;
+@property (nonatomic, copy) NSArray *items;
 @property (nonatomic, assign) Account *account;
 
 + (Feed *)feedWithURLString:(NSString *)URLString title:(NSString *)title account:(Account *)account;

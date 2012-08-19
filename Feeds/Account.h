@@ -45,9 +45,6 @@ typedef enum {
 + (NSString *)domainSuffix;
 + (NSString *)domainPlaceholder;
 
-// opportunity to parse custom feed data
-+ (NSArray *)itemsForRequest:(SMWebRequest *)request data:(NSData *)data domain:(NSString *)domain username:(NSString *)username password:(NSString *)password;
-
 // helper for said opportunity (threadsafe)
 + (NSData *)extraDataWithContentsOfURL:(NSURL *)URL;
 + (NSData *)extraDataWithContentsOfURLRequest:(NSMutableURLRequest *)URLRequest;
@@ -92,6 +89,11 @@ typedef enum {
 
 @end
 
+// informal protocol that Account subclasses can implement if they want to take the responsibility of parsing
+// the HTTP response from their Feeds.
+@interface NSObject (FeedItemParsing)
++ (NSArray *)itemsForRequest:(SMWebRequest *)request data:(NSData *)data domain:(NSString *)domain username:(NSString *)username password:(NSString *)password;
+@end
 
 @protocol AccountDelegate <NSObject>
 

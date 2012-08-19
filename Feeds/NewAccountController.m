@@ -43,11 +43,6 @@
     [self accountTypeChanged:nil];
 }
 
-- (void)windowDidLoad {
-    [super windowDidLoad];
-    [domainField becomeFirstResponder];
-}
-
 - (Class)selectedAccountClass {
     return [[Account registeredClasses] objectAtIndex:[accountTypeButton indexOfSelectedItem]];
 }

@@ -69,7 +69,7 @@
     [toolbar setSelectedItemIdentifier:@"accounts"];
     [self selectAccountsTab:nil];
     #ifdef ISOLATE_ACCOUNTS
-//    [self addAccount:nil];
+    [self addAccount:nil];
     #endif
 #else
     [self.window setLevel: NSTornOffMenuWindowLevel]; // a.k.a. "Always On Top"

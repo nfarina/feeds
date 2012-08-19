@@ -35,7 +35,7 @@
 #endif
 
 #ifdef DEBUG
-//#define ISOLATE_ACCOUNTS [NSArray arrayWithObjects:@"GenericFeedAccount",nil]
+#define ISOLATE_ACCOUNTS [NSArray arrayWithObjects:@"ZendeskAccount",nil]
 #endif
 
 // Compatibility stuff
