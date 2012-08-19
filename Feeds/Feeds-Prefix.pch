@@ -5,6 +5,10 @@
 #import <Growl/Growl.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <ShortcutRecorder/ShortcutRecorder.h>
+#import "DDLog.h"
+#import "DDASLLogger.h"
+#import "DDTTYLogger.h"
+#import "DDFileLogger.h"
 #import "DDHotKeyCenter.h"
 #import "SMWebRequest.h"
 #import "SMXMLDocument.h"
@@ -31,7 +35,7 @@
 #endif
 
 #ifdef DEBUG
-//#define ISOLATE_ACCOUNTS [NSArray arrayWithObjects:@"GenericFeedAccount",nil]
+#define ISOLATE_ACCOUNTS [NSArray arrayWithObjects:@"GenericFeedAccount",nil]
 #endif
 
 // Compatibility stuff

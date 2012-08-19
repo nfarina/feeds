@@ -21,6 +21,10 @@
 		0133CEAC1532A9A900CF6647 /* DropmarkNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 0133CEA91532A9A900CF6647 /* DropmarkNotify.png */; };
 		0133CEAD1532A9A900CF6647 /* DropmarkAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 0133CEAA1532A9A900CF6647 /* DropmarkAccount.png */; };
 		0133CEAE1532A9A900CF6647 /* Dropmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 0133CEAB1532A9A900CF6647 /* Dropmark.png */; };
+		013BE6ED15E14F7E0002F51E /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 013BE6E515E14F7E0002F51E /* DDFileLogger.m */; };
+		013BE6EE15E14F7E0002F51E /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 013BE6E615E14F7E0002F51E /* DDLog.m */; };
+		013BE6EF15E14F7E0002F51E /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 013BE6E715E14F7E0002F51E /* DDTTYLogger.m */; };
+		013BE6F015E14F7E0002F51E /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 013BE6E815E14F7E0002F51E /* DDASLLogger.m */; };
 		014147A01486B019000D63E5 /* UserVoiceAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 0141479F1486B019000D63E5 /* UserVoiceAccount.m */; };
 		014147AE1486B258000D63E5 /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 014147A91486B258000D63E5 /* TFHpple.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		014147AF1486B258000D63E5 /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 014147AB1486B258000D63E5 /* TFHppleElement.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -84,6 +88,7 @@
 		01D84E3E15308E3900267C15 /* Popover.css in Resources */ = {isa = PBXBuildFile; fileRef = 01D84E3D15308E3900267C15 /* Popover.css */; };
 		01EB9C3913C4F26E00A9C131 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 01EB9C3713C4F26E00A9C131 /* RegexKitLite.m */; };
 		01EB9C3D13C4F36E00A9C131 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 01EB9C3B13C4F35A00A9C131 /* libicucore.dylib */; };
+		01F2ABB215E15FA400AE57F0 /* ErrorReport.txt in Resources */ = {isa = PBXBuildFile; fileRef = 01F2ABB115E15FA400AE57F0 /* ErrorReport.txt */; };
 		01F5D6C713B3B89600EA479D /* StatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F5D6C513B3B89600EA479D /* StatusItemView.m */; };
 		01F6169713AD3DCB00EBB24E /* StatusItem.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F6169413AD3DCB00EBB24E /* StatusItem.png */; };
 		01F6169813AD3DCB00EBB24E /* StatusItemSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 01F6169513AD3DCB00EBB24E /* StatusItemSelected.png */; };
@@ -147,6 +152,14 @@
 		0133CEA91532A9A900CF6647 /* DropmarkNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DropmarkNotify.png; sourceTree = "<group>"; };
 		0133CEAA1532A9A900CF6647 /* DropmarkAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DropmarkAccount.png; sourceTree = "<group>"; };
 		0133CEAB1532A9A900CF6647 /* Dropmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dropmark.png; sourceTree = "<group>"; };
+		013BE6E515E14F7E0002F51E /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDFileLogger.m; path = Lumberjack/DDFileLogger.m; sourceTree = SOURCE_ROOT; };
+		013BE6E615E14F7E0002F51E /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDLog.m; path = Lumberjack/DDLog.m; sourceTree = SOURCE_ROOT; };
+		013BE6E715E14F7E0002F51E /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDTTYLogger.m; path = Lumberjack/DDTTYLogger.m; sourceTree = SOURCE_ROOT; };
+		013BE6E815E14F7E0002F51E /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDASLLogger.m; path = Lumberjack/DDASLLogger.m; sourceTree = SOURCE_ROOT; };
+		013BE6E915E14F7E0002F51E /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDASLLogger.h; path = Lumberjack/DDASLLogger.h; sourceTree = SOURCE_ROOT; };
+		013BE6EA15E14F7E0002F51E /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDFileLogger.h; path = Lumberjack/DDFileLogger.h; sourceTree = SOURCE_ROOT; };
+		013BE6EB15E14F7E0002F51E /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDLog.h; path = Lumberjack/DDLog.h; sourceTree = SOURCE_ROOT; };
+		013BE6EC15E14F7E0002F51E /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDTTYLogger.h; path = Lumberjack/DDTTYLogger.h; sourceTree = SOURCE_ROOT; };
 		0141479E1486B019000D63E5 /* UserVoiceAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserVoiceAccount.h; sourceTree = "<group>"; };
 		0141479F1486B019000D63E5 /* UserVoiceAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserVoiceAccount.m; sourceTree = "<group>"; };
 		014147A81486B258000D63E5 /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
@@ -242,6 +255,7 @@
 		01EB9C3713C4F26E00A9C131 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
 		01EB9C3813C4F26E00A9C131 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
 		01EB9C3B13C4F35A00A9C131 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		01F2ABB115E15FA400AE57F0 /* ErrorReport.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ErrorReport.txt; sourceTree = "<group>"; };
 		01F5D6C513B3B89600EA479D /* StatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemView.m; sourceTree = "<group>"; };
 		01F5D6C613B3B89600EA479D /* StatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemView.h; sourceTree = "<group>"; };
 		01F6169413AD3DCB00EBB24E /* StatusItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItem.png; sourceTree = "<group>"; };
@@ -358,6 +372,22 @@
 				0133CEA21530973E00CF6647 /* NSAlert+Foreground.m */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		013BE6CB15E146F80002F51E /* Lumberjack */ = {
+			isa = PBXGroup;
+			children = (
+				013BE6EB15E14F7E0002F51E /* DDLog.h */,
+				013BE6E615E14F7E0002F51E /* DDLog.m */,
+				013BE6EA15E14F7E0002F51E /* DDFileLogger.h */,
+				013BE6E515E14F7E0002F51E /* DDFileLogger.m */,
+				013BE6EC15E14F7E0002F51E /* DDTTYLogger.h */,
+				013BE6E715E14F7E0002F51E /* DDTTYLogger.m */,
+				013BE6E815E14F7E0002F51E /* DDASLLogger.m */,
+				013BE6E915E14F7E0002F51E /* DDASLLogger.h */,
+			);
+			name = Lumberjack;
+			path = Lumberjack/Lumberjack;
 			sourceTree = "<group>";
 		};
 		014147A71486B258000D63E5 /* Hpple */ = {
@@ -485,6 +515,7 @@
 				015D788E13C6394600BCD7C4 /* Popover.html */,
 				01D84E3D15308E3900267C15 /* Popover.css */,
 				01B7FBE213FDB60200ACC29B /* ApplicationIcon.icns */,
+				01F2ABB115E15FA400AE57F0 /* ErrorReport.txt */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -518,6 +549,7 @@
 		01937CB213A05A5100BCE1D4 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				013BE6CB15E146F80002F51E /* Lumberjack */,
 				01937CB313A05A6300BCE1D4 /* XML Document */,
 				01937CB113A05A3E00BCE1D4 /* Web Request */,
 				01B2BE7B13C4E89D00304D6A /* JSONKit */,
@@ -693,6 +725,7 @@
 				0191D77F159BB3B100C49952 /* ZendeskNotify.png in Resources */,
 				0191D780159BB3B100C49952 /* ZendeskAccount.png in Resources */,
 				0191D781159BB3B100C49952 /* Zendesk.png in Resources */,
+				01F2ABB215E15FA400AE57F0 /* ErrorReport.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -745,6 +778,10 @@
 				0133CEA61530974B00CF6647 /* NSAlert+Foreground.m in Sources */,
 				01BD35E2154D985200170BDD /* ZendeskAccount.m in Sources */,
 				012734BE15DFFB4E00512361 /* GenericFeedAccount.m in Sources */,
+				013BE6ED15E14F7E0002F51E /* DDFileLogger.m in Sources */,
+				013BE6EE15E14F7E0002F51E /* DDLog.m in Sources */,
+				013BE6EF15E14F7E0002F51E /* DDTTYLogger.m in Sources */,
+				013BE6F015E14F7E0002F51E /* DDASLLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1351,6 +1351,14 @@
 						<reference key="NSOnImage" ref="35465992"/>
 						<reference key="NSMixedImage" ref="502551668"/>
 					</object>
+					<object class="NSMenuItem" id="781118617">
+						<reference key="NSMenu" ref="803382980"/>
+						<string key="NSTitle">Report a bug…</string>
+						<string key="NSKeyEquiv"/>
+						<int key="NSMnemonicLoc">2147483647</int>
+						<reference key="NSOnImage" ref="35465992"/>
+						<reference key="NSMixedImage" ref="502551668"/>
+					</object>
 					<object class="NSMenuItem" id="457380467">
 						<reference key="NSMenu" ref="803382980"/>
 						<string key="NSTitle">Quit Feeds</string>
@@ -2013,6 +2021,14 @@
 						<reference key="destination" ref="560145579"/>
 					</object>
 					<int key="connectionID">530</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">reportBug:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="781118617"/>
+					</object>
+					<int key="connectionID">567</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -3133,6 +3149,7 @@
 							<reference ref="1045464208"/>
 							<reference ref="726841548"/>
 							<reference ref="343218651"/>
+							<reference ref="781118617"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">StatusMenu</string>
@@ -3160,6 +3177,11 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">564</int>
 						<reference key="object" ref="343218651"/>
+						<reference key="parent" ref="803382980"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">566</int>
+						<reference key="object" ref="781118617"/>
 						<reference key="parent" ref="803382980"/>
 					</object>
 				</object>
@@ -3310,6 +3332,7 @@
 					<string>560.IBPluginDependency</string>
 					<string>561.IBPluginDependency</string>
 					<string>564.IBPluginDependency</string>
+					<string>566.IBPluginDependency</string>
 					<string>57.IBPluginDependency</string>
 					<string>58.IBPluginDependency</string>
 					<string>72.IBPluginDependency</string>
@@ -3483,6 +3506,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -3497,7 +3521,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">565</int>
+			<int key="maxID">567</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3511,9 +3535,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>markAllItemsAsRead:</string>
 							<string>openPreferences:</string>
+							<string>reportBug:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -3524,6 +3550,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>markAllItemsAsRead:</string>
 							<string>openPreferences:</string>
+							<string>reportBug:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3533,6 +3560,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">openPreferences:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">reportBug:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>

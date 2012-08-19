@@ -21,7 +21,19 @@
 @implementation AppDelegate
 @synthesize refreshTimer, popoverTimer, lastHighlightedItem;
 
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+
 - (void)applicationWillFinishLaunching:(NSNotification *)notification {
+    
+    // initialize logging framework
+    [DDLog addLogger:[DDASLLogger sharedInstance]];
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    
+    fileLogger = [[DDFileLogger alloc] init];
+    fileLogger.maximumFileSize = 50 * 1024; // 50k per file max
+    fileLogger.logFileManager.maximumNumberOfLogFiles = 1;
+    [DDLog addLogger:fileLogger];
+    
     // listen for "Open URL" events sent to this app by the user clicking on a "feedsapp://something" link.
     [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
 }
@@ -563,5 +575,46 @@
 
 	[preferencesController showPreferences];
 }
+
+- (void)reportBug:(id)sender {
+    NSInteger result = [[NSAlert alertWithMessageText:@"Bug Report" defaultButton:@"Compose Email" alternateButton:@"Cancel" otherButton:@"Copy to Clipboard" informativeTextWithFormat:@"Sorry you're having trouble! Just click \"Compose Email\" to email our support team from your default mail client. Alternatively, you can copy the information we need to your clipboard and paste it in your preferred email client."] runModalInForeground];
+    
+    if (result == NSAlertAlternateReturn)
+        return; // don't do any work
+    
+    [DDLog flushLog];
+    
+    NSString *errorReportPath = [[NSBundle mainBundle] pathForResource:@"ErrorReport" ofType:@"txt"];
+    NSMutableString *errorReport = [NSMutableString stringWithContentsOfFile:errorReportPath encoding:NSUTF8StringEncoding error:NULL];
+    
+    // write basic data
+    SInt32 major, minor, bugfix;
+    Gestalt(gestaltSystemVersionMajor, &major);
+    Gestalt(gestaltSystemVersionMinor, &minor);
+    Gestalt(gestaltSystemVersionBugFix, &bugfix);
+    
+    NSString *osxVersion = [NSString stringWithFormat:@"%d.%d.%d",major,minor,bugfix];
+    NSString *appVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    
+    [errorReport appendFormat:@"Feeds Version: %@\nOS X Version: %@\n\n", appVersion, osxVersion];
+    
+    for (NSString *logFile in [fileLogger.logFileManager sortedLogFilePaths].reverseObjectEnumerator)
+        [errorReport appendString:[NSString stringWithContentsOfFile:logFile encoding:NSUTF8StringEncoding error:NULL]];
+    
+    if (result == NSAlertDefaultReturn) { // Mail
+        NSString *url = [NSString stringWithFormat:@"mailto:support@feedsapp.com?subject=Bug%%20Report&body=%@",
+                         [errorReport stringByEscapingForURLArgument]];
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
+        
+    }
+    else if (result == NSAlertOtherReturn) { // Clipboard
+        
+        [[NSPasteboard generalPasteboard] declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:nil];
+        [[NSPasteboard generalPasteboard] setString:errorReport forType:NSStringPboardType];
+        
+        [[NSAlert alertWithMessageText:@"Copied to Clipboard" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"A detailed error report has been copied to your clipboard. Please paste it into the body of an email and send it to support@feedsapp.com."] runModalInForeground];
+    }
+}
+
 
 @end

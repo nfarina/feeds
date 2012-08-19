@@ -1,7 +1,7 @@
 #import "PreferencesController.h"
 #import "StatusItemView.h"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate, NSMenuDelegate, GrowlApplicationBridgeDelegate, NSUserNotificationCenterDelegate> {
+@interface AppDelegate : NSObject <NSApplicationDelegate, NSMenuDelegate, GrowlApplicationBridgeDelegate, NSUserNotificationCenterDelegate, NSAlertDelegate> {
     IBOutlet NSMenu *menu;
     IBOutlet NSMenuItem *markAllItemsAsReadItem;
     NSStatusItem *statusItem;
@@ -13,6 +13,7 @@
     BOOL menuNeedsRebuild;
     NSMenuItem *lastHighlightedItem; // not retained
     DDHotKeyCenter *hotKeyCenter;
+    DDFileLogger *fileLogger;
     
     // popover handling if we're on Lion
     NSTimer *popoverTimer;
@@ -22,5 +23,6 @@
 
 - (IBAction)markAllItemsAsRead:(id)sender;
 - (IBAction)openPreferences:(id)sender;
+- (IBAction)reportBug:(id)sender;
 
 @end
