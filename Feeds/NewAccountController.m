@@ -58,6 +58,7 @@
 
 - (void)accountTypeChanged:(id)sender {
     Class accountClass = [self selectedAccountClass];
+    DDLogInfo(@"Selected account type %@", accountClass);
     [domainLabel setHidden:![accountClass requiresDomain]];
     [domainLabel setStringValue:[accountClass domainLabel]];
     [domainPrefix setHidden:![accountClass requiresDomain]];
@@ -132,6 +133,7 @@
         account.domain = [domainField stringValue];
         account.username = [usernameField stringValue];
         self.password = [passwordField stringValue];
+        DDLogInfo(@"Validating account %@", account);
         [account validateWithPassword:password];
         [messageField setStringValue:@"Validating account…"];
     }
@@ -151,7 +153,8 @@
     [account authWasFinishedWithURL:URL];
 }
 
-- (void)account:(Account *)account validationDidContinueWithMessage:(NSString *)message {
+- (void)account:(Account *)theAccount validationDidContinueWithMessage:(NSString *)message {
+    DDLogInfo(@"Validation continuing for account %@: %@", account, message);
     [messageField setStringValue:message];
 }
 
@@ -164,8 +167,10 @@
     [usernameField becomeFirstResponder];
 }
 
-- (void)account:(Account *)account validationDidFailWithMessage:(NSString *)message field:(AccountFailingField)field {
+- (void)account:(Account *)theAccount validationDidFailWithMessage:(NSString *)message field:(AccountFailingField)field {
     
+    DDLogError(@"Validation failed for account %@: %@", account, message);
+
     [progress stopAnimation:nil];
     [progress setHidden:YES];
     
@@ -183,6 +188,8 @@
 }
 
 - (void)account:(Account *)theAccount validationDidCompleteWithNewPassword:(NSString *)changedPassword {
+
+    DDLogInfo(@"Validation completed for account %@.", account);
 
     if (changedPassword)
         self.password = changedPassword;

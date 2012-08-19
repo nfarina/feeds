@@ -100,7 +100,7 @@ NSString* NSStringFromCharacterCode(int code)
 			if (entity)
 				[escaped insertString:entity atIndex:entityRange.location];
 			else {
-				NSLog(@"Unknown entity: %@", value);
+				DDLogInfo(@"Unknown entity: %@", value);
 				[escaped insertString:@" " atIndex:entityRange.location];
 			}
 		}

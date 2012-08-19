@@ -2,6 +2,12 @@
 #import "Feed.h"
 #import "StatusItemView.h"
 
+#if DEBUG
+const int ddLogLevel = LOG_LEVEL_VERBOSE;
+#else
+const int ddLogLevel = LOG_LEVEL_INFO;
+#endif
+
 #ifdef DEBUG_DISABLED
 #define PER_ITEM_SHIM_STRATEGY 1
 #define MAX_ITEMS 9999
@@ -20,8 +26,6 @@
 
 @implementation AppDelegate
 @synthesize refreshTimer, popoverTimer, lastHighlightedItem;
-
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification {
     
@@ -46,7 +50,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         [[NSAlert alertWithMessageText:@"Test Version" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"This test version of Feeds will expire in %i days. Additionally, changes to your accounts will not be saved (for data integrity purposes).",(int)(timeLeft/60/60/24)] runModalInForeground];
     }
     else {
-        NSLog(@"Trial over.");
+        DDLogWarn(@"Trial over.");
         [[NSAlert alertWithMessageText:@"Test Expired" defaultButton:@"Quit" alternateButton:nil otherButton:nil informativeTextWithFormat:@"This test version of Feeds has expired."] runModalInForeground];
         exit(0);
     }
@@ -60,7 +64,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
     // migrate any old preferences
     [PreferencesController migrateSettings];
-    
+        
     [GrowlApplicationBridge setGrowlDelegate:self];
     
     if (HAS_NOTIFICATION_CENTER)
@@ -98,6 +102,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     reachability = [[Reachability reachabilityForInternetConnection] retain];
 	[reachability startNotifier];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webRequestError:) name:kSMWebRequestError object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountsChanged:) name:kAccountsChangedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedUpdated:) name:kFeedUpdatedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedFailed:) name:kSMWebRequestError object:nil];
@@ -125,6 +130,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         NSUserNotification *notification = [aNotification.userInfo objectForKey:NSApplicationLaunchUserNotificationKey];
         if (notification) [self userNotificationCenter:nil didActivateNotification:notification];
     }
+}
+
+- (void)webRequestError:(NSError *)error {
+    
+    DDLogError(@"Web Request Error: %@", error);
 }
 
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
@@ -193,13 +203,13 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
     if ([reachability currentReachabilityStatus] != NotReachable) {
         
-        NSLog(@"Internet is reachable. Refreshing and resetting timer.");
+        DDLogInfo(@"Internet is reachable. Refreshing and resetting timer.");
         
         [self refreshFeeds];
         self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(refreshFeeds) userInfo:nil repeats:YES];
     }
     else {
-        NSLog(@"Internet is NOT reachable. Killing timer.");
+        DDLogInfo(@"Internet is NOT reachable. Killing timer.");
         self.refreshTimer = nil;
     }
     
@@ -212,10 +222,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     SMWebRequest *request = [notification object];
     
     if ([[error domain] isEqual:(id)kCFErrorDomainCFNetwork]) {
-        NSLog(@"Network error while fetching feed: %@", request);
+        DDLogError(@"Network error while fetching feed: %@", request);
     }
     else {
-        NSLog(@"Failed with HTTP status code %i while fetching feed: %@", (int)[error code], request);
+        DDLogError(@"Failed with HTTP status code %i while fetching feed: %@", (int)[error code], request);
     }
 }
 
@@ -593,10 +603,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     Gestalt(gestaltSystemVersionMinor, &minor);
     Gestalt(gestaltSystemVersionBugFix, &bugfix);
     
-    NSString *osxVersion = [NSString stringWithFormat:@"%d.%d.%d",major,minor,bugfix];
+    NSString *osxVersion = [NSString stringWithFormat:@"%d.%d.%d",(int)major,(int)minor,(int)bugfix];
     NSString *appVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSString *appBuild = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     
-    [errorReport appendFormat:@"Feeds Version: %@\nOS X Version: %@\n\n", appVersion, osxVersion];
+    [errorReport appendFormat:@"Feeds Version: %@ [Build %@]\nOS X Version: %@\n\n", appVersion, appBuild, osxVersion];
     
     for (NSString *logFile in [fileLogger.logFileManager sortedLogFilePaths].reverseObjectEnumerator)
         [errorReport appendString:[NSString stringWithContentsOfFile:logFile encoding:NSUTF8StringEncoding error:NULL]];

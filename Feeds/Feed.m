@@ -45,7 +45,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
         if (date.timeIntervalSinceReferenceDate > 1)
             return date;
         else {
-            NSLog(@"Couldn't parse date %@", dateString);
+            DDLogCError(@"Couldn't parse date %@", dateString);
             return nil;
         }
     }
@@ -179,7 +179,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
     NSArray *items = [self feedItemsWithData:data discoveredTitle:NULL error:&error];
     
     if (error) {
-        NSLog(@"Error parsing XML feed result for %@ - %@", webRequest.request.URL, error);
+        DDLogError(@"Error parsing XML feed result for %@ - %@", webRequest.request.URL, error);
         return nil;
     }
 
@@ -242,7 +242,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
             // populate the final set, newest item to oldest.
             
             for (FeedItem *newItem in newItems) {
-                NSLog(@"NEW ITEM FOR FEED %@: %@", URL, newItem);
+                DDLogInfo(@"NEW ITEM FOR FEED %@: %@", URL, newItem);
                 [merged addObject:newItem];
             }
 
@@ -261,7 +261,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
                 if (i >= 0)
                     [merged addObject:[items objectAtIndex:i]]; // preserve existing item
                 else {
-                    NSLog(@"NEW ITEM FOR FEED %@: %@", URL, newItem);
+                    DDLogInfo(@"NEW ITEM FOR FEED %@: %@", URL, newItem);
                     [merged addObject:newItem];
                 }
             }
@@ -279,7 +279,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
         }
     }
     else {
-        NSLog(@"ALL NEW ITEMS FOR FEED %@", URL);
+        DDLogInfo(@"ALL NEW ITEMS FOR FEED %@", URL);
         self.items = newItems;
 
         // don't notify about the initial fetch, or we'll have a shitload of growl popups
@@ -295,7 +295,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
 }
 
 - (void)refreshError:(NSError *)error {
-    NSLog(@"Error: %@", error);
+    DDLogError(@"Error: %@", error);
 }
 
 @end

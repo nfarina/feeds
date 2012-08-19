@@ -22,7 +22,7 @@
 }
 
 - (void)authWasFinishedWithURL:(NSURL *)url {
-    NSLog(@"GOT URL: %@", url);
+    DDLogInfo(@"GOT URL: %@", url);
 
     // We could get:
     // feedsapp://basecampnext/auth?code=b1233f3e
@@ -32,7 +32,7 @@
     
     if (![query beginsWithString:@"code="]) {
         
-        NSString *message = @"There was an error while authenticating with Basecamp. Please try again later, or email support@feedsapp.com.";
+        NSString *message = @"There was an error while authenticating with Basecamp. If this continues to persist, please choose \"Report a Problem\" from the Feeds status bar icon.";
         
         if ([query isEqualToString:@"error=access_denied"])
             message = @"Authorization was denied. Please try again.";
@@ -70,7 +70,7 @@
 }
 
 - (void)tokenRequestError:(NSError *)error {
-    [self.delegate account:self validationDidFailWithMessage:@"There was an error while authenticating with Basecamp. Please try again later, or email support@feedsapp.com." field:AccountFailingFieldAuth];
+    [self.delegate account:self validationDidFailWithMessage:@"There was an error while authenticating with Basecamp. If this continues to persist, please choose \"Report a Problem\" from the Feeds status bar icon." field:AccountFailingFieldAuth];
 }
 
 - (void)validateWithPassword:(NSString *)password {
@@ -122,8 +122,7 @@
 }
 
 - (void)handleGenericError:(NSError *)error {
-    NSLog(@"Error! %@", error);
-    [self.delegate account:self validationDidFailWithMessage:@"Could not retrieve information about the given Basecamp account. Please contact support@feedsapp.com." field:0];
+    [self.delegate account:self validationDidFailWithMessage:@"Could not retrieve information about the given Basecamp account. If this continues to persist, please choose \"Report a Problem\" from the Feeds status bar icon." field:0];
 }
 
 #pragma mark Refreshing Feeds and Tokens
@@ -154,7 +153,7 @@
     if (([NSDate timeIntervalSinceReferenceDate] - self.lastTokenRefresh.timeIntervalSinceReferenceDate) > 60*60*24) { // refresh token at least every 24 hours
         
         // refresh our access_token first.
-        NSLog(@"Refresh token for %@", self);
+        DDLogInfo(@"Refresh token for %@", self);
         
         NSString *password = self.findPassword;
         OAuth2Token *token = [OAuth2Token tokenWithStringRepresentation:password];
@@ -193,11 +192,11 @@
         // NOW refresh feeds
         [self actualRefreshFeeds];
     }
-    else NSLog(@"NO TOKEN: %@", [data objectFromJSONData]);
+    else DDLogError(@"NO TOKEN: %@", [data objectFromJSONData]);
 }
 
 - (void)refreshTokenRequestError:(NSError *)error {
-    NSLog(@"ERROR WHILE REFRESHING: %@", error);
+    DDLogError(@"ERROR WHILE REFRESHING: %@", error);
 }
 
 #pragma mark Parsing Response
@@ -270,7 +269,7 @@
 //}
 //
 //- (void)meRequestError:(NSError *)error {
-//    NSLog(@"Error! %@", error);
+//    DDLogError(@"Error! %@", error);
 //    if (error.code == 404)
 //        [self.delegate account:self validationDidFailWithMessage:@"Could not find the given Basecamp account. Please verify that your Account ID matches the number found in your browser's address bar." field:AccountFailingFieldDomain];
 //    else if (error.code == 500)

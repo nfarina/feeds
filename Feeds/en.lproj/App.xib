@@ -1351,9 +1351,9 @@
 						<reference key="NSOnImage" ref="35465992"/>
 						<reference key="NSMixedImage" ref="502551668"/>
 					</object>
-					<object class="NSMenuItem" id="781118617">
+					<object class="NSMenuItem" id="494822400">
 						<reference key="NSMenu" ref="803382980"/>
-						<string key="NSTitle">Report a bug…</string>
+						<string key="NSTitle">Report a Problem…</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
 						<reference key="NSOnImage" ref="35465992"/>
@@ -2026,7 +2026,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">reportBug:</string>
 						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="781118617"/>
+						<reference key="destination" ref="494822400"/>
 					</object>
 					<int key="connectionID">567</int>
 				</object>
@@ -3149,7 +3149,7 @@
 							<reference ref="1045464208"/>
 							<reference ref="726841548"/>
 							<reference ref="343218651"/>
-							<reference ref="781118617"/>
+							<reference ref="494822400"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">StatusMenu</string>
@@ -3181,7 +3181,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">566</int>
-						<reference key="object" ref="781118617"/>
+						<reference key="object" ref="494822400"/>
 						<reference key="parent" ref="803382980"/>
 					</object>
 				</object>

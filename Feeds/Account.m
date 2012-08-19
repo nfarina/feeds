@@ -51,9 +51,9 @@ static NSMutableArray *registeredClasses = nil;
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     
     if (error)
-        NSLog(@"Error while fetching extra data at (%@): %@", request.URL, error);
+        DDLogError(@"Error while fetching extra data at (%@): %@", request.URL, error);
     else {
-        NSLog(@"Fetched extra for %@", NSStringFromClass(self));
+        DDLogInfo(@"Fetched extra for %@", NSStringFromClass(self));
         @synchronized (self) {
             [cache setObject:data forKey:request.URL];
         }
@@ -241,7 +241,7 @@ static NSMutableArray *registeredClasses = nil;
     
     if (status != noErr) {
         if (status != errSecItemNotFound)
-            NSLog(@"Find password failed. (OSStatus: %d)\n", (int)status);
+            DDLogWarn(@"Find password failed. (OSStatus: %d)\n", (int)status);
         return nil;
     }
     
@@ -270,7 +270,7 @@ static NSMutableArray *registeredClasses = nil;
                                                                  [password UTF8String]);
         
         if (status != noErr)
-            NSLog(@"Update password failed. (OSStatus: %d)\n", (int)status);
+            DDLogError(@"Update password failed. (OSStatus: %d)\n", (int)status);
     }
     else {
         const char *serviceName = [self serviceName];
@@ -284,7 +284,7 @@ static NSMutableArray *registeredClasses = nil;
                                                          NULL);
         
         if (status != noErr)
-            NSLog(@"Add password failed. (OSStatus: %d)\n", (int)status);
+            DDLogError(@"Add password failed. (OSStatus: %d)\n", (int)status);
     }
 }
 
@@ -322,7 +322,7 @@ static NSMutableArray *registeredClasses = nil;
 #pragma mark Feed Refreshing
 
 - (void)refreshEnabledFeeds {
-    //NSLog(@"Refreshing feeds for account %@", self);
+    DDLogInfo(@"Refreshing feeds for account %@", self);
     self.lastRefresh = [NSDate date];
     [self refreshFeeds:self.enabledFeeds];
 }

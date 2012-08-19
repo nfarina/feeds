@@ -33,7 +33,6 @@
 }
 
 - (void)rssRequestError:(NSError *)error {
-    NSLog(@"Error! %@", error);
     if (error.code == 401)
         [self.delegate account:self validationDidFailWithMessage:@"Could not log in to the given Dropmark account. Please check your email address and password." field:0];
     else

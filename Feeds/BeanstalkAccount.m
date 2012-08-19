@@ -52,9 +52,7 @@
     else return newRequest;
 }
 
-- (void)meRequestError:(NSError *)error {
-    NSLog(@"Error! %@", error);
-    
+- (void)meRequestError:(NSError *)error {    
     SMErrorResponse *response = [error.userInfo objectForKey:SMErrorResponseKey];
     NSString *message = nil;
     

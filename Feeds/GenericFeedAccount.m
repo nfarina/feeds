@@ -96,7 +96,6 @@
 
 - (void)feedRequestError:(NSError *)error {
     
-    NSLog(@"Error! %@", error);
     // if we got a 401, then we can try basic auth if we ask you for your username and password
     if (error.code == 401 && !username.length)
         [self.delegate account:self validationDidRequireUsernameAndPasswordWithMessage:@"This feed requires a username/password."];

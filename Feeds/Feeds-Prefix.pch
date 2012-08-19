@@ -35,9 +35,11 @@
 #endif
 
 #ifdef DEBUG
-#define ISOLATE_ACCOUNTS [NSArray arrayWithObjects:@"GenericFeedAccount",nil]
+//#define ISOLATE_ACCOUNTS [NSArray arrayWithObjects:@"GenericFeedAccount",nil]
 #endif
 
 // Compatibility stuff
 #define HAS_POPOVER (NSClassFromString(@"NSPopover") != nil)
 #define HAS_NOTIFICATION_CENTER (NSClassFromString(@"NSUserNotificationCenter") != nil)
+
+extern const int ddLogLevel;

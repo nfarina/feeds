@@ -148,7 +148,7 @@
 
 - (IBAction)addAccount:(id)sender {
     NewAccountController *controller = [[NewAccountController alloc] initWithDelegate:self];
-    
+    DDLogInfo(@"Presenting NewAccountController.");
     [NSApp beginSheet:controller.window modalForWindow:self.window modalDelegate:nil didEndSelector:NULL contextInfo:controller];
 }
 
@@ -191,6 +191,7 @@
         [findFeedsProgress startAnimation:nil];
         self.oldFeeds = self.selectedAccount.feeds; // preserve old feeds because existing FeedItems in our main menu might point to them (weak links)
         
+        DDLogInfo(@"Validating account %@", self.selectedAccount);
         [self.selectedAccount validateWithPassword:[self.selectedAccount findPassword]];
     }
     else {
@@ -217,6 +218,7 @@
 }
 
 - (void)account:(Account *)account validationDidContinueWithMessage:(NSString *)message {
+    DDLogInfo(@"Validation continuing for account %@: %@", self.selectedAccount, message);
     [findFeedsLabel setStringValue:message];
 }
 
@@ -226,6 +228,8 @@
 
 - (void)account:(Account *)account validationDidFailWithMessage:(NSString *)message field:(AccountFailingField)field {
 
+    DDLogError(@"Validation failed for account %@: %@", self.selectedAccount, message);
+    
     [findFeedsProgress stopAnimation:nil];
     [findFeedsProgress setHidden:YES];
     
@@ -234,6 +238,7 @@
 }
 
 - (void)account:(Account *)account validationDidCompleteWithNewPassword:(NSString *)password {
+    DDLogInfo(@"Validation completed for account %@.", self.selectedAccount);
     [findFeedsProgress stopAnimation:nil];
     [findFeedsProgress setHidden:YES];
     [findFeedsLabel setHidden:YES];
@@ -243,7 +248,7 @@
         account.feeds = oldFeeds;
     }
     else {
-        NSLog(@"Available feeds changed! Saving accounts.");
+        DDLogInfo(@"Available feeds changed! Saving accounts.");
         
         // copy over the disabled flag for accounts we already had
         for (Feed *feed in account.feeds) {

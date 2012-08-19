@@ -27,7 +27,6 @@
 }
 
 - (void)meRequestError:(NSError *)error {
-    NSLog(@"Error! %@", error);
     if (error.code == 404)
         [self.delegate account:self validationDidFailWithMessage:@"Could not find the given Dribbble username." field:AccountFailingFieldUsername];
     else

@@ -269,7 +269,7 @@ OSStatus dd_hotKeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, vo
 	UInt32 keyID = hotKeyID.id;
 	
 	NSSet * matchingHotKeys = [_registeredHotKeys filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"hotKeyID = %u", keyID]];
-	if ([matchingHotKeys count] > 1) { NSLog(@"ERROR!"); }
+	if ([matchingHotKeys count] > 1) { DDLogCError(@"Error in HotKey handler!"); }
 	_DDHotKey * matchingHotKey = [matchingHotKeys anyObject];
 	
 	NSEvent * event = [NSEvent eventWithEventRef:theEvent];

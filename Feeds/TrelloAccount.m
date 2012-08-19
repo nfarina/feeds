@@ -52,7 +52,6 @@
 }
 
 - (void)meRequestError:(NSError *)error {
-    NSLog(@"Error! %@", error);
     [self.delegate account:self validationDidFailWithMessage:error.localizedDescription field:AccountFailingFieldUnknown];
 }
 
@@ -80,7 +79,7 @@
             item.published = AutoFormatDate(date);
             item.updated = item.published;
             
-            if (!item.published) NSLog(@"Couldn't parse date %@", date);
+            if (!item.published) DDLogError(@"Couldn't parse date %@", date);
 
             if (card && board)
                 URLString = [NSString stringWithFormat:@"https://trello.com/card/board/%@/%@",board,card];

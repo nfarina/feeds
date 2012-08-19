@@ -37,9 +37,7 @@
     [self.delegate account:self validationDidCompleteWithNewPassword:nil];
 }
 
-- (void)activitiesRequestError:(NSError *)error {
-    NSLog(@"Error! %@", error);
-    
+- (void)activitiesRequestError:(NSError *)error {    
     if (error.code == 401)
         [self.delegate account:self validationDidFailWithMessage:@"Could not access the given Zendesk domain. Please check your username and password." field:0];
     else

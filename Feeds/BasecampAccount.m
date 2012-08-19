@@ -40,7 +40,6 @@
 }
 
 - (void)meRequestError:(NSError *)error {
-    NSLog(@"Error! %@", error);
     if (error.code == 404)
         [self.delegate account:self validationDidFailWithMessage:@"Could not log in to the given Basecamp account. Please check your domain, username, and password." field:0];
     else

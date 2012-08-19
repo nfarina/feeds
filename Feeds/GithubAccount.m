@@ -28,7 +28,6 @@
 }
 
 - (void)privateFeedRequestError:(NSError *)error {
-    NSLog(@"Error! %@", error);
     if (error.code == 401)
         [self.delegate account:self validationDidFailWithMessage:@"Could not log in to the given Github account. Please check your username and password." field:0];
     else
@@ -61,7 +60,6 @@
 }
 
 - (void)tokenRequestError:(NSError *)error {
-    NSLog(@"Error! %@", error);
     [self.delegate account:self validationDidFailWithMessage:@"Could not retrieve information for the given Github account. Please check your username and password." field:0];
 }
 
@@ -90,7 +88,6 @@
 }
 
 - (void)orgRequestError:(NSError *)error {
-    NSLog(@"Error! %@", error);
     [self.delegate account:self validationDidFailWithMessage:@"Could not retrieve information about the given Github account. Please check your username and password." field:0];
 }
 
