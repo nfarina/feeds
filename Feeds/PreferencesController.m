@@ -23,7 +23,7 @@
 }
 
 - (id)initPreferencesController {
-    if ([super initWithWindowNibName:@"PreferencesController"]) {
+    if (self = [super initWithWindowNibName:@"PreferencesController"]) {
         // Initialization code here.
     }
     return self;

@@ -169,7 +169,7 @@ static NSMutableArray *registeredClasses = nil;
 
 - (void)setRequest:(SMWebRequest *)request_ {
     [request removeTarget:self];
-    [request release], [request = request_ retain];
+    [request release], request = [request_ retain];
 }
 
 - (void)setTokenRequest:(SMWebRequest *)tokenRequest_ {

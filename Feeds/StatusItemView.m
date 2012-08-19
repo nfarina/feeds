@@ -4,7 +4,7 @@
 @synthesize icon, highlighted;
 
 - (id)initWithStatusItem:(NSStatusItem *)theStatusItem {
-	if ([super initWithFrame:NSMakeRect(0, 0, 30, 22)]) {
+	if (self = [super initWithFrame:NSMakeRect(0, 0, 30, 22)]) {
 		statusItem = [theStatusItem retain];
 		//		[self setImage:[NSImage imageNamed:@"StatusItem.png"]];
 	}

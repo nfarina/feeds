@@ -137,7 +137,7 @@
         FeedItem *latestItem = feed.items.firstObject;
         
         if (latestItem) {
-            NSDateFormatter *formatter = [NSDateFormatter new];
+            NSDateFormatter *formatter = [[NSDateFormatter new] autorelease];
             [formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZ"];
             [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"America/Chicago"]];
             NSString *chicagoDate = [formatter stringFromDate:latestItem.published];
