@@ -22,12 +22,12 @@
 		0133CEAD1532A9A900CF6647 /* DropmarkAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 0133CEAA1532A9A900CF6647 /* DropmarkAccount.png */; };
 		0133CEAE1532A9A900CF6647 /* Dropmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 0133CEAB1532A9A900CF6647 /* Dropmark.png */; };
 		014147A01486B019000D63E5 /* UserVoiceAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 0141479F1486B019000D63E5 /* UserVoiceAccount.m */; };
-		014147AE1486B258000D63E5 /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 014147A91486B258000D63E5 /* TFHpple.m */; };
-		014147AF1486B258000D63E5 /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 014147AB1486B258000D63E5 /* TFHppleElement.m */; };
-		014147B01486B258000D63E5 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 014147AD1486B258000D63E5 /* XPathQuery.m */; };
+		014147AE1486B258000D63E5 /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 014147A91486B258000D63E5 /* TFHpple.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		014147AF1486B258000D63E5 /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 014147AB1486B258000D63E5 /* TFHppleElement.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		014147B01486B258000D63E5 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 014147AD1486B258000D63E5 /* XPathQuery.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		014147B31486B2BF000D63E5 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 014147B11486B27F000D63E5 /* libxml2.2.dylib */; };
 		014147B81486B575000D63E5 /* NSString+English.m in Sources */ = {isa = PBXBuildFile; fileRef = 014147B71486B575000D63E5 /* NSString+English.m */; };
-		014147BB1486BAB5000D63E5 /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 014147BA1486BAB5000D63E5 /* ISO8601DateFormatter.m */; };
+		014147BB1486BAB5000D63E5 /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 014147BA1486BAB5000D63E5 /* ISO8601DateFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		01518F7E13C54F480043AB98 /* CG+Geometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 01518F7D13C54F480043AB98 /* CG+Geometry.m */; };
 		01524F4514BFB45F00913D84 /* TrelloAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01524F4414BFB45F00913D84 /* TrelloAccount.m */; };
 		01524F6614C11CC400913D84 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 01524F6514C11CC400913D84 /* Default.png */; };
@@ -53,7 +53,7 @@
 		01937CB613A05A6C00BCE1D4 /* SMXMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937CB413A05A6C00BCE1D4 /* SMXMLDocument.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		01937CB913A05B8700BCE1D4 /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937CB813A05B8700BCE1D4 /* Feed.m */; };
 		019EE0C314701FA500B67B74 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 019EE0C214701FA500B67B74 /* Growl.framework */; };
-		019EE0DC147023B800B67B74 /* DDHotKeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 019EE0CE147023B800B67B74 /* DDHotKeyCenter.m */; };
+		019EE0DC147023B800B67B74 /* DDHotKeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 019EE0CE147023B800B67B74 /* DDHotKeyCenter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		019EE0E41470248600B67B74 /* Growl.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 019EE0C214701FA500B67B74 /* Growl.framework */; };
 		019EE0E61470268C00B67B74 /* BasecampNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 019EE0E51470268C00B67B74 /* BasecampNotify.png */; };
 		019EE0E81470278300B67B74 /* HighriseNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 019EE0E71470278300B67B74 /* HighriseNotify.png */; };
@@ -414,7 +414,6 @@
 		01937C7313A03F5000BCE1D4 = {
 			isa = PBXGroup;
 			children = (
-				014147B11486B27F000D63E5 /* libxml2.2.dylib */,
 				01937C8813A03F5000BCE1D4 /* Feeds */,
 				01937CB213A05A5100BCE1D4 /* Libraries */,
 				01937C8113A03F5000BCE1D4 /* Frameworks */,
@@ -437,6 +436,7 @@
 				019EE0C214701FA500B67B74 /* Growl.framework */,
 				01C4F93213C597AC00DB0CCB /* WebKit.framework */,
 				01EB9C3B13C4F35A00A9C131 /* libicucore.dylib */,
+				014147B11486B27F000D63E5 /* libxml2.2.dylib */,
 				0108CEDC13BB8CB80000ECE1 /* Security.framework */,
 				01937C8213A03F5000BCE1D4 /* Cocoa.framework */,
 				01F616E713AE504000EBB24E /* SystemConfiguration.framework */,
@@ -833,7 +833,7 @@
 				GCC_PREFIX_HEADER = "Feeds/Feeds-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Feeds/Feeds-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = Feeds;
 				WRAPPER_EXTENSION = app;
 			};
@@ -854,7 +854,7 @@
 				GCC_PREFIX_HEADER = "Feeds/Feeds-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Feeds/Feeds-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.6.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = Feeds;
 				WRAPPER_EXTENSION = app;
 			};
