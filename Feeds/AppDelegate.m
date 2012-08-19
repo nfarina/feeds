@@ -30,13 +30,17 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 - (void)applicationWillFinishLaunching:(NSNotification *)notification {
     
     // initialize logging framework
+    #if DEBUG
+    // debug mode we'll log to Xcode and Console
     [DDLog addLogger:[DDASLLogger sharedInstance]];
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
-    
+    #else
+    // release mode we'll log to a file
     fileLogger = [[DDFileLogger alloc] init];
     fileLogger.maximumFileSize = 50 * 1024; // 50k per file max
     fileLogger.logFileManager.maximumNumberOfLogFiles = 1;
     [DDLog addLogger:fileLogger];
+    #endif
     
     // listen for "Open URL" events sent to this app by the user clicking on a "feedsapp://something" link.
     [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
