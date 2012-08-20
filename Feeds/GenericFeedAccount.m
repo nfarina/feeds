@@ -32,12 +32,24 @@
     [request start];
 }
 
+//- (NSURLRequest *)webRequest:(SMWebRequest *)webRequest willSendRequest:(NSURLRequest *)newRequest redirectResponse:(NSURLResponse *)redirectResponse {
+//    if (redirectResponse) {
+//        // make sure to remember where we were redirected to, for 
+//    }
+//    return newRequest;
+//}
+
 - (void)feedRequestComplete:(NSData *)data {
     
-    // did this request return HTML? Look for feeds in there.
-    NSString *contentType = [[(NSHTTPURLResponse *)self.request.response allHeaderFields] objectForKey:@"Content-Type"];
+    NSURL *URL = self.request.response.URL; // the final URL of this resource (after any redirects)
     
-    if ([contentType isEqualToString:@"text/html"] || [contentType beginsWithString:@"text/html;"]) {
+    // did this request return HTML? Look for feeds in there.
+    NSString *contentType = nil;
+    if ([self.request.response isKindOfClass:[NSHTTPURLResponse class]])
+        contentType = [[(NSHTTPURLResponse *)self.request.response allHeaderFields] objectForKey:@"Content-Type"];
+    
+    if ([contentType isEqualToString:@"text/html"] || [contentType beginsWithString:@"text/html;"] ||
+        [URL.path endsWithString:@".html"] || [URL.path endsWithString:@".html"]) {
         
         NSMutableArray *foundFeeds = [NSMutableArray array];
 
@@ -48,9 +60,10 @@
         for (TFHppleElement *link in rssLinks) {
             NSString *href = [link.attributes objectForKey:@"href"];
             NSString *title = [link.attributes objectForKey:@"title"] ?: @"RSS Feed";
+            NSURL *url = [NSURL URLWithString:href relativeToURL:URL];
             
             if (href.length) {
-                Feed *feed = [Feed feedWithURLString:href title:title account:self];
+                Feed *feed = [Feed feedWithURLString:url.absoluteString title:title account:self];
                 if (![foundFeeds containsObject:feed]) [foundFeeds addObject:feed]; // check for duplicates
             }
         }
@@ -58,9 +71,10 @@
         for (TFHppleElement *link in atomLinks) {
             NSString *href = [link.attributes objectForKey:@"href"];
             NSString *title = [link.attributes objectForKey:@"title"] ?: @"Atom Feed";
+            NSURL *url = [NSURL URLWithString:href relativeToURL:URL];
             
             if (href.length) {
-                Feed *feed = [Feed feedWithURLString:href title:title account:self];
+                Feed *feed = [Feed feedWithURLString:url.absoluteString title:title account:self];
                 if (![foundFeeds containsObject:feed]) [foundFeeds addObject:feed]; // check for duplicates
             }
         }

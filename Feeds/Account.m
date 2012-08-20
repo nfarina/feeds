@@ -232,7 +232,7 @@ static NSMutableArray *registeredClasses = nil;
     
     if (status != noErr) {
         if (status != errSecItemNotFound)
-            DDLogWarn(@"Find password failed. (OSStatus: %d)\n", (int)status);
+            DDLogWarn(@"Find password failed for account %@. (OSStatus: %d)\n", self, (int)status);
         return nil;
     }
     
