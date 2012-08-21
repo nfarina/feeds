@@ -309,6 +309,21 @@ const int ddLogLevel = LOG_LEVEL_INFO;
     
     while ([allItems count] > MAX_ITEMS)
         [allItems removeObjectAtIndex:MAX_ITEMS];
+    
+    if (HAS_NOTIFICATION_CENTER) {
+        NSMutableDictionary *itemsByLink = [NSMutableDictionary dictionary];
+        
+        // build a quick lookup dictionary for links
+        for (FeedItem *item in allItems)
+            [itemsByLink setObject:item forKey:item.link.absoluteString];
+        
+        // look through our delivered notifications and remove any that don't exist in our allItems anymore for whatever reason
+        for (NSUserNotification *notification in [NSUserNotificationCenter defaultUserNotificationCenter].deliveredNotifications) {
+            NSString *link = [notification.userInfo objectForKey:@"FeedItemLink"];
+            if (![itemsByLink objectForKey:link])
+                [[NSUserNotificationCenter defaultUserNotificationCenter] removeDeliveredNotification:notification];
+        }
+    }
 }
 
 - (void)rebuildMenuItems {

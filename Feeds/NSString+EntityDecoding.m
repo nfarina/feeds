@@ -1,25 +1,5 @@
 #import "NSString+EntityDecoding.h"
 
-NSString* NSStringFromCharacterCode(int code)
-{
-	static NSArray *codesBelow160 = nil;
-
-	// stringWithFormat and %C can't handle extended ASCII codes from 127 to 160, so we have to replace them manually
-	if (code >= 128 && code <= 160)
-	{
-		if (!codesBelow160)
-			// I know I'm not supposed to write these characters directly in code because of blah blah, but it works fine
-			codesBelow160 = [[NSArray alloc] initWithObjects:
-							 @"€", @"", @"‚", @"ƒ", @"„", @"…", @"†", @"‡", @"ˆ", @"‰", @"Š", @"‹", @"Œ", @"", @"Ž", @"", @"",
-							 @"‘", @"’", @"“", @"”", @"•", @"–", @"—", @"˜", @"™", @"š", @"›", @"œ", @"", @"ž", @"Ÿ", @"",
-							 nil];
-		
-		return [codesBelow160 objectAtIndex:code-128];
-	}
-	
-	return [NSString stringWithFormat: @"%d", code];
-}
-
 @implementation NSString (EntityDecoding)
 
 // got part of this from http://www.thinkmac.co.uk/blog/2005/05/removing-entities-from-html-in-cocoa.html
@@ -80,13 +60,14 @@ NSString* NSStringFromCharacterCode(int code)
 			unsigned tempInt = 0;
 			NSScanner *scanner = [[NSScanner alloc] initWithString: [value substringFromIndex: 2]];
 			[scanner scanHexInt: &tempInt];
-			[escaped insertString:NSStringFromCharacterCode(tempInt) atIndex: entityRange.location];
+            unichar uchar = tempInt;
+			[escaped insertString:[NSString stringWithCharacters:&uchar length:1] atIndex: entityRange.location];
 			[scanner release];
 		}
 		else if ([value hasPrefix:@"#"])
 		{
-			int intvalue = [[value substringFromIndex:1] intValue];
-			[escaped insertString:NSStringFromCharacterCode(intvalue) atIndex:entityRange.location];
+            unichar uchar = [[value substringFromIndex:1] intValue];
+			[escaped insertString:[NSString stringWithCharacters:&uchar length:1] atIndex:entityRange.location];
 		}
 		else {
 			// ok look it up in our giant HTML entities dictionary
