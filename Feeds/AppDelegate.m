@@ -341,7 +341,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
         menuItem.tag = i+1;
         
         if (!item.viewed) {
-            menuItem.onStateImage = [NSImage imageNamed:@"Unread.png"];
+            menuItem.onStateImage = [NSImage imageNamed:@"Unread.tiff"];
             menuItem.state = NSOnState;
         }
         
@@ -389,14 +389,14 @@ const int ddLogLevel = LOG_LEVEL_INFO;
     if (lastHighlightedItem) {
         FeedItem *lastItem = [allItems objectAtIndex:lastHighlightedItem.tag-1];
         lastHighlightedItem.attributedTitle = [lastItem attributedStringHighlighted:NO];
-//        lastHighlightedItem.image = [NSImage imageNamed:[lastItem.feed.account.type stringByAppendingString:@".png"]];
+//        lastHighlightedItem.image = [NSImage imageNamed:[lastItem.feed.account.type stringByAppendingString:@".tiff"]];
     }
 
     if (menuItem) {
         FeedItem *item = [allItems objectAtIndex:menuItem.tag-1];
         menuItem.attributedTitle = [item attributedStringHighlighted:YES];
         
-//        NSImage *highlightedImage = [NSImage imageNamed:[item.feed.account.type stringByAppendingString:@"Highlighted.png"]];
+//        NSImage *highlightedImage = [NSImage imageNamed:[item.feed.account.type stringByAppendingString:@"Highlighted.tiff"]];
 //        if (highlightedImage) menuItem.image = highlightedImage;
     }
     

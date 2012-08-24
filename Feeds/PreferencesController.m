@@ -139,7 +139,7 @@
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     Account *account = [[Account allAccounts] objectAtIndex:row];
-    return [NSDictionary dictionaryWithObjectsAndKeys:account.type, @"type", account.name ?: [[account class] shortAccountName], @"name", account.username, @"username", account.friendlyDomain, @"domain", nil];
+    return [NSDictionary dictionaryWithObjectsAndKeys:account.iconPrefix, @"iconPrefix", account.name ?: [[account class] shortAccountName], @"name", account.username, @"username", account.friendlyDomain, @"domain", nil];
 }
 
 - (BOOL)tableView:(NSTableView *)tableView shouldShowCellExpansionForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {

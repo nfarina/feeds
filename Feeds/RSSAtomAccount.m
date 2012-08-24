@@ -1,6 +1,6 @@
-#import "GenericFeedAccount.h"
+#import "RSSAtomAccount.h"
 
-@implementation GenericFeedAccount
+@implementation RSSAtomAccount
 
 + (void)load { [Account registerClass:self]; }
 + (NSString *)friendlyAccountName { return @"RSS/Atom"; }

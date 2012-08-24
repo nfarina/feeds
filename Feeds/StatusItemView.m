@@ -6,7 +6,7 @@
 - (id)initWithStatusItem:(NSStatusItem *)theStatusItem {
 	if (self = [super initWithFrame:NSMakeRect(0, 0, 30, 22)]) {
 		statusItem = [theStatusItem retain];
-		//		[self setImage:[NSImage imageNamed:@"StatusItem.png"]];
+		//		[self setImage:[NSImage imageNamed:@"StatusItem.tiff"]];
 	}
 	return self;
 }
@@ -27,9 +27,9 @@
 
 - (NSImage *)iconImage {
     switch (icon) {
-        case StatusItemIconInactive: return [NSImage imageNamed:@"StatusItemInactive.png"];
-        case StatusItemIconUnread: return [NSImage imageNamed:@"StatusItemUnread.png"];
-        default: return [NSImage imageNamed:@"StatusItem.png"];
+        case StatusItemIconInactive: return [NSImage imageNamed:@"StatusItemInactive.tiff"];
+        case StatusItemIconUnread: return [NSImage imageNamed:@"StatusItemUnread.tiff"];
+        default: return [NSImage imageNamed:@"StatusItem.tiff"];
     }
 }
 
@@ -37,7 +37,7 @@
 
     [statusItem drawStatusBarBackgroundInRect:rect withHighlight:highlighted];
     
-    NSImage *image = highlighted ? [NSImage imageNamed:@"StatusItemSelected.png"] : [self iconImage];
+    NSImage *image = highlighted ? [NSImage imageNamed:@"StatusItemSelected.tiff"] : [self iconImage];
     
 	NSRect srcRect = NSMakeRect(0, 0, [image size].width, [image size].height);
     

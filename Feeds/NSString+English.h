@@ -13,6 +13,8 @@ BOOL NSEqualObjects(id a, id b);
 // These should really be in the cocoa framework already. I mean, come on.
 - (BOOL)containsString:(NSString *)substring;
 - (BOOL)containsString:(NSString *)substring options:(NSStringCompareOptions)mask;
+- (BOOL)containsCharacterFromSet:(NSCharacterSet *)set;
+- (BOOL)containsCharacterFromSet:(NSCharacterSet *)set options:(NSStringCompareOptions)mask;
 - (BOOL)beginsWithString:(NSString *)substring;
 - (BOOL)beginsWithString:(NSString *)substring options:(NSStringCompareOptions)mask;
 - (BOOL)endsWithString:(NSString *)substring;

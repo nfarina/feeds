@@ -17,6 +17,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
     static ISO8601DateFormatter *iso8601Formatter = nil; // "2012-01-25T11:12:26Z"
     static NSDateFormatter *rssDateFormatter = nil; // "Sat, 21 Jan 2012 19:22:02 -0500"
     static NSDateFormatter *beanstalkDateFormatter = nil; // "2011/09/12 13:24:05 +0800"
+    static NSDateFormatter *pivotalDateFormatter = nil; // "2012/08/21 23:12:03 MSK"
     
     // date formatters are NOT threadsafe!
     @synchronized ([Feed class]) {
@@ -27,20 +28,45 @@ NSDate *AutoFormatDate(NSString *dateString) {
             beanstalkDateFormatter = [[NSDateFormatter alloc] init];
             [beanstalkDateFormatter setDateFormat:@"yyyy'/'MM'/'dd HH':'mm':'ss ZZZ"];
         }
+
+        if (!pivotalDateFormatter) {
+            pivotalDateFormatter = [[NSDateFormatter alloc] init];
+            [pivotalDateFormatter setDateFormat:@"yyyy'/'MM'/'dd HH':'mm':'ss z"];
+        }
         
         NSDate *date = nil;
         
-        // if the string contains forward-slashes, it's beanstalk.
-        if ([dateString containsString:@"/"])
+        // if the string contains forward-slashes and no uppercase characters, it's beanstalk.
+        if ([dateString containsString:@"/"] && ![dateString containsCharacterFromSet:[NSCharacterSet uppercaseLetterCharacterSet]])
             date = [beanstalkDateFormatter dateFromString:dateString];
         
+        // if the string contains forward-slashes and uppercase characters, it's pivotal.
+        if ([dateString containsString:@"/"] && [dateString containsCharacterFromSet:[NSCharacterSet uppercaseLetterCharacterSet]]) {
+            // so, according to http://www.openradar.me/9944011, Apple updated the ICU library which NSDateFormatter
+            // depends on, some time during the Lion/iOS 5 era. and it no longer handles most 3-letter timezones
+            // like "MSK" in particular (Moscow Time) because they're ambiguous whatever.
+            // which means we get to do this awesome jazz where we try and swap out the 3-letter code in
+            // this date format with something else.
+            NSString *threeLetterZone = [dateString componentsSeparatedByString:@" "].lastObject;
+            
+            NSTimeZone *timeZone = [NSTimeZone timeZoneWithAbbreviation:threeLetterZone];
+            if (timeZone) {
+                NSString *gmtTime = [dateString stringByReplacingOccurrencesOfString:threeLetterZone withString:@"GMT"];
+                return [[pivotalDateFormatter dateFromString:gmtTime] dateByAddingTimeInterval:timeZone.secondsFromGMT];
+            }
+        }
+        
         // try ISO 8601 next
-        if (date.timeIntervalSinceReferenceDate < 1)
+        if (date.timeIntervalSinceReferenceDate < 1 && [dateString containsString:@"-"] && [dateString containsString:@"T"])
             date = [iso8601Formatter dateFromString:dateString];
 
         // no luck? try RSS
-        if (date.timeIntervalSinceReferenceDate < 1)
+        if (date.timeIntervalSinceReferenceDate < 1 && [dateString containsString:@","])
             date = [rssDateFormatter dateFromString:dateString];
+        
+        // no luck? throw the kitchen sink at it
+        if (date.timeIntervalSinceReferenceDate < 1)
+            date = [NSDate dateFromInternetDateTimeString:dateString formatHint:DateFormatHintNone];
         
         if (date.timeIntervalSinceReferenceDate > 1)
             return date;

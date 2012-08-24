@@ -32,6 +32,14 @@ BOOL NSEqualObjects(id a, id b) {
 	return substring && [self rangeOfString:substring options:mask].location != NSNotFound;
 }
 
+- (BOOL)containsCharacterFromSet:(NSCharacterSet *)set {
+    return [self containsCharacterFromSet:set options:0];
+}
+
+- (BOOL)containsCharacterFromSet:(NSCharacterSet *)set options:(NSStringCompareOptions)mask {
+    return set && [self rangeOfCharacterFromSet:set options:mask].location != NSNotFound;
+}
+
 - (BOOL)beginsWithString:(NSString *)substring {
 	return [self beginsWithString:substring options:0];
 }

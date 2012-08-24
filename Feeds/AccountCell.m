@@ -5,10 +5,10 @@
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
 
 	NSDictionary *dict = self.objectValue;
-    NSString *type = [dict objectForKey:@"type"];
+    NSString *iconPrefix = [dict objectForKey:@"iconPrefix"];
     NSString *name = [dict objectForKey:@"name"];
     NSString *username = [dict objectForKey:@"username"];
-    NSImage *icon = [NSImage imageNamed:[type stringByAppendingString:@"Account.png"]];
+    NSImage *icon = [NSImage imageNamed:[iconPrefix stringByAppendingString:@"Account.tiff"]];
 
     if (!username.length)
         username = [dict objectForKey:@"domain"];

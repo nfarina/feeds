@@ -81,6 +81,7 @@ typedef enum {
 - (void)refreshFeeds:(NSArray *)feeds;
 
 - (NSString *)friendlyDomain; // default implementation detects a URL and returns only the domain name if it's a full URL
+- (NSString *)iconPrefix;
 
 - (NSTimeInterval)refreshIntervalOrDefault;
 

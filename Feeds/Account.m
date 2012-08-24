@@ -172,16 +172,18 @@ static NSMutableArray *registeredClasses = nil;
     return [NSStringFromClass([self class]) stringByReplacingOccurrencesOfString:@"Account" withString:@""];
 }
 
+- (NSString *)iconPrefix { return self.type; }
+
 - (NSImage *)menuIconImage {
-    return [NSImage imageNamed:[self.type stringByAppendingString:@".png"]] ?: [NSImage imageNamed:@"Default.png"];
+    return [NSImage imageNamed:[self.iconPrefix stringByAppendingString:@".tiff"]] ?: [NSImage imageNamed:@"Default.tiff"];
 }
 
 - (NSImage *)accountIconImage {
-    return [NSImage imageNamed:[self.type stringByAppendingString:@"Account.png"]];
+    return [NSImage imageNamed:[self.iconPrefix stringByAppendingString:@"Account.tiff"]];
 }
 
 - (NSData *)notifyIconData {
-    return [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForImageResource:[self.type stringByAppendingString:@"Notify.png"]]];
+    return [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForImageResource:[self.iconPrefix stringByAppendingString:@"Notify.tiff"]]];
 }
 
 - (const char *)serviceName {
