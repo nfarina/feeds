@@ -234,7 +234,7 @@
         item.updated = item.published;
         item.author = [creator objectForKey:@"name"];
         item.authoredByMe = [creatorIdentifier isEqualToString:authorIdentifier];
-        item.content = [event objectForKey:@"summary"];
+        item.content = [NSString stringWithFormat:@"%@ %@",item.author, [event objectForKey:@"summary"]];
         item.project = [bucket objectForKey:@"name"];
         item.link = [NSURL URLWithString:URL];
 //            item.title = [NSString stringWithFormat:@"%@ %@", item.author, item.content];

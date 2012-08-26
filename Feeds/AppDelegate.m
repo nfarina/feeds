@@ -472,8 +472,10 @@ const int ddLogLevel = LOG_LEVEL_INFO;
         // remove the author from the front of the title if the title begins with the author name
         titleOrFallback = [titleOrFallback substringFromIndex:item.author.length];
     }
-    else*/ if ([titleOrFallback containsString:item.author]) {
-        // don't repeat the author in the subtitle if they are mentioned in the title
+    else*/
+    if ([titleOrFallback containsString:item.author] || [item.content beginsWithString:item.author]) {
+        // don't repeat the author in the subtitle if they are mentioned in the title or if the description
+        // starts with the author name like "Nick Farina did something..."
         author = nil;
     }
     
