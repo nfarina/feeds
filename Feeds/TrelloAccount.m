@@ -134,7 +134,7 @@
                 // go out and fetch the related member since we only have their ID
                 NSString *authorLookup = [NSString stringWithFormat:@"https://api.trello.com/1/members/%@?key=53e6bb99cefe4914e88d06c76308e357&token=%@", member, token];
                 NSData *data = [self extraDataWithContentsOfURL:[NSURL URLWithString:authorLookup]];
-                if (!data) return [NSArray array];
+                if (!data) return nil;
                 
                 NSDictionary *member = [data objectFromJSONData];
                 NSString *memberName = [member objectForKey:@"fullName"];
@@ -154,7 +154,7 @@
             // go out and fetch the author's username since we only have their ID
             NSString *authorLookup = [NSString stringWithFormat:@"https://api.trello.com/1/members/%@?key=53e6bb99cefe4914e88d06c76308e357&token=%@", creatorIdentifier, token];
             NSData *data = [self extraDataWithContentsOfURL:[NSURL URLWithString:authorLookup]];
-            if (!data) return [NSArray array];
+            if (!data) return nil;
             
             NSDictionary *member = [data objectFromJSONData];
             NSString *memberName = [member objectForKey:@"fullName"];

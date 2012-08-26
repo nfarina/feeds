@@ -96,7 +96,7 @@
                 // go out and fetch the repository name since we only have its ID
                 NSString *repositoryLookup = [NSString stringWithFormat:@"https://%@.beanstalkapp.com/api/repositories/%@.json", domain, repositoryIdentifier];
                 NSData *data = [self extraDataWithContentsOfURLRequest:[NSMutableURLRequest requestWithURLString:repositoryLookup username:username password:password]];
-                if (!data) return [NSArray array];
+                if (!data) return nil;
                 
                 NSDictionary *response = [data objectFromJSONData];
                 NSDictionary *repository = [response objectForKey:@"repository"];
@@ -146,7 +146,7 @@
                 // go out and fetch the repository name since we only have its ID
                 NSString *repositoryLookup = [NSString stringWithFormat:@"https://%@.beanstalkapp.com/api/repositories/%@.json", domain, repositoryIdentifier];
                 NSData *data = [self extraDataWithContentsOfURLRequest:[NSMutableURLRequest requestWithURLString:repositoryLookup username:username password:password]];
-                if (!data) return [NSArray array];
+                if (!data) return nil;
                 
                 NSDictionary *response = [data objectFromJSONData];
                 NSDictionary *repository = [response objectForKey:@"repository"];
@@ -157,7 +157,7 @@
                 // go out and fetch the user's name since we only have their ID
                 NSString *userLookup = [NSString stringWithFormat:@"https://%@.beanstalkapp.com/api/users/%@.json", domain, userIdentifier];
                 NSData *data = [self extraDataWithContentsOfURLRequest:[NSMutableURLRequest requestWithURLString:userLookup username:username password:userLookup]];
-                if (!data) return [NSArray array];
+                if (!data) return nil;
                 
                 NSDictionary *response = [data objectFromJSONData];
                 NSDictionary *user = [response objectForKey:@"user"];
