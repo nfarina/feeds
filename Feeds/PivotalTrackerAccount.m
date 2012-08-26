@@ -158,7 +158,7 @@
     for (SMXMLElement *activity in document.root.children) {
         
         NSString *identifier = [activity valueWithPath:@"id"];
-        NSString *date = @"2012/08/21 23:12:03 MSK";//[activity valueWithPath:@"occurred_at"];
+        NSString *date = [activity valueWithPath:@"occurred_at"];
         NSString *author = [activity valueWithPath:@"author"];
         NSString *description = [activity valueWithPath:@"description"];
         NSString *projectIdentifier = [activity valueWithPath:@"project_id"];
