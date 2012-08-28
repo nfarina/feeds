@@ -52,7 +52,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
             NSTimeZone *timeZone = [NSTimeZone timeZoneWithAbbreviation:threeLetterZone];
             if (timeZone) {
                 NSString *gmtTime = [dateString stringByReplacingOccurrencesOfString:threeLetterZone withString:@"GMT"];
-                return [[pivotalDateFormatter dateFromString:gmtTime] dateByAddingTimeInterval:timeZone.secondsFromGMT];
+                date = [[pivotalDateFormatter dateFromString:gmtTime] dateByAddingTimeInterval:timeZone.secondsFromGMT];
             }
         }
         
@@ -68,8 +68,10 @@ NSDate *AutoFormatDate(NSString *dateString) {
         if (date.timeIntervalSinceReferenceDate < 1)
             date = [NSDate dateFromInternetDateTimeString:dateString formatHint:DateFormatHintNone];
         
-        if (date.timeIntervalSinceReferenceDate > 1)
+        if (date.timeIntervalSinceReferenceDate > 1) {
+            //DDLogCInfo(@"Parsed date from %@ to %@ (%@)", dateString, date, date.timeAgo);
             return date;
+        }
         else {
             DDLogCError(@"Couldn't parse date %@", dateString);
             return nil;

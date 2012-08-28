@@ -292,6 +292,7 @@
 		014147B71486B575000D63E5 /* NSString+English.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+English.m"; sourceTree = "<group>"; };
 		014147B91486BAB5000D63E5 /* ISO8601DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISO8601DateFormatter.h; sourceTree = "<group>"; };
 		014147BA1486BAB5000D63E5 /* ISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISO8601DateFormatter.m; sourceTree = "<group>"; };
+		014C022A15ED43F100D5BD76 /* Feeds.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Feeds.entitlements; sourceTree = "<group>"; };
 		01518F7C13C54F480043AB98 /* CG+Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CG+Geometry.h"; sourceTree = "<group>"; };
 		01518F7D13C54F480043AB98 /* CG+Geometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CG+Geometry.m"; sourceTree = "<group>"; };
 		01524F4314BFB45F00913D84 /* TrelloAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrelloAccount.h; sourceTree = "<group>"; };
@@ -617,6 +618,7 @@
 		01937C8813A03F5000BCE1D4 /* Feeds */ = {
 			isa = PBXGroup;
 			children = (
+				014C022A15ED43F100D5BD76 /* Feeds.entitlements */,
 				01937C9713A03F5000BCE1D4 /* App.xib */,
 				01937C9413A03F5000BCE1D4 /* AppDelegate.h */,
 				01937C9513A03F5000BCE1D4 /* AppDelegate.m */,
@@ -1035,6 +1037,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = Feeds/Feeds.entitlements;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1056,6 +1059,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = Feeds/Feeds.entitlements;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
