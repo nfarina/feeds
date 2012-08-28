@@ -52,7 +52,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
             NSTimeZone *timeZone = [NSTimeZone timeZoneWithAbbreviation:threeLetterZone];
             if (timeZone) {
                 NSString *gmtTime = [dateString stringByReplacingOccurrencesOfString:threeLetterZone withString:@"GMT"];
-                date = [[pivotalDateFormatter dateFromString:gmtTime] dateByAddingTimeInterval:timeZone.secondsFromGMT];
+                date = [[pivotalDateFormatter dateFromString:gmtTime] dateByAddingTimeInterval:-timeZone.secondsFromGMT];
             }
         }
         
