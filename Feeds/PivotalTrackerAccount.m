@@ -97,7 +97,7 @@
         
         NSString *mainFeedString = [NSString stringWithFormat:@"https://www.pivotaltracker.com/services/v3/activities?limit=30"];
         Feed *mainFeed = [Feed feedWithURLString:mainFeedString title:@"All Activity" author:author account:self];
-        mainFeed.requestHeaders = @{ @"X-TrackerToken" : token };
+        mainFeed.requestHeaders = @{ @"X-TrackerToken" : token, @"X-Tracker-Use-UTC": @"true" };
         [foundFeeds addObject:mainFeed];
         
         for (SMXMLElement *project in projects) {
@@ -107,7 +107,7 @@
             NSString *projectFeedString = [NSString stringWithFormat:@"https://www.pivotaltracker.com/services/v3/projects/%@/activities?limit=30", projectID];
             
             Feed *projectFeed = [Feed feedWithURLString:projectFeedString title:projectName author:author account:self];
-            projectFeed.requestHeaders = @{ @"X-TrackerToken" : token };
+            projectFeed.requestHeaders = @{ @"X-TrackerToken": token, @"X-Tracker-Use-UTC": @"true" };
             projectFeed.disabled = YES;
             
             [foundFeeds addObject:projectFeed];
