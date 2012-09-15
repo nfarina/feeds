@@ -446,8 +446,8 @@ NSDate *AutoFormatDate(NSString *dateString) {
 
 - (NSAttributedString *)attributedStringHighlighted:(BOOL)highlighted {
 
-    NSString *decodedTitle = [(title.length ? title : content) stringByDecodingCharacterEntities]; // fallback to content if no title
-    NSString *decodedAuthor = [[author stringByDecodingCharacterEntities] truncatedWithString:@"" afterIndex:15];
+    NSString *decodedTitle = [(title.length ? title : content) stringByFlatteningHTML]; // fallback to content if no title
+    NSString *decodedAuthor = [[author stringByFlatteningHTML] truncatedWithString:@"" afterIndex:15];
 
     NSDictionary *titleAtts = [NSDictionary dictionaryWithObjectsAndKeys:
                                [NSFont systemFontOfSize:13.0f],NSFontAttributeName,nil];
