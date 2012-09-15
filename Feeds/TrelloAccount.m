@@ -69,9 +69,15 @@
         NSString *creatorIdentifier = [notification objectForKey:@"idMemberCreator"];
         NSDictionary *data = [notification objectForKey:@"data"];
         NSString *org = [[data objectForKey:@"organization"] objectForKey:@"id"];
+        NSString *orgName = [[data objectForKey:@"organization"] objectForKey:@"name"];
         NSString *board = [[data objectForKey:@"board"] objectForKey:@"id"];
+        NSString *boardName = [[data objectForKey:@"board"] objectForKey:@"name"];
         NSString *card = [[data objectForKey:@"card"] objectForKey:@"id"];
+        NSString *cardName = [[data objectForKey:@"card"] objectForKey:@"name"];
         NSString *member = [[data objectForKey:@"member"] objectForKey:@"id"];
+        NSString *name = [data objectForKey:@"name"];
+        NSString *text = [data objectForKey:@"text"];
+        NSString *state = [data objectForKey:@"state"];
         NSString *URLString = nil;
 
         item.rawDate = date;
@@ -122,6 +128,14 @@
             title = @"removed you from organization {org}";
         else if ([type isEqualToString:@"mentionedOnCard"])
             title = @"mentioned you on card {card}";
+        else if ([type isEqualToString:@"updateCheckItemStateOnCard"] && [state isEqualToString:@"complete"]) {
+            title = @"checked an item on card {card}";
+            text = [NSString stringWithFormat:@"✓ %@", name];
+        }
+        else if ([type isEqualToString:@"updateCheckItemStateOnCard"] && [state isEqualToString:@"incomplete"]) {
+            title = @"unchecked an item on card {card}";
+            text = [NSString stringWithFormat:@"- %@", name];
+        }
         else
             title = type;
         
@@ -144,11 +158,11 @@
         }
 
         title = [title stringByReplacingOccurrencesOfString:@"{org}" withString:
-                 [[data objectForKey:@"organization"] objectForKey:@"name"] ?: @""];
+                 [NSString stringWithFormat:@"<b>%@</b>", orgName ?: @""]];
         title = [title stringByReplacingOccurrencesOfString:@"{board}" withString:
-                 [[data objectForKey:@"board"] objectForKey:@"name"] ?: @""];
+                 [NSString stringWithFormat:@"<b>%@</b>", boardName ?: @""]];
         title = [title stringByReplacingOccurrencesOfString:@"{card}" withString:
-                 [[data objectForKey:@"card"] objectForKey:@"name"] ?: @""];
+                 [NSString stringWithFormat:@"<b>%@</b>", cardName ?: @""]];
                     
         if (creatorIdentifier) {
             // go out and fetch the author's username since we only have their ID
@@ -164,8 +178,14 @@
         if (item.author.length)
             title = [NSString stringWithFormat:@"%@ %@", item.author, title];
         
-        item.title = title;
-        item.content = [data objectForKey:@"text"];
+        NSString *content = title;
+        
+        if (text)
+            content = [content stringByAppendingFormat:@"<hr/><i>%@</i>", text];
+
+        //item.title = title;
+        item.content = content;
+        item.project = boardName;
         
         [items addObject:item];
     }

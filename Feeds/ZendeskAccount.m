@@ -73,7 +73,7 @@
         NSString *content = [NSString stringWithFormat:@"Subject: <b>%@</b>", ticketSubject];
         
         if (commentValue)
-            content = [content stringByAppendingFormat:@"<hr/><i>&ldquo;%@&rdquo;</i>", commentValue];
+            content = [content stringByAppendingFormat:@"<hr/><i>%@</i>", commentValue];
         
         NSString *URLString = [NSString stringWithFormat:@"https://%@.zendesk.com/tickets/%@",domain,ticketIdentifier];
         
