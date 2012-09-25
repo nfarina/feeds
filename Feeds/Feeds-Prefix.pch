@@ -32,11 +32,11 @@
 #endif
 
 #ifndef DEBUG
-//#define EXPIRATION_DATE @"2012-09-18"
+#define EXPIRATION_DATE @"2012-10-09"
 #endif
 
 #ifdef DEBUG
-//#define ISOLATE_ACCOUNTS [NSArray arrayWithObjects:@"PivotalTrackerAccount",nil]
+//#define ISOLATE_ACCOUNTS [NSArray arrayWithObjects:@"TrelloAccount",nil]
 #endif
 
 // Compatibility stuff
