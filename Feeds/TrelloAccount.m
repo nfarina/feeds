@@ -128,14 +128,10 @@
             title = @"removed you from organization {org}";
         else if ([type isEqualToString:@"mentionedOnCard"])
             title = @"mentioned you on card {card}";
-        else if ([type isEqualToString:@"updateCheckItemStateOnCard"] && [state isEqualToString:@"complete"]) {
-            title = @"checked an item on card {card}";
-            text = [NSString stringWithFormat:@"✓ %@", name];
-        }
-        else if ([type isEqualToString:@"updateCheckItemStateOnCard"] && [state isEqualToString:@"incomplete"]) {
-            title = @"unchecked an item on card {card}";
-            text = [NSString stringWithFormat:@"- %@", name];
-        }
+        else if ([type isEqualToString:@"updateCheckItemStateOnCard"] && [state isEqualToString:@"complete"])
+            title = @"checked {name} on card {card}";
+        else if ([type isEqualToString:@"updateCheckItemStateOnCard"] && [state isEqualToString:@"incomplete"])
+            title = @"unchecked {name} on card {card}";
         else
             title = type;
         
@@ -163,8 +159,11 @@
                  [NSString stringWithFormat:@"<b>%@</b>", boardName ?: @""]];
         title = [title stringByReplacingOccurrencesOfString:@"{card}" withString:
                  [NSString stringWithFormat:@"<b>%@</b>", cardName ?: @""]];
-                    
-        if (creatorIdentifier) {
+        title = [title stringByReplacingOccurrencesOfString:@"{name}" withString:
+                 [NSString stringWithFormat:@"<i>%@</i>", name ?: @""]];
+        
+        item.author = @"Alexander Varney";
+        if (NO && creatorIdentifier) {
             // go out and fetch the author's username since we only have their ID
             NSString *authorLookup = [NSString stringWithFormat:@"https://api.trello.com/1/members/%@?key=53e6bb99cefe4914e88d06c76308e357&token=%@", creatorIdentifier, token];
             NSData *data = [self extraDataWithContentsOfURL:[NSURL URLWithString:authorLookup]];
