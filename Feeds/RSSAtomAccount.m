@@ -17,6 +17,12 @@
     // prepend http:// if no scheme was specified
     if (![fixedDomain containsString:@"://"])
         fixedDomain = [@"http://" stringByAppendingString:domain];
+    else if ([fixedDomain beginsWithString:@"feed://"]) // sometimes
+        fixedDomain = [fixedDomain stringByReplacingOccurrencesOfString:@"feed://" withString:@"http://"];
+    else if ([fixedDomain beginsWithString:@"feed:http://"]) // never seen, but possible
+        fixedDomain = [fixedDomain stringByReplacingOccurrencesOfString:@"feed:http://" withString:@"http://"];
+    else if ([fixedDomain beginsWithString:@"feed:https://"]) // never seen, but possible
+        fixedDomain = [fixedDomain stringByReplacingOccurrencesOfString:@"feed:https://" withString:@"https://"];
     
     NSURLRequest *URLRequest;
     
@@ -42,14 +48,32 @@
 - (void)feedRequestComplete:(NSData *)data {
     
     NSURL *URL = self.request.response.URL; // the final URL of this resource (after any redirects)
+
+    // did this request return HTML?
+    BOOL looksLikeHtml = NO;
+
+    if ([self.request.response isKindOfClass:[NSHTTPURLResponse class]]) {
+        NSString *contentType = [[(NSHTTPURLResponse *)self.request.response allHeaderFields] objectForKey:@"Content-Type"];
+        
+        if ([contentType isEqualToString:@"text/html"] || [contentType beginsWithString:@"text/html;"] ||
+            [URL.path endsWithString:@".html"] || [URL.path endsWithString:@".html"])
+            looksLikeHtml = YES;
+    }
+
+    // looks like HTML? are you SURE?
+    if (looksLikeHtml) {
+        
+        // peek at the first few bytes of the response
+        if (data.length >= 5) {
+            NSString *prefix = [[NSString alloc] initWithData:[data subdataWithRange:NSMakeRange(0, 5)] encoding:NSASCIIStringEncoding];
+            if ([prefix isEqualToString:@"<?xml"])
+                looksLikeHtml = NO; // nope, it's secretly XML! seen this with Zillow's mortgage rates RSS feed
+        }
+    }
     
-    // did this request return HTML? Look for feeds in there.
-    NSString *contentType = nil;
-    if ([self.request.response isKindOfClass:[NSHTTPURLResponse class]])
-        contentType = [[(NSHTTPURLResponse *)self.request.response allHeaderFields] objectForKey:@"Content-Type"];
-    
-    if ([contentType isEqualToString:@"text/html"] || [contentType beginsWithString:@"text/html;"] ||
-        [URL.path endsWithString:@".html"] || [URL.path endsWithString:@".html"]) {
+    if (looksLikeHtml) {
+        
+        // Look for feeds in the returned HTML page .
         
         NSMutableArray *foundFeeds = [NSMutableArray array];
 
