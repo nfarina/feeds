@@ -115,24 +115,6 @@
 
 - (void)OKPressed:(id)sender {
     
-    self.account = [[[[self selectedAccountClass] alloc] init] autorelease];
-    account.delegate = self;
-
-    Class accountClass = [self selectedAccountClass];
-
-    if ([accountClass requiresAuth]) {
-        [account beginAuth];
-        [messageField setStringValue:[NSString stringWithFormat:@"Authenticating with %@…",self.selectedAccountName]];
-    }
-    else {
-        account.domain = [domainField stringValue];
-        account.username = [usernameField stringValue];
-        self.password = [passwordField stringValue];
-        DDLogInfo(@"Validating account %@", account);
-        [account validateWithPassword:password];
-        [messageField setStringValue:@"Validating account…"];
-    }
-    
     [OKButton setEnabled:NO];
     [progress setHidden:NO];
     [progress startAnimation:nil];
@@ -141,6 +123,25 @@
     [domainInvalid setHidden:YES];
     [usernameInvalid setHidden:YES];
     [passwordInvalid setHidden:YES];
+
+    self.account = [[[[self selectedAccountClass] alloc] init] autorelease];
+    account.delegate = self;
+    Class accountClass = [self selectedAccountClass];
+
+    // make sure to call the [account] methods as the last lines of this function, as they could immediately call our delegate methods thereafter
+    
+    if ([accountClass requiresAuth]) {
+        [messageField setStringValue:[NSString stringWithFormat:@"Authenticating with %@…",self.selectedAccountName]];
+        [account beginAuth];
+    }
+    else {
+        account.domain = [domainField stringValue];
+        account.username = [usernameField stringValue];
+        self.password = [passwordField stringValue];
+        DDLogInfo(@"Validating account %@", account);
+        [messageField setStringValue:@"Validating account…"];
+        [account validateWithPassword:password];
+    }
 }
 
 - (void)openURL:(NSNotification *)notification {

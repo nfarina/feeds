@@ -13,6 +13,11 @@
 
 - (void)validateWithPassword:(NSString *)password {
     
+    if (![self.username isValidEmailAddress]) {
+        [delegate account:self validationDidFailWithMessage:@"Please enter a valid email address." field:AccountFailingFieldUsername];
+        return;
+    }
+
     NSString *URL = [NSString stringWithFormat:@"https://%@.zendesk.com/api/v2/activities.json", domain];
     
     NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURLString:URL username:username password:password];

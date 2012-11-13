@@ -128,6 +128,7 @@
 		019EE0EE147034E400B67B74 /* ShortcutRecorder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 019EE0ED147034E400B67B74 /* ShortcutRecorder.framework */; };
 		019EE0EF147034FD00B67B74 /* ShortcutRecorder.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 019EE0ED147034E400B67B74 /* ShortcutRecorder.framework */; };
 		019EE0F2147044CA00B67B74 /* LoginItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 019EE0F1147044CA00B67B74 /* LoginItems.m */; };
+		01A93AAE1652B36A00B96B79 /* NSString+EmailValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A93AAD1652B36A00B96B79 /* NSString+EmailValidation.m */; };
 		01B2BE7313C4BBE900304D6A /* NSString+Truncated.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE7213C4BBE900304D6A /* NSString+Truncated.m */; };
 		01B2BE7713C4C39B00304D6A /* DribbbleAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE7613C4C39B00304D6A /* DribbbleAccount.m */; };
 		01B2BE7A13C4E76400304D6A /* GithubAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE7913C4E76400304D6A /* GithubAccount.m */; };
@@ -329,6 +330,8 @@
 		019EE0ED147034E400B67B74 /* ShortcutRecorder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShortcutRecorder.framework; sourceTree = "<group>"; };
 		019EE0F0147044CA00B67B74 /* LoginItems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginItems.h; sourceTree = "<group>"; };
 		019EE0F1147044CA00B67B74 /* LoginItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginItems.m; sourceTree = "<group>"; };
+		01A93AAC1652B36A00B96B79 /* NSString+EmailValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+EmailValidation.h"; sourceTree = "<group>"; };
+		01A93AAD1652B36A00B96B79 /* NSString+EmailValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+EmailValidation.m"; sourceTree = "<group>"; };
 		01B2BE7113C4BBE900304D6A /* NSString+Truncated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Truncated.h"; sourceTree = "<group>"; };
 		01B2BE7213C4BBE900304D6A /* NSString+Truncated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Truncated.m"; sourceTree = "<group>"; };
 		01B2BE7513C4C39A00304D6A /* DribbbleAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DribbbleAccount.h; sourceTree = "<group>"; };
@@ -463,6 +466,8 @@
 				01D84E29152F42EE00267C15 /* NSString+URLArgument.m */,
 				0133CEA11530973E00CF6647 /* NSAlert+Foreground.h */,
 				0133CEA21530973E00CF6647 /* NSAlert+Foreground.m */,
+				01A93AAC1652B36A00B96B79 /* NSString+EmailValidation.h */,
+				01A93AAD1652B36A00B96B79 /* NSString+EmailValidation.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -960,6 +965,7 @@
 				013BE6F015E14F7E0002F51E /* DDASLLogger.m in Sources */,
 				01F2ABB615E176D500AE57F0 /* PivotalTrackerAccount.m in Sources */,
 				013B1AA815E703F3008E9ACB /* NSDate+InternetDateTime.m in Sources */,
+				01A93AAE1652B36A00B96B79 /* NSString+EmailValidation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

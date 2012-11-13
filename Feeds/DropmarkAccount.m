@@ -9,6 +9,11 @@
 
 - (void)validateWithPassword:(NSString *)password {
     
+    if (![self.username isValidEmailAddress]) {
+        [delegate account:self validationDidFailWithMessage:@"Please enter a valid email address." field:AccountFailingFieldUsername];
+        return;
+    }
+
     NSString *URL = @"https://app.dropmark.com/activity.rss";
     
     self.request = [SMWebRequest requestWithURLRequest:[NSURLRequest requestWithURLString:URL username:username password:password] delegate:nil context:password];

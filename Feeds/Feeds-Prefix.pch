@@ -29,6 +29,7 @@
 #import "NSDate+TimeAgo.h"
 #import "NSString+URLArgument.h"
 #import "NSAlert+Foreground.h"
+#import "NSString+EmailValidation.h"
 #endif
 
 #ifndef DEBUG

@@ -5,9 +5,15 @@
 + (void)load { [Account registerClass:self]; }
 + (BOOL)requiresUsername { return YES; }
 + (BOOL)requiresPassword { return YES; }
++ (NSString *)usernameLabel { return @"Email Address:"; }
 + (NSString *)friendlyAccountName { return @"Pivotal Tracker"; }
 
 - (void)validateWithPassword:(NSString *)password {
+    
+    if (![self.username isValidEmailAddress]) {
+        [delegate account:self validationDidFailWithMessage:@"Please enter your Pivotal Tracker email address instead of your username." field:AccountFailingFieldUsername];
+        return;
+    }
     
     NSURL *URL = [NSURL URLWithString:@"https://www.pivotaltracker.com/services/v3/tokens/active"];
     NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURL:URL username:self.username password:password];
