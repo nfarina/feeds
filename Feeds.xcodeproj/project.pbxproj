@@ -332,6 +332,8 @@
 		019EE0F1147044CA00B67B74 /* LoginItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginItems.m; sourceTree = "<group>"; };
 		01A93AAC1652B36A00B96B79 /* NSString+EmailValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+EmailValidation.h"; sourceTree = "<group>"; };
 		01A93AAD1652B36A00B96B79 /* NSString+EmailValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+EmailValidation.m"; sourceTree = "<group>"; };
+		01A93AB01652B62C00B96B79 /* Prefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefs.h; sourceTree = "<group>"; };
+		01A93AB11652B63B00B96B79 /* PrefsExample.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsExample.h; sourceTree = "<group>"; };
 		01B2BE7113C4BBE900304D6A /* NSString+Truncated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Truncated.h"; sourceTree = "<group>"; };
 		01B2BE7213C4BBE900304D6A /* NSString+Truncated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Truncated.m"; sourceTree = "<group>"; };
 		01B2BE7513C4C39A00304D6A /* DribbbleAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DribbbleAccount.h; sourceTree = "<group>"; };
@@ -651,6 +653,8 @@
 				01D84E3D15308E3900267C15 /* Popover.css */,
 				01B7FBE213FDB60200ACC29B /* ApplicationIcon.icns */,
 				01F2ABB115E15FA400AE57F0 /* ErrorReport.txt */,
+				01A93AB01652B62C00B96B79 /* Prefs.h */,
+				01A93AB11652B63B00B96B79 /* PrefsExample.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

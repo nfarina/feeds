@@ -32,13 +32,7 @@
 #import "NSString+EmailValidation.h"
 #endif
 
-#ifndef DEBUG
-#define EXPIRATION_DATE @"2012-10-09"
-#endif
-
-#ifdef DEBUG
-//#define ISOLATE_ACCOUNTS [NSArray arrayWithObjects:@"TrelloAccount",nil]
-#endif
+#include "Prefs.h"
 
 // Compatibility stuff
 #define HAS_POPOVER (NSClassFromString(@"NSPopover") != nil)
