@@ -120,6 +120,10 @@ const int ddLogLevel = LOG_LEVEL_INFO;
     ProcessSerialNumber psn = { 0, kCurrentProcess }; 
     TransformProcessType(&psn, kProcessTransformToForegroundApplication);
     [self openPreferences:nil];
+#else
+    // no accounts yet? help you add one
+    if ([Account allAccounts].count <= 0)
+        [self openPreferences:nil];
 #endif
 
     [self accountsChanged:nil];

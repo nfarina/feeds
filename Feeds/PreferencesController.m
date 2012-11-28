@@ -268,8 +268,18 @@
 #pragma mark Options
 
 - (void)updateOptionsPanel {
-    [accountNameLabel setStringValue:self.selectedAccount.name ?: [[self.selectedAccount class] friendlyAccountName]];
-    [refreshIntervalButton selectItemWithTag:self.selectedAccount.refreshInterval / 60];
+    if (tableView.selectedRow >= 0) {
+        [accountNameLabel setEnabled:YES];
+        [accountNameLabel setStringValue:self.selectedAccount.name ?: [[self.selectedAccount class] friendlyAccountName]];
+        [refreshIntervalButton setEnabled:YES];
+        [refreshIntervalButton selectItemWithTag:self.selectedAccount.refreshInterval / 60];
+    }
+    else {
+        [accountNameLabel setEnabled:NO];
+        [accountNameLabel setStringValue:@""];
+        [refreshIntervalButton setEnabled:NO];
+        [refreshIntervalButton selectItemAtIndex:0];
+    }
 
     // update the default interval item title
 //    int minutes = [self.selectedAccount.class defaultRefreshInterval] / 60;
