@@ -19,6 +19,16 @@ NSDate *AutoFormatDate(NSString *dateString) {
     static NSDateFormatter *beanstalkDateFormatter = nil; // "2011/09/12 13:24:05 +0800"
     static NSDateFormatter *pivotalDateFormatter = nil; // "2012/08/21 23:12:03 MSK"
     
+    if (!dateString) {
+        DDLogCError(@"Couldn't find a date to parse.");
+        return nil;
+    }
+    
+    if (!dateString.length) {
+        DDLogCError(@"Couldn't parse a date because it was empty.");
+        return nil;
+    }
+    
     // date formatters are NOT threadsafe!
     @synchronized ([Feed class]) {
         if (!iso8601Formatter) iso8601Formatter = [ISO8601DateFormatter new];
@@ -397,6 +407,10 @@ NSDate *AutoFormatDate(NSString *dateString) {
     item.author = [element valueWithPath:@"author.name"];
     item.content = [element childNamed:@"content"].value;
     
+    // in some cases (Wikipedia) we may receive a <summary> instead of a <content> node
+    if (!item.content && [element childNamed:@"summary"])
+        item.content = [element childNamed:@"summary"].value;
+    
     NSString *linkHref = [[element childNamed:@"link"] attributeNamed:@"href"];
     
     if (linkHref.length)
@@ -404,6 +418,11 @@ NSDate *AutoFormatDate(NSString *dateString) {
     
     NSString *published = [element childNamed:@"published"].value;
     NSString *updated = [element childNamed:@"updated"].value;
+    
+    // in some cases (Wikipedia), ATOM entries may have an <updated> date and NOT a <published> date.
+    // let's handle those cases.
+    if (updated && !published)
+        published = updated;
     
     item.rawDate = published;
     item.published = AutoFormatDate(published);
