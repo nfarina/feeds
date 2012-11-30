@@ -441,7 +441,8 @@ NSDate *AutoFormatDate(NSString *dateString) {
 }
 
 - (NSComparisonResult)compareItemByPublishedDate:(FeedItem *)item {
-    return [item.published compare:self.published];
+    // assume itmes without dates are really old
+    return [(item.published ?: [NSDate distantPast]) compare:(self.published ?: [NSDate distantPast])];
 }
 
 - (NSAttributedString *)attributedStringHighlighted:(BOOL)highlighted {
