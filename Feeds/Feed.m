@@ -389,11 +389,15 @@ NSDate *AutoFormatDate(NSString *dateString) {
     if ([element childNamed:@"comments"])
         item.comments = [NSURL URLWithString:[element childNamed:@"comments"].value];
     
-    // basecamp
+    // for <dc:creator>, some "Dublic Core" nonsense
     if (!item.author.length && [element childNamed:@"creator"])
         item.author = [element valueWithPath:@"creator"];
 
     NSString *published = [element childNamed:@"pubDate"].value;
+    
+    // for <dc:date>, some "Dublin Core" nonsense
+    if (!published && [element childNamed:@"date"])
+        published = [element valueWithPath:@"date"];
     
     item.rawDate = published;
     item.published = AutoFormatDate(published);
