@@ -117,10 +117,12 @@
 
 - (NSString *)stringByFlatteningHTML {
 
-	NSString *piece, *entity;
+	NSString *piece, *entity, *beginTag;
 	NSMutableString *flat = [NSMutableString stringWithCapacity:[self length]];
 	NSScanner *scanner = [NSScanner scannerWithString:self];
 	NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:@"\r\n\t <"];
+    NSCharacterSet *beginTagSet = [NSCharacterSet characterSetWithCharactersInString:@"</"];
+    NSCharacterSet *endTagSet = [NSCharacterSet characterSetWithCharactersInString:@"/>"];
 	[scanner setCharactersToBeSkipped:nil];
 	
 	BOOL needWhitespace = NO;
@@ -129,18 +131,17 @@
 	{
 		piece = nil;
 		entity = nil;
+        beginTag = nil;
 
 		// are we at a '<' character?
 		while (![scanner isAtEnd] && [self characterAtIndex:[scanner scanLocation]] == '<') {
 			
-			[scanner scanUpToString:@">" intoString:&entity];
-			[scanner scanString:@">" intoString:NULL];
+            [scanner scanCharactersFromSet:beginTagSet intoString:&beginTag];
+			[scanner scanUpToCharactersFromSet:endTagSet intoString:&entity];
+			[scanner scanCharactersFromSet:endTagSet intoString:NULL];
 			
-			if (entity && ([entity rangeOfString:@"br" options:NSCaseInsensitiveSearch].location != NSNotFound ||
-						   [entity rangeOfString:@"p" options:NSCaseInsensitiveSearch].location != NSNotFound))
-			{
+			if (entity && ![beginTag containsString:@"/"] && ([entity isEqualToString:@"p"] || [entity isEqualToString:@"br"]))
 				[flat appendString:@"\n"];
-			}
 		}
 		
 		if ([scanner scanCharactersFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet] intoString:NULL])
