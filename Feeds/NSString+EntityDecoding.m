@@ -121,8 +121,8 @@
 	NSMutableString *flat = [NSMutableString stringWithCapacity:[self length]];
 	NSScanner *scanner = [NSScanner scannerWithString:self];
 	NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:@"\r\n\t <"];
-    NSCharacterSet *beginTagSet = [NSCharacterSet characterSetWithCharactersInString:@"</"];
-    NSCharacterSet *endTagSet = [NSCharacterSet characterSetWithCharactersInString:@"/>"];
+    NSCharacterSet *beginTagSet = [NSCharacterSet characterSetWithCharactersInString:@"<"];
+    NSCharacterSet *endTagSet = [NSCharacterSet characterSetWithCharactersInString:@">"];
 	[scanner setCharactersToBeSkipped:nil];
 	
 	BOOL needWhitespace = NO;
@@ -139,8 +139,8 @@
             [scanner scanCharactersFromSet:beginTagSet intoString:&beginTag];
 			[scanner scanUpToCharactersFromSet:endTagSet intoString:&entity];
 			[scanner scanCharactersFromSet:endTagSet intoString:NULL];
-			
-			if (entity && ![beginTag containsString:@"/"] && ([entity isEqualToString:@"p"] || [entity isEqualToString:@"br"]))
+
+			if ([entity isEqualToString:@"p"] || [entity isEqualToString:@"br"] || [entity isEqualToString:@"br/"])
 				[flat appendString:@"\n"];
 		}
 		
