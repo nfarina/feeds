@@ -272,14 +272,14 @@
 		013B1B0A15E8451D008E9ACB /* ZendeskAccount@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZendeskAccount@2x.png"; sourceTree = "<group>"; };
 		013B1B0B15E8451D008E9ACB /* ZendeskNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZendeskNotify.png; sourceTree = "<group>"; };
 		013B1B0C15E8451D008E9ACB /* ZendeskNotify@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZendeskNotify@2x.png"; sourceTree = "<group>"; };
-		013BE6E515E14F7E0002F51E /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDFileLogger.m; path = Lumberjack/DDFileLogger.m; sourceTree = SOURCE_ROOT; };
-		013BE6E615E14F7E0002F51E /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDLog.m; path = Lumberjack/DDLog.m; sourceTree = SOURCE_ROOT; };
-		013BE6E715E14F7E0002F51E /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDTTYLogger.m; path = Lumberjack/DDTTYLogger.m; sourceTree = SOURCE_ROOT; };
-		013BE6E815E14F7E0002F51E /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDASLLogger.m; path = Lumberjack/DDASLLogger.m; sourceTree = SOURCE_ROOT; };
-		013BE6E915E14F7E0002F51E /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDASLLogger.h; path = Lumberjack/DDASLLogger.h; sourceTree = SOURCE_ROOT; };
-		013BE6EA15E14F7E0002F51E /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDFileLogger.h; path = Lumberjack/DDFileLogger.h; sourceTree = SOURCE_ROOT; };
-		013BE6EB15E14F7E0002F51E /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDLog.h; path = Lumberjack/DDLog.h; sourceTree = SOURCE_ROOT; };
-		013BE6EC15E14F7E0002F51E /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDTTYLogger.h; path = Lumberjack/DDTTYLogger.h; sourceTree = SOURCE_ROOT; };
+		013BE6E515E14F7E0002F51E /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileLogger.m; sourceTree = "<group>"; };
+		013BE6E615E14F7E0002F51E /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
+		013BE6E715E14F7E0002F51E /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
+		013BE6E815E14F7E0002F51E /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogger.m; sourceTree = "<group>"; };
+		013BE6E915E14F7E0002F51E /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
+		013BE6EA15E14F7E0002F51E /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileLogger.h; sourceTree = "<group>"; };
+		013BE6EB15E14F7E0002F51E /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLog.h; sourceTree = "<group>"; };
+		013BE6EC15E14F7E0002F51E /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
 		0141479E1486B019000D63E5 /* UserVoiceAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserVoiceAccount.h; sourceTree = "<group>"; };
 		0141479F1486B019000D63E5 /* UserVoiceAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserVoiceAccount.m; sourceTree = "<group>"; };
 		014147A81486B258000D63E5 /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
@@ -324,10 +324,10 @@
 		01937CB513A05A6C00BCE1D4 /* SMXMLDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMXMLDocument.h; sourceTree = "<group>"; };
 		01937CB713A05B8600BCE1D4 /* Feed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Feed.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		01937CB813A05B8700BCE1D4 /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Feed.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		019EE0C214701FA500B67B74 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
+		019EE0C214701FA500B67B74 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Growl.framework; path = Frameworks/Growl.framework; sourceTree = "<group>"; };
 		019EE0CD147023B800B67B74 /* DDHotKeyCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyCenter.h; sourceTree = "<group>"; };
 		019EE0CE147023B800B67B74 /* DDHotKeyCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyCenter.m; sourceTree = "<group>"; };
-		019EE0ED147034E400B67B74 /* ShortcutRecorder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShortcutRecorder.framework; sourceTree = "<group>"; };
+		019EE0ED147034E400B67B74 /* ShortcutRecorder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ShortcutRecorder.framework; path = Frameworks/ShortcutRecorder.framework; sourceTree = "<group>"; };
 		019EE0F0147044CA00B67B74 /* LoginItems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginItems.h; sourceTree = "<group>"; };
 		019EE0F1147044CA00B67B74 /* LoginItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginItems.m; sourceTree = "<group>"; };
 		01A93AAC1652B36A00B96B79 /* NSString+EmailValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+EmailValidation.h"; sourceTree = "<group>"; };
@@ -340,7 +340,7 @@
 		01B2BE7613C4C39B00304D6A /* DribbbleAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DribbbleAccount.m; sourceTree = "<group>"; };
 		01B2BE7813C4E76400304D6A /* GithubAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GithubAccount.h; sourceTree = "<group>"; };
 		01B2BE7913C4E76400304D6A /* GithubAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GithubAccount.m; sourceTree = "<group>"; };
-		01B7FBE213FDB60200ACC29B /* ApplicationIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = ApplicationIcon.icns; path = ../ApplicationIcon.icns; sourceTree = "<group>"; };
+		01B7FBE213FDB60200ACC29B /* ApplicationIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = ApplicationIcon.icns; path = Graphics/ApplicationIcon.icns; sourceTree = "<group>"; };
 		01BD35E0154D985200170BDD /* ZendeskAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZendeskAccount.h; sourceTree = "<group>"; };
 		01BD35E1154D985200170BDD /* ZendeskAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZendeskAccount.m; sourceTree = "<group>"; };
 		01C359AF13C4B6C400D803BD /* HighriseAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighriseAccount.h; sourceTree = "<group>"; };
@@ -487,7 +487,7 @@
 				013BE6E915E14F7E0002F51E /* DDASLLogger.h */,
 			);
 			name = Lumberjack;
-			path = Lumberjack/Lumberjack;
+			path = Libraries/Lumberjack;
 			sourceTree = "<group>";
 		};
 		014147A71486B258000D63E5 /* Hpple */ = {
@@ -500,7 +500,8 @@
 				014147AC1486B258000D63E5 /* XPathQuery.h */,
 				014147AD1486B258000D63E5 /* XPathQuery.m */,
 			);
-			path = Hpple;
+			name = Hpple;
+			path = Libraries/Hpple;
 			sourceTree = "<group>";
 		};
 		015D789E13C6733D00BCD7C4 /* Service Icons */ = {
@@ -687,7 +688,7 @@
 				01937CAE13A05A3A00BCE1D4 /* SMWebRequest.m */,
 			);
 			name = "Web Request";
-			path = WebRequest;
+			path = Libraries/SMWebRequest;
 			sourceTree = "<group>";
 		};
 		01937CB213A05A5100BCE1D4 /* Libraries */ = {
@@ -710,7 +711,7 @@
 				01937CB413A05A6C00BCE1D4 /* SMXMLDocument.m */,
 			);
 			name = "XML Document";
-			path = XMLDocument;
+			path = Libraries/SMXMLDocument;
 			sourceTree = "<group>";
 		};
 		019EE0C4147023B800B67B74 /* DDHotKey */ = {
@@ -719,7 +720,8 @@
 				019EE0CD147023B800B67B74 /* DDHotKeyCenter.h */,
 				019EE0CE147023B800B67B74 /* DDHotKeyCenter.m */,
 			);
-			path = DDHotKey;
+			name = DDHotKey;
+			path = Libraries/DDHotKey;
 			sourceTree = "<group>";
 		};
 		01B2BE7B13C4E89D00304D6A /* JSONKit */ = {
@@ -728,7 +730,8 @@
 				015E0EE414478DB6000A611D /* JSONKit.h */,
 				015E0EE514478DB6000A611D /* JSONKit.m */,
 			);
-			path = JSONKit;
+			name = JSONKit;
+			path = Libraries/JSONKit;
 			sourceTree = "<group>";
 		};
 		01D7CB8113B02C74001B133A /* Controllers */ = {
@@ -1051,7 +1054,7 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/Frameworks\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -1074,7 +1077,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/Frameworks\"",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
