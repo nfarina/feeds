@@ -76,6 +76,9 @@ const int ddLogLevel = LOG_LEVEL_INFO;
         webView.policyDelegate = self;
         webView.autoresizingMask = NSViewWidthSizable|NSViewHeightSizable;
         [popover contentViewController].view = webView;
+
+        shimItem = [[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""];
+        shimItem.view = [[[NSView alloc] initWithFrame:NSMakeRect(0, 0, 1, 1)] autorelease];
     }
 
     allItems = [NSMutableArray new];
