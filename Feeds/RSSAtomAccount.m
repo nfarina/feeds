@@ -38,13 +38,6 @@
     [request start];
 }
 
-//- (NSURLRequest *)webRequest:(SMWebRequest *)webRequest willSendRequest:(NSURLRequest *)newRequest redirectResponse:(NSURLResponse *)redirectResponse {
-//    if (redirectResponse) {
-//        // make sure to remember where we were redirected to, for 
-//    }
-//    return newRequest;
-//}
-
 - (void)feedRequestComplete:(NSData *)data {
     
     NSURL *URL = self.request.response.URL; // the final URL of this resource (after any redirects)

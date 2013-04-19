@@ -6,7 +6,6 @@
 - (id)initWithStatusItem:(NSStatusItem *)theStatusItem {
 	if (self = [super initWithFrame:NSMakeRect(0, 0, 30, 22)]) {
 		statusItem = [theStatusItem retain];
-		//		[self setImage:[NSImage imageNamed:@"StatusItem.tiff"]];
 	}
 	return self;
 }
@@ -49,22 +48,7 @@
 }
 
 - (void) mouseDown:(NSEvent *)theEvent {
-	//NSLog(@"MOUSE DOWN: %@", NSStringFromRect([[self window] frame]));
     [self toggleMenu];
-	
-//	NSRect statusItemRect = [[self window] frame];
-
-//	NSRect windowRect = [mainWindow frame];
-//	
-//	CGFloat x = roundf((statusItemRect.origin.x + statusItemRect.size.width/2) - (windowRect.size.width/2));
-//	CGFloat y = statusItemRect.origin.y + 5;
-//	
-//	[mainWindow setFrameTopLeftPoint:NSMakePoint(x, y)];
-//	[mainWindow makeKeyAndOrderFront:nil];
-//	
-	// Transform process from background to foreground
-//	ProcessSerialNumber psn = { 0, kCurrentProcess };
-//	SetFrontProcess(&psn);
 }
 
 - (void)toggleMenu {

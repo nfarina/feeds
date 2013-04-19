@@ -1,4 +1,3 @@
 
 @interface AccountCell : NSTextFieldCell
-
 @end

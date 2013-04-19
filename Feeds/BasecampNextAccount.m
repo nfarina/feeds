@@ -237,7 +237,6 @@
         item.content = [NSString stringWithFormat:@"%@ %@",item.author, [event objectForKey:@"summary"]];
         item.project = [bucket objectForKey:@"name"];
         item.link = [NSURL URLWithString:URL];
-//            item.title = [NSString stringWithFormat:@"%@ %@", item.author, item.content];
         [items addObject:item];
     }
     
@@ -245,64 +244,3 @@
 }
 
 @end
-
-
-
-//- (void)meRequestComplete:(NSData *)data token:(NSString *)token {
-//
-//    NSDictionary *response = [data objectFromJSONData];
-//    NSString *author = [[response objectForKey:@"id"] stringValue]; // store author by unique identifier instead of name
-//
-//    //NSString *URL = [NSString stringWithFormat:@"https://basecamp.com/%@/api/v1/projects.json", domain];
-//    NSString *URL = @"https://launchpad.37signals.com/authorization.json";
-//
-//    NSURLRequest *URLRequest = [NSURLRequest requestWithURLString:URL bearerToken:token];
-//
-//    NSArray *context = [NSArray arrayWithObjects:token, author, nil];
-//    
-//    self.request = [SMWebRequest requestWithURLRequest:URLRequest delegate:nil context:context];
-//    [request addTarget:self action:@selector(projectsRequestComplete:) forRequestEvents:SMWebRequestEventComplete];
-//    [request addTarget:self action:@selector(projectsRequestError:) forRequestEvents:SMWebRequestEventError];
-//    [request start];
-//}
-//
-//- (void)meRequestError:(NSError *)error {
-//    DDLogError(@"Error! %@", error);
-//    if (error.code == 404)
-//        [self.delegate account:self validationDidFailWithMessage:@"Could not find the given Basecamp account. Please verify that your Account ID matches the number found in your browser's address bar." field:AccountFailingFieldDomain];
-//    else if (error.code == 500)
-//        [self.delegate account:self validationDidFailWithMessage:@"There was a problem signing in to the given Basecamp account. Please check your username and password." field:0];
-//    else
-//        [self.delegate account:self validationDidFailWithMessage:error.localizedDescription field:AccountFailingFieldUnknown];
-//}
-
-//- (void)projectsRequestComplete:(NSData *)data context:(NSArray *)context {
-//    
-//    NSString *token = [context objectAtIndex:0];
-//    NSString *author = [context objectAtIndex:1];
-//
-//    NSArray *projects = [data objectFromJSONData];
-//    
-//    NSString *mainFeedString = [NSString stringWithFormat:@"https://basecamp.com/%@/api/v1/events.json", domain];
-//    NSString *mainFeedTitle = @"All Events";
-//    Feed *mainFeed = [Feed feedWithURLString:mainFeedString title:mainFeedTitle author:author account:self];
-//    mainFeed.requiresBearerToken = YES;
-//    
-//    NSMutableArray *foundFeeds = [NSMutableArray arrayWithObject:mainFeed];
-//    
-//    for (NSDictionary *project in projects) {
-//        
-//        NSString *projectName = [project objectForKey:@"name"];
-//        NSString *projectIdentifier = [project objectForKey:@"id"];
-//        NSString *projectFeedString = [NSString stringWithFormat:@"https://basecamp.com/%@/api/v1/projects/%@/events.json", domain, projectIdentifier];
-//        NSString *projectFeedTitle = [NSString stringWithFormat:@"Events for project \"%@\"", projectName];
-//        Feed *projectFeed = [Feed feedWithURLString:projectFeedString title:projectFeedTitle author:author account:self];
-//        projectFeed.requiresBearerToken = YES;
-//        projectFeed.disabled = YES; // disable by default, only enable All Events
-//        [foundFeeds addObject:projectFeed];
-//    }
-//    
-//    self.feeds = foundFeeds;
-//    
-//    [self.delegate account:self validationDidCompleteWithPassword:token];
-//}

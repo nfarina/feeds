@@ -89,21 +89,6 @@ NSDate *AutoFormatDate(NSString *dateString) {
     }
 }
 
-//NSDateFormatter *ATOMDateFormatter() {
-//    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
-//    [formatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"] autorelease]];
-//    [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
-//    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-//    return formatter;
-//}
-//
-//NSDateFormatter *ATOMDateFormatterWithTimeZone() {
-//    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
-//    [formatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"] autorelease]];
-//    [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZ"];
-//    return formatter;
-//}
-
 @interface Feed ()
 @property (nonatomic, retain) SMWebRequest *request;
 @end
@@ -436,7 +421,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
 
 - (BOOL)isEqual:(FeedItem *)other {
     if ([other isKindOfClass:[FeedItem class]]) {
-        // can we compare by some notiong of a unique identifier?
+        // can we compare by some notion of a unique identifier?
         if (identifier && other.identifier) return NSEqualStrings(identifier, other.identifier);
         
         // ok, compare by content.

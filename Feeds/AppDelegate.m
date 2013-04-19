@@ -8,13 +8,7 @@ const int ddLogLevel = LOG_LEVEL_VERBOSE;
 const int ddLogLevel = LOG_LEVEL_INFO;
 #endif
 
-#ifdef DEBUG_DISABLED
-#define PER_ITEM_SHIM_STRATEGY 1
-#define MAX_ITEMS 9999
-#else
-#define PER_ITEM_SHIM_STRATEGY 0
 #define MAX_ITEMS 30
-#endif
 #define MAX_GROWLS 3
 #define POPOVER_INTERVAL 0.5
 #define POPOVER_WIDTH 416
@@ -48,18 +42,6 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
-    #ifdef EXPIRATION_DATE
-    NSTimeInterval timeLeft = AutoFormatDate([EXPIRATION_DATE stringByAppendingString:@"T11:00:50-05:00"]).timeIntervalSinceReferenceDate - [NSDate timeIntervalSinceReferenceDate];
-    if (timeLeft > 0) {
-        [[NSAlert alertWithMessageText:@"Test Version" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"This test version of Feeds will expire in %i days. Additionally, changes to your accounts will not be saved (for data integrity purposes).",(int)(timeLeft/60/60/24)] runModalInForeground];
-    }
-    else {
-        DDLogWarn(@"Trial over.");
-        [[NSAlert alertWithMessageText:@"Test Expired" defaultButton:@"Quit" alternateButton:nil otherButton:nil informativeTextWithFormat:@"This test version of Feeds has expired."] runModalInForeground];
-        exit(0);
-    }
-    #endif
-    
     // show the dock icon immediately if necessary
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HideDockIcon"]) {
         ProcessSerialNumber psn = { 0, kCurrentProcess }; 
@@ -94,11 +76,6 @@ const int ddLogLevel = LOG_LEVEL_INFO;
         webView.policyDelegate = self;
         webView.autoresizingMask = NSViewWidthSizable|NSViewHeightSizable;
         [popover contentViewController].view = webView;
-
-        #if !PER_ITEM_SHIM_STRATEGY
-        shimItem = [[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""];
-        shimItem.view = [[[NSView alloc] initWithFrame:NSMakeRect(0, 0, 1, 1)] autorelease];
-        #endif
     }
 
     allItems = [NSMutableArray new];
@@ -349,14 +326,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
             menuItem.state = NSOnState;
         }
         
-        #if PER_ITEM_SHIM_STRATEGY
-        [menu insertItem:menuItem atIndex:i*2];
-        NSMenuItem *shim = [[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""];
-        shim.view = [[[NSView alloc] initWithFrame:NSMakeRect(0, 0, 1, 1)] autorelease];
-        [menu insertItem:shim atIndex:i*2]; // above
-        #else
         [menu insertItem:menuItem atIndex:i];
-        #endif
     }
     
     if (allItems.count) {
@@ -386,22 +356,14 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (void)highlightMenuItem:(NSMenuItem *)menuItem {
     
-//    NSWindow *window = [NSApplication sharedApplication].keyWindow;
-//    NSView *firstResponder = (NSView *)window.firstResponder;
-//    NSLog(@"Window: %@ first responder %@ frame %@", window, firstResponder, NSStringFromRect(firstResponder.frame));
-    
     if (lastHighlightedItem) {
         FeedItem *lastItem = [allItems objectAtIndex:lastHighlightedItem.tag-1];
         lastHighlightedItem.attributedTitle = [lastItem attributedStringHighlighted:NO];
-//        lastHighlightedItem.image = [NSImage imageNamed:[lastItem.feed.account.type stringByAppendingString:@".tiff"]];
     }
 
     if (menuItem) {
         FeedItem *item = [allItems objectAtIndex:menuItem.tag-1];
         menuItem.attributedTitle = [item attributedStringHighlighted:YES];
-        
-//        NSImage *highlightedImage = [NSImage imageNamed:[item.feed.account.type stringByAppendingString:@"Highlighted.tiff"]];
-//        if (highlightedImage) menuItem.image = highlightedImage;
     }
     
     self.lastHighlightedItem = menuItem;
@@ -472,11 +434,6 @@ const int ddLogLevel = LOG_LEVEL_INFO;
     
     NSString *author = item.author;
     
-    /*if ([titleOrFallback beginsWithString:item.author]) {
-        // remove the author from the front of the title if the title begins with the author name
-        titleOrFallback = [titleOrFallback substringFromIndex:item.author.length];
-    }
-    else*/
     if ([titleOrFallback containsString:item.author] || [item.content beginsWithString:item.author]) {
         // don't repeat the author in the subtitle if they are mentioned in the title or if the description
         // starts with the author name like "Nick Farina did something..."
@@ -486,10 +443,6 @@ const int ddLogLevel = LOG_LEVEL_INFO;
     NSString *time = item.published.timeAgo;
     NSString *authorAndTime = author ? [NSString stringWithFormat:@"%@ - %@",author,time] : time;
     
-//    #if USER_DEBUG
-//    authorAndTime = [authorAndTime stringByAppendingFormat:@" (%@)", item.rawDate];
-//    #endif
-
     static NSString *css = nil;
     if (!css) {
         NSString *cssPath = [[NSBundle mainBundle] pathForResource:@"Popover" ofType:@"css"];
@@ -503,11 +456,6 @@ const int ddLogLevel = LOG_LEVEL_INFO;
     webView.alphaValue = 0;
     [webView.mainFrame loadHTMLString:rendered baseURL:nil];
 
-    #if PER_ITEM_SHIM_STRATEGY
-    NSMenuItem *shim = [menu itemAtIndex:[menu indexOfItem:menuItem]-1];
-    NSRect frame = shim.view.superview.frame;
-    frame.origin.y -= 10; // the shim sits on the top of the menu item it represents - this will nudge it down to vertically center over the item.
-    #else
     NSMenuItem *shim = shimItem;
     NSRect frame = shimItem.view.superview.frame;
     
@@ -515,7 +463,6 @@ const int ddLogLevel = LOG_LEVEL_INFO;
     NSInteger itemIndex = [menu indexOfItem:menuItem];
     
     frame.origin.y += ((shimIndex-itemIndex)*20) - 10; // 10 to get to middle of the cell
-    #endif
     
     if (shim.view.superview.superview)
         [popover showRelativeToRect:frame ofView:shim.view.superview.superview preferredEdge:NSMinXEdge];
@@ -619,7 +566,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 }
 
 - (void)reportBug:(id)sender {
-    NSInteger result = [[NSAlert alertWithMessageText:@"Bug Report" defaultButton:@"Compose Email" alternateButton:@"Cancel" otherButton:@"Copy to Clipboard" informativeTextWithFormat:@"Sorry you're having trouble! Just click \"Compose Email\" to email our support team from your default mail client. Alternatively, you can copy the information we need to your clipboard and paste it in your preferred email client."] runModalInForeground];
+    NSInteger result = [[NSAlert alertWithMessageText:@"Bug Report" defaultButton:@"Compose Email" alternateButton:@"Cancel" otherButton:@"Copy to Clipboard" informativeTextWithFormat:@"Sorry you're having trouble! Just click \"Compose Email\" to email us from your default mail client. Alternatively, you can copy the information we need to your clipboard and paste it in your preferred email client."] runModalInForeground];
     
     if (result == NSAlertAlternateReturn)
         return; // don't do any work
