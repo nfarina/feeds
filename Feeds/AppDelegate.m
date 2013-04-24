@@ -454,7 +454,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
     
     NSString *templatePath = [[NSBundle mainBundle] pathForResource:@"Popover" ofType:@"html"];
     NSString *template = [NSString stringWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:NULL];
-    NSString *rendered = [NSString stringWithFormat:template, css, [titleOrFallback truncatedAfterIndex:75], authorAndTime, item.content ?: @""];
+    NSString *rendered = [NSString stringWithFormat:template, css, NSStringFromClass(item.feed.account.class), [titleOrFallback truncatedAfterIndex:75], authorAndTime, item.content ?: @""];
 
     webView.alphaValue = 0;
     [webView.mainFrame loadHTMLString:rendered baseURL:nil];

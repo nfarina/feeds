@@ -53,3 +53,42 @@ hr {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+/*
+ Custom Styles for Github
+*/
+
+/* Hide all those useless avatar images */
+body.GithubAccount img {
+    display: none;
+}
+
+/* Hide the "Click here for more" type links */
+body.GithubAccount li.more {
+    display: none;
+}
+
+/* Make the "list of commits" nicer */
+body.GithubAccount ul {
+    padding-left: 0;
+}
+
+body.GithubAccount li code {
+    color: #666;
+}
+
+body.GithubAccount li {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+body.GithubAccount li blockquote {
+    margin-left: 20px;
+    margin-right: 20px;
+    background: #ddd;
+    padding: 8px 14px;
+    border-radius: 2px;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.2),
+    0 1px 0 white;
+    color: #444;
+}
