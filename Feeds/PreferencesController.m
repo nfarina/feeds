@@ -147,25 +147,27 @@
 }
 
 - (IBAction)addAccount:(id)sender {
-    NewAccountController *controller = [[NewAccountController alloc] initWithDelegate:self];
+    newAccountController = [[NewAccountController alloc] initWithDelegate:self];
     DDLogInfo(@"Presenting NewAccountController.");
-    [NSApp beginSheet:controller.window modalForWindow:self.window modalDelegate:nil didEndSelector:NULL contextInfo:controller];
+    [NSApp beginSheet:newAccountController.window modalForWindow:self.window modalDelegate:nil didEndSelector:NULL contextInfo:NULL];
 }
 
-- (void)newAccountController:(NewAccountController *)controller didCompleteWithAccount:(Account *)account {
+- (void)newAccountController:(NewAccountController *)controller_ didCompleteWithAccount:(Account *)account {
     
     [Account addAccount:account];
     [tableView reloadData];
     [tableView scrollRowToVisible:tableView.numberOfRows-1];
     [tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:tableView.numberOfRows-1] byExtendingSelection:NO];
     
-    [NSApp endSheet:controller.window];
-    [controller release];
+    [NSApp endSheet:newAccountController.window];
+    [newAccountController release];
+    newAccountController = nil;
 }
 
-- (void)newAccountControllerDidCancel:(NewAccountController *)controller {
-    [NSApp endSheet:controller.window];
-    [controller release];
+- (void)newAccountControllerDidCancel:(NewAccountController *)controller_ {
+    [NSApp endSheet:newAccountController.window];
+    [newAccountController release];
+    newAccountController = nil;
 }
 
 - (void)updateDetailView {

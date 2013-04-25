@@ -21,6 +21,7 @@ typedef enum {
     IBOutlet NSTextField *findFeedsLabel, *accountNameLabel;
     IBOutlet NSImageView *findFeedsWarning;
     NSArray *oldFeeds;
+    NewAccountController *newAccountController;
 }
 
 + (void)migrateSettings; // from an older version of Feeds
