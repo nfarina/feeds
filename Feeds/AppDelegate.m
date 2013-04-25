@@ -586,10 +586,9 @@ const int ddLogLevel = LOG_LEVEL_INFO;
     Gestalt(gestaltSystemVersionBugFix, &bugfix);
     
     NSString *osxVersion = [NSString stringWithFormat:@"%d.%d.%d",(int)major,(int)minor,(int)bugfix];
-    NSString *appVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     NSString *appBuild = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     
-    [errorReport appendFormat:@"Feeds Version: %@ [Build %@]\nOS X Version: %@\n\n", appVersion, appBuild, osxVersion];
+    [errorReport appendFormat:@"Feeds Version: %@\nOS X Version: %@\n\n", appBuild, osxVersion];
     
     for (NSString *logFile in [fileLogger.logFileManager sortedLogFilePaths].reverseObjectEnumerator)
         [errorReport appendString:[NSString stringWithContentsOfFile:logFile encoding:NSUTF8StringEncoding error:NULL]];

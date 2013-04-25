@@ -11,6 +11,8 @@
 		0108CED313BB1EC00000ECE1 /* BasecampAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 0108CED213BB1EC00000ECE1 /* BasecampAccount.m */; };
 		0108CEDD13BB8CB90000ECE1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0108CEDC13BB8CB80000ECE1 /* Security.framework */; };
 		0108CEE013BBA3AC0000ECE1 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 0108CEDF13BBA3AC0000ECE1 /* NSString+Base64.m */; };
+		010F821C17289B5D0064EE02 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 010F821B17289B5D0064EE02 /* Sparkle.framework */; };
+		010F821D17289BC40064EE02 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 010F821B17289B5D0064EE02 /* Sparkle.framework */; };
 		0117B30613AD27CB0018AB7C /* NSArray+Linqish.m in Sources */ = {isa = PBXBuildFile; fileRef = 0117B30513AD27CB0018AB7C /* NSArray+Linqish.m */; };
 		0125C6CD13C7C8B10006BB1A /* NSView+PrintHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0125C6CC13C7C8B10006BB1A /* NSView+PrintHierarchy.m */; };
 		012734BE15DFFB4E00512361 /* RSSAtomAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 012734BD15DFFB4E00512361 /* RSSAtomAccount.m */; };
@@ -168,6 +170,7 @@
 			files = (
 				019EE0E41470248600B67B74 /* Growl.framework in Copy Frameworks */,
 				019EE0EF147034FD00B67B74 /* ShortcutRecorder.framework in Copy Frameworks */,
+				010F821D17289BC40064EE02 /* Sparkle.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -182,6 +185,7 @@
 		0108CEDC13BB8CB80000ECE1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		0108CEDE13BBA3AC0000ECE1 /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
 		0108CEDF13BBA3AC0000ECE1 /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
+		010F821B17289B5D0064EE02 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		0117B30413AD27CB0018AB7C /* NSArray+Linqish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Linqish.h"; sourceTree = "<group>"; };
 		0117B30513AD27CB0018AB7C /* NSArray+Linqish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Linqish.m"; sourceTree = "<group>"; };
 		0125C6CB13C7C8B10006BB1A /* NSView+PrintHierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+PrintHierarchy.h"; sourceTree = "<group>"; };
@@ -293,7 +297,6 @@
 		014147B71486B575000D63E5 /* NSString+English.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+English.m"; sourceTree = "<group>"; };
 		014147B91486BAB5000D63E5 /* ISO8601DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISO8601DateFormatter.h; sourceTree = "<group>"; };
 		014147BA1486BAB5000D63E5 /* ISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISO8601DateFormatter.m; sourceTree = "<group>"; };
-		014C022A15ED43F100D5BD76 /* Feeds.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Feeds.entitlements; sourceTree = "<group>"; };
 		01518F7C13C54F480043AB98 /* CG+Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CG+Geometry.h"; sourceTree = "<group>"; };
 		01518F7D13C54F480043AB98 /* CG+Geometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CG+Geometry.m"; sourceTree = "<group>"; };
 		01524F4314BFB45F00913D84 /* TrelloAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrelloAccount.h; sourceTree = "<group>"; };
@@ -395,6 +398,7 @@
 				01D7CB8013AFDFCD001B133A /* Carbon.framework in Frameworks */,
 				019EE0C314701FA500B67B74 /* Growl.framework in Frameworks */,
 				019EE0EE147034E400B67B74 /* ShortcutRecorder.framework in Frameworks */,
+				010F821C17289B5D0064EE02 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -601,6 +605,7 @@
 				019EE0ED147034E400B67B74 /* ShortcutRecorder.framework */,
 				019EE0C214701FA500B67B74 /* Growl.framework */,
 				01C4F93213C597AC00DB0CCB /* WebKit.framework */,
+				010F821B17289B5D0064EE02 /* Sparkle.framework */,
 				01EB9C3B13C4F35A00A9C131 /* libicucore.dylib */,
 				014147B11486B27F000D63E5 /* libxml2.2.dylib */,
 				0108CEDC13BB8CB80000ECE1 /* Security.framework */,
@@ -625,7 +630,6 @@
 		01937C8813A03F5000BCE1D4 /* Feeds */ = {
 			isa = PBXGroup;
 			children = (
-				014C022A15ED43F100D5BD76 /* Feeds.entitlements */,
 				01937C9713A03F5000BCE1D4 /* App.xib */,
 				01937C9413A03F5000BCE1D4 /* AppDelegate.h */,
 				01937C9513A03F5000BCE1D4 /* AppDelegate.m */,
@@ -1048,7 +1052,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_ENTITLEMENTS = Feeds/Feeds.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1070,7 +1074,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_ENTITLEMENTS = Feeds/Feeds.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
