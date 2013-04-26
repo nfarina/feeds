@@ -49,7 +49,7 @@
 
     for (NSDictionary *org in orgs) {
         
-        NSString *orgName = [org objectForKey:@"login"];
+        NSString *orgName = org[@"login"];
         NSString *orgFeedString = [NSString stringWithFormat:@"https://github.com/organizations/%@/%@.private.atom", orgName, self.username];
         NSString *orgFeedTitle = [NSString stringWithFormat:@"News Feed (%@)", orgName];
         Feed *orgFeed = [Feed feedWithURLString:orgFeedString title:orgFeedTitle author:self.username account:self];

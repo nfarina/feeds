@@ -115,7 +115,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
         checkUserNotificationsTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(checkUserNotifications) userInfo:nil repeats:YES];
         
         // did we open as the result of clicking a notification? (rare!)
-        NSUserNotification *notification = [aNotification.userInfo objectForKey:NSApplicationLaunchUserNotificationKey];
+        NSUserNotification *notification = (aNotification.userInfo)[NSApplicationLaunchUserNotificationKey];
         if (notification) [self userNotificationCenter:nil didActivateNotification:notification];
     }
 }
@@ -129,7 +129,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
     NSString *urlAsString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
     NSURL *url = [NSURL URLWithString:urlAsString];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"GetURL" object:self userInfo:
-     [NSDictionary dictionaryWithObject:url forKey:@"URL"]];
+     @{@"URL": url}];
 }
 
 - (void)setRefreshTimer:(NSTimer *)value {
@@ -206,7 +206,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (void)feedFailed:(NSNotification *)notification {
     
-    NSError *error = [[notification userInfo] objectForKey:NSUnderlyingErrorKey];
+    NSError *error = [notification userInfo][NSUnderlyingErrorKey];
     SMWebRequest *request = [notification object];
     
     if ([[error domain] isEqual:(id)kCFErrorDomainCFNetwork]) {
@@ -233,7 +233,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
                 notification.title = item.authorAndTitle.stringByDecodingCharacterEntities;
                 notification.informativeText = [item.content.stringByFlatteningHTML stringByCondensingSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                 notification.hasActionButton = NO;
-                notification.userInfo = [NSDictionary dictionaryWithObject:item.link.absoluteString forKey:@"FeedItemLink"];
+                notification.userInfo = @{@"FeedItemLink": item.link.absoluteString};
                 
                 [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
             }
@@ -299,12 +299,12 @@ const int ddLogLevel = LOG_LEVEL_INFO;
         
         // build a quick lookup dictionary for links
         for (FeedItem *item in allItems)
-            [itemsByLink setObject:item forKey:item.link.absoluteString];
+            itemsByLink[item.link.absoluteString] = item;
         
         // look through our delivered notifications and remove any that don't exist in our allItems anymore for whatever reason
         for (NSUserNotification *notification in [NSUserNotificationCenter defaultUserNotificationCenter].deliveredNotifications) {
-            NSString *link = [notification.userInfo objectForKey:@"FeedItemLink"];
-            if (![itemsByLink objectForKey:link])
+            NSString *link = (notification.userInfo)[@"FeedItemLink"];
+            if (!itemsByLink[link])
                 [[NSUserNotificationCenter defaultUserNotificationCenter] removeDeliveredNotification:notification];
         }
     }
@@ -317,7 +317,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 
     for (int i=0; i<allItems.count; i++) {
         
-        FeedItem *item = [allItems objectAtIndex:i];
+        FeedItem *item = allItems[i];
         
         NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:@"" action:@selector(itemSelected:) keyEquivalent:@""];
         menuItem.attributedTitle = [item attributedStringHighlighted:NO];
@@ -360,12 +360,12 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 - (void)highlightMenuItem:(NSMenuItem *)menuItem {
     
     if (lastHighlightedItem) {
-        FeedItem *lastItem = [allItems objectAtIndex:lastHighlightedItem.tag-1];
+        FeedItem *lastItem = allItems[lastHighlightedItem.tag-1];
         lastHighlightedItem.attributedTitle = [lastItem attributedStringHighlighted:NO];
     }
 
     if (menuItem) {
-        FeedItem *item = [allItems objectAtIndex:menuItem.tag-1];
+        FeedItem *item = allItems[menuItem.tag-1];
         menuItem.attributedTitle = [item attributedStringHighlighted:YES];
     }
     
@@ -410,7 +410,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (void)showPopoverForMenuItem:(NSMenuItem *)menuItem {
 
-    FeedItem *item = [allItems objectAtIndex:menuItem.tag-1];
+    FeedItem *item = allItems[menuItem.tag-1];
 
     menuItem.state = NSOffState;
     [self markItemAsViewed:item];
@@ -473,9 +473,9 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (void)webView:(WebView *)webView decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id<WebPolicyDecisionListener>)listener {	
 	
-    if ([actionInformation objectForKey:@"WebActionNavigationTypeKey"] != nil) {
+    if (actionInformation[@"WebActionNavigationTypeKey"] != nil) {
         
-        NSURL *URL = [actionInformation objectForKey:@"WebActionOriginalURLKey"];
+        NSURL *URL = actionInformation[@"WebActionOriginalURLKey"];
         NSString *URLString = [URL absoluteString];
         
 		if ([URLString rangeOfString:@"cmd://"].location != NSNotFound) {
@@ -506,7 +506,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (void)itemSelected:(NSMenuItem *)menuItem {
     
-    FeedItem *item = [allItems objectAtIndex:menuItem.tag-1];
+    FeedItem *item = allItems[menuItem.tag-1];
     
     menuItem.state = NSOffState;
     [self markItemAsViewed:item];
@@ -522,7 +522,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
     if (HAS_NOTIFICATION_CENTER) {
         // if the item is in notification center, remove it
         for (NSUserNotification *notification in [NSUserNotificationCenter defaultUserNotificationCenter].deliveredNotifications) {
-            NSString *link = [notification.userInfo objectForKey:@"FeedItemLink"];
+            NSString *link = (notification.userInfo)[@"FeedItemLink"];
             if ([link isEqualToString:item.link.absoluteString])
                 [[NSUserNotificationCenter defaultUserNotificationCenter] removeDeliveredNotification:notification];
         }
@@ -530,7 +530,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 }
 
 - (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification {
-    NSString *link = [notification.userInfo objectForKey:@"FeedItemLink"];
+    NSString *link = (notification.userInfo)[@"FeedItemLink"];
     
     // if you activate the notification, that's the same as viewing an item.
     for (FeedItem *item in allItems)
@@ -601,7 +601,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
     }
     else if (result == NSAlertOtherReturn) { // Clipboard
         
-        [[NSPasteboard generalPasteboard] declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:nil];
+        [[NSPasteboard generalPasteboard] declareTypes:@[NSStringPboardType] owner:nil];
         [[NSPasteboard generalPasteboard] setString:errorReport forType:NSStringPboardType];
         
         [[NSAlert alertWithMessageText:@"Copied to Clipboard" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"A detailed error report has been copied to your clipboard. Please paste it into the body of an email and send it to support@feedsapp.com."] runModalInForeground];

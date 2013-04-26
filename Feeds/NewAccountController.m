@@ -41,7 +41,7 @@
 }
 
 - (Class)selectedAccountClass {
-    return [[Account registeredClasses] objectAtIndex:[accountTypeButton indexOfSelectedItem]];
+    return [Account registeredClasses][[accountTypeButton indexOfSelectedItem]];
 }
 
 - (NSString *)selectedAccountName {
@@ -142,7 +142,7 @@
 }
 
 - (void)openURL:(NSNotification *)notification {
-    NSURL *URL = [notification.userInfo objectForKey:@"URL"];
+    NSURL *URL = (notification.userInfo)[@"URL"];
     [account authWasFinishedWithURL:URL];
 }
 

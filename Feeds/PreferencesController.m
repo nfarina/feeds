@@ -134,12 +134,12 @@
 }
 
 - (Account *)selectedAccount {
-    return [[Account allAccounts] objectAtIndex:tableView.selectedRow];
+    return [Account allAccounts][tableView.selectedRow];
 }
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    Account *account = [[Account allAccounts] objectAtIndex:row];
-    return [NSDictionary dictionaryWithObjectsAndKeys:account.iconPrefix, @"iconPrefix", account.name ?: [[account class] shortAccountName], @"name", account.username, @"username", account.friendlyDomain, @"domain", nil];
+    Account *account = [Account allAccounts][row];
+    return @{@"iconPrefix": account.iconPrefix, @"name": account.name ?: [[account class] shortAccountName], @"username": account.username, @"domain": account.friendlyDomain};
 }
 
 - (BOOL)tableView:(NSTableView *)tableView shouldShowCellExpansionForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
@@ -202,7 +202,7 @@
 }
 
 - (IBAction)removeAccount:(id)sender {
-    Account *account = [[Account allAccounts] objectAtIndex:[tableView selectedRow]];
+    Account *account = [Account allAccounts][[tableView selectedRow]];
     [Account removeAccount:account];
     NSUInteger previouslySelectedRow = tableView.selectedRow;
     [tableView reloadData];
@@ -254,7 +254,7 @@
         for (Feed *feed in account.feeds) {
             NSUInteger index = [oldFeeds indexOfObject:feed];
             if (index != NSNotFound) {
-                Feed *old = [oldFeeds objectAtIndex:index];
+                Feed *old = oldFeeds[index];
                 feed.disabled = old.disabled;
             }
         }

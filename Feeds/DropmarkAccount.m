@@ -32,7 +32,7 @@
     
     Feed *feed = [Feed feedWithURLString:URL title:@"All Activity" author:author account:self];
     feed.requiresBasicAuth = YES;
-    self.feeds = [NSArray arrayWithObject:feed];
+    self.feeds = @[feed];
     
     [self.delegate account:self validationDidCompleteWithNewPassword:password];
 }

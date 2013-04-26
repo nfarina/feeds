@@ -6,10 +6,10 @@
     if (self = [super init]) {
         
         NSDictionary *response = [responseData objectFromJSONData];
-        self.access_token = [response objectForKey:@"access_token"];
-        self.refresh_token = [response objectForKey:@"refresh_token"];
+        self.access_token = response[@"access_token"];
+        self.refresh_token = response[@"refresh_token"];
         
-        (*error) = [response objectForKey:@"error"];
+        (*error) = response[@"error"];
         if (*error) {
             return nil;
         }
@@ -23,10 +23,8 @@
 }
 
 - (NSString *)stringRepresentation {
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          self.access_token, @"access_token",
-                          self.refresh_token, @"refresh_token",
-                          nil];
+    NSDictionary *dict = @{@"access_token": self.access_token,
+                          @"refresh_token": self.refresh_token};
     return [dict JSONString];
 }
 
@@ -35,8 +33,8 @@
     
     if (dict) {
         OAuth2Token *token = [OAuth2Token new];
-        token.access_token = [dict objectForKey:@"access_token"];
-        token.refresh_token = [dict objectForKey:@"refresh_token"];
+        token.access_token = dict[@"access_token"];
+        token.refresh_token = dict[@"refresh_token"];
         return token;
     }
     else return nil;

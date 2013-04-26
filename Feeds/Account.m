@@ -13,7 +13,7 @@ static NSMutableArray *allAccounts = nil;
 static NSMutableArray *registeredClasses = nil;
 
 + (NSArray *)registeredClasses { 
-    NSArray *descriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"friendlyAccountName" ascending:YES]];
+    NSArray *descriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"friendlyAccountName" ascending:YES]];
     return [registeredClasses sortedArrayUsingDescriptors:descriptors];
 }
 + (void)registerClass:(Class)cls {
@@ -31,7 +31,7 @@ static NSMutableArray *registeredClasses = nil;
     
     @synchronized (self) {
         if (!cache) cache = [NSMutableDictionary new];
-        NSData *result = [cache objectForKey:request.URL];
+        NSData *result = cache[request.URL];
         if (result) return result;
     }
 
@@ -45,7 +45,7 @@ static NSMutableArray *registeredClasses = nil;
     else {
         DDLogInfo(@"Fetched extra for %@", NSStringFromClass(self));
         @synchronized (self) {
-            [cache setObject:data forKey:request.URL];
+            cache[request.URL] = data;
         }
     }
     
@@ -122,29 +122,29 @@ static NSMutableArray *registeredClasses = nil;
 #pragma mark Account Implementation
 
 + (Account *)accountWithDictionary:(NSDictionary *)dict {
-    NSString *type = [dict objectForKey:@"type"];
+    NSString *type = dict[@"type"];
     Class class = NSClassFromString([type stringByAppendingString:@"Account"]);
     return [[class alloc] initWithDictionary:dict];
 }
 
 - (id)initWithDictionary:(NSDictionary *)dict {
     self = [super init];
-    self.name = [dict objectForKey:@"name"];
-    self.domain = [dict objectForKey:@"domain"];
-    self.username = [dict objectForKey:@"username"];
-    self.refreshInterval = [[dict objectForKey:@"refreshInterval"] integerValue];
-    self.feeds = [[dict objectForKey:@"feeds"] selectUsingBlock:^id(NSDictionary *dict) { return [Feed feedWithDictionary:dict account:self]; }];
+    self.name = dict[@"name"];
+    self.domain = dict[@"domain"];
+    self.username = dict[@"username"];
+    self.refreshInterval = [dict[@"refreshInterval"] integerValue];
+    self.feeds = [dict[@"feeds"] selectUsingBlock:^id(NSDictionary *dict) { return [Feed feedWithDictionary:dict account:self]; }];
     return self;
 }
 
 - (NSDictionary *)dictionaryRepresentation {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    [dict setObject:self.type forKey:@"type"];
-    if (self.name) [dict setObject:self.name forKey:@"name"];
-    if (self.domain) [dict setObject:self.domain forKey:@"domain"];
-    if (self.username) [dict setObject:self.username forKey:@"username"];
-    if (self.refreshInterval) [dict setObject:@(self.refreshInterval) forKey:@"refreshInterval"];
-    if (self.feeds) [dict setObject:[self.feeds valueForKey:@"dictionaryRepresentation"] forKey:@"feeds"];
+    dict[@"type"] = self.type;
+    if (self.name) dict[@"name"] = self.name;
+    if (self.domain) dict[@"domain"] = self.domain;
+    if (self.username) dict[@"username"] = self.username;
+    if (self.refreshInterval) dict[@"refreshInterval"] = @(self.refreshInterval);
+    if (self.feeds) dict[@"feeds"] = [self.feeds valueForKey:@"dictionaryRepresentation"];
     return dict;
 }
 
@@ -289,9 +289,9 @@ static NSMutableArray *registeredClasses = nil;
 }
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    Feed *feed = [self.feeds objectAtIndex:row];
+    Feed *feed = (self.feeds)[row];
     if ([tableColumn.identifier isEqual:@"showColumn"])
-        return [NSNumber numberWithBool:!feed.disabled];
+        return @(!feed.disabled);
     else if ([tableColumn.identifier isEqual:@"feedColumn"])
         return feed.title;
     else
@@ -299,7 +299,7 @@ static NSMutableArray *registeredClasses = nil;
 }
 
 - (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    Feed *feed = [self.feeds objectAtIndex:row];
+    Feed *feed = (self.feeds)[row];
     if ([tableColumn.identifier isEqual:@"showColumn"]) {
         feed.disabled = ![object boolValue];
         self.lastRefresh = nil; // force refresh on this feed

@@ -37,7 +37,7 @@
     feed.author = self.username; // store author by email address instead of name
     feed.requiresBasicAuth = YES;
 
-    self.feeds = [NSArray arrayWithObject:feed];
+    self.feeds = @[feed];
     
     [self.delegate account:self validationDidCompleteWithNewPassword:nil];
 }
@@ -54,23 +54,23 @@
     NSMutableArray *items = [NSMutableArray array];
 
     NSDictionary *response = [data objectFromJSONData];
-    NSArray *activities = [response objectForKey:@"activities"];
+    NSArray *activities = response[@"activities"];
     
     for (NSDictionary *activity in activities) {
 
-        NSNumber *identifier = [activity objectForKey:@"id"];
-        NSString *date = [activity objectForKey:@"created_at"];
-        NSDictionary *actor = [activity objectForKey:@"actor"]; // "The actor causing the creation of the activity"
-        NSString *actorEmail = [actor objectForKey:@"email"];
-        NSString *actorName = [actor objectForKey:@"name"];
-        NSString *title = [activity objectForKey:@"title"]; // description really
-        NSDictionary *target = [activity objectForKey:@"target"]; // the ticket
-        NSDictionary *ticket = [target objectForKey:@"ticket"];
-        NSNumber *ticketIdentifier = [ticket objectForKey:@"id"];
-        NSString *ticketSubject = [ticket objectForKey:@"subject"];
-        NSDictionary *object = [activity objectForKey:@"object"]; // the comment or whatever that this activity reports about
-        NSDictionary *comment = [object objectForKey:@"comment"]; // if present
-        NSDictionary *commentValue = [comment objectForKey:@"value"];
+        NSNumber *identifier = activity[@"id"];
+        NSString *date = activity[@"created_at"];
+        NSDictionary *actor = activity[@"actor"]; // "The actor causing the creation of the activity"
+        NSString *actorEmail = actor[@"email"];
+        NSString *actorName = actor[@"name"];
+        NSString *title = activity[@"title"]; // description really
+        NSDictionary *target = activity[@"target"]; // the ticket
+        NSDictionary *ticket = target[@"ticket"];
+        NSNumber *ticketIdentifier = ticket[@"id"];
+        NSString *ticketSubject = ticket[@"subject"];
+        NSDictionary *object = activity[@"object"]; // the comment or whatever that this activity reports about
+        NSDictionary *comment = object[@"comment"]; // if present
+        NSDictionary *commentValue = comment[@"value"];
         
         // Zendesk's "title" is weird - spaces seem to be insignificant (lots of extra spaces), but newlines are significant.
         //NSString *content = [[title stringByCondensingSet:[NSCharacterSet whitespaceCharacterSet]] stringByReplacingOccurrencesOfString:@"\n" withString:@"<br/>"];

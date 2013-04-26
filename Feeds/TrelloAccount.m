@@ -23,7 +23,7 @@
     }
     
     NSArray *parts = [fragment componentsSeparatedByString:@"="];
-    NSString *token = [parts objectAtIndex:1]; // xyz
+    NSString *token = parts[1]; // xyz
     
     [self validateWithPassword:token];
 }
@@ -41,12 +41,12 @@
 - (void)meRequestComplete:(NSData *)data context:(NSString *)token {
     
     NSDictionary *me = [data objectFromJSONData];
-    self.username = [me objectForKey:@"username"];
+    self.username = me[@"username"];
 
     NSString *mainFeedString = [NSString stringWithFormat:@"https://api.trello.com/1/members/me/notifications?key=53e6bb99cefe4914e88d06c76308e357&token=%@", token];
     Feed *mainFeed = [Feed feedWithURLString:mainFeedString title:@"All Notifications" author:self.username account:self];
     
-    self.feeds = [NSArray arrayWithObject:mainFeed];
+    self.feeds = @[mainFeed];
     
     [self.delegate account:self validationDidCompleteWithNewPassword:token];
 }
@@ -64,20 +64,20 @@
         
         FeedItem *item = [FeedItem new];
         
-        NSString *type = [notification objectForKey:@"type"];
-        NSString *date = [notification objectForKey:@"date"];
-        NSString *creatorIdentifier = [notification objectForKey:@"idMemberCreator"];
-        NSDictionary *data = [notification objectForKey:@"data"];
-        NSString *org = [[data objectForKey:@"organization"] objectForKey:@"id"];
-        NSString *orgName = [[data objectForKey:@"organization"] objectForKey:@"name"];
-        NSString *board = [[data objectForKey:@"board"] objectForKey:@"id"];
-        NSString *boardName = [[data objectForKey:@"board"] objectForKey:@"name"];
-        NSString *card = [[data objectForKey:@"card"] objectForKey:@"id"];
-        NSString *cardName = [[data objectForKey:@"card"] objectForKey:@"name"];
-        NSString *member = [[data objectForKey:@"member"] objectForKey:@"id"];
-        NSString *name = [data objectForKey:@"name"];
-        NSString *text = [data objectForKey:@"text"];
-        NSString *state = [data objectForKey:@"state"];
+        NSString *type = notification[@"type"];
+        NSString *date = notification[@"date"];
+        NSString *creatorIdentifier = notification[@"idMemberCreator"];
+        NSDictionary *data = notification[@"data"];
+        NSString *org = data[@"organization"][@"id"];
+        NSString *orgName = data[@"organization"][@"name"];
+        NSString *board = data[@"board"][@"id"];
+        NSString *boardName = data[@"board"][@"name"];
+        NSString *card = data[@"card"][@"id"];
+        NSString *cardName = data[@"card"][@"name"];
+        NSString *member = data[@"member"][@"id"];
+        NSString *name = data[@"name"];
+        NSString *text = data[@"text"];
+        NSString *state = data[@"state"];
         NSString *URLString = nil;
 
         item.rawDate = date;
@@ -147,7 +147,7 @@
                 if (!data) return nil;
                 
                 NSDictionary *member = [data objectFromJSONData];
-                NSString *memberName = [member objectForKey:@"fullName"];
+                NSString *memberName = member[@"fullName"];
                 
                 title = [title stringByReplacingOccurrencesOfString:@"{member}" withString:memberName ?: @""];
             }
@@ -169,7 +169,7 @@
             if (!data) return nil;
             
             NSDictionary *member = [data objectFromJSONData];
-            NSString *memberName = [member objectForKey:@"fullName"];
+            NSString *memberName = member[@"fullName"];
             item.author = memberName;
         }
         

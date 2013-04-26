@@ -42,7 +42,7 @@
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
 - (id)firstObject {
-	return [self count] ? [self objectAtIndex:0] : nil;
+	return [self count] ? self[0] : nil;
 }
 
 - (NSArray *)collect:(SEL)selector on:(id)target {
@@ -79,7 +79,7 @@
 	
 	for (id obj in self) {
 		id keyValue = [obj valueForKey:key];
-		if (keyValue) [indexed setObject:obj forKey:keyValue];
+		if (keyValue) indexed[keyValue] = obj;
 	}
 	
 	return indexed;
@@ -91,11 +91,11 @@
 	for (id obj in self) {
 		id keyValue = [obj valueForKey:key];
 		if (keyValue) {
-			NSMutableArray *group = [grouped objectForKey:keyValue];
+			NSMutableArray *group = grouped[keyValue];
 			if (group)
 				[group addObject:obj];
 			else
-				[grouped setObject:[NSMutableArray arrayWithObject:obj] forKey:keyValue];
+				grouped[keyValue] = [NSMutableArray arrayWithObject:obj];
 		}
 	}
 	

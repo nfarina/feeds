@@ -30,8 +30,8 @@
     NSArray *parts = [myName componentsSeparatedByString:@" "];
     
     if ([parts count] == 2) {
-        firstName = [parts objectAtIndex:0];
-        lastName = [parts objectAtIndex:1];
+        firstName = parts[0];
+        lastName = parts[1];
     }
     
     NSString *mainFeedString = [NSString stringWithFormat:@"https://%@:%@@%@.highrisehq.com/recordings.atom", token, token, self.domain];
@@ -40,7 +40,7 @@
     if ([firstName length] > 0 && [lastName length] > 0)
         mainFeed.author = [NSString stringWithFormat:@"%@ %@.", firstName, [lastName substringToIndex:1]];
     
-    self.feeds = [NSArray arrayWithObject:mainFeed];
+    self.feeds = @[mainFeed];
     
     [self.delegate account:self validationDidCompleteWithNewPassword:nil];
 }

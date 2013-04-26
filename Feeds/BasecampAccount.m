@@ -34,7 +34,7 @@
     if ([firstName length] > 0 && [lastName length] > 0)
         mainFeed.author = [NSString stringWithFormat:@"%@ %@.", firstName, [lastName substringToIndex:1]];
     
-    self.feeds = [NSArray arrayWithObject:mainFeed];
+    self.feeds = @[mainFeed];
     
     [self.delegate account:self validationDidCompleteWithNewPassword:nil];
 }

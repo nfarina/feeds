@@ -46,7 +46,7 @@
     BOOL looksLikeHtml = NO;
 
     if ([self.request.response isKindOfClass:[NSHTTPURLResponse class]]) {
-        NSString *contentType = [[(NSHTTPURLResponse *)self.request.response allHeaderFields] objectForKey:@"Content-Type"];
+        NSString *contentType = [(NSHTTPURLResponse *)self.request.response allHeaderFields][@"Content-Type"];
         
         if ([contentType isEqualToString:@"text/html"] || [contentType beginsWithString:@"text/html;"] ||
             [URL.path endsWithString:@".html"] || [URL.path endsWithString:@".html"])
@@ -75,8 +75,8 @@
         NSArray *atomLinks = [html searchWithXPathQuery:@"//link[@type='application/atom+xml']"];
         
         for (TFHppleElement *link in rssLinks) {
-            NSString *href = [link.attributes objectForKey:@"href"];
-            NSString *title = [link.attributes objectForKey:@"title"] ?: @"RSS Feed";
+            NSString *href = (link.attributes)[@"href"];
+            NSString *title = (link.attributes)[@"title"] ?: @"RSS Feed";
             NSURL *url = [NSURL URLWithString:href relativeToURL:URL];
             
             if (href.length) {
@@ -86,8 +86,8 @@
         }
         
         for (TFHppleElement *link in atomLinks) {
-            NSString *href = [link.attributes objectForKey:@"href"];
-            NSString *title = [link.attributes objectForKey:@"title"] ?: @"Atom Feed";
+            NSString *href = (link.attributes)[@"href"];
+            NSString *title = (link.attributes)[@"title"] ?: @"Atom Feed";
             NSURL *url = [NSURL URLWithString:href relativeToURL:URL];
             
             if (href.length) {
@@ -119,7 +119,7 @@
         if (self.username.length)
             feed.requiresBasicAuth = YES;
         
-        self.feeds = [NSArray arrayWithObject:feed];
+        self.feeds = @[feed];
     }
     
     [self.delegate account:self validationDidCompleteWithNewPassword:nil];

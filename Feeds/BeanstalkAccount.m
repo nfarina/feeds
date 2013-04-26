@@ -25,19 +25,19 @@
 - (void)meRequestComplete:(NSData *)data {
     
     NSDictionary *response = [data objectFromJSONData];
-    NSDictionary *user = [response objectForKey:@"user"];
+    NSDictionary *user = response[@"user"];
     
     NSString *changesets = [NSString stringWithFormat:@"https://%@.beanstalkapp.com/api/changesets.json", self.domain];
     Feed *changesetsFeed = [Feed feedWithURLString:changesets title:@"Changesets" account:self];
-    changesetsFeed.author = [user objectForKey:@"id"]; // store author by unique identifier instead of name
+    changesetsFeed.author = user[@"id"]; // store author by unique identifier instead of name
     changesetsFeed.requiresBasicAuth = YES;
 
     NSString *releases = [NSString stringWithFormat:@"https://%@.beanstalkapp.com/api/releases.json", self.domain];
     Feed *releasesFeed = [Feed feedWithURLString:releases title:@"Deployments" account:self];
-    releasesFeed.author = [user objectForKey:@"id"]; // store author by unique identifier instead of name
+    releasesFeed.author = user[@"id"]; // store author by unique identifier instead of name
     releasesFeed.requiresBasicAuth = YES;
 
-    self.feeds = [NSArray arrayWithObjects:changesetsFeed, releasesFeed, nil];
+    self.feeds = @[changesetsFeed, releasesFeed];
 
     [self.delegate account:self validationDidCompleteWithNewPassword:nil];
 }
@@ -53,13 +53,13 @@
 }
 
 - (void)meRequestError:(NSError *)error {    
-    SMErrorResponse *response = [error.userInfo objectForKey:SMErrorResponseKey];
+    SMErrorResponse *response = (error.userInfo)[SMErrorResponseKey];
     NSString *message = nil;
     
-    if ([[response.response.allHeaderFields objectForKey:@"Content-Type"] beginsWithString:@"application/json"]) {
+    if ([(response.response.allHeaderFields)[@"Content-Type"] beginsWithString:@"application/json"]) {
         NSDictionary *data = [response.data objectFromJSONData];
-        NSArray *errors = [data objectForKey:@"errors"];
-        message = errors.count ? [errors objectAtIndex:0] : nil;
+        NSArray *errors = data[@"errors"];
+        message = errors.count ? errors[0] : nil;
     }
     
     if (error.code == 500 && message)
@@ -80,14 +80,14 @@
         
         for (NSDictionary *changeset in changesets) {
             
-            NSDictionary *revision = [changeset objectForKey:@"revision_cache"];
-            NSNumber *repositoryIdentifier = [revision objectForKey:@"repository_id"];
-            NSNumber *userIdentifier = [revision objectForKey:@"user_id"];
+            NSDictionary *revision = changeset[@"revision_cache"];
+            NSNumber *repositoryIdentifier = revision[@"repository_id"];
+            NSNumber *userIdentifier = revision[@"user_id"];
             if ((id)userIdentifier == [NSNull null]) userIdentifier = nil; // this could be null!
-            NSString *date = [revision objectForKey:@"time"];
-            NSString *message = [revision objectForKey:@"message"];
-            NSString *hash = [revision objectForKey:@"hash_id"];
-            NSString *revisionIdentifier = [revision objectForKey:@"revision"];
+            NSString *date = revision[@"time"];
+            NSString *message = revision[@"message"];
+            NSString *hash = revision[@"hash_id"];
+            NSString *revisionIdentifier = revision[@"revision"];
             NSString *repositoryTitle = nil;
             NSString *repositoryName = nil;
             NSString *repositoryType = nil;
@@ -99,10 +99,10 @@
                 if (!data) return nil;
                 
                 NSDictionary *response = [data objectFromJSONData];
-                NSDictionary *repository = [response objectForKey:@"repository"];
-                repositoryTitle = [repository objectForKey:@"title"];
-                repositoryName = [repository objectForKey:@"name"];
-                repositoryType = [repository objectForKey:@"vcs"]; // "git" or svn ("SVN"?)
+                NSDictionary *repository = response[@"repository"];
+                repositoryTitle = repository[@"title"];
+                repositoryName = repository[@"name"];
+                repositoryType = repository[@"vcs"]; // "git" or svn ("SVN"?)
             }
             
             FeedItem *item = [FeedItem new];
@@ -110,7 +110,7 @@
             item.published = AutoFormatDate(date);
             item.updated = item.published;
             item.authorIdentifier = [userIdentifier stringValue];
-            item.author = [revision objectForKey:@"author"];
+            item.author = revision[@"author"];
             item.content = message;
             item.title = [NSString stringWithFormat:@"%@ committed to %@", item.author, repositoryTitle];
             
@@ -130,15 +130,15 @@
         
         for (NSDictionary *releaseData in releases) {
             
-            NSDictionary *release = [releaseData objectForKey:@"release"];
-            NSString *deploymentIdentifier = [release objectForKey:@"id"];
-            NSNumber *repositoryIdentifier = [release objectForKey:@"repository_id"];
-            NSNumber *userIdentifier = [release objectForKey:@"user_id"];
+            NSDictionary *release = releaseData[@"release"];
+            NSString *deploymentIdentifier = release[@"id"];
+            NSNumber *repositoryIdentifier = release[@"repository_id"];
+            NSNumber *userIdentifier = release[@"user_id"];
             if ((id)userIdentifier == [NSNull null]) userIdentifier = nil; // this could be null!
-            NSString *date = [release objectForKey:@"updated_at"];
-            NSString *comment = [release objectForKey:@"comment"];
-            NSString *environment = [release objectForKey:@"environment_name"];
-            NSString *state = [release objectForKey:@"state"];
+            NSString *date = release[@"updated_at"];
+            NSString *comment = release[@"comment"];
+            NSString *environment = release[@"environment_name"];
+            NSString *state = release[@"state"];
             NSString *repositoryName = nil;
             NSString *userName = nil;
             
@@ -149,8 +149,8 @@
                 if (!data) return nil;
                 
                 NSDictionary *response = [data objectFromJSONData];
-                NSDictionary *repository = [response objectForKey:@"repository"];
-                repositoryName = [repository objectForKey:@"name"];
+                NSDictionary *repository = response[@"repository"];
+                repositoryName = repository[@"name"];
             }
 
             if (userIdentifier) {
@@ -160,8 +160,8 @@
                 if (!data) return nil;
                 
                 NSDictionary *response = [data objectFromJSONData];
-                NSDictionary *user = [response objectForKey:@"user"];
-                userName = [NSString stringWithFormat:@"%@ %@", [user objectForKey:@"first_name"], [user objectForKey:@"last_name"]];
+                NSDictionary *user = response[@"user"];
+                userName = [NSString stringWithFormat:@"%@ %@", user[@"first_name"], user[@"last_name"]];
             }
 
             FeedItem *item = [FeedItem new];

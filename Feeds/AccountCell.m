@@ -5,13 +5,13 @@
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
 
 	NSDictionary *dict = self.objectValue;
-    NSString *iconPrefix = [dict objectForKey:@"iconPrefix"];
-    NSString *name = [dict objectForKey:@"name"];
-    NSString *username = [dict objectForKey:@"username"];
+    NSString *iconPrefix = dict[@"iconPrefix"];
+    NSString *name = dict[@"name"];
+    NSString *username = dict[@"username"];
     NSImage *icon = [NSImage imageNamed:[iconPrefix stringByAppendingString:@"Account.tiff"]];
 
     if (!username.length)
-        username = [dict objectForKey:@"domain"];
+        username = dict[@"domain"];
 
     // We have to do some work otherwise the image will be drawn Y-flipped
 	[[NSGraphicsContext currentContext] saveGraphicsState]; {
@@ -41,7 +41,7 @@
     }
 
     NSFont *typeFont = [NSFont systemFontOfSize:name.length > 10 ? 12 : 13];
-	NSDictionary *typeAttributes = [NSDictionary dictionaryWithObjectsAndKeys:typeColor, NSForegroundColorAttributeName, typeFont, NSFontAttributeName, nil];
+	NSDictionary *typeAttributes = @{NSForegroundColorAttributeName: typeColor, NSFontAttributeName: typeFont};
 
     NSRect typeRect = cellFrame;
     typeRect.origin.x += 36;
@@ -52,7 +52,7 @@
 	[name drawWithRect:typeRect options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine attributes:typeAttributes];
 
     NSFont *userFont = [NSFont systemFontOfSize:11];
-	NSDictionary *userAttributes = [NSDictionary dictionaryWithObjectsAndKeys:userColor, NSForegroundColorAttributeName, userFont, NSFontAttributeName, nil];
+	NSDictionary *userAttributes = @{NSForegroundColorAttributeName: userColor, NSFontAttributeName: userFont};
 
     NSRect userRect = typeRect;
     userRect.origin.y += 16;

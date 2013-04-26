@@ -119,28 +119,28 @@ NSDate *AutoFormatDate(NSString *dateString) {
 
 + (Feed *)feedWithDictionary:(NSDictionary *)dict account:(Account *)account {
     Feed *feed = [[Feed alloc] init];
-    feed.URL = [NSURL URLWithString:[dict objectForKey:@"url"]];
-    feed.title = [dict objectForKey:@"title"];
-    feed.author = [dict objectForKey:@"author"];
-    feed.requestHeaders = [dict objectForKey:@"requestHeaders"];
-    feed.incremental = [[dict objectForKey:@"incremental"] boolValue];
-    feed.requiresBasicAuth = [[dict objectForKey:@"requiresBasicAuth"] boolValue];
-    feed.requiresOAuth2Token = [[dict objectForKey:@"requiresOAuth2Token"] boolValue];
-    feed.disabled = [[dict objectForKey:@"disabled"] boolValue];
+    feed.URL = [NSURL URLWithString:dict[@"url"]];
+    feed.title = dict[@"title"];
+    feed.author = dict[@"author"];
+    feed.requestHeaders = dict[@"requestHeaders"];
+    feed.incremental = [dict[@"incremental"] boolValue];
+    feed.requiresBasicAuth = [dict[@"requiresBasicAuth"] boolValue];
+    feed.requiresOAuth2Token = [dict[@"requiresOAuth2Token"] boolValue];
+    feed.disabled = [dict[@"disabled"] boolValue];
     feed.account = account;
     return feed;
 }
 
 - (NSDictionary *)dictionaryRepresentation {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    [dict setObject:[self.URL absoluteString] forKey:@"url"];
-    if (self.title) [dict setObject:self.title forKey:@"title"];
-    if (self.author) [dict setObject:self.author forKey:@"author"];
-    if (self.requestHeaders) [dict setObject:self.requestHeaders forKey:@"requestHeaders"];
-    [dict setObject:[NSNumber numberWithBool:self.incremental] forKey:@"incremental"];
-    [dict setObject:[NSNumber numberWithBool:self.requiresBasicAuth] forKey:@"requiresBasicAuth"];
-    [dict setObject:[NSNumber numberWithBool:self.requiresOAuth2Token] forKey:@"requiresOAuth2Token"];
-    [dict setObject:[NSNumber numberWithBool:self.disabled] forKey:@"disabled"];
+    dict[@"url"] = [self.URL absoluteString];
+    if (self.title) dict[@"title"] = self.title;
+    if (self.author) dict[@"author"] = self.author;
+    if (self.requestHeaders) dict[@"requestHeaders"] = self.requestHeaders;
+    dict[@"incremental"] = @(self.incremental);
+    dict[@"requiresBasicAuth"] = @(self.requiresBasicAuth);
+    dict[@"requiresOAuth2Token"] = @(self.requiresOAuth2Token);
+    dict[@"disabled"] = @(self.disabled);
     return dict;
 }
 
@@ -170,17 +170,17 @@ NSDate *AutoFormatDate(NSString *dateString) {
     
     // add any additional request headers
     for (NSString *field in self.requestHeaders)
-        [URLRequest setValue:[self.requestHeaders objectForKey:field] forHTTPHeaderField:field];
+        [URLRequest setValue:(self.requestHeaders)[field] forHTTPHeaderField:field];
     
     URLRequest.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData; // goes without saying that we only care about fresh data for Feeds
     
     // build a useful context of extra data for custom feed processors like Trello and Beanstalk. Since those processors may need to fetch
     // additional data from their respective APIs, they may need the account usernamd and password, if applicable.
     NSMutableDictionary *context = [NSMutableDictionary dictionary];
-    [context setObject:[self.account class] forKey:@"accountClass"];
-    if (domain) [context setObject:domain forKey:@"domain"];
-    if (username) [context setObject:username forKey:@"username"];
-    if (password) [context setObject:password forKey:@"password"];
+    context[@"accountClass"] = [self.account class];
+    if (domain) context[@"domain"] = domain;
+    if (username) context[@"username"] = username;
+    if (password) context[@"password"] = password;
     
     self.request = [SMWebRequest requestWithURLRequest:URLRequest delegate:(id<SMWebRequestDelegate>)[self class] context:context];
     [self.request addTarget:self action:@selector(refreshComplete:) forRequestEvents:SMWebRequestEventComplete];
@@ -191,10 +191,10 @@ NSDate *AutoFormatDate(NSString *dateString) {
 // This method is called on a background thread. Don't touch your instance members!
 + (id)webRequest:(SMWebRequest *)webRequest resultObjectForData:(NSData *)data context:(NSDictionary *)context {
 
-    Class accountClass = [context objectForKey:@"accountClass"];
-    NSString *domain = [context objectForKey:@"domain"];
-    NSString *username = [context objectForKey:@"username"];
-    NSString *password = [context objectForKey:@"password"];
+    Class accountClass = context[@"accountClass"];
+    NSString *domain = context[@"domain"];
+    NSString *username = context[@"username"];
+    NSString *password = context[@"password"];
     
     if ([(id)accountClass respondsToSelector:@selector(itemsForRequest:data:domain:username:password:)])
         return [accountClass itemsForRequest:webRequest data:data domain:domain username:username password:password];
@@ -240,7 +240,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
     else {
         NSString *message = [NSString stringWithFormat:@"Unknown feed root element: <%@>", document.root.name];
         if (error) *error = [NSError errorWithDomain:@"Feed" code:0 userInfo:
-                  [NSDictionary dictionaryWithObject:message forKey:NSLocalizedDescriptionKey]];
+                  @{NSLocalizedDescriptionKey: message}];
         return nil;
     }
     
@@ -283,7 +283,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
             for (FeedItem *newItem in newItems) {
                 int i = (int)[self.items indexOfObject:newItem];
                 if (i >= 0)
-                    [merged addObject:[self.items objectAtIndex:i]]; // preserve existing item
+                    [merged addObject:(self.items)[i]]; // preserve existing item
                 else {
                     DDLogInfo(@"NEW ITEM FOR FEED %@: %@", self.URL, newItem);
                     [merged addObject:newItem];
@@ -445,8 +445,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
     NSString *decodedTitle = [(self.title.length ? self.title : self.content) stringByFlatteningHTML]; // fallback to content if no title
     NSString *decodedAuthor = [self.author stringByFlatteningHTML];
 
-    NSDictionary *titleAtts = [NSDictionary dictionaryWithObjectsAndKeys:
-                               [NSFont systemFontOfSize:13.0f],NSFontAttributeName,nil];
+    NSDictionary *titleAtts = @{NSFontAttributeName: [NSFont systemFontOfSize:13.0f]};
 
     if (decodedAuthor.length) {
         NSString *authorSpace = [decodedAuthor stringByAppendingString:@" "];
@@ -462,9 +461,8 @@ NSDate *AutoFormatDate(NSString *dateString) {
         
         NSColor *authorColor = highlighted ? [NSColor selectedMenuItemTextColor] : [NSColor disabledControlTextColor]; 
         
-        NSDictionary *authorAtts = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [NSFont systemFontOfSize:13.0f],NSFontAttributeName,
-                                    authorColor,NSForegroundColorAttributeName,nil];
+        NSDictionary *authorAtts = @{NSFontAttributeName: [NSFont systemFontOfSize:13.0f],
+                                    NSForegroundColorAttributeName: authorColor};
                 
         NSRange authorRange = NSMakeRange(0, decodedAuthor.length);
         NSRange titleRange = NSMakeRange(decodedAuthor.length+1, decodedTitle.length);

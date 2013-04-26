@@ -24,8 +24,8 @@
     NSMutableArray *foundFeeds = [NSMutableArray array];
 
     for (TFHppleElement *link in links) {
-        NSString *href = [link.attributes objectForKey:@"href"];
-        NSString *title = [link.attributes objectForKey:@"title"];
+        NSString *href = (link.attributes)[@"href"];
+        NSString *title = (link.attributes)[@"title"];
         
         // "All activity on feedsapp.uservoice.com" -> "All activity"
         NSString *suffix = [NSString stringWithFormat:@" on %@.uservoice.com",self.domain];

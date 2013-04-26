@@ -43,7 +43,7 @@
     }
     
     NSArray *parts = [query componentsSeparatedByString:@"="];
-    NSString *code = [parts objectAtIndex:1]; // xyz
+    NSString *code = parts[1]; // xyz
   
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://launchpad.37signals.com/authorization/token?type=web_server&client_id=%@&redirect_uri=%@&client_secret=%@&code=%@",BASECAMP_NEXT_OAUTH_KEY,BASECAMP_NEXT_REDIRECT,BASECAMP_NEXT_OAUTH_SECRET,code]];
     
@@ -91,23 +91,23 @@
     
     NSDictionary *response = [data objectFromJSONData];
     
-    NSDictionary *identity = [response objectForKey:@"identity"];
-    NSString *author = [[identity objectForKey:@"id"] stringValue];
+    NSDictionary *identity = response[@"identity"];
+    NSString *author = [identity[@"id"] stringValue];
     
     // update our "username" with our email - this will cause our account to look nice in the list.
-    self.username = [identity objectForKey:@"email_address"];
+    self.username = identity[@"email_address"];
     
-    NSArray *accounts = [response objectForKey:@"accounts"];
+    NSArray *accounts = response[@"accounts"];
     
     NSMutableArray *foundFeeds = [NSMutableArray array];
 
     for (NSDictionary *account in accounts) {
         
-        NSString *product = [account objectForKey:@"product"];
+        NSString *product = account[@"product"];
         if ([product isEqualToString:@"bcx"]) { // basecamp next
 
-            NSString *accountName = [account objectForKey:@"name"];
-            NSString *accountIdentifier = [account objectForKey:@"id"];            
+            NSString *accountName = account[@"name"];
+            NSString *accountIdentifier = account[@"id"];            
             NSString *accountFeedString = [NSString stringWithFormat:@"https://basecamp.com/%@/api/v1/events.json", accountIdentifier];
             
             Feed *feed = [Feed feedWithURLString:accountFeedString title:accountName author:author account:self];
@@ -211,7 +211,7 @@
     NSURL *authorLookup = [NSURL URLWithString:@"people/me.json" relativeToURL:request.request.URL];
     NSData *authorData = [self extraDataWithContentsOfURLRequest:[NSMutableURLRequest requestWithURL:authorLookup OAuth2Token:token]];
     NSDictionary *response = [authorData objectFromJSONData];
-    NSString *authorIdentifier = [[response objectForKey:@"id"] stringValue];
+    NSString *authorIdentifier = [response[@"id"] stringValue];
     
     NSMutableArray *items = [NSMutableArray array];
 
@@ -219,12 +219,12 @@
     
     for (NSDictionary *event in events) {
         
-        NSString *date = [event objectForKey:@"created_at"];
-        NSDictionary *bucket = [event objectForKey:@"bucket"];
-        NSDictionary *creator = [event objectForKey:@"creator"];
-        NSString *creatorIdentifier = [[creator objectForKey:@"id"] stringValue];
+        NSString *date = event[@"created_at"];
+        NSDictionary *bucket = event[@"bucket"];
+        NSDictionary *creator = event[@"creator"];
+        NSString *creatorIdentifier = [creator[@"id"] stringValue];
 
-        NSString *URL = [event objectForKey:@"url"];
+        NSString *URL = event[@"url"];
         URL = [URL stringByReplacingOccurrencesOfString:@"/api/v1/" withString:@"/"];
         URL = [URL stringByReplacingOccurrencesOfString:@".json" withString:@""];
 
@@ -232,10 +232,10 @@
         item.rawDate = date;
         item.published = AutoFormatDate(date);
         item.updated = item.published;
-        item.author = [creator objectForKey:@"name"];
+        item.author = creator[@"name"];
         item.authoredByMe = [creatorIdentifier isEqualToString:authorIdentifier];
-        item.content = [NSString stringWithFormat:@"%@ %@",item.author, [event objectForKey:@"summary"]];
-        item.project = [bucket objectForKey:@"name"];
+        item.content = [NSString stringWithFormat:@"%@ %@",item.author, event[@"summary"]];
+        item.project = bucket[@"name"];
         item.link = [NSURL URLWithString:URL];
         [items addObject:item];
     }
