@@ -4,10 +4,6 @@ NSString *kAccountsChangedNotification = @"AccountsChangedNotification";
 
 static NSMutableArray *allAccounts = nil;
 
-@interface Account ()
-+ (Account *)accountWithDictionary:(NSDictionary *)dict;
-@end
-
 @implementation Account
 
 static NSMutableArray *registeredClasses = nil;

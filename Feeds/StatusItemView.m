@@ -1,5 +1,9 @@
 #import "StatusItemView.h"
 
+@interface StatusItemView ()
+@property (nonatomic, strong) NSStatusItem *statusItem;
+@end
+
 @implementation StatusItemView
 
 - (id)initWithStatusItem:(NSStatusItem *)theStatusItem {

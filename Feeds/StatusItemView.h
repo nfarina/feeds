@@ -11,7 +11,6 @@ typedef enum {
 
 - (void)toggleMenu;
 
-@property (nonatomic, strong) NSStatusItem *statusItem;
 @property (nonatomic, assign) StatusItemIcon icon;
 @property (nonatomic, assign) BOOL highlighted;
 

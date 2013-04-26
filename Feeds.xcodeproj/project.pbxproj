@@ -140,8 +140,8 @@
 		01C4F93513C597C000DB0CCB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C4F93213C597AC00DB0CCB /* WebKit.framework */; };
 		01D4A3BC13C434B400CE07CC /* NSURLRequest+Authorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D4A3BB13C434B400CE07CC /* NSURLRequest+Authorization.m */; };
 		01D7CB8013AFDFCD001B133A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01D7CB7E13AFDFBE001B133A /* Carbon.framework */; };
-		01D7CB8C13B02F4A001B133A /* NewAccountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D7CB8B13B02F4A001B133A /* NewAccountController.m */; };
-		01D7CB8E13B02F62001B133A /* NewAccountController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D7CB8D13B02F62001B133A /* NewAccountController.xib */; };
+		01D7CB8C13B02F4A001B133A /* CreateAccountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D7CB8B13B02F4A001B133A /* CreateAccountController.m */; };
+		01D7CB8E13B02F62001B133A /* CreateAccountController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D7CB8D13B02F62001B133A /* CreateAccountController.xib */; };
 		01D84E1B152F33FA00267C15 /* OAuth2Token.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D84E1A152F33FA00267C15 /* OAuth2Token.m */; };
 		01D84E2A152F442900267C15 /* NSString+URLArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D84E29152F42EE00267C15 /* NSString+URLArgument.m */; };
 		01D84E3A153018D100267C15 /* DropmarkAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D84E39153018D100267C15 /* DropmarkAccount.m */; };
@@ -351,9 +351,9 @@
 		01D4A3BA13C434B400CE07CC /* NSURLRequest+Authorization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "NSURLRequest+Authorization.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		01D4A3BB13C434B400CE07CC /* NSURLRequest+Authorization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSURLRequest+Authorization.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		01D7CB7E13AFDFBE001B133A /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
-		01D7CB8A13B02F4A001B133A /* NewAccountController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAccountController.h; sourceTree = "<group>"; };
-		01D7CB8B13B02F4A001B133A /* NewAccountController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAccountController.m; sourceTree = "<group>"; };
-		01D7CB8D13B02F62001B133A /* NewAccountController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewAccountController.xib; sourceTree = "<group>"; };
+		01D7CB8A13B02F4A001B133A /* CreateAccountController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateAccountController.h; sourceTree = "<group>"; };
+		01D7CB8B13B02F4A001B133A /* CreateAccountController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateAccountController.m; sourceTree = "<group>"; };
+		01D7CB8D13B02F62001B133A /* CreateAccountController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateAccountController.xib; sourceTree = "<group>"; };
 		01D84E19152F33F900267C15 /* OAuth2Token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuth2Token.h; sourceTree = "<group>"; };
 		01D84E1A152F33FA00267C15 /* OAuth2Token.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuth2Token.m; sourceTree = "<group>"; };
 		01D84E28152F42EE00267C15 /* NSString+URLArgument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+URLArgument.h"; sourceTree = "<group>"; };
@@ -742,9 +742,9 @@
 				01F616EF13AEAA2400EBB24E /* PreferencesController.h */,
 				01F616F013AEAA2500EBB24E /* PreferencesController.m */,
 				01F616F113AEAA2600EBB24E /* PreferencesController.xib */,
-				01D7CB8A13B02F4A001B133A /* NewAccountController.h */,
-				01D7CB8B13B02F4A001B133A /* NewAccountController.m */,
-				01D7CB8D13B02F62001B133A /* NewAccountController.xib */,
+				01D7CB8A13B02F4A001B133A /* CreateAccountController.h */,
+				01D7CB8B13B02F4A001B133A /* CreateAccountController.m */,
+				01D7CB8D13B02F62001B133A /* CreateAccountController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -831,7 +831,7 @@
 				01937C9913A03F5000BCE1D4 /* App.xib in Resources */,
 				01F616B313AD4EC800EBB24E /* Growl Registration Ticket.growlRegDict in Resources */,
 				01F616F313AEAA2700EBB24E /* PreferencesController.xib in Resources */,
-				01D7CB8E13B02F62001B133A /* NewAccountController.xib in Resources */,
+				01D7CB8E13B02F62001B133A /* CreateAccountController.xib in Resources */,
 				015D788F13C6394600BCD7C4 /* Popover.html in Resources */,
 				01B7FBE313FDB60200ACC29B /* ApplicationIcon.icns in Resources */,
 				01D84E3E15308E3900267C15 /* Popover.css in Resources */,
@@ -936,7 +936,7 @@
 				01F616B713AD502300EBB24E /* NSString+EntityDecoding.m in Sources */,
 				01F616E613AE4F8D00EBB24E /* Reachability.m in Sources */,
 				01F616F213AEAA2700EBB24E /* PreferencesController.m in Sources */,
-				01D7CB8C13B02F4A001B133A /* NewAccountController.m in Sources */,
+				01D7CB8C13B02F4A001B133A /* CreateAccountController.m in Sources */,
 				01F5D6C713B3B89600EA479D /* StatusItemView.m in Sources */,
 				0108CED013BB1B4F0000ECE1 /* Account.m in Sources */,
 				0108CED313BB1EC00000ECE1 /* BasecampAccount.m in Sources */,

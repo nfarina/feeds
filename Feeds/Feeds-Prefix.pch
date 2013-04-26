@@ -35,7 +35,6 @@
 #include "Prefs.h"
 
 // Compatibility stuff
-#define HAS_POPOVER (NSClassFromString(@"NSPopover") != nil)
 #define HAS_NOTIFICATION_CENTER (NSClassFromString(@"NSUserNotificationCenter") != nil)
 
 extern const int ddLogLevel;
