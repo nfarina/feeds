@@ -12,12 +12,10 @@
         
         (*error) = [response objectForKey:@"error"];
         if (*error) {
-            [self release];
             return nil;
         }
         
         if (!access_token && !refresh_token) {
-            [self release];
             *error = @"Token not found";
             return nil;
         }
@@ -37,7 +35,7 @@
     NSDictionary *dict = [string objectFromJSONString];
     
     if (dict) {
-        OAuth2Token *token = [[OAuth2Token new] autorelease];
+        OAuth2Token *token = [OAuth2Token new];
         token.access_token = [dict objectForKey:@"access_token"];
         token.refresh_token = [dict objectForKey:@"refresh_token"];
         return token;

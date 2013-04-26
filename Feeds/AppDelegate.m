@@ -14,8 +14,8 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 #define POPOVER_WIDTH 416
 
 @interface AppDelegate ()
-@property (nonatomic, retain) NSTimer *refreshTimer, *popoverTimer;
-@property (nonatomic, retain) NSMenuItem *lastHighlightedItem;
+@property (nonatomic, strong) NSTimer *refreshTimer, *popoverTimer;
+@property (nonatomic, strong) NSMenuItem *lastHighlightedItem;
 @end
 
 @implementation AppDelegate
@@ -58,7 +58,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 
     hotKeyCenter = [DDHotKeyCenter new];
     
-    statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength] retain];
+    statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
 	statusItem.menu = menu;
 
     statusItemView = [[StatusItemView alloc] initWithStatusItem:statusItem];
@@ -67,23 +67,23 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 
     if (HAS_POPOVER) {
         popover = [[NSPopover alloc] init];
-        [popover setContentViewController:[[[NSViewController alloc] init] autorelease]];
+        [popover setContentViewController:[[NSViewController alloc] init]];
         [popover setBehavior:NSPopoverBehaviorTransient];
         [popover setAnimates:NO];
         
-        WebView *webView = [[[WebView alloc] initWithFrame:NSZeroRect] autorelease];
+        WebView *webView = [[WebView alloc] initWithFrame:NSZeroRect];
         webView.drawsBackground = NO;
         webView.policyDelegate = self;
         webView.autoresizingMask = NSViewWidthSizable|NSViewHeightSizable;
         [popover contentViewController].view = webView;
 
         shimItem = [[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""];
-        shimItem.view = [[[NSView alloc] initWithFrame:NSMakeRect(0, 0, 1, 1)] autorelease];
+        shimItem.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 1, 1)];
     }
 
     allItems = [NSMutableArray new];
     
-    reachability = [[Reachability reachabilityForInternetConnection] retain];
+    reachability = [Reachability reachabilityForInternetConnection];
 	[reachability startNotifier];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webRequestError:) name:kSMWebRequestError object:nil];
@@ -112,7 +112,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
         
         // setup our timer that checks periodically to see if you've dismissed any delivered NSUserNotifications so
         // we can update our menu
-        checkUserNotificationsTimer = [[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(checkUserNotifications) userInfo:nil repeats:YES] retain];
+        checkUserNotificationsTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(checkUserNotifications) userInfo:nil repeats:YES];
         
         // did we open as the result of clicking a notification? (rare!)
         NSUserNotification *notification = [aNotification.userInfo objectForKey:NSApplicationLaunchUserNotificationKey];
@@ -134,12 +134,12 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (void)setRefreshTimer:(NSTimer *)value {
     [refreshTimer invalidate];
-    [refreshTimer release], refreshTimer = [value retain];
+    refreshTimer = value;
 }
 
 - (void)setPopoverTimer:(NSTimer *)value {
     [popoverTimer invalidate];
-    [popoverTimer release], popoverTimer = [value retain];
+    popoverTimer = value;
 }
 
 - (void)hotKeysChanged {
@@ -228,7 +228,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
     if (HAS_NOTIFICATION_CENTER && notificationType == NotificationTypeUserNotificationCenter) {
         for (FeedItem *item in feed.items.reverseObjectEnumerator) {
             if (!item.notified) {
-                NSUserNotification *notification = [[[NSUserNotification alloc] init] autorelease];
+                NSUserNotification *notification = [[NSUserNotification alloc] init];
                 
                 notification.title = item.authorAndTitle.stringByDecodingCharacterEntities;
                 notification.informativeText = [item.content.stringByFlatteningHTML stringByCondensingSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -319,7 +319,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
         
         FeedItem *item = [allItems objectAtIndex:i];
         
-        NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:@"" action:@selector(itemSelected:) keyEquivalent:@""] autorelease];
+        NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:@"" action:@selector(itemSelected:) keyEquivalent:@""];
         menuItem.attributedTitle = [item attributedStringHighlighted:NO];
         menuItem.image = item.feed.account.menuIconImage;
         menuItem.tag = i+1;
@@ -337,7 +337,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
         [menu insertItem:shimItem atIndex:allItems.count];
     }
     else {
-        NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:@"No Items" action:NULL keyEquivalent:@""] autorelease];
+        NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:@"No Items" action:NULL keyEquivalent:@""];
         [menuItem setEnabled:NO];
         [menu insertItem:menuItem atIndex:0];
     }
@@ -449,7 +449,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
     static NSString *css = nil;
     if (!css) {
         NSString *cssPath = [[NSBundle mainBundle] pathForResource:@"Popover" ofType:@"css"];
-        css = [[NSString stringWithContentsOfFile:cssPath encoding:NSUTF8StringEncoding error:NULL] retain];
+        css = [NSString stringWithContentsOfFile:cssPath encoding:NSUTF8StringEncoding error:NULL];
     }
     
     NSString *templatePath = [[NSBundle mainBundle] pathForResource:@"Popover" ofType:@"html"];

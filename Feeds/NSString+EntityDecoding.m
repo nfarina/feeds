@@ -62,7 +62,6 @@
 			[scanner scanHexInt: &tempInt];
             unichar uchar = tempInt;
 			[escaped insertString:[NSString stringWithCharacters:&uchar length:1] atIndex: entityRange.location];
-			[scanner release];
 		}
 		else if ([value hasPrefix:@"#"])
 		{

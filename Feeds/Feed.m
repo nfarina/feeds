@@ -6,8 +6,8 @@
 NSString *kFeedUpdatedNotification = @"FeedUpdatedNotification";
 
 NSDateFormatter *RSSDateFormatter() {
-    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
-    [formatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"] autorelease]];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
     [formatter setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss Z"];
     [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
     return formatter;
@@ -32,7 +32,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
     // date formatters are NOT threadsafe!
     @synchronized ([Feed class]) {
         if (!iso8601Formatter) iso8601Formatter = [ISO8601DateFormatter new];
-        if (!rssDateFormatter) rssDateFormatter = [RSSDateFormatter() retain];
+        if (!rssDateFormatter) rssDateFormatter = RSSDateFormatter();
         
         if (!beanstalkDateFormatter) {
             beanstalkDateFormatter = [[NSDateFormatter alloc] init];
@@ -90,26 +90,19 @@ NSDate *AutoFormatDate(NSString *dateString) {
 }
 
 @interface Feed ()
-@property (nonatomic, retain) SMWebRequest *request;
+@property (nonatomic, strong) SMWebRequest *request;
 @end
 
 @implementation Feed
 @synthesize URL, title, author, items, request, disabled, account, requestHeaders, requiresBasicAuth, requiresOAuth2Token, incremental;
 
 - (void)dealloc {
-    self.URL = nil;
-    self.title = nil;
-    self.author = nil;
-    self.requestHeaders = nil;
-    self.items = nil;
-    self.request = nil;
     self.account = nil;
-    [super dealloc];
 }
 
 - (void)setRequest:(SMWebRequest *)request_ {
     [request removeTarget:self];
-    [request release], request = [request_ retain];
+    request = request_;
 }
 
 + (Feed *)feedWithURLString:(NSString *)URLString title:(NSString *)title account:(Account *)account {
@@ -117,7 +110,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
 }
 
 + (Feed *)feedWithURLString:(NSString *)URLString title:(NSString *)title author:(NSString *)author account:(Account *)account {
-    Feed *feed = [[[Feed alloc] init] autorelease];
+    Feed *feed = [[Feed alloc] init];
     feed.URL = [NSURL URLWithString:URLString];
     feed.title = title;
     feed.author = author;
@@ -126,7 +119,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
 }
 
 + (Feed *)feedWithDictionary:(NSDictionary *)dict account:(Account *)account {
-    Feed *feed = [[[Feed alloc] init] autorelease];
+    Feed *feed = [[Feed alloc] init];
     feed.URL = [NSURL URLWithString:[dict objectForKey:@"url"]];
     feed.title = [dict objectForKey:@"title"];
     feed.author = [dict objectForKey:@"author"];
@@ -336,15 +329,11 @@ NSDate *AutoFormatDate(NSString *dateString) {
 @synthesize identifier, title, author, authorIdentifier, project, content, link, comments, published, updated, notified, viewed, feed, rawDate, authoredByMe;
 
 - (void)dealloc {
-    self.identifier = self.title = self.author = self.content = self.rawDate = nil;
-    self.link = self.comments = nil;
-    self.published = self.updated = nil;
     self.feed = nil;
-    [super dealloc];
 }
 
 + (FeedItem *)itemWithRSSItemElement:(SMXMLElement *)element {
-    FeedItem *item = [[FeedItem new] autorelease];
+    FeedItem *item = [FeedItem new];
     item.title = [element childNamed:@"title"].value;
     item.content = [element childNamed:@"description"].value;
 
@@ -391,7 +380,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
 }
 
 + (FeedItem *)itemWithATOMEntryElement:(SMXMLElement *)element {
-    FeedItem *item = [[FeedItem new] autorelease];
+    FeedItem *item = [FeedItem new];
     item.title = [element childNamed:@"title"].value;
     item.author = [element valueWithPath:@"author.name"];
     item.content = [element childNamed:@"content"].value;
@@ -471,7 +460,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
         decodedAuthor = [decodedAuthor truncatedWithString:@"" afterIndex:15];
         decodedTitle = [decodedTitle truncatedAfterIndex:40-decodedAuthor.length];
         
-        NSMutableAttributedString *attributed = [[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@",decodedAuthor,decodedTitle]] autorelease];
+        NSMutableAttributedString *attributed = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@",decodedAuthor,decodedTitle]];
         
         NSColor *authorColor = highlighted ? [NSColor selectedMenuItemTextColor] : [NSColor disabledControlTextColor]; 
         
@@ -488,7 +477,7 @@ NSDate *AutoFormatDate(NSString *dateString) {
     }
     else {
         decodedTitle = [decodedTitle truncatedAfterIndex:40];
-        NSMutableAttributedString *attributed = [[[NSMutableAttributedString alloc] initWithString:decodedTitle] autorelease];
+        NSMutableAttributedString *attributed = [[NSMutableAttributedString alloc] initWithString:decodedTitle];
         [attributed addAttributes:titleAtts range:NSMakeRange(0, decodedTitle.length)];
         return attributed;
     }

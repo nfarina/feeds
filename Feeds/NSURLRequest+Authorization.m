@@ -7,7 +7,7 @@
     NSString *loginString = [NSString stringWithFormat:@"%@:%@", username, password];
     NSString *authHeader = [@"Basic " stringByAppendingString:[loginString base64EncodedString]];
     
-    NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:URL] autorelease];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL];
     [request setValue:authHeader forHTTPHeaderField:@"Authorization"];
     return request;
 }
@@ -20,7 +20,7 @@
     
     NSString *authHeader = [@"Bearer " stringByAppendingString:token.access_token];
     
-    NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:URL] autorelease];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL];
     [request setValue:authHeader forHTTPHeaderField:@"Authorization"];
     [request setValue:@"Feeds (http://feedsapp.com)" forHTTPHeaderField:@"User-Agent"]; // basecamp wants this for instance
     return request;

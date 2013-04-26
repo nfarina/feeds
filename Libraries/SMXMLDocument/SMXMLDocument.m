@@ -13,81 +13,99 @@ static NSError *SMXMLDocumentError(NSXMLParser *parser, NSError *parseError) {
 }
 
 @implementation SMXMLElement
-@synthesize document, parent, name, value, children, attributes;
 
-- (id)initWithDocument:(SMXMLDocument *)aDocument {
+- (id)initWithDocument:(SMXMLDocument *)document {
 	self = [super init];
 	if (self)
-		self.document = aDocument;
+		self.document = document;
 	return self;
 }
 
-- (void)dealloc {
-	self.document = nil;
-	self.parent = nil;
-	self.name = nil;
-	self.value = nil;
-	self.children = nil;
-	self.attributes = nil;
-	[super dealloc];
-}
-
-- (NSString *)descriptionWithIndent:(NSString *)indent {
+- (NSString *)descriptionWithIndent:(NSString *)indent truncatedValues:(BOOL)truncated encoded:(BOOL)encode {
 
 	NSMutableString *s = [NSMutableString string];
-	[s appendFormat:@"%@<%@", indent, name];
+	[s appendFormat:@"%@<%@", indent, self.name];
 	
-	for (NSString *attribute in attributes)
-		[s appendFormat:@" %@=\"%@\"", attribute, [attributes objectForKey:attribute]];
+	for (NSString *attribute in self.attributes) {
+		NSString *attributeValue = [self.attributes objectForKey:attribute];
+		[s appendFormat:@" %@=\"%@\"", attribute, encode ? [self encodeString:attributeValue] : attributeValue];
+	}
 
-	NSString *trimVal = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
-	if (trimVal.length > 25)
-		trimVal = [NSString stringWithFormat:@"%@…", [trimVal substringToIndex:25]];
+	NSString *valueOrTrimmed = [self.value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+	if (truncated && valueOrTrimmed.length > 25)
+		valueOrTrimmed = [NSString stringWithFormat:@"%@…", [valueOrTrimmed substringToIndex:25]];
 	
-	if (children.count) {
+	if (encode)
+		valueOrTrimmed = [self encodeString:valueOrTrimmed];
+	
+	if (self.children.count) {
 		[s appendString:@">\n"];
 		
 		NSString *childIndent = [indent stringByAppendingString:@"  "];
 		
-		if (trimVal.length)
-			[s appendFormat:@"%@%@\n", childIndent, trimVal];
+		if (valueOrTrimmed.length)
+			[s appendFormat:@"%@%@\n", childIndent, valueOrTrimmed];
 
-		for (SMXMLElement *child in children)
-			[s appendFormat:@"%@\n", [child descriptionWithIndent:childIndent]];
+		for (SMXMLElement *child in self.children)
+			[s appendFormat:@"%@\n", [child descriptionWithIndent:childIndent truncatedValues:truncated encoded:encode]];
 		
-		[s appendFormat:@"%@</%@>", indent, name];
+		[s appendFormat:@"%@</%@>", indent, self.name];
 	}
-	else if (trimVal.length) {
-		[s appendFormat:@">%@</%@>", trimVal, name];
+	else if (valueOrTrimmed.length) {
+		[s appendFormat:@">%@</%@>", valueOrTrimmed, self.name];
 	}
 	else [s appendString:@"/>"];
 	
 	return s;	
 }
 
+- (NSString *)encodeString:(NSString *)string
+{
+	if (!string.length)
+		return string;
+
+	NSMutableString *encoded = [NSMutableString stringWithString:string];
+
+	[encoded replaceOccurrencesOfString:@"&"  withString:@"&amp;"  options:NSLiteralSearch range:NSMakeRange(0, [encoded length])];
+	[encoded replaceOccurrencesOfString:@"\"" withString:@"&quot;" options:NSLiteralSearch range:NSMakeRange(0, [encoded length])];
+	[encoded replaceOccurrencesOfString:@"'"  withString:@"&#x27;" options:NSLiteralSearch range:NSMakeRange(0, [encoded length])];
+	[encoded replaceOccurrencesOfString:@">"  withString:@"&gt;"   options:NSLiteralSearch range:NSMakeRange(0, [encoded length])];
+	[encoded replaceOccurrencesOfString:@"<"  withString:@"&lt;"   options:NSLiteralSearch range:NSMakeRange(0, [encoded length])];
+
+	return encoded;
+}
+
 - (NSString *)description {
-	return [self descriptionWithIndent:@""];
+	return [self descriptionWithIndent:@"" truncatedValues:YES encoded:NO];
+}
+
+- (NSString *)fullDescription {
+	return [self descriptionWithIndent:@"" truncatedValues:NO encoded:NO];
+}
+
+- (NSString *)encodedDescription {
+	return [self descriptionWithIndent:@"" truncatedValues:NO encoded:YES];
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
 	
 	if (!string) return;
 	
-	if (value)
-		[(NSMutableString *)value appendString:string];
+	if (self.value)
+		[(NSMutableString *)self.value appendString:string];
 	else
 		self.value = [NSMutableString stringWithString:string];
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
-	SMXMLElement *child = [[[SMXMLElement alloc] initWithDocument:self.document] autorelease];
+	SMXMLElement *child = [[SMXMLElement alloc] initWithDocument:self.document];
 	child.parent = self;
 	child.name = elementName;
 	child.attributes = attributeDict;
 	
-	if (children)
-		[(NSMutableArray *)children addObject:child];
+	if (self.children)
+		[(NSMutableArray *)self.children addObject:child];
 	else
 		self.children = [NSMutableArray arrayWithObject:child];
 	
@@ -95,7 +113,7 @@ static NSError *SMXMLDocumentError(NSXMLParser *parser, NSError *parseError) {
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-	[parser setDelegate:parent];
+	[parser setDelegate:self.parent];
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
@@ -103,7 +121,7 @@ static NSError *SMXMLDocumentError(NSXMLParser *parser, NSError *parseError) {
 }
 
 - (SMXMLElement *)childNamed:(NSString *)nodeName {
-	for (SMXMLElement *child in children)
+	for (SMXMLElement *child in self.children)
 		if ([child.name isEqual:nodeName])
 			return child;
 	return nil;
@@ -111,21 +129,21 @@ static NSError *SMXMLDocumentError(NSXMLParser *parser, NSError *parseError) {
 
 - (NSArray *)childrenNamed:(NSString *)nodeName {
 	NSMutableArray *array = [NSMutableArray array];
-	for (SMXMLElement *child in children)
+	for (SMXMLElement *child in self.children)
 		if ([child.name isEqual:nodeName])
 			[array addObject:child];
-    return array.count ? [[array copy] autorelease] : nil;
+	return array.count ? [array copy] : nil;
 }
 
 - (SMXMLElement *)childWithAttribute:(NSString *)attributeName value:(NSString *)attributeValue {
-	for (SMXMLElement *child in children)
+	for (SMXMLElement *child in self.children)
 		if ([[child attributeNamed:attributeName] isEqual:attributeValue])
 			return child;
 	return nil;
 }
 
 - (NSString *)attributeNamed:(NSString *)attributeName {
-	return [attributes objectForKey:attributeName];
+	return [self.attributes objectForKey:attributeName];
 }
 
 - (SMXMLElement *)descendantWithPath:(NSString *)path {
@@ -142,18 +160,17 @@ static NSError *SMXMLDocumentError(NSXMLParser *parser, NSError *parseError) {
 }
 
 
-- (SMXMLElement *)firstChild { return [children count] > 0 ? [children objectAtIndex:0] : nil; }
-- (SMXMLElement *)lastChild { return [children lastObject]; }
+- (SMXMLElement *)firstChild { return [self.children count] > 0 ? [self.children objectAtIndex:0] : nil; }
+- (SMXMLElement *)lastChild { return [self.children lastObject]; }
 
 @end
 
 @implementation SMXMLDocument
-@synthesize root, error;
 
 - (id)initWithData:(NSData *)data error:(NSError **)outError {
     self = [super init];
 	if (self) {
-		NSXMLParser *parser = [[[NSXMLParser alloc] initWithData:data] autorelease];
+		NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
 		[parser setDelegate:self];
 		[parser setShouldProcessNamespaces:YES];
 		[parser setShouldReportNamespacePrefixes:YES];
@@ -163,7 +180,6 @@ static NSError *SMXMLDocumentError(NSXMLParser *parser, NSError *parseError) {
 		if (self.error) {
 			if (outError)
 				*outError = self.error;
-			[self release];
 			return nil;
 		}
         else if (outError)
@@ -172,22 +188,16 @@ static NSError *SMXMLDocumentError(NSXMLParser *parser, NSError *parseError) {
 	return self;
 }
 
-- (void)dealloc {
-	self.root = nil;
-	self.error = nil;
-	[super dealloc];
-}
-
 + (SMXMLDocument *)documentWithData:(NSData *)data error:(NSError **)outError {
-	return [[[SMXMLDocument alloc] initWithData:data error:outError] autorelease];
+	return [[SMXMLDocument alloc] initWithData:data error:outError];
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
 	
-	self.root = [[[SMXMLElement alloc] initWithDocument:self] autorelease];
-	root.name = elementName;
-	root.attributes = attributeDict;
-	[parser setDelegate:root];
+	self.root = [[SMXMLElement alloc] initWithDocument:self];
+	self.root.name = elementName;
+	self.root.attributes = attributeDict;
+	[parser setDelegate:self.root];
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
@@ -195,7 +205,15 @@ static NSError *SMXMLDocumentError(NSXMLParser *parser, NSError *parseError) {
 }
 
 - (NSString *)description {
-	return root.description;
+	return self.root.description;
+}
+
+- (NSString *)fullDescription {
+	return self.root.fullDescription;
+}
+
+- (NSString *)encodedDescription {
+	return self.root.encodedDescription;
 }
 
 @end

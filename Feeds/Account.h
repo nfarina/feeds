@@ -13,7 +13,7 @@ typedef enum {
 @protocol AccountDelegate;
 
 @interface Account : NSObject <NSTableViewDataSource> {
-    id<AccountDelegate> delegate; // nonretained
+    id<AccountDelegate> __unsafe_unretained delegate; // nonretained
     NSString *name, *domain, *username;
     NSTimeInterval refreshInterval;
     SMWebRequest *request; // convenience for subclassers, will be properly cancelled and cleaned up on dealloc
@@ -23,7 +23,7 @@ typedef enum {
 }
 
 // discriminator
-@property (nonatomic, readonly) NSString *type;
+@property (weak, nonatomic, readonly) NSString *type;
 
 + (NSArray *)registeredClasses; // of Class
 + (void)registerClass:(Class)cls;
@@ -49,14 +49,14 @@ typedef enum {
 + (NSData *)extraDataWithContentsOfURL:(NSURL *)URL;
 + (NSData *)extraDataWithContentsOfURLRequest:(NSMutableURLRequest *)URLRequest;
 
-@property (nonatomic, assign) id<AccountDelegate> delegate;
+@property (nonatomic, unsafe_unretained) id<AccountDelegate> delegate;
 @property (nonatomic, copy) NSString *name, *domain, *username;
 @property (nonatomic, assign) NSTimeInterval refreshInterval;
 @property (nonatomic, copy) NSArray *feeds;
-@property (nonatomic, readonly) NSImage *menuIconImage, *accountIconImage;
-@property (nonatomic, readonly) NSData *notifyIconData;
-@property (nonatomic, readonly) NSArray *enabledFeeds;
-@property (nonatomic, retain) NSDate *lastRefresh, *lastTokenRefresh;
+@property (weak, nonatomic, readonly) NSImage *menuIconImage, *accountIconImage;
+@property (weak, nonatomic, readonly) NSData *notifyIconData;
+@property (weak, nonatomic, readonly) NSArray *enabledFeeds;
+@property (nonatomic, strong) NSDate *lastRefresh, *lastTokenRefresh;
 
 + (NSArray *)allAccounts;
 + (void)addAccount:(Account *)account;
@@ -86,7 +86,7 @@ typedef enum {
 - (NSTimeInterval)refreshIntervalOrDefault;
 
 // for subclassers
-@property (nonatomic, retain) SMWebRequest *request, *tokenRequest;
+@property (nonatomic, strong) SMWebRequest *request, *tokenRequest;
 
 @end
 

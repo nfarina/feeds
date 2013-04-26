@@ -6,12 +6,12 @@
 	// Encode all the reserved characters, per RFC 3986
 	// (<http://www.ietf.org/rfc/rfc3986.txt>)
 	NSString *escaped = (NSString *)
-    CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+    CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
                                             (CFStringRef)self,
                                             NULL,
                                             (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-                                            kCFStringEncodingUTF8);
-	return [escaped autorelease];
+                                            kCFStringEncodingUTF8));
+	return escaped;
 }
 
 - (NSString*)stringByUnescapingFromURLArgument {

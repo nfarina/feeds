@@ -178,7 +178,7 @@
         SMXMLDocument *projectDocument = [SMXMLDocument documentWithData:projectData error:NULL];
         NSString *projectName = [projectDocument.root valueWithPath:@"name"];
 
-        FeedItem *item = [[FeedItem new] autorelease];
+        FeedItem *item = [FeedItem new];
         item.rawDate = date;
         item.project = projectName;
         item.identifier = identifier;

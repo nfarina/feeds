@@ -15,14 +15,14 @@ NSDate *AutoFormatDate(NSString *dateString);
     // used only at runtime
     SMWebRequest *request;
     NSArray *items; // of FeedItem
-    Account *account; // not retained
+    Account *__weak account; // not retained
 }
-@property (nonatomic, retain) NSURL *URL;
+@property (nonatomic, strong) NSURL *URL;
 @property (nonatomic, copy) NSString *title, *author;
 @property (nonatomic, copy) NSDictionary *requestHeaders;
 @property (nonatomic, assign) BOOL disabled, requiresBasicAuth, requiresOAuth2Token, incremental;
 @property (nonatomic, copy) NSArray *items;
-@property (nonatomic, assign) Account *account;
+@property (nonatomic, weak) Account *account;
 
 + (Feed *)feedWithURLString:(NSString *)URLString title:(NSString *)title account:(Account *)account;
 + (Feed *)feedWithURLString:(NSString *)URLString title:(NSString *)title author:(NSString *)author account:(Account *)account;
@@ -42,15 +42,15 @@ NSDate *AutoFormatDate(NSString *dateString);
     NSURL *link, *comments;
     NSDate *published, *updated;
     BOOL notified, viewed, authoredByMe;
-    Feed *feed; // not retained
+    Feed *__weak feed; // not retained
 }
 @property (nonatomic, copy) NSString *identifier, *title, *author, *authorIdentifier, *project, *content, *rawDate;
-@property (nonatomic, retain) NSURL *link, *comments;
-@property (nonatomic, retain) NSDate *published, *updated;
+@property (nonatomic, strong) NSURL *link, *comments;
+@property (nonatomic, strong) NSDate *published, *updated;
 @property (nonatomic, assign) BOOL notified, viewed, authoredByMe;
-@property (nonatomic, assign) Feed *feed;
+@property (nonatomic, weak) Feed *feed;
 
-@property (nonatomic, readonly) NSString *authorAndTitle;
+@property (weak, nonatomic, readonly) NSString *authorAndTitle;
 
 // creates a new FeedItem by parsing an XML element
 + (FeedItem *)itemWithRSSItemElement:(SMXMLElement *)element;

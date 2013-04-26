@@ -125,7 +125,7 @@ static NSMutableArray *registeredClasses = nil;
 + (Account *)accountWithDictionary:(NSDictionary *)dict {
     NSString *type = [dict objectForKey:@"type"];
     Class class = NSClassFromString([type stringByAppendingString:@"Account"]);
-    return [[[class alloc] initWithDictionary:dict] autorelease];
+    return [[class alloc] initWithDictionary:dict];
 }
 
 - (id)initWithDictionary:(NSDictionary *)dict {
@@ -151,21 +151,17 @@ static NSMutableArray *registeredClasses = nil;
 
 - (void)dealloc {
     self.delegate = nil;
-    self.name = self.domain = self.username = nil;
     self.request = self.tokenRequest = nil;
-    self.feeds = nil;
-    self.lastRefresh = self.lastTokenRefresh = nil;
-    [super dealloc];
 }
 
 - (void)setRequest:(SMWebRequest *)request_ {
     [request removeTarget:self];
-    [request release], request = [request_ retain];
+    request = request_;
 }
 
 - (void)setTokenRequest:(SMWebRequest *)tokenRequest_ {
     [tokenRequest removeTarget:self];
-    [tokenRequest release], tokenRequest = [tokenRequest_ retain];
+    tokenRequest = tokenRequest_;
 }
 
 - (NSString *)type {
@@ -238,7 +234,7 @@ static NSMutableArray *registeredClasses = nil;
         return nil;
     }
     
-    NSString *password = [[[NSString alloc] initWithBytes:passwordData length:passwordLength encoding:NSUTF8StringEncoding] autorelease];
+    NSString *password = [[NSString alloc] initWithBytes:passwordData length:passwordLength encoding:NSUTF8StringEncoding];
     SecKeychainItemFreeContent(NULL, passwordData);
     return password;
 }

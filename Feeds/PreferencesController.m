@@ -160,13 +160,11 @@
     [tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:tableView.numberOfRows-1] byExtendingSelection:NO];
     
     [NSApp endSheet:newAccountController.window];
-    [newAccountController release];
     newAccountController = nil;
 }
 
 - (void)newAccountControllerDidCancel:(NewAccountController *)controller_ {
     [NSApp endSheet:newAccountController.window];
-    [newAccountController release];
     newAccountController = nil;
 }
 

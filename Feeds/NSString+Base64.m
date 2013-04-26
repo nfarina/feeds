@@ -5,7 +5,7 @@
 - (NSString *)base64EncodedString {  
     
     char *base64Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-	NSMutableString *result = [[NSMutableString new] autorelease];
+	NSMutableString *result = [NSMutableString new];
 	int i;
 	int len = (int)[self length];
 	int paddingBytes = 0;

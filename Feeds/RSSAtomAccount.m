@@ -70,7 +70,7 @@
         
         NSMutableArray *foundFeeds = [NSMutableArray array];
 
-        TFHpple *html = [[[TFHpple alloc] initWithHTMLData:data] autorelease];
+        TFHpple *html = [[TFHpple alloc] initWithHTMLData:data];
         NSArray *rssLinks = [html searchWithXPathQuery:@"//link[@type='application/rss+xml']"];
         NSArray *atomLinks = [html searchWithXPathQuery:@"//link[@type='application/atom+xml']"];
         

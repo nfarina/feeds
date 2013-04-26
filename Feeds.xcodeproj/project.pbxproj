@@ -122,7 +122,7 @@
 		01937C9613A03F5000BCE1D4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937C9513A03F5000BCE1D4 /* AppDelegate.m */; };
 		01937C9913A03F5000BCE1D4 /* App.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01937C9713A03F5000BCE1D4 /* App.xib */; };
 		01937CB013A05A3A00BCE1D4 /* SMWebRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937CAE13A05A3A00BCE1D4 /* SMWebRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		01937CB613A05A6C00BCE1D4 /* SMXMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937CB413A05A6C00BCE1D4 /* SMXMLDocument.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		01937CB613A05A6C00BCE1D4 /* SMXMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937CB413A05A6C00BCE1D4 /* SMXMLDocument.m */; };
 		01937CB913A05B8700BCE1D4 /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937CB813A05B8700BCE1D4 /* Feed.m */; };
 		019EE0C314701FA500B67B74 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 019EE0C214701FA500B67B74 /* Growl.framework */; };
 		019EE0DC147023B800B67B74 /* DDHotKeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 019EE0CE147023B800B67B74 /* DDHotKeyCenter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1018,7 +1018,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1036,7 +1036,7 @@
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1050,6 +1050,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1072,6 +1073,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

@@ -59,7 +59,7 @@
 - (void)tokenRequestComplete:(NSData *)data {
 
     NSString *error = nil;
-    OAuth2Token *token = [[[OAuth2Token alloc] initWithTokenResponse:data error:&error] autorelease];
+    OAuth2Token *token = [[OAuth2Token alloc] initWithTokenResponse:data error:&error];
     
     if (token) {
         [self validateWithPassword:token.stringRepresentation];
@@ -137,7 +137,7 @@
         FeedItem *latestItem = feed.items.firstObject;
         
         if (latestItem) {
-            NSDateFormatter *formatter = [[NSDateFormatter new] autorelease];
+            NSDateFormatter *formatter = [NSDateFormatter new];
             [formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZ"];
             [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"America/Chicago"]];
             NSString *chicagoDate = [formatter stringFromDate:latestItem.published];
@@ -179,7 +179,7 @@
     NSString *password = self.findPassword;
     OAuth2Token *token = [OAuth2Token tokenWithStringRepresentation:password];
     NSString *error = nil;
-    OAuth2Token *newToken = [[[OAuth2Token alloc] initWithTokenResponse:data error:&error] autorelease];
+    OAuth2Token *newToken = [[OAuth2Token alloc] initWithTokenResponse:data error:&error];
 
     if (newToken) {
         
@@ -228,7 +228,7 @@
         URL = [URL stringByReplacingOccurrencesOfString:@"/api/v1/" withString:@"/"];
         URL = [URL stringByReplacingOccurrencesOfString:@".json" withString:@""];
 
-        FeedItem *item = [[FeedItem new] autorelease];
+        FeedItem *item = [FeedItem new];
         item.rawDate = date;
         item.published = AutoFormatDate(date);
         item.updated = item.published;

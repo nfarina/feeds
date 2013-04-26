@@ -62,7 +62,7 @@
 
     for (NSDictionary *notification in notifications) {
         
-        FeedItem *item = [[FeedItem new] autorelease];
+        FeedItem *item = [FeedItem new];
         
         NSString *type = [notification objectForKey:@"type"];
         NSString *date = [notification objectForKey:@"date"];

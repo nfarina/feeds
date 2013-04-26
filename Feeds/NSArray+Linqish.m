@@ -2,10 +2,6 @@
 
 @implementation NSArray (Linqish)
 
-- (id)firstObject {
-	return [self count] ? [self objectAtIndex:0] : nil;
-}
-
 #if NS_BLOCKS_AVAILABLE
 
 - (NSArray *)selectUsingBlock:(id (^)(id obj))block {
@@ -39,7 +35,15 @@
 
 #endif
 
-#if !__has_feature(objc_arc)
+// We need to disable this warning because of our use of performSelector, instead we assume that
+// the selector you give us returns an autoreleased object.
+// See http://stackoverflow.com/questions/7017281/performselector-may-cause-a-leak-because-its-selector-is-unknown
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+
+- (id)firstObject {
+	return [self count] ? [self objectAtIndex:0] : nil;
+}
 
 - (NSArray *)collect:(SEL)selector on:(id)target {
 	return [self collect:selector on:target secondArgument:nil];
@@ -64,13 +68,11 @@
 	NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.count];
 	
 	for (id obj in self)
-		if ([target performSelector:selector withObject:obj withObject:secondArgument]) 
+		if ([target performSelector:selector withObject:obj withObject:secondArgument])
 			[array addObject:obj];
 	
 	return array;
 }
-
-#endif
 
 - (NSDictionary *)indexedWithKey:(NSString *)key {
 	NSMutableDictionary *indexed = [NSMutableDictionary dictionary];
@@ -101,10 +103,14 @@
 }
 
 - (id)firstObjectWithValue:(id)value forSelector:(SEL)selector {
-	for (id obj in self)
-		if ([[obj performSelector:selector] isEqual:value])
+	for (id obj in self) {
+        id objValue = [obj performSelector:selector];
+		if ((!objValue && !value) || [objValue isEqual:value]) // make sure to allow both nil
 			return obj;
+    }
 	return nil;
 }
+
+#pragma clang diagnostic pop
 
 @end

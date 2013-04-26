@@ -900,6 +900,7 @@ static char *dd_str_copy(const char *str)
 
 - (void)dealloc
 {
+    [timestamp release];
     [logMsg release];
     [tag release];
 

@@ -5,14 +5,11 @@
 
 - (id)initWithStatusItem:(NSStatusItem *)theStatusItem {
 	if (self = [super initWithFrame:NSMakeRect(0, 0, 30, 22)]) {
-		statusItem = [theStatusItem retain];
+		statusItem = theStatusItem;
 	}
 	return self;
 }
 
-- (void)dealloc {
-    [super dealloc];
-}
 
 - (void)setIcon:(StatusItemIcon)value {
     icon = value;

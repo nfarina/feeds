@@ -82,7 +82,7 @@
         
         NSString *URLString = [NSString stringWithFormat:@"https://%@.zendesk.com/tickets/%@",domain,ticketIdentifier];
         
-        FeedItem *item = [[FeedItem new] autorelease];
+        FeedItem *item = [FeedItem new];
         item.identifier = [identifier stringValue];
         item.rawDate = date;
         item.published = AutoFormatDate(date);

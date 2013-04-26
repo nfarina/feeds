@@ -7,7 +7,7 @@
 #import "TrelloAccount.h"
 
 @interface NewAccountController ()
-@property (nonatomic, retain) Account *account;
+@property (nonatomic, strong) Account *account;
 @property (nonatomic, copy) NSString *password;
 @end
 
@@ -22,9 +22,6 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    self.account = nil;
-    self.password = nil;
-    [super dealloc];
 }
 
 - (void)awakeFromNib {
@@ -124,7 +121,7 @@
     [usernameInvalid setHidden:YES];
     [passwordInvalid setHidden:YES];
 
-    self.account = [[[[self selectedAccountClass] alloc] init] autorelease];
+    self.account = [[[self selectedAccountClass] alloc] init];
     account.delegate = self;
     Class accountClass = [self selectedAccountClass];
 

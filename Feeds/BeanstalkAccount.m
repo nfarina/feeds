@@ -105,7 +105,7 @@
                 repositoryType = [repository objectForKey:@"vcs"]; // "git" or svn ("SVN"?)
             }
             
-            FeedItem *item = [[FeedItem new] autorelease];
+            FeedItem *item = [FeedItem new];
             item.rawDate = date;
             item.published = AutoFormatDate(date);
             item.updated = item.published;
@@ -164,7 +164,7 @@
                 userName = [NSString stringWithFormat:@"%@ %@", [user objectForKey:@"first_name"], [user objectForKey:@"last_name"]];
             }
 
-            FeedItem *item = [[FeedItem new] autorelease];
+            FeedItem *item = [FeedItem new];
             item.rawDate = date;
             item.published = AutoFormatDate(date);
             item.updated = item.published;
