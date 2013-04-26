@@ -464,10 +464,10 @@ const int ddLogLevel = LOG_LEVEL_INFO;
     NSString *template = [NSString stringWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:NULL];
     NSString *rendered = [NSString stringWithFormat:template, css, NSStringFromClass(item.feed.account.class), [titleOrFallback truncatedAfterIndex:75], authorAndTime, item.content ?: @""];
 
-    NSLog(@"Rendered:\n%@\n", rendered);
+    //NSLog(@"Rendered:\n%@\n", rendered);
     
     webView.alphaValue = 0;
-    [webView.mainFrame loadHTMLString:rendered baseURL:nil];
+    [webView.mainFrame loadHTMLString:rendered baseURL:item.feed.URL];
 
     NSMenuItem *shim = self.shimItem;
     NSRect frame = self.shimItem.view.superview.frame;
