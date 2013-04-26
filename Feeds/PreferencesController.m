@@ -154,7 +154,10 @@
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     Account *account = [Account allAccounts][row];
-    return @{@"iconPrefix": account.iconPrefix, @"name": account.name ?: [[account class] shortAccountName], @"username": account.username, @"domain": account.friendlyDomain};
+    return @{@"iconPrefix": account.iconPrefix ?: @"",
+             @"name": account.name ?: [[account class] shortAccountName],
+             @"username": account.username ?: @"",
+             @"domain": account.friendlyDomain ?: @""};
 }
 
 - (BOOL)tableView:(NSTableView *)tableView shouldShowCellExpansionForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
