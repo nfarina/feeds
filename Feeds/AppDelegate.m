@@ -42,10 +42,10 @@ const int ddLogLevel = LOG_LEVEL_INFO;
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
     #else
     // release mode we'll log to a file
-    fileLogger = [[DDFileLogger alloc] init];
-    fileLogger.maximumFileSize = 50 * 1024; // 50k per file max
-    fileLogger.logFileManager.maximumNumberOfLogFiles = 1;
-    [DDLog addLogger:fileLogger];
+    self.fileLogger = [[DDFileLogger alloc] init];
+    self.fileLogger.maximumFileSize = 50 * 1024; // 50k per file max
+    self.fileLogger.logFileManager.maximumNumberOfLogFiles = 1;
+    [DDLog addLogger:self.fileLogger];
     #endif
     
     // listen for "Open URL" events sent to this app by the user clicking on a "feedsapp://something" link.
