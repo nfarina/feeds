@@ -51,9 +51,9 @@
     URLRequest.HTTPMethod = @"POST";
 
     self.request = [SMWebRequest requestWithURLRequest:URLRequest delegate:nil context:NULL];
-    [request addTarget:self action:@selector(tokenRequestComplete:) forRequestEvents:SMWebRequestEventComplete];
-    [request addTarget:self action:@selector(tokenRequestError:) forRequestEvents:SMWebRequestEventError];
-    [request start];
+    [self.request addTarget:self action:@selector(tokenRequestComplete:) forRequestEvents:SMWebRequestEventComplete];
+    [self.request addTarget:self action:@selector(tokenRequestError:) forRequestEvents:SMWebRequestEventError];
+    [self.request start];
 }
 
 - (void)tokenRequestComplete:(NSData *)data {
@@ -82,9 +82,9 @@
     NSURLRequest *URLRequest = [NSURLRequest requestWithURLString:URL OAuth2Token:token];
     
     self.request = [SMWebRequest requestWithURLRequest:URLRequest delegate:nil context:password];
-    [request addTarget:self action:@selector(authorizationRequestComplete:password:) forRequestEvents:SMWebRequestEventComplete];
-    [request addTarget:self action:@selector(handleGenericError:) forRequestEvents:SMWebRequestEventError];
-    [request start];
+    [self.request addTarget:self action:@selector(authorizationRequestComplete:password:) forRequestEvents:SMWebRequestEventComplete];
+    [self.request addTarget:self action:@selector(handleGenericError:) forRequestEvents:SMWebRequestEventError];
+    [self.request start];
 }
 
 - (void)authorizationRequestComplete:(NSData *)data password:(NSString *)password {
@@ -165,9 +165,9 @@
         URLRequest.HTTPMethod = @"POST";
         
         self.tokenRequest = [SMWebRequest requestWithURLRequest:URLRequest delegate:nil context:feedsToRefresh];
-        [tokenRequest addTarget:self action:@selector(refreshTokenRequestComplete:feeds:) forRequestEvents:SMWebRequestEventComplete];
-        [tokenRequest addTarget:self action:@selector(refreshTokenRequestError:) forRequestEvents:SMWebRequestEventError];
-        [tokenRequest start];
+        [self.tokenRequest addTarget:self action:@selector(refreshTokenRequestComplete:feeds:) forRequestEvents:SMWebRequestEventComplete];
+        [self.tokenRequest addTarget:self action:@selector(refreshTokenRequestError:) forRequestEvents:SMWebRequestEventError];
+        [self.tokenRequest start];
     }
     else [self actualRefreshFeeds];
 }

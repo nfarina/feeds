@@ -10,12 +10,12 @@
 
 - (void)validateWithPassword:(NSString *)password {
     
-    NSString *URL = [NSString stringWithFormat:@"https://%@.highrisehq.com/me.xml", domain];
+    NSString *URL = [NSString stringWithFormat:@"https://%@.highrisehq.com/me.xml", self.domain];
     
-    self.request = [SMWebRequest requestWithURLRequest:[NSURLRequest requestWithURLString:URL username:username password:password] delegate:nil context:NULL];
-    [request addTarget:self action:@selector(meRequestComplete:) forRequestEvents:SMWebRequestEventComplete];
-    [request addTarget:self action:@selector(meRequestError:) forRequestEvents:SMWebRequestEventError];
-    [request start];
+    self.request = [SMWebRequest requestWithURLRequest:[NSURLRequest requestWithURLString:URL username:self.username password:password] delegate:nil context:NULL];
+    [self.request addTarget:self action:@selector(meRequestComplete:) forRequestEvents:SMWebRequestEventComplete];
+    [self.request addTarget:self action:@selector(meRequestError:) forRequestEvents:SMWebRequestEventError];
+    [self.request start];
 }
 
 - (void)meRequestComplete:(NSData *)data {
@@ -34,7 +34,7 @@
         lastName = [parts objectAtIndex:1];
     }
     
-    NSString *mainFeedString = [NSString stringWithFormat:@"https://%@:%@@%@.highrisehq.com/recordings.atom", token, token, domain];
+    NSString *mainFeedString = [NSString stringWithFormat:@"https://%@:%@@%@.highrisehq.com/recordings.atom", token, token, self.domain];
     Feed *mainFeed = [Feed feedWithURLString:mainFeedString title:@"Latest Activity" account:self];
     
     if ([firstName length] > 0 && [lastName length] > 0)

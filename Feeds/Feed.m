@@ -94,15 +94,14 @@ NSDate *AutoFormatDate(NSString *dateString) {
 @end
 
 @implementation Feed
-@synthesize URL, title, author, items, request, disabled, account, requestHeaders, requiresBasicAuth, requiresOAuth2Token, incremental;
 
 - (void)dealloc {
     self.account = nil;
 }
 
 - (void)setRequest:(SMWebRequest *)request_ {
-    [request removeTarget:self];
-    request = request_;
+    [_request removeTarget:self];
+    _request = request_;
 }
 
 + (Feed *)feedWithURLString:(NSString *)URLString title:(NSString *)title account:(Account *)account {
@@ -134,35 +133,35 @@ NSDate *AutoFormatDate(NSString *dateString) {
 
 - (NSDictionary *)dictionaryRepresentation {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    [dict setObject:[URL absoluteString] forKey:@"url"];
-    if (title) [dict setObject:title forKey:@"title"];
-    if (author) [dict setObject:author forKey:@"author"];
-    if (requestHeaders) [dict setObject:requestHeaders forKey:@"requestHeaders"];
-    [dict setObject:[NSNumber numberWithBool:incremental] forKey:@"incremental"];
-    [dict setObject:[NSNumber numberWithBool:requiresBasicAuth] forKey:@"requiresBasicAuth"];
-    [dict setObject:[NSNumber numberWithBool:requiresOAuth2Token] forKey:@"requiresOAuth2Token"];
-    [dict setObject:[NSNumber numberWithBool:disabled] forKey:@"disabled"];
+    [dict setObject:[self.URL absoluteString] forKey:@"url"];
+    if (self.title) [dict setObject:self.title forKey:@"title"];
+    if (self.author) [dict setObject:self.author forKey:@"author"];
+    if (self.requestHeaders) [dict setObject:self.requestHeaders forKey:@"requestHeaders"];
+    [dict setObject:[NSNumber numberWithBool:self.incremental] forKey:@"incremental"];
+    [dict setObject:[NSNumber numberWithBool:self.requiresBasicAuth] forKey:@"requiresBasicAuth"];
+    [dict setObject:[NSNumber numberWithBool:self.requiresOAuth2Token] forKey:@"requiresOAuth2Token"];
+    [dict setObject:[NSNumber numberWithBool:self.disabled] forKey:@"disabled"];
     return dict;
 }
 
 - (BOOL)isEqual:(Feed *)other {
     if ([other isKindOfClass:[Feed class]])
-        return [URL isEqual:other.URL] && [title isEqual:other.title] && ((!author && !other.author) || [author isEqual:other.author]) && 
-            requiresBasicAuth == other.requiresBasicAuth && requiresOAuth2Token == other.requiresOAuth2Token && incremental == other.incremental;
+        return [self.URL isEqual:other.URL] && [self.title isEqual:other.title] && ((!self.author && !other.author) || [self.author isEqual:other.author]) &&
+            self.requiresBasicAuth == other.requiresBasicAuth && self.requiresOAuth2Token == other.requiresOAuth2Token && self.incremental == other.incremental;
     else
         return NO;
 }
 
-- (void)refresh { [self refreshWithURL:URL]; }
+- (void)refresh { [self refreshWithURL:self.URL]; }
 
 - (void)refreshWithURL:(NSURL *)refreshURL {
     NSMutableURLRequest *URLRequest;
     
-    NSString *domain = account.domain, *username = account.username, *password = account.findPassword;
+    NSString *domain = self.account.domain, *username = self.account.username, *password = self.account.findPassword;
     
-    if (requiresBasicAuth) // this feed requires the secure user/pass we stored in the keychain
+    if (self.requiresBasicAuth) // this feed requires the secure user/pass we stored in the keychain
         URLRequest = [NSMutableURLRequest requestWithURL:refreshURL username:username password:password];
-    else if (requiresOAuth2Token) // like basecamp next
+    else if (self.requiresOAuth2Token) // like basecamp next
         URLRequest = [NSMutableURLRequest requestWithURL:refreshURL OAuth2Token:[OAuth2Token tokenWithStringRepresentation:password]];
     else if ([refreshURL user] && [refreshURL password]) // maybe the user/pass is built into the URL already? (this is the case for services like Basecamp that use "tokens" built into the URL)
         URLRequest = [NSMutableURLRequest requestWithURL:refreshURL username:[refreshURL user] password:[refreshURL password]];
@@ -170,8 +169,8 @@ NSDate *AutoFormatDate(NSString *dateString) {
         URLRequest = [NSMutableURLRequest requestWithURL:refreshURL];
     
     // add any additional request headers
-    for (NSString *field in requestHeaders)
-        [URLRequest setValue:[requestHeaders objectForKey:field] forHTTPHeaderField:field];
+    for (NSString *field in self.requestHeaders)
+        [URLRequest setValue:[self.requestHeaders objectForKey:field] forHTTPHeaderField:field];
     
     URLRequest.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData; // goes without saying that we only care about fresh data for Feeds
     
@@ -184,9 +183,9 @@ NSDate *AutoFormatDate(NSString *dateString) {
     if (password) [context setObject:password forKey:@"password"];
     
     self.request = [SMWebRequest requestWithURLRequest:URLRequest delegate:(id<SMWebRequestDelegate>)[self class] context:context];
-    [request addTarget:self action:@selector(refreshComplete:) forRequestEvents:SMWebRequestEventComplete];
-    [request addTarget:self action:@selector(refreshError:) forRequestEvents:SMWebRequestEventError];
-    [request start];
+    [self.request addTarget:self action:@selector(refreshComplete:) forRequestEvents:SMWebRequestEventComplete];
+    [self.request addTarget:self action:@selector(refreshError:) forRequestEvents:SMWebRequestEventError];
+    [self.request start];
 }
 
 // This method is called on a background thread. Don't touch your instance members!
@@ -259,19 +258,19 @@ NSDate *AutoFormatDate(NSString *dateString) {
     }
     
     // if we have existing items, merge the new ones in
-    if (items) {
+    if (self.items) {
         NSMutableArray *merged = [NSMutableArray array];
         
-        if (incremental) {
+        if (self.incremental) {
 
             // populate the final set, newest item to oldest.
             
             for (FeedItem *newItem in newItems) {
-                DDLogInfo(@"NEW ITEM FOR FEED %@: %@", URL, newItem);
+                DDLogInfo(@"NEW ITEM FOR FEED %@: %@", self.URL, newItem);
                 [merged addObject:newItem];
             }
 
-            for (FeedItem *oldItem in items) {
+            for (FeedItem *oldItem in self.items) {
                 int i = (int)[newItems indexOfObject:oldItem]; // have we updated this item?
                 if (i < 0)
                     [merged addObject:oldItem];
@@ -282,11 +281,11 @@ NSDate *AutoFormatDate(NSString *dateString) {
         }
         else {
             for (FeedItem *newItem in newItems) {
-                int i = (int)[items indexOfObject:newItem];
+                int i = (int)[self.items indexOfObject:newItem];
                 if (i >= 0)
-                    [merged addObject:[items objectAtIndex:i]]; // preserve existing item
+                    [merged addObject:[self.items objectAtIndex:i]]; // preserve existing item
                 else {
-                    DDLogInfo(@"NEW ITEM FOR FEED %@: %@", URL, newItem);
+                    DDLogInfo(@"NEW ITEM FOR FEED %@: %@", self.URL, newItem);
                     [merged addObject:newItem];
                 }
             }
@@ -295,8 +294,8 @@ NSDate *AutoFormatDate(NSString *dateString) {
         self.items = merged;
         
         // mark as notified any item that was "created" by ourself, because we don't need to be reminded about stuff we did ourself.
-        for (FeedItem *item in items) {
-            if ([(item.authorIdentifier ?: item.author) isEqual:author]) // prefer authorIdentifier if present
+        for (FeedItem *item in self.items) {
+            if ([(item.authorIdentifier ?: item.author) isEqual:self.author]) // prefer authorIdentifier if present
                 item.authoredByMe = YES;
             
             if (item.authoredByMe)
@@ -304,16 +303,16 @@ NSDate *AutoFormatDate(NSString *dateString) {
         }
     }
     else {
-        DDLogInfo(@"ALL NEW ITEMS FOR FEED %@", URL);
+        DDLogInfo(@"ALL NEW ITEMS FOR FEED %@", self.URL);
         self.items = newItems;
 
         // don't notify about the initial fetch, or we'll have a shitload of growl popups
-        for (FeedItem *item in items)
+        for (FeedItem *item in self.items)
             item.notified = item.viewed = YES;
     }
     
     // link them back to us
-    for (FeedItem *item in items)
+    for (FeedItem *item in self.items)
         item.feed = self;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kFeedUpdatedNotification object:self];
@@ -326,7 +325,6 @@ NSDate *AutoFormatDate(NSString *dateString) {
 @end
 
 @implementation FeedItem
-@synthesize identifier, title, author, authorIdentifier, project, content, link, comments, published, updated, notified, viewed, feed, rawDate, authoredByMe;
 
 - (void)dealloc {
     self.feed = nil;
@@ -411,30 +409,30 @@ NSDate *AutoFormatDate(NSString *dateString) {
 - (BOOL)isEqual:(FeedItem *)other {
     if ([other isKindOfClass:[FeedItem class]]) {
         // can we compare by some notion of a unique identifier?
-        if (identifier && other.identifier) return NSEqualStrings(identifier, other.identifier);
+        if (self.identifier && other.identifier) return NSEqualStrings(self.identifier, other.identifier);
         
         // ok, compare by content.
         // order is important - content comes last because it's expensive to compare but typically it'll short-circuit before getting there.
-        return NSEqualObjects(link, other.link) && NSEqualStrings(title, other.title) && NSEqualStrings(author, other.author) && NSEqualStrings(content, other.content);
+        return NSEqualObjects(self.link, other.link) && NSEqualStrings(self.title, other.title) && NSEqualStrings(self.author, other.author) && NSEqualStrings(self.content, other.content);
          // && [updated isEqual:other.updated]; // ignore updated, it creates too many false positives
     }
     else return NO;
 }
 
 - (NSString *)authorAndTitle {
-    if (author && title && ![title beginsWithString:author])
-        return [NSString stringWithFormat:@"%@: %@",author,title];
-    else if (title)
-        return title;
-    else if (author)
-        return author;
+    if (self.author && self.title && ![self.title beginsWithString:self.author])
+        return [NSString stringWithFormat:@"%@: %@",self.author,self.title];
+    else if (self.title)
+        return self.title;
+    else if (self.author)
+        return self.author;
     else
         return @"";
 }
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"FeedItem (%@ - %@)\n)",
-            published,[self.authorAndTitle.stringByDecodingCharacterEntities truncatedAfterIndex:25], nil];
+            self.published,[self.authorAndTitle.stringByDecodingCharacterEntities truncatedAfterIndex:25], nil];
 }
 
 - (NSComparisonResult)compareItemByPublishedDate:(FeedItem *)item {
@@ -444,8 +442,8 @@ NSDate *AutoFormatDate(NSString *dateString) {
 
 - (NSAttributedString *)attributedStringHighlighted:(BOOL)highlighted {
 
-    NSString *decodedTitle = [(title.length ? title : content) stringByFlatteningHTML]; // fallback to content if no title
-    NSString *decodedAuthor = [author stringByFlatteningHTML];
+    NSString *decodedTitle = [(self.title.length ? self.title : self.content) stringByFlatteningHTML]; // fallback to content if no title
+    NSString *decodedAuthor = [self.author stringByFlatteningHTML];
 
     NSDictionary *titleAtts = [NSDictionary dictionaryWithObjectsAndKeys:
                                [NSFont systemFontOfSize:13.0f],NSFontAttributeName,nil];

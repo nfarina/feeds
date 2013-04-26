@@ -11,7 +11,7 @@
 - (void)validateWithPassword:(NSString *)password {
     
     if (![self.username isValidEmailAddress]) {
-        [delegate account:self validationDidFailWithMessage:@"Please enter your Pivotal Tracker email address instead of your username." field:AccountFailingFieldUsername];
+        [self.delegate account:self validationDidFailWithMessage:@"Please enter your Pivotal Tracker email address instead of your username." field:AccountFailingFieldUsername];
         return;
     }
     
@@ -19,9 +19,9 @@
     NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURL:URL username:self.username password:password];
     
     self.request = [SMWebRequest requestWithURLRequest:URLRequest delegate:nil context:NULL];
-    [request addTarget:self action:@selector(tokenRequestComplete:) forRequestEvents:SMWebRequestEventComplete];
-    [request addTarget:self action:@selector(tokenRequestError:) forRequestEvents:SMWebRequestEventError];
-    [request start];
+    [self.request addTarget:self action:@selector(tokenRequestComplete:) forRequestEvents:SMWebRequestEventComplete];
+    [self.request addTarget:self action:@selector(tokenRequestError:) forRequestEvents:SMWebRequestEventError];
+    [self.request start];
 }
 
 /*
@@ -44,10 +44,10 @@
         [URLRequest setValue:token forHTTPHeaderField:@"X-TrackerToken"];
         
         self.request = [SMWebRequest requestWithURLRequest:URLRequest delegate:nil context:token];
-        [request addTarget:self action:@selector(projectsRequestComplete:token:) forRequestEvents:SMWebRequestEventComplete];
-        [request addTarget:self action:@selector(genericRequestError:) forRequestEvents:SMWebRequestEventError];
-        [request start];
-        [delegate account:self validationDidContinueWithMessage:@"Finding projects…"];
+        [self.request addTarget:self action:@selector(projectsRequestComplete:token:) forRequestEvents:SMWebRequestEventComplete];
+        [self.request addTarget:self action:@selector(genericRequestError:) forRequestEvents:SMWebRequestEventError];
+        [self.request start];
+        [self.delegate account:self validationDidContinueWithMessage:@"Finding projects…"];
     }
     else {
         [self.delegate account:self validationDidFailWithMessage:@"Could not retrieve some information for the given Pivotal Tracker account. Please check your username and password." field:0];

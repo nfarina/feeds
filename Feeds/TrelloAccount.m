@@ -33,9 +33,9 @@
     NSString *URL = [NSString stringWithFormat:@"https://api.trello.com/1/members/me?key=53e6bb99cefe4914e88d06c76308e357&token=%@", token];
     
     self.request = [SMWebRequest requestWithURL:[NSURL URLWithString:URL] delegate:nil context:token];
-    [request addTarget:self action:@selector(meRequestComplete:context:) forRequestEvents:SMWebRequestEventComplete];
-    [request addTarget:self action:@selector(meRequestError:) forRequestEvents:SMWebRequestEventError];
-    [request start];
+    [self.request addTarget:self action:@selector(meRequestComplete:context:) forRequestEvents:SMWebRequestEventComplete];
+    [self.request addTarget:self action:@selector(meRequestError:) forRequestEvents:SMWebRequestEventError];
+    [self.request start];
 }
 
 - (void)meRequestComplete:(NSData *)data context:(NSString *)token {

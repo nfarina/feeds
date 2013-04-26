@@ -12,11 +12,11 @@
 
 - (void)validateWithPassword:(NSString *)password {
 
-    NSString *fixedDomain = domain;
+    NSString *fixedDomain = self.domain;
     
     // prepend http:// if no scheme was specified
     if (![fixedDomain containsString:@"://"])
-        fixedDomain = [@"http://" stringByAppendingString:domain];
+        fixedDomain = [@"http://" stringByAppendingString:self.domain];
     else if ([fixedDomain beginsWithString:@"feed://"]) // sometimes
         fixedDomain = [fixedDomain stringByReplacingOccurrencesOfString:@"feed://" withString:@"http://"];
     else if ([fixedDomain beginsWithString:@"feed:http://"]) // never seen, but possible
@@ -27,15 +27,15 @@
     NSURLRequest *URLRequest;
     
     // just try fetching the given feed
-    if (username.length)
-        URLRequest = [NSURLRequest requestWithURLString:fixedDomain username:username password:password];
+    if (self.username.length)
+        URLRequest = [NSURLRequest requestWithURLString:fixedDomain username:self.username password:password];
     else
         URLRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:fixedDomain]];
     
     self.request = [SMWebRequest requestWithURLRequest:URLRequest delegate:nil context:NULL];
-    [request addTarget:self action:@selector(feedRequestComplete:) forRequestEvents:SMWebRequestEventComplete];
-    [request addTarget:self action:@selector(feedRequestError:) forRequestEvents:SMWebRequestEventError];
-    [request start];
+    [self.request addTarget:self action:@selector(feedRequestComplete:) forRequestEvents:SMWebRequestEventComplete];
+    [self.request addTarget:self action:@selector(feedRequestError:) forRequestEvents:SMWebRequestEventError];
+    [self.request start];
 }
 
 - (void)feedRequestComplete:(NSData *)data {
@@ -116,7 +116,7 @@
         
         Feed *feed = [Feed feedWithURLString:self.request.request.URL.absoluteString title:(title ?: @"All Items") account:self];
         
-        if (username.length)
+        if (self.username.length)
             feed.requiresBasicAuth = YES;
         
         self.feeds = [NSArray arrayWithObject:feed];
@@ -128,11 +128,11 @@
 - (void)feedRequestError:(NSError *)error {
     
     // if we got a 401, then we can try basic auth if we ask you for your username and password
-    if (error.code == 401 && !username.length)
+    if (error.code == 401 && !self.username.length)
         [self.delegate account:self validationDidRequireUsernameAndPasswordWithMessage:@"This feed requires a username/password."];
-    else if (error.code == 401 && username.length)
+    else if (error.code == 401 && self.username.length)
         [self.delegate account:self validationDidRequireUsernameAndPasswordWithMessage:@"Could not access the given feed. Please check your username and password."];
-    else if (error.code == 404 && username.length)
+    else if (error.code == 404 && self.username.length)
         [self.delegate account:self validationDidFailWithMessage:@"Could not access the given feed. Please check the URL, username, or password." field:AccountFailingFieldUnknown];
     else if (error.code == 404)
         [self.delegate account:self validationDidFailWithMessage:@"Could not access the given feed. The server reports that the URL could not be found." field:AccountFailingFieldDomain];

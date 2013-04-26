@@ -1,7 +1,5 @@
 
-@interface OAuth2Token : NSObject {
-    NSString *access_token, *refresh_token;
-}
+@interface OAuth2Token : NSObject
 
 @property (nonatomic, copy) NSString *access_token, *refresh_token;
 

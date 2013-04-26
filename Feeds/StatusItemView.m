@@ -1,28 +1,27 @@
 #import "StatusItemView.h"
 
 @implementation StatusItemView
-@synthesize icon, highlighted;
 
 - (id)initWithStatusItem:(NSStatusItem *)theStatusItem {
 	if (self = [super initWithFrame:NSMakeRect(0, 0, 30, 22)]) {
-		statusItem = theStatusItem;
+		self.statusItem = theStatusItem;
 	}
 	return self;
 }
 
 
 - (void)setIcon:(StatusItemIcon)value {
-    icon = value;
+    _icon = value;
     [self setNeedsDisplay:YES];
 }
 
 - (void)setHighlighted:(BOOL)value {
-    highlighted = value;
+    _highlighted = value;
     [self setNeedsDisplay:YES];
 }
 
 - (NSImage *)iconImage {
-    switch (icon) {
+    switch (self.icon) {
         case StatusItemIconInactive: return [NSImage imageNamed:@"StatusItemInactive.tiff"];
         case StatusItemIconUnread: return [NSImage imageNamed:@"StatusItemUnread.tiff"];
         default: return [NSImage imageNamed:@"StatusItem.tiff"];
@@ -31,9 +30,9 @@
 
 - (void)drawRect:(NSRect)rect {
 
-    [statusItem drawStatusBarBackgroundInRect:rect withHighlight:highlighted];
+    [self.statusItem drawStatusBarBackgroundInRect:rect withHighlight:self.highlighted];
     
-    NSImage *image = highlighted ? [NSImage imageNamed:@"StatusItemSelected.tiff"] : [self iconImage];
+    NSImage *image = self.highlighted ? [NSImage imageNamed:@"StatusItemSelected.tiff"] : [self iconImage];
     
 	NSRect srcRect = NSMakeRect(0, 0, [image size].width, [image size].height);
     
@@ -49,10 +48,10 @@
 }
 
 - (void)toggleMenu {
-    if (highlighted)
-        [[statusItem menu] cancelTracking];
+    if (self.highlighted)
+        [[self.statusItem menu] cancelTracking];
     else
-        [statusItem performSelector:@selector(popUpStatusItemMenu:) withObject:[statusItem menu] afterDelay:0];
+        [self.statusItem performSelector:@selector(popUpStatusItemMenu:) withObject:[self.statusItem menu] afterDelay:0];
     
     self.highlighted = !self.highlighted;
 }

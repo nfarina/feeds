@@ -1,7 +1,6 @@
 #import "OAuth2Token.h"
 
 @implementation OAuth2Token
-@synthesize access_token, refresh_token;
 
 - (id)initWithTokenResponse:(NSData *)responseData error:(NSString **)error {
     if (self = [super init]) {
@@ -15,7 +14,7 @@
             return nil;
         }
         
-        if (!access_token && !refresh_token) {
+        if (!self.access_token && !self.refresh_token) {
             *error = @"Token not found";
             return nil;
         }
@@ -25,8 +24,8 @@
 
 - (NSString *)stringRepresentation {
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          access_token, @"access_token",
-                          refresh_token, @"refresh_token",
+                          self.access_token, @"access_token",
+                          self.refresh_token, @"refresh_token",
                           nil];
     return [dict JSONString];
 }

@@ -9,7 +9,6 @@ static NSMutableArray *allAccounts = nil;
 @end
 
 @implementation Account
-@synthesize delegate, name, domain, username, refreshInterval, request, tokenRequest, feeds, lastRefresh, lastTokenRefresh;
 
 static NSMutableArray *registeredClasses = nil;
 
@@ -75,7 +74,7 @@ static NSMutableArray *registeredClasses = nil;
 
 - (NSArray *)enabledFeeds {
     NSMutableArray *enabledFeeds = [NSMutableArray array];
-    for (Feed *feed in feeds)
+    for (Feed *feed in self.feeds)
         if (!feed.disabled)
             [enabledFeeds addObject:feed];
     return enabledFeeds;
@@ -141,11 +140,11 @@ static NSMutableArray *registeredClasses = nil;
 - (NSDictionary *)dictionaryRepresentation {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setObject:self.type forKey:@"type"];
-    if (name) [dict setObject:name forKey:@"name"];
-    if (domain) [dict setObject:domain forKey:@"domain"];
-    if (username) [dict setObject:username forKey:@"username"];
-    if (refreshInterval) [dict setObject:@(refreshInterval) forKey:@"refreshInterval"];
-    if (feeds) [dict setObject:[feeds valueForKey:@"dictionaryRepresentation"] forKey:@"feeds"];
+    if (self.name) [dict setObject:self.name forKey:@"name"];
+    if (self.domain) [dict setObject:self.domain forKey:@"domain"];
+    if (self.username) [dict setObject:self.username forKey:@"username"];
+    if (self.refreshInterval) [dict setObject:@(self.refreshInterval) forKey:@"refreshInterval"];
+    if (self.feeds) [dict setObject:[self.feeds valueForKey:@"dictionaryRepresentation"] forKey:@"feeds"];
     return dict;
 }
 
@@ -155,13 +154,13 @@ static NSMutableArray *registeredClasses = nil;
 }
 
 - (void)setRequest:(SMWebRequest *)request_ {
-    [request removeTarget:self];
-    request = request_;
+    [_request removeTarget:self];
+    _request = request_;
 }
 
 - (void)setTokenRequest:(SMWebRequest *)tokenRequest_ {
-    [tokenRequest removeTarget:self];
-    tokenRequest = tokenRequest_;
+    [_tokenRequest removeTarget:self];
+    _tokenRequest = tokenRequest_;
 }
 
 - (NSString *)type {
@@ -187,7 +186,7 @@ static NSMutableArray *registeredClasses = nil;
 }
 
 - (NSString *)description {
-    return [domain length] ? [self.type stringByAppendingFormat:@" (%@)",self.friendlyDomain] : self.type;
+    return [self.domain length] ? [self.type stringByAppendingFormat:@" (%@)",self.friendlyDomain] : self.type;
 }
 
 - (NSString *)friendlyDomain {
@@ -199,7 +198,7 @@ static NSMutableArray *registeredClasses = nil;
 }
 
 - (NSTimeInterval)refreshIntervalOrDefault {
-    return refreshInterval ?: [[self class] defaultRefreshInterval];
+    return self.refreshInterval ?: [[self class] defaultRefreshInterval];
 }
 
 - (void)validateWithPassword:(NSString *)password {
@@ -224,7 +223,7 @@ static NSMutableArray *registeredClasses = nil;
     
     OSStatus status = SecKeychainFindGenericPassword(NULL,
                                                      (UInt32)strlen(serviceName), serviceName,
-                                                     (UInt32)[username lengthOfBytesUsingEncoding:NSUTF8StringEncoding], [username UTF8String],
+                                                     (UInt32)[self.username lengthOfBytesUsingEncoding:NSUTF8StringEncoding], [self.username UTF8String],
                                                      &passwordLength, &passwordData,
                                                      itemRef);
     
@@ -266,8 +265,8 @@ static NSMutableArray *registeredClasses = nil;
         
         OSStatus status = SecKeychainAddGenericPassword (NULL,
                                                          (UInt32)strlen(serviceName), serviceName,
-                                                         (UInt32)[username lengthOfBytesUsingEncoding: NSUTF8StringEncoding],
-                                                         [username UTF8String],
+                                                         (UInt32)[self.username lengthOfBytesUsingEncoding: NSUTF8StringEncoding],
+                                                         [self.username UTF8String],
                                                          (UInt32)[password lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
                                                          [password UTF8String],
                                                          NULL);
@@ -286,11 +285,11 @@ static NSMutableArray *registeredClasses = nil;
 #pragma mark NSTableViewDataSource, exposes Feeds
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    return feeds.count;
+    return self.feeds.count;
 }
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    Feed *feed = [feeds objectAtIndex:row];
+    Feed *feed = [self.feeds objectAtIndex:row];
     if ([tableColumn.identifier isEqual:@"showColumn"])
         return [NSNumber numberWithBool:!feed.disabled];
     else if ([tableColumn.identifier isEqual:@"feedColumn"])
@@ -300,7 +299,7 @@ static NSMutableArray *registeredClasses = nil;
 }
 
 - (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    Feed *feed = [feeds objectAtIndex:row];
+    Feed *feed = [self.feeds objectAtIndex:row];
     if ([tableColumn.identifier isEqual:@"showColumn"]) {
         feed.disabled = ![object boolValue];
         self.lastRefresh = nil; // force refresh on this feed

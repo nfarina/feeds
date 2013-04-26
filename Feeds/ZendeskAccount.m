@@ -14,27 +14,27 @@
 - (void)validateWithPassword:(NSString *)password {
     
     if (![self.username isValidEmailAddress]) {
-        [delegate account:self validationDidFailWithMessage:@"Please enter a valid email address." field:AccountFailingFieldUsername];
+        [self.delegate account:self validationDidFailWithMessage:@"Please enter a valid email address." field:AccountFailingFieldUsername];
         return;
     }
 
-    NSString *URL = [NSString stringWithFormat:@"https://%@.zendesk.com/api/v2/activities.json", domain];
+    NSString *URL = [NSString stringWithFormat:@"https://%@.zendesk.com/api/v2/activities.json", self.domain];
     
-    NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURLString:URL username:username password:password];
+    NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURLString:URL username:self.username password:password];
     URLRequest.HTTPShouldHandleCookies = NO;
     
     self.request = [SMWebRequest requestWithURLRequest:URLRequest delegate:nil context:NULL];
-    [request addTarget:self action:@selector(activitiesRequestComplete:) forRequestEvents:SMWebRequestEventComplete];
-    [request addTarget:self action:@selector(activitiesRequestError:) forRequestEvents:SMWebRequestEventError];
-    [request start];
+    [self.request addTarget:self action:@selector(activitiesRequestComplete:) forRequestEvents:SMWebRequestEventComplete];
+    [self.request addTarget:self action:@selector(activitiesRequestError:) forRequestEvents:SMWebRequestEventError];
+    [self.request start];
 }
 
 - (void)activitiesRequestComplete:(NSData *)data {
     
-    NSString *activityStream = [NSString stringWithFormat:@"https://%@.zendesk.com/api/v2/activities.json", domain];
+    NSString *activityStream = [NSString stringWithFormat:@"https://%@.zendesk.com/api/v2/activities.json", self.domain];
     
     Feed *feed = [Feed feedWithURLString:activityStream title:@"Activity Stream" account:self];
-    feed.author = username; // store author by email address instead of name
+    feed.author = self.username; // store author by email address instead of name
     feed.requiresBasicAuth = YES;
 
     self.feeds = [NSArray arrayWithObject:feed];

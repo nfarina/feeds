@@ -12,15 +12,7 @@ typedef enum {
 
 @protocol AccountDelegate;
 
-@interface Account : NSObject <NSTableViewDataSource> {
-    id<AccountDelegate> __unsafe_unretained delegate; // nonretained
-    NSString *name, *domain, *username;
-    NSTimeInterval refreshInterval;
-    SMWebRequest *request; // convenience for subclassers, will be properly cancelled and cleaned up on dealloc
-    SMWebRequest *tokenRequest; // similar convenience for subclasses who need to refresh oauth tokens.
-    NSArray *feeds; // of Feed
-    NSDate *lastRefresh, *lastTokenRefresh;
-}
+@interface Account : NSObject <NSTableViewDataSource>
 
 // discriminator
 @property (weak, nonatomic, readonly) NSString *type;

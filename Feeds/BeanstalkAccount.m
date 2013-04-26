@@ -11,15 +11,15 @@
 
 - (void)validateWithPassword:(NSString *)password {
     
-    NSString *URL = [NSString stringWithFormat:@"https://%@.beanstalkapp.com/api/users/current.json", domain];
+    NSString *URL = [NSString stringWithFormat:@"https://%@.beanstalkapp.com/api/users/current.json", self.domain];
     
-    NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURLString:URL username:username password:password];
+    NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURLString:URL username:self.username password:password];
     URLRequest.HTTPShouldHandleCookies = NO;
     
     self.request = [SMWebRequest requestWithURLRequest:URLRequest delegate:self context:NULL];
-    [request addTarget:self action:@selector(meRequestComplete:) forRequestEvents:SMWebRequestEventComplete];
-    [request addTarget:self action:@selector(meRequestError:) forRequestEvents:SMWebRequestEventError];
-    [request start];
+    [self.request addTarget:self action:@selector(meRequestComplete:) forRequestEvents:SMWebRequestEventComplete];
+    [self.request addTarget:self action:@selector(meRequestError:) forRequestEvents:SMWebRequestEventError];
+    [self.request start];
 }
 
 - (void)meRequestComplete:(NSData *)data {
@@ -27,12 +27,12 @@
     NSDictionary *response = [data objectFromJSONData];
     NSDictionary *user = [response objectForKey:@"user"];
     
-    NSString *changesets = [NSString stringWithFormat:@"https://%@.beanstalkapp.com/api/changesets.json", domain];
+    NSString *changesets = [NSString stringWithFormat:@"https://%@.beanstalkapp.com/api/changesets.json", self.domain];
     Feed *changesetsFeed = [Feed feedWithURLString:changesets title:@"Changesets" account:self];
     changesetsFeed.author = [user objectForKey:@"id"]; // store author by unique identifier instead of name
     changesetsFeed.requiresBasicAuth = YES;
 
-    NSString *releases = [NSString stringWithFormat:@"https://%@.beanstalkapp.com/api/releases.json", domain];
+    NSString *releases = [NSString stringWithFormat:@"https://%@.beanstalkapp.com/api/releases.json", self.domain];
     Feed *releasesFeed = [Feed feedWithURLString:releases title:@"Deployments" account:self];
     releasesFeed.author = [user objectForKey:@"id"]; // store author by unique identifier instead of name
     releasesFeed.requiresBasicAuth = YES;

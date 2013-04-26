@@ -8,19 +8,19 @@
 
 - (void)validateWithPassword:(NSString *)password {
     
-    NSString *URL = [NSString stringWithFormat:@"http://dribbble.com/%@/shots/following.rss", username];
+    NSString *URL = [NSString stringWithFormat:@"http://dribbble.com/%@/shots/following.rss", self.username];
     
     self.request = [SMWebRequest requestWithURL:[NSURL URLWithString:URL] delegate:nil context:NULL];
-    [request addTarget:self action:@selector(meRequestComplete:) forRequestEvents:SMWebRequestEventComplete];
-    [request addTarget:self action:@selector(meRequestError:) forRequestEvents:SMWebRequestEventError];
-    [request start];
+    [self.request addTarget:self action:@selector(meRequestComplete:) forRequestEvents:SMWebRequestEventComplete];
+    [self.request addTarget:self action:@selector(meRequestError:) forRequestEvents:SMWebRequestEventError];
+    [self.request start];
 }
 
 - (void)meRequestComplete:(NSData *)data {
     
     self.feeds = [NSArray arrayWithObjects:
-                  [Feed feedWithURLString:[NSString stringWithFormat:@"http://dribbble.com/%@/activity/incoming.rss", username] title:@"My Activity" account:self],
-                  [Feed feedWithURLString:[NSString stringWithFormat:@"http://dribbble.com/%@/shots/following.rss", username] title:@"Following Activity" account:self],
+                  [Feed feedWithURLString:[NSString stringWithFormat:@"http://dribbble.com/%@/activity/incoming.rss", self.username] title:@"My Activity" account:self],
+                  [Feed feedWithURLString:[NSString stringWithFormat:@"http://dribbble.com/%@/shots/following.rss", self.username] title:@"Following Activity" account:self],
                   nil];
     
     [self.delegate account:self validationDidCompleteWithNewPassword:nil];

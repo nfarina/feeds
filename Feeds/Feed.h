@@ -5,22 +5,15 @@ extern NSString *kFeedUpdatedNotification;
 
 NSDate *AutoFormatDate(NSString *dateString);
 
-@interface Feed : NSObject {
-    // stored properties
-    NSURL *URL;
-    NSString *title, *author;
-    BOOL disabled, requiresBasicAuth, requiresOAuth2Token, incremental;
-    NSDictionary *requestHeaders; // some authentication systems want tokens and stuff in the headers
+@interface Feed : NSObject
 
-    // used only at runtime
-    SMWebRequest *request;
-    NSArray *items; // of FeedItem
-    Account *__weak account; // not retained
-}
+// stored properties
 @property (nonatomic, strong) NSURL *URL;
 @property (nonatomic, copy) NSString *title, *author;
 @property (nonatomic, copy) NSDictionary *requestHeaders;
 @property (nonatomic, assign) BOOL disabled, requiresBasicAuth, requiresOAuth2Token, incremental;
+
+// used only at runtime
 @property (nonatomic, copy) NSArray *items;
 @property (nonatomic, weak) Account *account;
 
@@ -37,13 +30,8 @@ NSDate *AutoFormatDate(NSString *dateString);
 
 @end
 
-@interface FeedItem : NSObject {
-    NSString *identifier, *title, *author, *authorIdentifier, *content, *strippedContent, *rawDate, *project; // not all items have identifiers
-    NSURL *link, *comments;
-    NSDate *published, *updated;
-    BOOL notified, viewed, authoredByMe;
-    Feed *__weak feed; // not retained
-}
+@interface FeedItem : NSObject
+
 @property (nonatomic, copy) NSString *identifier, *title, *author, *authorIdentifier, *project, *content, *rawDate;
 @property (nonatomic, strong) NSURL *link, *comments;
 @property (nonatomic, strong) NSDate *published, *updated;

@@ -8,12 +8,12 @@
 
 - (void)validateWithPassword:(NSString *)password {
     
-    NSString *URL = [NSString stringWithFormat:@"http://%@.uservoice.com", domain];
+    NSString *URL = [NSString stringWithFormat:@"http://%@.uservoice.com", self.domain];
     
     self.request = [SMWebRequest requestWithURL:[NSURL URLWithString:URL] delegate:nil context:NULL];
-    [request addTarget:self action:@selector(forumRequestComplete:) forRequestEvents:SMWebRequestEventComplete];
-    [request addTarget:self action:@selector(forumRequestError:) forRequestEvents:SMWebRequestEventError];
-    [request start];
+    [self.request addTarget:self action:@selector(forumRequestComplete:) forRequestEvents:SMWebRequestEventComplete];
+    [self.request addTarget:self action:@selector(forumRequestError:) forRequestEvents:SMWebRequestEventError];
+    [self.request start];
 }
 
 - (void)forumRequestComplete:(NSData *)data {

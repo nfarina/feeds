@@ -10,16 +10,16 @@
 - (void)validateWithPassword:(NSString *)password {
     
     if (![self.username isValidEmailAddress]) {
-        [delegate account:self validationDidFailWithMessage:@"Please enter a valid email address." field:AccountFailingFieldUsername];
+        [self.delegate account:self validationDidFailWithMessage:@"Please enter a valid email address." field:AccountFailingFieldUsername];
         return;
     }
 
     NSString *URL = @"https://app.dropmark.com/activity.rss";
     
-    self.request = [SMWebRequest requestWithURLRequest:[NSURLRequest requestWithURLString:URL username:username password:password] delegate:nil context:password];
-    [request addTarget:self action:@selector(rssRequestComplete:password:) forRequestEvents:SMWebRequestEventComplete];
-    [request addTarget:self action:@selector(rssRequestError:) forRequestEvents:SMWebRequestEventError];
-    [request start];
+    self.request = [SMWebRequest requestWithURLRequest:[NSURLRequest requestWithURLString:URL username:self.username password:password] delegate:nil context:password];
+    [self.request addTarget:self action:@selector(rssRequestComplete:password:) forRequestEvents:SMWebRequestEventComplete];
+    [self.request addTarget:self action:@selector(rssRequestError:) forRequestEvents:SMWebRequestEventError];
+    [self.request start];
 }
 
 - (void)rssRequestComplete:(NSData *)data password:(NSString *)password {
