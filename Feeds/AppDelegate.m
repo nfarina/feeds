@@ -1,6 +1,7 @@
 #import "AppDelegate.h"
-#import "Feed.h"
+#import "PreferencesController.h"
 #import "StatusItemView.h"
+#import "Account.h"
 
 #if DEBUG
 const int ddLogLevel = LOG_LEVEL_VERBOSE;
@@ -578,6 +579,14 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 	[self.preferencesController showPreferences];
 }
 
+-(IBAction)communitySupport:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://feedsapp.uservoice.com"]];
+}
+
+/**
+ This is disabled since we don't really offer 1-on-1 support for Feeds now that it's free/open-source.
+ Maybe replace this with a method that sends more anonymized data to the community support site.
+ */
 - (void)reportBug:(id)sender {
     NSInteger result = [[NSAlert alertWithMessageText:@"Bug Report" defaultButton:@"Compose Email" alternateButton:@"Cancel" otherButton:@"Copy to Clipboard" informativeTextWithFormat:@"Sorry you're having trouble! Just click \"Compose Email\" to email us from your default mail client. Alternatively, you can copy the information we need to your clipboard and paste it in your preferred email client."] runModalInForeground];
     

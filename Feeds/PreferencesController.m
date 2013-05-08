@@ -1,4 +1,5 @@
 #import "PreferencesController.h"
+#import "CreateAccountController.h"
 #import "LoginItems.h"
 
 @interface PreferencesController () <NSToolbarDelegate, NSTabViewDelegate, NSTableViewDataSource, NSTableViewDelegate, NSMenuDelegate, CreateAccountControllerDelegate, AccountDelegate>

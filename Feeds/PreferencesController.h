@@ -1,4 +1,3 @@
-#import "CreateAccountController.h"
 
 #define DEFAULT_REFRESH_INTERVAL 30*60; // default to 30 minutes if none specified
 
