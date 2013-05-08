@@ -15,7 +15,7 @@ typedef enum {
 @interface Account : NSObject <NSTableViewDataSource>
 
 // discriminator
-@property (weak, nonatomic, readonly) NSString *type;
+@property (nonatomic, readonly) NSString *type;
 
 + (NSArray *)registeredClasses; // of Class
 + (void)registerClass:(Class)cls;
@@ -45,9 +45,9 @@ typedef enum {
 @property (nonatomic, copy) NSString *name, *domain, *username;
 @property (nonatomic, assign) NSTimeInterval refreshInterval;
 @property (nonatomic, copy) NSArray *feeds;
-@property (weak, nonatomic, readonly) NSImage *menuIconImage, *accountIconImage;
-@property (weak, nonatomic, readonly) NSData *notifyIconData;
-@property (weak, nonatomic, readonly) NSArray *enabledFeeds;
+@property (nonatomic, readonly) NSImage *menuIconImage, *accountIconImage;
+@property (nonatomic, readonly) NSData *notifyIconData;
+@property (nonatomic, readonly) NSArray *enabledFeeds;
 @property (nonatomic, strong) NSDate *lastRefresh, *lastTokenRefresh;
 
 + (NSArray *)allAccounts;

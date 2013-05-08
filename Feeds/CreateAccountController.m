@@ -13,7 +13,7 @@
 @property (nonatomic, strong) IBOutlet NSProgressIndicator *progress;
 @property (nonatomic, strong) IBOutlet NSImageView *warningIcon, *domainInvalid, *usernameInvalid, *passwordInvalid;
 @property (nonatomic, strong) IBOutlet NSButton *OKButton;
-@property (nonatomic, weak) id<CreateAccountControllerDelegate> delegate;
+@property (nonatomic, unsafe_unretained) id<CreateAccountControllerDelegate> delegate;
 @property (nonatomic, strong) Account *account;
 @property (nonatomic, copy) NSString *password;
 @end

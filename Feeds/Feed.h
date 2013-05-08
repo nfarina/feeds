@@ -15,7 +15,7 @@ NSDate *AutoFormatDate(NSString *dateString);
 
 // used only at runtime
 @property (nonatomic, copy) NSArray *items;
-@property (nonatomic, weak) Account *account;
+@property (nonatomic, unsafe_unretained) Account *account;
 
 + (Feed *)feedWithURLString:(NSString *)URLString title:(NSString *)title account:(Account *)account;
 + (Feed *)feedWithURLString:(NSString *)URLString title:(NSString *)title author:(NSString *)author account:(Account *)account;
@@ -36,9 +36,9 @@ NSDate *AutoFormatDate(NSString *dateString);
 @property (nonatomic, strong) NSURL *link, *comments;
 @property (nonatomic, strong) NSDate *published, *updated;
 @property (nonatomic, assign) BOOL notified, viewed, authoredByMe;
-@property (nonatomic, weak) Feed *feed;
+@property (nonatomic, unsafe_unretained) Feed *feed;
 
-@property (weak, nonatomic, readonly) NSString *authorAndTitle;
+@property (nonatomic, readonly) NSString *authorAndTitle;
 
 // creates a new FeedItem by parsing an XML element
 + (FeedItem *)itemWithRSSItemElement:(SMXMLElement *)element;
