@@ -159,6 +159,13 @@
 		01F616F313AEAA2700EBB24E /* PreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F616F113AEAA2600EBB24E /* PreferencesController.xib */; };
 		01F64A2B14C2318B00AAABD7 /* BeanstalkAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F64A2A14C2318B00AAABD7 /* BeanstalkAccount.m */; };
 		01F7120714F9551700A32AB9 /* NSDate+TimeAgo.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F7120614F9498000A32AB9 /* NSDate+TimeAgo.m */; };
+		F6D7721F173BD779002CABD6 /* DeliciousAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D7721E173BD779002CABD6 /* DeliciousAccount.m */; };
+		F6D77232173BE189002CABD6 /* Delicious.png in Resources */ = {isa = PBXBuildFile; fileRef = F6D7722C173BE188002CABD6 /* Delicious.png */; };
+		F6D77233173BE189002CABD6 /* Delicious@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6D7722D173BE188002CABD6 /* Delicious@2x.png */; };
+		F6D77234173BE189002CABD6 /* DeliciousAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = F6D7722E173BE188002CABD6 /* DeliciousAccount.png */; };
+		F6D77235173BE189002CABD6 /* DeliciousAccount@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6D7722F173BE189002CABD6 /* DeliciousAccount@2x.png */; };
+		F6D77236173BE189002CABD6 /* DeliciousNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = F6D77230173BE189002CABD6 /* DeliciousNotify.png */; };
+		F6D77237173BE189002CABD6 /* DeliciousNotify@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6D77231173BE189002CABD6 /* DeliciousNotify@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -382,6 +389,14 @@
 		01F64A2A14C2318B00AAABD7 /* BeanstalkAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BeanstalkAccount.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		01F7120514F9498000A32AB9 /* NSDate+TimeAgo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimeAgo.h"; sourceTree = "<group>"; };
 		01F7120614F9498000A32AB9 /* NSDate+TimeAgo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeAgo.m"; sourceTree = "<group>"; };
+		F6D7721D173BD779002CABD6 /* DeliciousAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeliciousAccount.h; sourceTree = "<group>"; };
+		F6D7721E173BD779002CABD6 /* DeliciousAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeliciousAccount.m; sourceTree = "<group>"; };
+		F6D7722C173BE188002CABD6 /* Delicious.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Delicious.png; sourceTree = "<group>"; };
+		F6D7722D173BE188002CABD6 /* Delicious@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Delicious@2x.png"; sourceTree = "<group>"; };
+		F6D7722E173BE188002CABD6 /* DeliciousAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DeliciousAccount.png; sourceTree = "<group>"; };
+		F6D7722F173BE189002CABD6 /* DeliciousAccount@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DeliciousAccount@2x.png"; sourceTree = "<group>"; };
+		F6D77230173BE189002CABD6 /* DeliciousNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DeliciousNotify.png; sourceTree = "<group>"; };
+		F6D77231173BE189002CABD6 /* DeliciousNotify@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DeliciousNotify@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -418,6 +433,8 @@
 				01B2BE7613C4C39B00304D6A /* DribbbleAccount.m */,
 				01B2BE7813C4E76400304D6A /* GithubAccount.h */,
 				01B2BE7913C4E76400304D6A /* GithubAccount.m */,
+				F6D7721D173BD779002CABD6 /* DeliciousAccount.h */,
+				F6D7721E173BD779002CABD6 /* DeliciousAccount.m */,
 				0141479E1486B019000D63E5 /* UserVoiceAccount.h */,
 				0141479F1486B019000D63E5 /* UserVoiceAccount.m */,
 				01524F4314BFB45F00913D84 /* TrelloAccount.h */,
@@ -510,6 +527,12 @@
 		015D789E13C6733D00BCD7C4 /* Service Icons */ = {
 			isa = PBXGroup;
 			children = (
+				F6D7722C173BE188002CABD6 /* Delicious.png */,
+				F6D7722D173BE188002CABD6 /* Delicious@2x.png */,
+				F6D7722E173BE188002CABD6 /* DeliciousAccount.png */,
+				F6D7722F173BE189002CABD6 /* DeliciousAccount@2x.png */,
+				F6D77230173BE189002CABD6 /* DeliciousNotify.png */,
+				F6D77231173BE189002CABD6 /* DeliciousNotify@2x.png */,
 				013B1ACA15E8451D008E9ACB /* Basecamp.png */,
 				013B1ACB15E8451D008E9ACB /* Basecamp@2x.png */,
 				013B1ACC15E8451D008E9ACB /* BasecampAccount.png */,
@@ -916,6 +939,12 @@
 				013B1B4D15E8451D008E9ACB /* ZendeskAccount@2x.png in Resources */,
 				013B1B4E15E8451D008E9ACB /* ZendeskNotify.png in Resources */,
 				013B1B4F15E8451D008E9ACB /* ZendeskNotify@2x.png in Resources */,
+				F6D77232173BE189002CABD6 /* Delicious.png in Resources */,
+				F6D77233173BE189002CABD6 /* Delicious@2x.png in Resources */,
+				F6D77234173BE189002CABD6 /* DeliciousAccount.png in Resources */,
+				F6D77235173BE189002CABD6 /* DeliciousAccount@2x.png in Resources */,
+				F6D77236173BE189002CABD6 /* DeliciousNotify.png in Resources */,
+				F6D77237173BE189002CABD6 /* DeliciousNotify@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -975,6 +1004,7 @@
 				01F2ABB615E176D500AE57F0 /* PivotalTrackerAccount.m in Sources */,
 				013B1AA815E703F3008E9ACB /* NSDate+InternetDateTime.m in Sources */,
 				01A93AAE1652B36A00B96B79 /* NSString+EmailValidation.m in Sources */,
+				F6D7721F173BD779002CABD6 /* DeliciousAccount.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1051,7 +1081,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1074,7 +1104,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
