@@ -159,6 +159,13 @@
 		01F616F313AEAA2700EBB24E /* PreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F616F113AEAA2600EBB24E /* PreferencesController.xib */; };
 		01F64A2B14C2318B00AAABD7 /* BeanstalkAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F64A2A14C2318B00AAABD7 /* BeanstalkAccount.m */; };
 		01F7120714F9551700A32AB9 /* NSDate+TimeAgo.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F7120614F9498000A32AB9 /* NSDate+TimeAgo.m */; };
+		F6155F9B173BFC270016C528 /* ZootoolAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = F6155F9A173BFC270016C528 /* ZootoolAccount.m */; };
+		F6155FA2173BFD9A0016C528 /* Zootool.png in Resources */ = {isa = PBXBuildFile; fileRef = F6155F9C173BFD9A0016C528 /* Zootool.png */; };
+		F6155FA3173BFD9A0016C528 /* Zootool@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6155F9D173BFD9A0016C528 /* Zootool@2x.png */; };
+		F6155FA4173BFD9A0016C528 /* ZootoolAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = F6155F9E173BFD9A0016C528 /* ZootoolAccount.png */; };
+		F6155FA5173BFD9A0016C528 /* ZootoolAccount@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6155F9F173BFD9A0016C528 /* ZootoolAccount@2x.png */; };
+		F6155FA6173BFD9A0016C528 /* ZootoolNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = F6155FA0173BFD9A0016C528 /* ZootoolNotify.png */; };
+		F6155FA7173BFD9A0016C528 /* ZootoolNotify@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6155FA1173BFD9A0016C528 /* ZootoolNotify@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -382,6 +389,14 @@
 		01F64A2A14C2318B00AAABD7 /* BeanstalkAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BeanstalkAccount.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		01F7120514F9498000A32AB9 /* NSDate+TimeAgo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimeAgo.h"; sourceTree = "<group>"; };
 		01F7120614F9498000A32AB9 /* NSDate+TimeAgo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeAgo.m"; sourceTree = "<group>"; };
+		F6155F99173BFC270016C528 /* ZootoolAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZootoolAccount.h; sourceTree = "<group>"; };
+		F6155F9A173BFC270016C528 /* ZootoolAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZootoolAccount.m; sourceTree = "<group>"; };
+		F6155F9C173BFD9A0016C528 /* Zootool.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Zootool.png; sourceTree = "<group>"; };
+		F6155F9D173BFD9A0016C528 /* Zootool@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Zootool@2x.png"; sourceTree = "<group>"; };
+		F6155F9E173BFD9A0016C528 /* ZootoolAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZootoolAccount.png; sourceTree = "<group>"; };
+		F6155F9F173BFD9A0016C528 /* ZootoolAccount@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZootoolAccount@2x.png"; sourceTree = "<group>"; };
+		F6155FA0173BFD9A0016C528 /* ZootoolNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZootoolNotify.png; sourceTree = "<group>"; };
+		F6155FA1173BFD9A0016C528 /* ZootoolNotify@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZootoolNotify@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -419,6 +434,8 @@
 				01B2BE7813C4E76400304D6A /* GithubAccount.h */,
 				01B2BE7913C4E76400304D6A /* GithubAccount.m */,
 				0141479E1486B019000D63E5 /* UserVoiceAccount.h */,
+				F6155F99173BFC270016C528 /* ZootoolAccount.h */,
+				F6155F9A173BFC270016C528 /* ZootoolAccount.m */,
 				0141479F1486B019000D63E5 /* UserVoiceAccount.m */,
 				01524F4314BFB45F00913D84 /* TrelloAccount.h */,
 				01524F4414BFB45F00913D84 /* TrelloAccount.m */,
@@ -516,6 +533,12 @@
 				013B1ACD15E8451D008E9ACB /* BasecampAccount@2x.png */,
 				013B1ACE15E8451D008E9ACB /* BasecampNotify.png */,
 				013B1ACF15E8451D008E9ACB /* BasecampNotify@2x.png */,
+				F6155F9C173BFD9A0016C528 /* Zootool.png */,
+				F6155F9D173BFD9A0016C528 /* Zootool@2x.png */,
+				F6155F9E173BFD9A0016C528 /* ZootoolAccount.png */,
+				F6155F9F173BFD9A0016C528 /* ZootoolAccount@2x.png */,
+				F6155FA0173BFD9A0016C528 /* ZootoolNotify.png */,
+				F6155FA1173BFD9A0016C528 /* ZootoolNotify@2x.png */,
 				013B1AD015E8451D008E9ACB /* Beanstalk.png */,
 				013B1AD115E8451D008E9ACB /* Beanstalk@2x.png */,
 				013B1AD215E8451D008E9ACB /* BeanstalkAccount.png */,
@@ -916,6 +939,12 @@
 				013B1B4D15E8451D008E9ACB /* ZendeskAccount@2x.png in Resources */,
 				013B1B4E15E8451D008E9ACB /* ZendeskNotify.png in Resources */,
 				013B1B4F15E8451D008E9ACB /* ZendeskNotify@2x.png in Resources */,
+				F6155FA2173BFD9A0016C528 /* Zootool.png in Resources */,
+				F6155FA3173BFD9A0016C528 /* Zootool@2x.png in Resources */,
+				F6155FA4173BFD9A0016C528 /* ZootoolAccount.png in Resources */,
+				F6155FA5173BFD9A0016C528 /* ZootoolAccount@2x.png in Resources */,
+				F6155FA6173BFD9A0016C528 /* ZootoolNotify.png in Resources */,
+				F6155FA7173BFD9A0016C528 /* ZootoolNotify@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -975,6 +1004,7 @@
 				01F2ABB615E176D500AE57F0 /* PivotalTrackerAccount.m in Sources */,
 				013B1AA815E703F3008E9ACB /* NSDate+InternetDateTime.m in Sources */,
 				01A93AAE1652B36A00B96B79 /* NSString+EmailValidation.m in Sources */,
+				F6155F9B173BFC270016C528 /* ZootoolAccount.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1051,7 +1081,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1074,7 +1104,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
