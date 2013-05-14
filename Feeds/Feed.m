@@ -479,4 +479,12 @@ NSDate *AutoFormatDate(NSString *dateString) {
     }
 }
 
+- (NSString *)smartContent {
+    if ([self.feed.account respondsToSelector:@selector(smartContentForItem:)]) {
+        NSString *smartContent = [self.feed.account smartContentForItem:self];
+        return smartContent;
+    }
+    return self.content;
+}
+
 @end

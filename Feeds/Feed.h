@@ -33,6 +33,7 @@ NSDate *AutoFormatDate(NSString *dateString);
 @interface FeedItem : NSObject
 
 @property (nonatomic, copy) NSString *identifier, *title, *author, *authorIdentifier, *project, *content, *rawDate;
+@property (nonatomic, copy, readonly) NSString *smartContent;
 @property (nonatomic, strong) NSURL *link, *comments;
 @property (nonatomic, strong) NSDate *published, *updated;
 @property (nonatomic, assign) BOOL notified, viewed, authoredByMe;

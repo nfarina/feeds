@@ -80,6 +80,8 @@ typedef enum {
 // for subclassers
 @property (nonatomic, strong) SMWebRequest *request, *tokenRequest;
 
+- (NSString *)smartContentForItem:(FeedItem *)item;
+
 @end
 
 // informal protocol that Account subclasses can implement if they want to take the responsibility of parsing
