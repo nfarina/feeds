@@ -278,6 +278,11 @@ static NSMutableArray *registeredClasses = nil;
         SecKeychainItemDelete(itemRef);
 }
 
+- (NSString *)smartContentForItem:(FeedItem *)item {
+    [self doesNotRecognizeSelector:@selector(smartContentForItem:)];
+    return nil;
+}
+
 #pragma mark NSTableViewDataSource, exposes Feeds
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {

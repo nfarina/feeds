@@ -1,4 +1,16 @@
 #import "GithubAccount.h"
+#import "JSONKit.h"
+
+typedef enum {
+    GithubActivityStarred,
+    GithubActivityCreated,
+    GithubActivityOpenSourced,
+    GithubActivityForked, // last activity with smart content
+    GithubActivityOpenedIssue,
+    GithubActivityCommentedIssue,
+    GithubActivityOpenedPullRequest,
+    GithubActivityFollowing
+} GithubActivity;
 
 @implementation GithubAccount
 
@@ -64,6 +76,57 @@
 
 - (void)orgRequestError:(NSError *)error {
     [self.delegate account:self validationDidFailWithMessage:@"Could not retrieve information about the given Github account. Please check your username and password." field:0];
+}
+
+- (GithubActivity)_activityFromTitle:(NSString *)title {
+    if ([title containsString:@"starred"]) {
+        return GithubActivityStarred;
+    }
+    else if ([title containsString:@"created"]) {
+        return GithubActivityCreated;
+    }
+    else if ([title containsString:@"open sourced"]) {
+        return GithubActivityOpenSourced;
+    }
+    else if ([title containsString:@"forked"]) {
+        return GithubActivityForked;
+    }
+    else if ([title containsString:@"commented"]) {
+        return GithubActivityCommentedIssue;
+    }
+    else if ([title containsString:@"opened pull request"]) {
+        return GithubActivityOpenedPullRequest;
+    }
+    else if ([title containsString:@"opened issue"]) {
+        return GithubActivityOpenedIssue;
+    }
+    else if ([title containsString:@"following"]) {
+        return GithubActivityFollowing;
+    }
+    NSLog(@"Unexpected activity found in title: %@", title);
+    return nil;
+}
+
+- (NSString *)smartContentForItem:(FeedItem *)item {
+    NSString *link = [item.link absoluteString];
+    if (link && [self _activityFromTitle:item.title] <= GithubActivityForked) {
+        NSHTTPURLResponse *response = nil;
+        NSError *error = nil;
+        NSArray *linkParts = [link componentsSeparatedByString:@"/"];
+        NSString *repo = [linkParts objectAtIndex:[linkParts count] - 1];
+        NSString *owner = [linkParts objectAtIndex:[linkParts count] - 2];
+        NSURL *githubURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.github.com/repos/%@/%@", owner, repo]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:githubURL cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:0.5];
+        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        if ([response statusCode] == 200) {
+            NSDictionary *githubObject = [data objectFromJSONData];
+            if (githubObject) {
+                return [githubObject objectForKey:@"description"];
+            }
+        }
+        
+    }
+    return item.content;
 }
 
 @end
