@@ -79,13 +79,13 @@
     
     for (NSDictionary *mergedPullRequest in mergedPullRequests) {
         FeedItem *item = [FeedItem new];
-        item.rawDate = mergedPullRequest[@"created_on"];
+        item.rawDate = mergedPullRequest[@"updated_on"];
         item.published = AutoFormatDate(item.rawDate);
         item.updated = item.published;
-        item.authorIdentifier = mergedPullRequest[@"author"][@"username"];
-        item.author = mergedPullRequest[@"author"][@"display_name"];
+        item.authorIdentifier = mergedPullRequest[@"closed_by"][@"username"];
+        item.author = mergedPullRequest[@"closed_by"][@"display_name"];
         item.content = [NSString stringWithFormat: @"<pre style=\"white-space: pre-wrap;\">%@</pre>", mergedPullRequest[@"description"]];
-        item.title = [NSString stringWithFormat:@"%@ created pull request #%@: %@", item.author, mergedPullRequest[@"id"], mergedPullRequest[@"title"]];
+        item.title = [NSString stringWithFormat:@"%@ merged pull request #%@: %@", item.author, mergedPullRequest[@"id"], mergedPullRequest[@"title"]];
         
         item.link = [NSURL URLWithString:[NSString stringWithFormat:@"https://bitbucket.org/%@/%@/pull-request/%@", owner, slug, mergedPullRequest[@"id"]]];
         
