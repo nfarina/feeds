@@ -113,7 +113,6 @@
 		01524F4514BFB45F00913D84 /* TrelloAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01524F4414BFB45F00913D84 /* TrelloAccount.m */; };
 		015D788F13C6394600BCD7C4 /* Popover.html in Resources */ = {isa = PBXBuildFile; fileRef = 015D788E13C6394600BCD7C4 /* Popover.html */; };
 		015E0ED814475D2E000A611D /* AccountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 015E0ED714475D2E000A611D /* AccountCell.m */; };
-		015E0EE614478DB6000A611D /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 015E0EE514478DB6000A611D /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0181D973152492D400D1E78B /* BasecampNextAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 0181D972152492D400D1E78B /* BasecampNextAccount.m */; };
 		01937C8313A03F5000BCE1D4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01937C8213A03F5000BCE1D4 /* Cocoa.framework */; };
 		01937C8D13A03F5000BCE1D4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01937C8B13A03F5000BCE1D4 /* InfoPlist.strings */; };
@@ -311,8 +310,6 @@
 		015D788E13C6394600BCD7C4 /* Popover.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = Popover.html; path = Popover/Popover.html; sourceTree = "<group>"; };
 		015E0ED614475D2E000A611D /* AccountCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountCell.h; sourceTree = "<group>"; };
 		015E0ED714475D2E000A611D /* AccountCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountCell.m; sourceTree = "<group>"; };
-		015E0EE414478DB6000A611D /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
-		015E0EE514478DB6000A611D /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		0181D971152492D400D1E78B /* BasecampNextAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasecampNextAccount.h; sourceTree = "<group>"; };
 		0181D972152492D400D1E78B /* BasecampNextAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BasecampNextAccount.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		01937C7E13A03F5000BCE1D4 /* Feeds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Feeds.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -722,7 +719,6 @@
 				013BE6CB15E146F80002F51E /* Lumberjack */,
 				01937CB313A05A6300BCE1D4 /* XML Document */,
 				01937CB113A05A3E00BCE1D4 /* Web Request */,
-				01B2BE7B13C4E89D00304D6A /* JSONKit */,
 				019EE0C4147023B800B67B74 /* DDHotKey */,
 				014147A71486B258000D63E5 /* Hpple */,
 			);
@@ -747,16 +743,6 @@
 			);
 			name = DDHotKey;
 			path = Libraries/DDHotKey;
-			sourceTree = "<group>";
-		};
-		01B2BE7B13C4E89D00304D6A /* JSONKit */ = {
-			isa = PBXGroup;
-			children = (
-				015E0EE414478DB6000A611D /* JSONKit.h */,
-				015E0EE514478DB6000A611D /* JSONKit.m */,
-			);
-			name = JSONKit;
-			path = Libraries/JSONKit;
 			sourceTree = "<group>";
 		};
 		01D7CB8113B02C74001B133A /* Controllers */ = {
@@ -979,7 +965,6 @@
 				01518F7E13C54F480043AB98 /* CG+Geometry.m in Sources */,
 				0125C6CD13C7C8B10006BB1A /* NSView+PrintHierarchy.m in Sources */,
 				015E0ED814475D2E000A611D /* AccountCell.m in Sources */,
-				015E0EE614478DB6000A611D /* JSONKit.m in Sources */,
 				019EE0DC147023B800B67B74 /* DDHotKeyCenter.m in Sources */,
 				019EE0F2147044CA00B67B74 /* LoginItems.m in Sources */,
 				014147A01486B019000D63E5 /* UserVoiceAccount.m in Sources */,

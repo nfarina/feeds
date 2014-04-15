@@ -13,7 +13,6 @@
 #import "NSDate+InternetDateTime.h"
 #import "SMWebRequest.h"
 #import "SMXMLDocument.h"
-#import "JSONKit.h"
 #import "NSArray+Linqish.h"
 #import "NSString+EntityDecoding.h"
 #import "NSString+Base64.h"
