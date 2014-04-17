@@ -29,6 +29,9 @@
 #import "NSString+URLArgument.h"
 #import "NSAlert+Foreground.h"
 #import "NSString+EmailValidation.h"
+#import "NSData+ObjectFromJSONData.h"
+#import "NSString+ObjectFromJSONString.h"
+#import "NSDictionary+JSONString.h"
 #endif
 
 #include "Prefs.h"
