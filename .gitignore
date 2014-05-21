@@ -10,3 +10,6 @@ xcuserdata
 
 # Xcode 4
 xcuserdata/
+
+# Xcode 5
+*.xccheckout

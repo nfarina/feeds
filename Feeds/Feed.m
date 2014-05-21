@@ -419,6 +419,18 @@ NSDate *AutoFormatDate(NSString *dateString) {
     else return NO;
 }
 
+- (NSUInteger)hash {
+    // http://stackoverflow.com/questions/254281/best-practices-for-overriding-isequal-and-hash
+    NSUInteger prime = 31;
+    NSUInteger result = 1;
+    result = prime * result + [self.identifier hash];
+    result = prime * result + [self.link hash];
+    result = prime * result + [self.title hash];
+    result = prime * result + [self.author hash];
+    result = prime * result + [self.content hash];
+    return result;
+}
+
 - (NSString *)authorAndTitle {
     if (self.author && self.title && ![self.title beginsWithString:self.author])
         return [NSString stringWithFormat:@"%@: %@",self.author,self.title];

@@ -293,13 +293,15 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 - (void)rebuildItems {
     // rebuild allItems array
     [self.allItems removeAllObjects];
-    
+  
     for (Account *account in [Account allAccounts])
         for (Feed *feed in account.enabledFeeds)
-            [self.allItems addObjectsFromArray:feed.items];
+            for (FeedItem *item in feed.items)
+                if (![self.allItems containsObject:item])
+                    [self.allItems addObject:item];
     
     [self.allItems sortUsingSelector:@selector(compareItemByPublishedDate:)];
-    
+
     //NSLog(@"ITEMS: %@", allItems);
     
     while ([self.allItems count] > MAX_ITEMS)
