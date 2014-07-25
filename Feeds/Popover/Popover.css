@@ -2,8 +2,8 @@ html, body {
     background: transparent;
 }
 body {
-    font-family: Lucida Grande;
-    font-size: 12px;
+    font-family: Helvetica Neue;
+    font-size: 13px;
     margin: 0;
     margin-top: 7px;
     text-shadow: 0 1px 0 white;
@@ -13,7 +13,7 @@ body {
     display:none;
 }
 div.feeds-title {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: bold;
     margin: 7px;
     margin-bottom: 0;
@@ -24,14 +24,14 @@ div.feeds-title {
 }
 div.feeds-author {
     color: #777;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: bold;
     margin: 7px;
     margin-top: 1px;
 }
 div.feeds-content {
     margin: 7px;
-    font-size: 11px;
+    font-size: 12px;
 }
 img {
     border: 1px solid rgba(0,0,0,0.2);
