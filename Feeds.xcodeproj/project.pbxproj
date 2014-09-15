@@ -12,7 +12,7 @@
 		0108CEDD13BB8CB90000ECE1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0108CEDC13BB8CB80000ECE1 /* Security.framework */; };
 		0108CEE013BBA3AC0000ECE1 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 0108CEDF13BBA3AC0000ECE1 /* NSString+Base64.m */; };
 		010F821C17289B5D0064EE02 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 010F821B17289B5D0064EE02 /* Sparkle.framework */; };
-		010F821D17289BC40064EE02 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 010F821B17289B5D0064EE02 /* Sparkle.framework */; };
+		010F821D17289BC40064EE02 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 010F821B17289B5D0064EE02 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		0117B30613AD27CB0018AB7C /* NSArray+Linqish.m in Sources */ = {isa = PBXBuildFile; fileRef = 0117B30513AD27CB0018AB7C /* NSArray+Linqish.m */; };
 		0125C6CD13C7C8B10006BB1A /* NSView+PrintHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0125C6CC13C7C8B10006BB1A /* NSView+PrintHierarchy.m */; };
 		012734BE15DFFB4E00512361 /* RSSAtomAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 012734BD15DFFB4E00512361 /* RSSAtomAccount.m */; };
@@ -125,9 +125,9 @@
 		01937CB913A05B8700BCE1D4 /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 01937CB813A05B8700BCE1D4 /* Feed.m */; };
 		019EE0C314701FA500B67B74 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 019EE0C214701FA500B67B74 /* Growl.framework */; };
 		019EE0DC147023B800B67B74 /* DDHotKeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 019EE0CE147023B800B67B74 /* DDHotKeyCenter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		019EE0E41470248600B67B74 /* Growl.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 019EE0C214701FA500B67B74 /* Growl.framework */; };
+		019EE0E41470248600B67B74 /* Growl.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 019EE0C214701FA500B67B74 /* Growl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		019EE0EE147034E400B67B74 /* ShortcutRecorder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 019EE0ED147034E400B67B74 /* ShortcutRecorder.framework */; };
-		019EE0EF147034FD00B67B74 /* ShortcutRecorder.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 019EE0ED147034E400B67B74 /* ShortcutRecorder.framework */; };
+		019EE0EF147034FD00B67B74 /* ShortcutRecorder.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 019EE0ED147034E400B67B74 /* ShortcutRecorder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		019EE0F2147044CA00B67B74 /* LoginItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 019EE0F1147044CA00B67B74 /* LoginItems.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		01A93AAE1652B36A00B96B79 /* NSString+EmailValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A93AAD1652B36A00B96B79 /* NSString+EmailValidation.m */; };
 		01B2BE7313C4BBE900304D6A /* NSString+Truncated.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B2BE7213C4BBE900304D6A /* NSString+Truncated.m */; };
@@ -847,7 +847,7 @@
 		01937C7513A03F5000BCE1D4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Spotlight Mobile";
 			};
 			buildConfigurationList = 01937C7813A03F5000BCE1D4 /* Build configuration list for PBXProject "Feeds" */;
@@ -1074,7 +1074,6 @@
 		01937C9A13A03F5000BCE1D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1095,7 +1094,6 @@
 		01937C9B13A03F5000BCE1D4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
