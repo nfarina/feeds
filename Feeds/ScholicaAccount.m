@@ -5,7 +5,7 @@
 + (void)load { [Account registerClass:self]; }
 + (BOOL)requiresUsername { return YES; }
 + (BOOL)requiresPassword { return YES; }
-- (NSTimeInterval)refreshInterval { return 5*60; } // 5 minutes
+- (NSTimeInterval)refreshInterval { return 60; } // 60 seconds
 
 - (void)validateWithPassword:(NSString *)password {
 
