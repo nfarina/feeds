@@ -168,6 +168,13 @@
 		4DDB2F0218FF310500AD815D /* NSData+ObjectFromJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB2F0118FF310500AD815D /* NSData+ObjectFromJSONData.m */; };
 		4DDB2F05190002B600AD815D /* NSString+ObjectFromJSONString.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB2F04190002B600AD815D /* NSString+ObjectFromJSONString.m */; };
 		4DDB2F08190002CB00AD815D /* NSDictionary+JSONString.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB2F07190002CB00AD815D /* NSDictionary+JSONString.m */; };
+		E2257A7519C8C450008AD135 /* ScholicaAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = E2257A7419C8C450008AD135 /* ScholicaAccount.m */; };
+		E2257A7C19C8C46A008AD135 /* Scholica.png in Resources */ = {isa = PBXBuildFile; fileRef = E2257A7619C8C46A008AD135 /* Scholica.png */; };
+		E2257A7D19C8C46A008AD135 /* Scholica@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2257A7719C8C46A008AD135 /* Scholica@2x.png */; };
+		E2257A7E19C8C46A008AD135 /* ScholicaAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = E2257A7819C8C46A008AD135 /* ScholicaAccount.png */; };
+		E2257A7F19C8C46A008AD135 /* ScholicaAccount@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2257A7919C8C46A008AD135 /* ScholicaAccount@2x.png */; };
+		E2257A8019C8C46A008AD135 /* ScholicaNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = E2257A7A19C8C46A008AD135 /* ScholicaNotify.png */; };
+		E2257A8119C8C46A008AD135 /* ScholicaNotify@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2257A7B19C8C46A008AD135 /* ScholicaNotify@2x.png */; };
 		F6155F9B173BFC270016C528 /* ZootoolAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = F6155F9A173BFC270016C528 /* ZootoolAccount.m */; };
 		F6155FA2173BFD9A0016C528 /* Zootool.png in Resources */ = {isa = PBXBuildFile; fileRef = F6155F9C173BFD9A0016C528 /* Zootool.png */; };
 		F6155FA3173BFD9A0016C528 /* Zootool@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6155F9D173BFD9A0016C528 /* Zootool@2x.png */; };
@@ -410,6 +417,14 @@
 		4DDB2F04190002B600AD815D /* NSString+ObjectFromJSONString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ObjectFromJSONString.m"; sourceTree = "<group>"; };
 		4DDB2F06190002CB00AD815D /* NSDictionary+JSONString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+JSONString.h"; sourceTree = "<group>"; };
 		4DDB2F07190002CB00AD815D /* NSDictionary+JSONString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+JSONString.m"; sourceTree = "<group>"; };
+		E2257A7319C8C450008AD135 /* ScholicaAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScholicaAccount.h; sourceTree = "<group>"; };
+		E2257A7419C8C450008AD135 /* ScholicaAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScholicaAccount.m; sourceTree = "<group>"; };
+		E2257A7619C8C46A008AD135 /* Scholica.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Scholica.png; sourceTree = "<group>"; };
+		E2257A7719C8C46A008AD135 /* Scholica@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Scholica@2x.png"; sourceTree = "<group>"; };
+		E2257A7819C8C46A008AD135 /* ScholicaAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScholicaAccount.png; sourceTree = "<group>"; };
+		E2257A7919C8C46A008AD135 /* ScholicaAccount@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ScholicaAccount@2x.png"; sourceTree = "<group>"; };
+		E2257A7A19C8C46A008AD135 /* ScholicaNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScholicaNotify.png; sourceTree = "<group>"; };
+		E2257A7B19C8C46A008AD135 /* ScholicaNotify@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ScholicaNotify@2x.png"; sourceTree = "<group>"; };
 		F6155F99173BFC270016C528 /* ZootoolAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZootoolAccount.h; sourceTree = "<group>"; };
 		F6155F9A173BFC270016C528 /* ZootoolAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZootoolAccount.m; sourceTree = "<group>"; };
 		F6155F9C173BFD9A0016C528 /* Zootool.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Zootool.png; sourceTree = "<group>"; };
@@ -444,6 +459,8 @@
 		0108CECC13BB1B080000ECE1 /* Accounts */ = {
 			isa = PBXGroup;
 			children = (
+				E2257A7319C8C450008AD135 /* ScholicaAccount.h */,
+				E2257A7419C8C450008AD135 /* ScholicaAccount.m */,
 				012734BC15DFFB4E00512361 /* RSSAtomAccount.h */,
 				012734BD15DFFB4E00512361 /* RSSAtomAccount.m */,
 				0108CED113BB1EC00000ECE1 /* BasecampAccount.h */,
@@ -556,6 +573,12 @@
 		015D789E13C6733D00BCD7C4 /* Service Icons */ = {
 			isa = PBXGroup;
 			children = (
+				E2257A7619C8C46A008AD135 /* Scholica.png */,
+				E2257A7719C8C46A008AD135 /* Scholica@2x.png */,
+				E2257A7819C8C46A008AD135 /* ScholicaAccount.png */,
+				E2257A7919C8C46A008AD135 /* ScholicaAccount@2x.png */,
+				E2257A7A19C8C46A008AD135 /* ScholicaNotify.png */,
+				E2257A7B19C8C46A008AD135 /* ScholicaNotify@2x.png */,
 				013B1ACA15E8451D008E9ACB /* Basecamp.png */,
 				013B1ACB15E8451D008E9ACB /* Basecamp@2x.png */,
 				013B1ACC15E8451D008E9ACB /* BasecampAccount.png */,
@@ -893,9 +916,12 @@
 				013B1ABC15E83BAC008E9ACB /* StatusItemUnread.png in Resources */,
 				013B1ABD15E83BAC008E9ACB /* StatusItemUnread@2x.png in Resources */,
 				013B1AC015E83BBB008E9ACB /* Unread.png in Resources */,
+				E2257A7E19C8C46A008AD135 /* ScholicaAccount.png in Resources */,
 				013B1AC115E83BBB008E9ACB /* Unread@2x.png in Resources */,
+				E2257A7F19C8C46A008AD135 /* ScholicaAccount@2x.png in Resources */,
 				013B1AC515E843BD008E9ACB /* AlertCautionIcon.icns in Resources */,
 				013B1AC815E84490008E9ACB /* Accounts.icns in Resources */,
+				E2257A8119C8C46A008AD135 /* ScholicaNotify@2x.png in Resources */,
 				013B1AC915E84490008E9ACB /* General.icns in Resources */,
 				013B1B0D15E8451D008E9ACB /* Basecamp.png in Resources */,
 				013B1B0E15E8451D008E9ACB /* Basecamp@2x.png in Resources */,
@@ -907,6 +933,7 @@
 				013B1B1415E8451D008E9ACB /* Beanstalk@2x.png in Resources */,
 				013B1B1515E8451D008E9ACB /* BeanstalkAccount.png in Resources */,
 				013B1B1615E8451D008E9ACB /* BeanstalkAccount@2x.png in Resources */,
+				E2257A7D19C8C46A008AD135 /* Scholica@2x.png in Resources */,
 				013B1B1715E8451D008E9ACB /* BeanstalkNotify.png in Resources */,
 				013B1B1815E8451D008E9ACB /* BeanstalkNotify@2x.png in Resources */,
 				013B1B1915E8451D008E9ACB /* Default.png in Resources */,
@@ -960,11 +987,13 @@
 				013B1B4615E8451D008E9ACB /* UserVoiceAccount.png in Resources */,
 				01D73CE719782D4E009E00FA /* Bitbucket@2x.png in Resources */,
 				013B1B4715E8451D008E9ACB /* UserVoiceAccount@2x.png in Resources */,
+				E2257A7C19C8C46A008AD135 /* Scholica.png in Resources */,
 				013B1B4815E8451D008E9ACB /* UserVoiceNotify.png in Resources */,
 				013B1B4915E8451D008E9ACB /* UserVoiceNotify@2x.png in Resources */,
 				013B1B4A15E8451D008E9ACB /* Zendesk.png in Resources */,
 				013B1B4B15E8451D008E9ACB /* Zendesk@2x.png in Resources */,
 				013B1B4C15E8451D008E9ACB /* ZendeskAccount.png in Resources */,
+				E2257A8019C8C46A008AD135 /* ScholicaNotify.png in Resources */,
 				013B1B4D15E8451D008E9ACB /* ZendeskAccount@2x.png in Resources */,
 				013B1B4E15E8451D008E9ACB /* ZendeskNotify.png in Resources */,
 				013B1B4F15E8451D008E9ACB /* ZendeskNotify@2x.png in Resources */,
@@ -1014,6 +1043,7 @@
 				014147A01486B019000D63E5 /* UserVoiceAccount.m in Sources */,
 				014147AE1486B258000D63E5 /* TFHpple.m in Sources */,
 				01D73CDF19782D15009E00FA /* BitbucketAccount.m in Sources */,
+				E2257A7519C8C450008AD135 /* ScholicaAccount.m in Sources */,
 				014147AF1486B258000D63E5 /* TFHppleElement.m in Sources */,
 				014147B01486B258000D63E5 /* XPathQuery.m in Sources */,
 				014147B81486B575000D63E5 /* NSString+English.m in Sources */,
