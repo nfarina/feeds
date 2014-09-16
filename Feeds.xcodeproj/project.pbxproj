@@ -182,13 +182,7 @@
 		E2257A8C19C8C51E008AD135 /* FreshdeskNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = E2257A8619C8C51E008AD135 /* FreshdeskNotify.png */; };
 		E2257A8D19C8C51E008AD135 /* FreshdeskNotify@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2257A8719C8C51E008AD135 /* FreshdeskNotify@2x.png */; };
 		E2257A9019C8C52A008AD135 /* FreshdeskAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = E2257A8F19C8C52A008AD135 /* FreshdeskAccount.m */; };
-		F6155F9B173BFC270016C528 /* ZootoolAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = F6155F9A173BFC270016C528 /* ZootoolAccount.m */; };
-		F6155FA2173BFD9A0016C528 /* Zootool.png in Resources */ = {isa = PBXBuildFile; fileRef = F6155F9C173BFD9A0016C528 /* Zootool.png */; };
-		F6155FA3173BFD9A0016C528 /* Zootool@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6155F9D173BFD9A0016C528 /* Zootool@2x.png */; };
-		F6155FA4173BFD9A0016C528 /* ZootoolAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = F6155F9E173BFD9A0016C528 /* ZootoolAccount.png */; };
-		F6155FA5173BFD9A0016C528 /* ZootoolAccount@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6155F9F173BFD9A0016C528 /* ZootoolAccount@2x.png */; };
-		F6155FA6173BFD9A0016C528 /* ZootoolNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = F6155FA0173BFD9A0016C528 /* ZootoolNotify.png */; };
-		F6155FA7173BFD9A0016C528 /* ZootoolNotify@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6155FA1173BFD9A0016C528 /* ZootoolNotify@2x.png */; };
+};
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -440,14 +434,6 @@
 		E2257A8719C8C51E008AD135 /* FreshdeskNotify@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FreshdeskNotify@2x.png"; sourceTree = "<group>"; };
 		E2257A8E19C8C52A008AD135 /* FreshdeskAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreshdeskAccount.h; sourceTree = "<group>"; };
 		E2257A8F19C8C52A008AD135 /* FreshdeskAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreshdeskAccount.m; sourceTree = "<group>"; };
-		F6155F99173BFC270016C528 /* ZootoolAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZootoolAccount.h; sourceTree = "<group>"; };
-		F6155F9A173BFC270016C528 /* ZootoolAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZootoolAccount.m; sourceTree = "<group>"; };
-		F6155F9C173BFD9A0016C528 /* Zootool.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Zootool.png; sourceTree = "<group>"; };
-		F6155F9D173BFD9A0016C528 /* Zootool@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Zootool@2x.png"; sourceTree = "<group>"; };
-		F6155F9E173BFD9A0016C528 /* ZootoolAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZootoolAccount.png; sourceTree = "<group>"; };
-		F6155F9F173BFD9A0016C528 /* ZootoolAccount@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZootoolAccount@2x.png"; sourceTree = "<group>"; };
-		F6155FA0173BFD9A0016C528 /* ZootoolNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZootoolNotify.png; sourceTree = "<group>"; };
-		F6155FA1173BFD9A0016C528 /* ZootoolNotify@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZootoolNotify@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -491,8 +477,6 @@
 				01B2BE7813C4E76400304D6A /* GithubAccount.h */,
 				01B2BE7913C4E76400304D6A /* GithubAccount.m */,
 				0141479E1486B019000D63E5 /* UserVoiceAccount.h */,
-				F6155F99173BFC270016C528 /* ZootoolAccount.h */,
-				F6155F9A173BFC270016C528 /* ZootoolAccount.m */,
 				0141479F1486B019000D63E5 /* UserVoiceAccount.m */,
 				01524F4314BFB45F00913D84 /* TrelloAccount.h */,
 				01524F4414BFB45F00913D84 /* TrelloAccount.m */,
@@ -614,12 +598,6 @@
 				01D73CE319782D4E009E00FA /* BitbucketAccount@2x.png */,
 				01D73CE419782D4E009E00FA /* BitbucketNotify.png */,
 				01D73CE519782D4E009E00FA /* BitbucketNotify@2x.png */,
-				F6155F9C173BFD9A0016C528 /* Zootool.png */,
-				F6155F9D173BFD9A0016C528 /* Zootool@2x.png */,
-				F6155F9E173BFD9A0016C528 /* ZootoolAccount.png */,
-				F6155F9F173BFD9A0016C528 /* ZootoolAccount@2x.png */,
-				F6155FA0173BFD9A0016C528 /* ZootoolNotify.png */,
-				F6155FA1173BFD9A0016C528 /* ZootoolNotify@2x.png */,
 				013B1AD015E8451D008E9ACB /* Beanstalk.png */,
 				013B1AD115E8451D008E9ACB /* Beanstalk@2x.png */,
 				013B1AD215E8451D008E9ACB /* BeanstalkAccount.png */,
@@ -1026,12 +1004,6 @@
 				013B1B4D15E8451D008E9ACB /* ZendeskAccount@2x.png in Resources */,
 				013B1B4E15E8451D008E9ACB /* ZendeskNotify.png in Resources */,
 				013B1B4F15E8451D008E9ACB /* ZendeskNotify@2x.png in Resources */,
-				F6155FA2173BFD9A0016C528 /* Zootool.png in Resources */,
-				F6155FA3173BFD9A0016C528 /* Zootool@2x.png in Resources */,
-				F6155FA4173BFD9A0016C528 /* ZootoolAccount.png in Resources */,
-				F6155FA5173BFD9A0016C528 /* ZootoolAccount@2x.png in Resources */,
-				F6155FA6173BFD9A0016C528 /* ZootoolNotify.png in Resources */,
-				F6155FA7173BFD9A0016C528 /* ZootoolNotify@2x.png in Resources */,
 				01D73CEB19782D4E009E00FA /* BitbucketNotify@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1096,7 +1068,6 @@
 				01F2ABB615E176D500AE57F0 /* PivotalTrackerAccount.m in Sources */,
 				013B1AA815E703F3008E9ACB /* NSDate+InternetDateTime.m in Sources */,
 				01A93AAE1652B36A00B96B79 /* NSString+EmailValidation.m in Sources */,
-				F6155F9B173BFC270016C528 /* ZootoolAccount.m in Sources */,
 				4DDB2F05190002B600AD815D /* NSString+ObjectFromJSONString.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
