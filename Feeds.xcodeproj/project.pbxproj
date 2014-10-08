@@ -137,6 +137,20 @@
 		01BD35E2154D985200170BDD /* ZendeskAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BD35E1154D985200170BDD /* ZendeskAccount.m */; };
 		01C359B113C4B6C400D803BD /* HighriseAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C359B013C4B6C400D803BD /* HighriseAccount.m */; };
 		01C4F93513C597C000DB0CCB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C4F93213C597AC00DB0CCB /* WebKit.framework */; };
+		01C79CFF19E5B1F200066A74 /* ScholicaAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C79CFE19E5B1F200066A74 /* ScholicaAccount.m */; };
+		01C79D0219E5B1F800066A74 /* FreshdeskAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C79D0119E5B1F800066A74 /* FreshdeskAccount.m */; };
+		01C79D0F19E5B20C00066A74 /* Freshdesk.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C79D0319E5B20C00066A74 /* Freshdesk.png */; };
+		01C79D1019E5B20C00066A74 /* Freshdesk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C79D0419E5B20C00066A74 /* Freshdesk@2x.png */; };
+		01C79D1119E5B20C00066A74 /* FreshdeskAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C79D0519E5B20C00066A74 /* FreshdeskAccount.png */; };
+		01C79D1219E5B20C00066A74 /* FreshdeskAccount@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C79D0619E5B20C00066A74 /* FreshdeskAccount@2x.png */; };
+		01C79D1319E5B20C00066A74 /* FreshdeskNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C79D0719E5B20C00066A74 /* FreshdeskNotify.png */; };
+		01C79D1419E5B20C00066A74 /* FreshdeskNotify@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C79D0819E5B20C00066A74 /* FreshdeskNotify@2x.png */; };
+		01C79D1519E5B20C00066A74 /* Scholica.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C79D0919E5B20C00066A74 /* Scholica.png */; };
+		01C79D1619E5B20C00066A74 /* Scholica@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C79D0A19E5B20C00066A74 /* Scholica@2x.png */; };
+		01C79D1719E5B20C00066A74 /* ScholicaAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C79D0B19E5B20C00066A74 /* ScholicaAccount.png */; };
+		01C79D1819E5B20C00066A74 /* ScholicaAccount@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C79D0C19E5B20C00066A74 /* ScholicaAccount@2x.png */; };
+		01C79D1919E5B20C00066A74 /* ScholicaNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C79D0D19E5B20C00066A74 /* ScholicaNotify.png */; };
+		01C79D1A19E5B20C00066A74 /* ScholicaNotify@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C79D0E19E5B20C00066A74 /* ScholicaNotify@2x.png */; };
 		01D4A3BC13C434B400CE07CC /* NSURLRequest+Authorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D4A3BB13C434B400CE07CC /* NSURLRequest+Authorization.m */; };
 		01D73CDF19782D15009E00FA /* BitbucketAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D73CDE19782D15009E00FA /* BitbucketAccount.m */; };
 		01D73CE619782D4E009E00FA /* Bitbucket.png in Resources */ = {isa = PBXBuildFile; fileRef = 01D73CE019782D4E009E00FA /* Bitbucket.png */; };
@@ -168,21 +182,6 @@
 		4DDB2F0218FF310500AD815D /* NSData+ObjectFromJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB2F0118FF310500AD815D /* NSData+ObjectFromJSONData.m */; };
 		4DDB2F05190002B600AD815D /* NSString+ObjectFromJSONString.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB2F04190002B600AD815D /* NSString+ObjectFromJSONString.m */; };
 		4DDB2F08190002CB00AD815D /* NSDictionary+JSONString.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB2F07190002CB00AD815D /* NSDictionary+JSONString.m */; };
-		E2257A7519C8C450008AD135 /* ScholicaAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = E2257A7419C8C450008AD135 /* ScholicaAccount.m */; };
-		E2257A7C19C8C46A008AD135 /* Scholica.png in Resources */ = {isa = PBXBuildFile; fileRef = E2257A7619C8C46A008AD135 /* Scholica.png */; };
-		E2257A7D19C8C46A008AD135 /* Scholica@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2257A7719C8C46A008AD135 /* Scholica@2x.png */; };
-		E2257A7E19C8C46A008AD135 /* ScholicaAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = E2257A7819C8C46A008AD135 /* ScholicaAccount.png */; };
-		E2257A7F19C8C46A008AD135 /* ScholicaAccount@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2257A7919C8C46A008AD135 /* ScholicaAccount@2x.png */; };
-		E2257A8019C8C46A008AD135 /* ScholicaNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = E2257A7A19C8C46A008AD135 /* ScholicaNotify.png */; };
-		E2257A8119C8C46A008AD135 /* ScholicaNotify@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2257A7B19C8C46A008AD135 /* ScholicaNotify@2x.png */; };
-		E2257A8819C8C51E008AD135 /* Freshdesk.png in Resources */ = {isa = PBXBuildFile; fileRef = E2257A8219C8C51E008AD135 /* Freshdesk.png */; };
-		E2257A8919C8C51E008AD135 /* Freshdesk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2257A8319C8C51E008AD135 /* Freshdesk@2x.png */; };
-		E2257A8A19C8C51E008AD135 /* FreshdeskAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = E2257A8419C8C51E008AD135 /* FreshdeskAccount.png */; };
-		E2257A8B19C8C51E008AD135 /* FreshdeskAccount@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2257A8519C8C51E008AD135 /* FreshdeskAccount@2x.png */; };
-		E2257A8C19C8C51E008AD135 /* FreshdeskNotify.png in Resources */ = {isa = PBXBuildFile; fileRef = E2257A8619C8C51E008AD135 /* FreshdeskNotify.png */; };
-		E2257A8D19C8C51E008AD135 /* FreshdeskNotify@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2257A8719C8C51E008AD135 /* FreshdeskNotify@2x.png */; };
-		E2257A9019C8C52A008AD135 /* FreshdeskAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = E2257A8F19C8C52A008AD135 /* FreshdeskAccount.m */; };
-};
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -370,6 +369,22 @@
 		01C359AF13C4B6C400D803BD /* HighriseAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighriseAccount.h; sourceTree = "<group>"; };
 		01C359B013C4B6C400D803BD /* HighriseAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighriseAccount.m; sourceTree = "<group>"; };
 		01C4F93213C597AC00DB0CCB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		01C79CFD19E5B1F200066A74 /* ScholicaAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScholicaAccount.h; sourceTree = "<group>"; };
+		01C79CFE19E5B1F200066A74 /* ScholicaAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScholicaAccount.m; sourceTree = "<group>"; };
+		01C79D0019E5B1F800066A74 /* FreshdeskAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreshdeskAccount.h; sourceTree = "<group>"; };
+		01C79D0119E5B1F800066A74 /* FreshdeskAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreshdeskAccount.m; sourceTree = "<group>"; };
+		01C79D0319E5B20C00066A74 /* Freshdesk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Freshdesk.png; sourceTree = "<group>"; };
+		01C79D0419E5B20C00066A74 /* Freshdesk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Freshdesk@2x.png"; sourceTree = "<group>"; };
+		01C79D0519E5B20C00066A74 /* FreshdeskAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FreshdeskAccount.png; sourceTree = "<group>"; };
+		01C79D0619E5B20C00066A74 /* FreshdeskAccount@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FreshdeskAccount@2x.png"; sourceTree = "<group>"; };
+		01C79D0719E5B20C00066A74 /* FreshdeskNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FreshdeskNotify.png; sourceTree = "<group>"; };
+		01C79D0819E5B20C00066A74 /* FreshdeskNotify@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FreshdeskNotify@2x.png"; sourceTree = "<group>"; };
+		01C79D0919E5B20C00066A74 /* Scholica.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Scholica.png; sourceTree = "<group>"; };
+		01C79D0A19E5B20C00066A74 /* Scholica@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Scholica@2x.png"; sourceTree = "<group>"; };
+		01C79D0B19E5B20C00066A74 /* ScholicaAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScholicaAccount.png; sourceTree = "<group>"; };
+		01C79D0C19E5B20C00066A74 /* ScholicaAccount@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ScholicaAccount@2x.png"; sourceTree = "<group>"; };
+		01C79D0D19E5B20C00066A74 /* ScholicaNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScholicaNotify.png; sourceTree = "<group>"; };
+		01C79D0E19E5B20C00066A74 /* ScholicaNotify@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ScholicaNotify@2x.png"; sourceTree = "<group>"; };
 		01D4A3BA13C434B400CE07CC /* NSURLRequest+Authorization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "NSURLRequest+Authorization.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		01D4A3BB13C434B400CE07CC /* NSURLRequest+Authorization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSURLRequest+Authorization.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		01D73CDD19782D15009E00FA /* BitbucketAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitbucketAccount.h; sourceTree = "<group>"; };
@@ -418,22 +433,6 @@
 		4DDB2F04190002B600AD815D /* NSString+ObjectFromJSONString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ObjectFromJSONString.m"; sourceTree = "<group>"; };
 		4DDB2F06190002CB00AD815D /* NSDictionary+JSONString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+JSONString.h"; sourceTree = "<group>"; };
 		4DDB2F07190002CB00AD815D /* NSDictionary+JSONString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+JSONString.m"; sourceTree = "<group>"; };
-		E2257A7319C8C450008AD135 /* ScholicaAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScholicaAccount.h; sourceTree = "<group>"; };
-		E2257A7419C8C450008AD135 /* ScholicaAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScholicaAccount.m; sourceTree = "<group>"; };
-		E2257A7619C8C46A008AD135 /* Scholica.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Scholica.png; sourceTree = "<group>"; };
-		E2257A7719C8C46A008AD135 /* Scholica@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Scholica@2x.png"; sourceTree = "<group>"; };
-		E2257A7819C8C46A008AD135 /* ScholicaAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScholicaAccount.png; sourceTree = "<group>"; };
-		E2257A7919C8C46A008AD135 /* ScholicaAccount@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ScholicaAccount@2x.png"; sourceTree = "<group>"; };
-		E2257A7A19C8C46A008AD135 /* ScholicaNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScholicaNotify.png; sourceTree = "<group>"; };
-		E2257A7B19C8C46A008AD135 /* ScholicaNotify@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ScholicaNotify@2x.png"; sourceTree = "<group>"; };
-		E2257A8219C8C51E008AD135 /* Freshdesk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Freshdesk.png; sourceTree = "<group>"; };
-		E2257A8319C8C51E008AD135 /* Freshdesk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Freshdesk@2x.png"; sourceTree = "<group>"; };
-		E2257A8419C8C51E008AD135 /* FreshdeskAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FreshdeskAccount.png; sourceTree = "<group>"; };
-		E2257A8519C8C51E008AD135 /* FreshdeskAccount@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FreshdeskAccount@2x.png"; sourceTree = "<group>"; };
-		E2257A8619C8C51E008AD135 /* FreshdeskNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FreshdeskNotify.png; sourceTree = "<group>"; };
-		E2257A8719C8C51E008AD135 /* FreshdeskNotify@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FreshdeskNotify@2x.png"; sourceTree = "<group>"; };
-		E2257A8E19C8C52A008AD135 /* FreshdeskAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreshdeskAccount.h; sourceTree = "<group>"; };
-		E2257A8F19C8C52A008AD135 /* FreshdeskAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreshdeskAccount.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -460,10 +459,6 @@
 		0108CECC13BB1B080000ECE1 /* Accounts */ = {
 			isa = PBXGroup;
 			children = (
-				E2257A8E19C8C52A008AD135 /* FreshdeskAccount.h */,
-				E2257A8F19C8C52A008AD135 /* FreshdeskAccount.m */,
-				E2257A7319C8C450008AD135 /* ScholicaAccount.h */,
-				E2257A7419C8C450008AD135 /* ScholicaAccount.m */,
 				012734BC15DFFB4E00512361 /* RSSAtomAccount.h */,
 				012734BD15DFFB4E00512361 /* RSSAtomAccount.m */,
 				0108CED113BB1EC00000ECE1 /* BasecampAccount.h */,
@@ -490,6 +485,10 @@
 				01BD35E1154D985200170BDD /* ZendeskAccount.m */,
 				01F2ABB415E176D400AE57F0 /* PivotalTrackerAccount.h */,
 				01F2ABB515E176D500AE57F0 /* PivotalTrackerAccount.m */,
+				01C79CFD19E5B1F200066A74 /* ScholicaAccount.h */,
+				01C79CFE19E5B1F200066A74 /* ScholicaAccount.m */,
+				01C79D0019E5B1F800066A74 /* FreshdeskAccount.h */,
+				01C79D0119E5B1F800066A74 /* FreshdeskAccount.m */,
 			);
 			name = Accounts;
 			sourceTree = "<group>";
@@ -574,18 +573,6 @@
 		015D789E13C6733D00BCD7C4 /* Service Icons */ = {
 			isa = PBXGroup;
 			children = (
-				E2257A8219C8C51E008AD135 /* Freshdesk.png */,
-				E2257A8319C8C51E008AD135 /* Freshdesk@2x.png */,
-				E2257A8419C8C51E008AD135 /* FreshdeskAccount.png */,
-				E2257A8519C8C51E008AD135 /* FreshdeskAccount@2x.png */,
-				E2257A8619C8C51E008AD135 /* FreshdeskNotify.png */,
-				E2257A8719C8C51E008AD135 /* FreshdeskNotify@2x.png */,
-				E2257A7619C8C46A008AD135 /* Scholica.png */,
-				E2257A7719C8C46A008AD135 /* Scholica@2x.png */,
-				E2257A7819C8C46A008AD135 /* ScholicaAccount.png */,
-				E2257A7919C8C46A008AD135 /* ScholicaAccount@2x.png */,
-				E2257A7A19C8C46A008AD135 /* ScholicaNotify.png */,
-				E2257A7B19C8C46A008AD135 /* ScholicaNotify@2x.png */,
 				013B1ACA15E8451D008E9ACB /* Basecamp.png */,
 				013B1ACB15E8451D008E9ACB /* Basecamp@2x.png */,
 				013B1ACC15E8451D008E9ACB /* BasecampAccount.png */,
@@ -659,6 +646,18 @@
 				013B1B0A15E8451D008E9ACB /* ZendeskAccount@2x.png */,
 				013B1B0B15E8451D008E9ACB /* ZendeskNotify.png */,
 				013B1B0C15E8451D008E9ACB /* ZendeskNotify@2x.png */,
+				01C79D0319E5B20C00066A74 /* Freshdesk.png */,
+				01C79D0419E5B20C00066A74 /* Freshdesk@2x.png */,
+				01C79D0519E5B20C00066A74 /* FreshdeskAccount.png */,
+				01C79D0619E5B20C00066A74 /* FreshdeskAccount@2x.png */,
+				01C79D0719E5B20C00066A74 /* FreshdeskNotify.png */,
+				01C79D0819E5B20C00066A74 /* FreshdeskNotify@2x.png */,
+				01C79D0919E5B20C00066A74 /* Scholica.png */,
+				01C79D0A19E5B20C00066A74 /* Scholica@2x.png */,
+				01C79D0B19E5B20C00066A74 /* ScholicaAccount.png */,
+				01C79D0C19E5B20C00066A74 /* ScholicaAccount@2x.png */,
+				01C79D0D19E5B20C00066A74 /* ScholicaNotify.png */,
+				01C79D0E19E5B20C00066A74 /* ScholicaNotify@2x.png */,
 			);
 			name = "Service Icons";
 			sourceTree = "<group>";
@@ -897,14 +896,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2257A8A19C8C51E008AD135 /* FreshdeskAccount.png in Resources */,
 				01937C8D13A03F5000BCE1D4 /* InfoPlist.strings in Resources */,
 				01937C9313A03F5000BCE1D4 /* Credits.rtf in Resources */,
 				01937C9913A03F5000BCE1D4 /* App.xib in Resources */,
 				01F616B313AD4EC800EBB24E /* Growl Registration Ticket.growlRegDict in Resources */,
 				01F616F313AEAA2700EBB24E /* PreferencesController.xib in Resources */,
 				01D7CB8E13B02F62001B133A /* CreateAccountController.xib in Resources */,
-				E2257A8C19C8C51E008AD135 /* FreshdeskNotify.png in Resources */,
 				01D73CEA19782D4E009E00FA /* BitbucketNotify.png in Resources */,
 				015D788F13C6394600BCD7C4 /* Popover.html in Resources */,
 				01B7FBE313FDB60200ACC29B /* ApplicationIcon.icns in Resources */,
@@ -919,25 +916,26 @@
 				013B1ABC15E83BAC008E9ACB /* StatusItemUnread.png in Resources */,
 				013B1ABD15E83BAC008E9ACB /* StatusItemUnread@2x.png in Resources */,
 				013B1AC015E83BBB008E9ACB /* Unread.png in Resources */,
-				E2257A7E19C8C46A008AD135 /* ScholicaAccount.png in Resources */,
+				01C79D1719E5B20C00066A74 /* ScholicaAccount.png in Resources */,
 				013B1AC115E83BBB008E9ACB /* Unread@2x.png in Resources */,
-				E2257A7F19C8C46A008AD135 /* ScholicaAccount@2x.png in Resources */,
+				01C79D1819E5B20C00066A74 /* ScholicaAccount@2x.png in Resources */,
 				013B1AC515E843BD008E9ACB /* AlertCautionIcon.icns in Resources */,
 				013B1AC815E84490008E9ACB /* Accounts.icns in Resources */,
-				E2257A8119C8C46A008AD135 /* ScholicaNotify@2x.png in Resources */,
+				01C79D1A19E5B20C00066A74 /* ScholicaNotify@2x.png in Resources */,
 				013B1AC915E84490008E9ACB /* General.icns in Resources */,
+				01C79D1119E5B20C00066A74 /* FreshdeskAccount.png in Resources */,
 				013B1B0D15E8451D008E9ACB /* Basecamp.png in Resources */,
 				013B1B0E15E8451D008E9ACB /* Basecamp@2x.png in Resources */,
 				013B1B0F15E8451D008E9ACB /* BasecampAccount.png in Resources */,
+				01C79D1319E5B20C00066A74 /* FreshdeskNotify.png in Resources */,
 				013B1B1015E8451D008E9ACB /* BasecampAccount@2x.png in Resources */,
 				013B1B1115E8451D008E9ACB /* BasecampNotify.png in Resources */,
 				013B1B1215E8451D008E9ACB /* BasecampNotify@2x.png in Resources */,
 				013B1B1315E8451D008E9ACB /* Beanstalk.png in Resources */,
 				013B1B1415E8451D008E9ACB /* Beanstalk@2x.png in Resources */,
+				01C79D1619E5B20C00066A74 /* Scholica@2x.png in Resources */,
 				013B1B1515E8451D008E9ACB /* BeanstalkAccount.png in Resources */,
 				013B1B1615E8451D008E9ACB /* BeanstalkAccount@2x.png in Resources */,
-				E2257A8D19C8C51E008AD135 /* FreshdeskNotify@2x.png in Resources */,
-				E2257A7D19C8C46A008AD135 /* Scholica@2x.png in Resources */,
 				013B1B1715E8451D008E9ACB /* BeanstalkNotify.png in Resources */,
 				013B1B1815E8451D008E9ACB /* BeanstalkNotify@2x.png in Resources */,
 				013B1B1915E8451D008E9ACB /* Default.png in Resources */,
@@ -947,7 +945,6 @@
 				013B1B1D15E8451D008E9ACB /* DribbbleAccount@2x.png in Resources */,
 				013B1B1E15E8451D008E9ACB /* DribbbleNotify.png in Resources */,
 				013B1B1F15E8451D008E9ACB /* DribbbleNotify@2x.png in Resources */,
-				E2257A8B19C8C51E008AD135 /* FreshdeskAccount@2x.png in Resources */,
 				013B1B2015E8451D008E9ACB /* Dropmark.png in Resources */,
 				013B1B2115E8451D008E9ACB /* Dropmark@2x.png in Resources */,
 				013B1B2215E8451D008E9ACB /* DropmarkAccount.png in Resources */,
@@ -971,36 +968,38 @@
 				013B1B3315E8451D008E9ACB /* PivotalTracker@2x.png in Resources */,
 				013B1B3415E8451D008E9ACB /* PivotalTrackerAccount.png in Resources */,
 				013B1B3515E8451D008E9ACB /* PivotalTrackerAccount@2x.png in Resources */,
+				01C79D0F19E5B20C00066A74 /* Freshdesk.png in Resources */,
 				013B1B3615E8451D008E9ACB /* PivotalTrackerNotify.png in Resources */,
 				013B1B3715E8451D008E9ACB /* PivotalTrackerNotify@2x.png in Resources */,
 				013B1B3815E8451D008E9ACB /* RSSAtom.png in Resources */,
+				01C79D1019E5B20C00066A74 /* Freshdesk@2x.png in Resources */,
 				013B1B3915E8451D008E9ACB /* RSSAtom@2x.png in Resources */,
-				E2257A8819C8C51E008AD135 /* Freshdesk.png in Resources */,
 				013B1B3A15E8451D008E9ACB /* RSSAtomAccount.png in Resources */,
+				01C79D1419E5B20C00066A74 /* FreshdeskNotify@2x.png in Resources */,
 				013B1B3B15E8451D008E9ACB /* RSSAtomAccount@2x.png in Resources */,
 				013B1B3C15E8451D008E9ACB /* RSSAtomNotify.png in Resources */,
+				01C79D1219E5B20C00066A74 /* FreshdeskAccount@2x.png in Resources */,
 				013B1B3D15E8451D008E9ACB /* RSSAtomNotify@2x.png in Resources */,
 				013B1B3E15E8451D008E9ACB /* Trello.png in Resources */,
-				E2257A8919C8C51E008AD135 /* Freshdesk@2x.png in Resources */,
 				013B1B3F15E8451D008E9ACB /* Trello@2x.png in Resources */,
 				013B1B4015E8451D008E9ACB /* TrelloAccount.png in Resources */,
 				013B1B4115E8451D008E9ACB /* TrelloAccount@2x.png in Resources */,
 				013B1B4215E8451D008E9ACB /* TrelloNotify.png in Resources */,
 				013B1B4315E8451D008E9ACB /* TrelloNotify@2x.png in Resources */,
 				013B1B4415E8451D008E9ACB /* UserVoice.png in Resources */,
+				01C79D1519E5B20C00066A74 /* Scholica.png in Resources */,
 				01D73CE819782D4E009E00FA /* BitbucketAccount.png in Resources */,
 				013B1B4515E8451D008E9ACB /* UserVoice@2x.png in Resources */,
 				01D73CE919782D4E009E00FA /* BitbucketAccount@2x.png in Resources */,
 				013B1B4615E8451D008E9ACB /* UserVoiceAccount.png in Resources */,
 				01D73CE719782D4E009E00FA /* Bitbucket@2x.png in Resources */,
+				01C79D1919E5B20C00066A74 /* ScholicaNotify.png in Resources */,
 				013B1B4715E8451D008E9ACB /* UserVoiceAccount@2x.png in Resources */,
-				E2257A7C19C8C46A008AD135 /* Scholica.png in Resources */,
 				013B1B4815E8451D008E9ACB /* UserVoiceNotify.png in Resources */,
 				013B1B4915E8451D008E9ACB /* UserVoiceNotify@2x.png in Resources */,
 				013B1B4A15E8451D008E9ACB /* Zendesk.png in Resources */,
 				013B1B4B15E8451D008E9ACB /* Zendesk@2x.png in Resources */,
 				013B1B4C15E8451D008E9ACB /* ZendeskAccount.png in Resources */,
-				E2257A8019C8C46A008AD135 /* ScholicaNotify.png in Resources */,
 				013B1B4D15E8451D008E9ACB /* ZendeskAccount@2x.png in Resources */,
 				013B1B4E15E8451D008E9ACB /* ZendeskNotify.png in Resources */,
 				013B1B4F15E8451D008E9ACB /* ZendeskNotify@2x.png in Resources */,
@@ -1032,6 +1031,7 @@
 				0108CEE013BBA3AC0000ECE1 /* NSString+Base64.m in Sources */,
 				01D4A3BC13C434B400CE07CC /* NSURLRequest+Authorization.m in Sources */,
 				01C359B113C4B6C400D803BD /* HighriseAccount.m in Sources */,
+				01C79CFF19E5B1F200066A74 /* ScholicaAccount.m in Sources */,
 				01B2BE7313C4BBE900304D6A /* NSString+Truncated.m in Sources */,
 				01B2BE7713C4C39B00304D6A /* DribbbleAccount.m in Sources */,
 				01B2BE7A13C4E76400304D6A /* GithubAccount.m in Sources */,
@@ -1039,12 +1039,12 @@
 				01518F7E13C54F480043AB98 /* CG+Geometry.m in Sources */,
 				0125C6CD13C7C8B10006BB1A /* NSView+PrintHierarchy.m in Sources */,
 				015E0ED814475D2E000A611D /* AccountCell.m in Sources */,
+				01C79D0219E5B1F800066A74 /* FreshdeskAccount.m in Sources */,
 				019EE0DC147023B800B67B74 /* DDHotKeyCenter.m in Sources */,
 				019EE0F2147044CA00B67B74 /* LoginItems.m in Sources */,
 				014147A01486B019000D63E5 /* UserVoiceAccount.m in Sources */,
 				014147AE1486B258000D63E5 /* TFHpple.m in Sources */,
 				01D73CDF19782D15009E00FA /* BitbucketAccount.m in Sources */,
-				E2257A7519C8C450008AD135 /* ScholicaAccount.m in Sources */,
 				014147AF1486B258000D63E5 /* TFHppleElement.m in Sources */,
 				014147B01486B258000D63E5 /* XPathQuery.m in Sources */,
 				014147B81486B575000D63E5 /* NSString+English.m in Sources */,
@@ -1058,7 +1058,6 @@
 				01D84E3A153018D100267C15 /* DropmarkAccount.m in Sources */,
 				0133CEA61530974B00CF6647 /* NSAlert+Foreground.m in Sources */,
 				01BD35E2154D985200170BDD /* ZendeskAccount.m in Sources */,
-				E2257A9019C8C52A008AD135 /* FreshdeskAccount.m in Sources */,
 				012734BE15DFFB4E00512361 /* RSSAtomAccount.m in Sources */,
 				013BE6ED15E14F7E0002F51E /* DDFileLogger.m in Sources */,
 				4DDB2F08190002CB00AD815D /* NSDictionary+JSONString.m in Sources */,
