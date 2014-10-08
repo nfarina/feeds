@@ -67,6 +67,7 @@
         NSString *type = notification[@"type"];
         NSString *date = notification[@"date"];
         NSString *creatorIdentifier = notification[@"idMemberCreator"];
+        NSDictionary *creator = notification[@"memberCreator"];
         NSDictionary *data = notification[@"data"];
         NSString *org = data[@"organization"][@"id"];
         NSString *orgName = data[@"organization"][@"name"];
@@ -132,8 +133,8 @@
             title = @"checked {name} on card {card}";
         else if ([type isEqualToString:@"updateCheckItemStateOnCard"] && [state isEqualToString:@"incomplete"])
             title = @"unchecked {name} on card {card}";
-        else
-            title = type;
+        else if ([type isEqualToString:@"cardDueSoon"])
+            title = cardName;
         
         if ([title containsString:@"{member}"] && member) {
             
@@ -162,15 +163,8 @@
         title = [title stringByReplacingOccurrencesOfString:@"{name}" withString:
                  [NSString stringWithFormat:@"<i>%@</i>", name ?: @""]];
         
-        if (creatorIdentifier) {
-            // go out and fetch the author's username since we only have their ID
-            NSString *authorLookup = [NSString stringWithFormat:@"https://api.trello.com/1/members/%@?key=53e6bb99cefe4914e88d06c76308e357&token=%@", creatorIdentifier, token];
-            NSData *data = [self extraDataWithContentsOfURL:[NSURL URLWithString:authorLookup]];
-            if (!data) return nil;
-            
-            NSDictionary *member = [data objectFromJSONData];
-            NSString *memberName = member[@"fullName"];
-            item.author = memberName;
+        if (creator) {
+            item.author = creator[@"fullName"];
         }
         
         if (item.author.length)
@@ -181,7 +175,7 @@
         if (text)
             content = [content stringByAppendingFormat:@"<hr/><i>%@</i>", text];
 
-        //item.title = title;
+        item.title = title;
         item.content = content;
         item.project = boardName;
         
