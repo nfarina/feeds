@@ -135,6 +135,8 @@
             title = @"unchecked {name} on card {card}";
         else if ([type isEqualToString:@"cardDueSoon"])
             title = cardName;
+        else
+            title = type;
         
         if ([title containsString:@"{member}"] && member) {
             
