@@ -337,7 +337,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
         menuItem.tag = i+1;
         
         if (!item.viewed) {
-            menuItem.onStateImage = [NSImage imageNamed:@"Unread.tiff"];
+            menuItem.onStateImage = [NSImage imageNamed:@"Unread"];
             menuItem.state = NSOnState;
         }
         
