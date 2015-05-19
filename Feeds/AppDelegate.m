@@ -76,7 +76,6 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 
     self.statusItemView = [[StatusItemView alloc] initWithStatusItem:self.statusItem];
     self.statusItem.enabled = YES;
-    self.statusItem.view = self.statusItemView;
 
     self.popover = [[NSPopover alloc] init];
     [self.popover setContentViewController:[[NSViewController alloc] init]];
