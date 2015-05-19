@@ -462,9 +462,19 @@ const int ddLogLevel = LOG_LEVEL_INFO;
         css = [NSString stringWithContentsOfFile:cssPath encoding:NSUTF8StringEncoding error:NULL];
     }
     
+    // add an automatic CSS "class" of the selected item's account, for account-specific styling like "body.GithubAccount"
+    NSString *bodyClass = NSStringFromClass(item.feed.account.class);
+    
+    // append "DarkMode" if we're in the new "Dark Mode" introduced with OS X 10.10 Yosemite
+    id style = [[NSUserDefaults standardUserDefaults] persistentDomainForName:NSGlobalDomain][@"AppleInterfaceStyle"];
+    BOOL darkMode = ( style && [style isKindOfClass:[NSString class]] && NSOrderedSame == [style caseInsensitiveCompare:@"dark"] );
+    
+    if (darkMode)
+        bodyClass = [bodyClass stringByAppendingString:@" DarkMode"];
+    
     NSString *templatePath = [[NSBundle mainBundle] pathForResource:@"Popover" ofType:@"html"];
     NSString *template = [NSString stringWithContentsOfFile:templatePath encoding:NSUTF8StringEncoding error:NULL];
-    NSString *rendered = [NSString stringWithFormat:template, css, NSStringFromClass(item.feed.account.class), [titleOrFallback truncatedAfterIndex:75], authorAndTime, item.content ?: @""];
+    NSString *rendered = [NSString stringWithFormat:template, css, bodyClass, [titleOrFallback truncatedAfterIndex:75], authorAndTime, item.content ?: @""];
 
     //NSLog(@"Rendered:\n%@\n", rendered);
     

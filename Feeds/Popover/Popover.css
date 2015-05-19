@@ -8,6 +8,10 @@ body {
     margin-top: 7px;
     text-shadow: 0 1px 0 white;
 }
+body.DarkMode {
+    color: white;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
+}
 .title {
     /* Some feeds (like Github) include the title in the content as well, so let's hide that. */
     display:none;
@@ -28,6 +32,9 @@ div.feeds-author {
     font-weight: bold;
     margin: 7px;
     margin-top: 1px;
+}
+body.DarkMode div.feeds-author {
+    color: rgba(255,255,255,0.9);
 }
 div.feeds-content {
     margin: 7px;
@@ -77,18 +84,23 @@ body.GithubAccount li code {
     color: #666;
 }
 
-body.GithubAccount li {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-body.GithubAccount li blockquote {
+body.GithubAccount blockquote {
     margin-left: 20px;
     margin-right: 20px;
     background: #ddd;
     padding: 8px 14px;
     border-radius: 2px;
-    box-shadow: inset 0 1px 1px rgba(0,0,0,0.2),
-    0 1px 0 white;
+    box-shadow:
+        inset 0 1px 1px rgba(0,0,0,0.2),
+        0 1px 0 white;
     color: #444;
+}
+body.GithubAccount blockquote p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+body.GithubAccount.DarkMode blockquote {
+    background: rgba(0,0,0,0.3);
+    color: white;
+    box-shadow: none;
 }
