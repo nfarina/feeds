@@ -1,0 +1,97 @@
+#!/bin/bash
+
+# Exit on errors
+set -e
+
+# Useful paths and vars
+ROOT=$(cd "$(dirname "$0")"; pwd) # Absolute path to root of repository
+VERSION=`defaults read $ROOT/Feeds/Feeds-Info.plist CFBundleVersion`
+BUILD="/tmp/feeds/Build" # Temporary build products
+DIST_NAME="Feeds-$VERSION" # like "Feeds-1.0"
+DIST="/tmp/feeds/Distribution/$DIST_NAME" # like "/path/to/feeds/Distribution/Feeds-1.0"
+BUCKET="gs://feeds-releases"
+
+# Options
+FORCE_UPLOAD=0
+
+# Parse command-line options
+# http://stackoverflow.com/a/21128172/66673
+while getopts 'f' flag; do
+  case "${flag}" in
+    f) FORCE_UPLOAD=1 ;;
+  esac
+done
+
+echo "====================="
+echo "Building Feeds App..."
+echo "====================="
+
+xcodebuild \
+  -project Feeds.xcodeproj \
+  CONFIGURATION_BUILD_DIR="$BUILD"
+
+echo "========================"
+echo "Zipping Distributable..."
+echo "========================"
+
+# Remove any previously-built distributable for this version
+rm -rf "$DIST"
+
+# Begin building our distributable
+mkdir -p "$DIST"
+
+# Copy the app itself
+cp -aR "$BUILD/Feeds.app" "$DIST/Feeds.app"
+
+# must chdir and use relative paths or else we get absolute paths in the zip file
+cd "$DIST"
+
+# delete any old zip that's sitting there
+rm -f "$DIST_NAME.zip" 
+
+zip -rq --symlinks \
+  "$DIST_NAME.zip" "Feeds.app" \
+  -x "*.DS_Store"
+
+echo "===================================="
+echo "Uploading to Google Cloud Storage..."
+echo "===================================="
+
+# upload the zip to cloud storage on the "feedswww" Google Cloud Project
+# in the "feeds-releases" bucket, which has been pre-configured with CORS
+# so the website can fetch the download URL to the latest version
+
+# first check that we're not overwriting a previously-published version
+set +e # temporarily prevent exiting on error
+gsutil -q ls "$BUCKET/$DIST_NAME.zip" &> /dev/null
+GSUTIL_EXIT_CODE=`echo $?`
+set -e
+
+# check the exit code - if zero, that means the ls command succeeded (file exists already) so this SDK
+# was already uploaded! So let's bail unless you told us to overwrite the SDK explicitly.
+if [[ $GSUTIL_EXIT_CODE -eq 0  ]] && [[ $FORCE_UPLOAD -eq 0 ]]; then
+  echo "A version $VERSION of Feeds has already been published. Use the '-f' option to overwrite the existing version."
+  exit 1
+fi
+
+# OK let's copy the new version. Use "-a public-read" to ensure that these files are
+# publicly accessible by both end-users and the website Javascript.
+gsutil -m -q cp -a public-read "$DIST/$DIST_NAME.zip" "$BUCKET/$DIST_NAME.zip"
+
+# also upload the appcast
+gsutil -m -q cp -R -a public-read "$ROOT/appcast.xml" "$BUCKET/appcast.xml"
+
+# Create a file that contains the latest version (assumed to be the one we're publishing) so that
+# the website can figure out what to download.
+echo "$VERSION" > "/tmp/LATEST"
+gsutil -m -q cp -a public-read "/tmp/LATEST" "$BUCKET/LATEST"
+
+# We want to disable caching on these files so changes are propagated immediately.
+gsutil -m -q setmeta -R -h "Cache-Control:no-cache" \
+  "$BUCKET/LATEST" \
+  "$BUCKET/appcast.xml" \
+  "$BUCKET/$DIST_NAME.zip"
+
+echo "====="
+echo "Done."
+echo "====="

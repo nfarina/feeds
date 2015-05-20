@@ -6,6 +6,18 @@
       <description>Most recent changes with links to updates.</description>
       <language>en</language>      
 
+        <item>
+           <title>Version 2.1.0 (Support Yosemite Dark Mode)</title>
+           <description>
+              This release adds support for "Dark Mode" UI introduced with Yosemite (OS X 10.10).
+           </description>
+           <pubDate>Wed, 20 May 2015 14:10:35 -0000</pubDate>
+           <enclosure
+              url="https://storage.googleapis.com/feeds-releases/Feeds-2.1.0.zip"
+              sparkle:version="2.1.0"
+              type="application/octet-stream"/>
+        </item>
+
          <item>
             <title>Version 2.0.5.1 (Add Account Bugfix)</title>
             <description>
@@ -13,7 +25,7 @@
             </description>
             <pubDate>Wed, 08 May 2013 17:12:35 -0000</pubDate>
             <enclosure
-               url="http://storage.googleapis.com/feeds-releases/Feeds-2.0.5.1.zip"
+               url="https://storage.googleapis.com/feeds-releases/Feeds-2.0.5.1.zip"
                sparkle:version="2.0.5.1"
                type="application/octet-stream"/>
          </item>

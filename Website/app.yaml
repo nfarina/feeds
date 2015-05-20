@@ -20,9 +20,8 @@ handlers:
 - url: /wallpaper
   static_dir: wallpaper
 
-- url: /appcast.xml
-  static_files: appcast.xml
-  upload: appcast.xml
+- url: /appcast\.xml
+  script: appcast.app
 
 - url: /favicon.ico
   static_files: img/favicon.ico

@@ -7,9 +7,7 @@ build/
 *.pbxuser
 *~.nib
 xcuserdata
-
-# Xcode 4
-xcuserdata/
-
-# Xcode 5
 *.xccheckout
+
+# Python
+*.pyc
