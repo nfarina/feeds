@@ -50,7 +50,14 @@
 
 - (void)setHighlighted:(BOOL)value {
     _highlighted = value;
-    [self setNeedsDisplay:YES];
+    
+    // use proper NSStatusBarButtons on 10.10 and higher
+    if ([self.statusItem respondsToSelector:@selector(button)]) {
+        [self.statusItem.button setHighlighted:self.highlighted];
+    }
+    else {
+        [self setNeedsDisplay:YES];
+    }
 }
 
 - (NSImage *)iconImage {
