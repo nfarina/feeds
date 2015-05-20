@@ -100,7 +100,7 @@ body.GithubAccount blockquote p {
     margin-bottom: 0;
 }
 body.GithubAccount.DarkMode blockquote {
-    background: rgba(0,0,0,0.3);
-    color: white;
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.95);
     box-shadow: none;
 }
