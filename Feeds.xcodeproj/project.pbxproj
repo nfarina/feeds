@@ -385,6 +385,7 @@
 		01C79D0C19E5B20C00066A74 /* ScholicaAccount@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ScholicaAccount@2x.png"; sourceTree = "<group>"; };
 		01C79D0D19E5B20C00066A74 /* ScholicaNotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScholicaNotify.png; sourceTree = "<group>"; };
 		01C79D0E19E5B20C00066A74 /* ScholicaNotify@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ScholicaNotify@2x.png"; sourceTree = "<group>"; };
+		01CFA3741B0D323E005E6A09 /* appcast.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = appcast.xml; sourceTree = SOURCE_ROOT; };
 		01D4A3BA13C434B400CE07CC /* NSURLRequest+Authorization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "NSURLRequest+Authorization.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		01D4A3BB13C434B400CE07CC /* NSURLRequest+Authorization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSURLRequest+Authorization.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		01D73CDD19782D15009E00FA /* BitbucketAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitbucketAccount.h; sourceTree = "<group>"; };
@@ -739,6 +740,7 @@
 				01B7FBE213FDB60200ACC29B /* ApplicationIcon.icns */,
 				01F2ABB115E15FA400AE57F0 /* ErrorReport.txt */,
 				01A93AB01652B62C00B96B79 /* Prefs.h */,
+				01CFA3741B0D323E005E6A09 /* appcast.xml */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
