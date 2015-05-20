@@ -487,7 +487,13 @@ const int ddLogLevel = LOG_LEVEL_INFO;
     NSInteger shimIndex = [self.menu indexOfItem:self.shimItem];
     NSInteger itemIndex = [self.menu indexOfItem:menuItem];
     
-    frame.origin.y += ((shimIndex-itemIndex)*20) - 10; // 10 to get to middle of the cell
+    int menuItemHeight = 20;
+    
+    // if on Yosemite or higher, system uses Helvetica which is slightly larger.
+    if ([self.statusItem respondsToSelector:@selector(button)])
+        menuItemHeight = 21;
+    
+    frame.origin.y += ((shimIndex-itemIndex)*menuItemHeight) - 10; // 10 to get to middle of the cell
     
     if (shim.view.superview.superview)
         [self.popover showRelativeToRect:frame ofView:shim.view.superview.superview preferredEdge:NSMinXEdge];
