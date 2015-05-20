@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>Feeds - A Mac menu bar app for tracking RSS feeds and activity on web services like Dribbble, Basecamp, Github, and more.</title>
+	<meta name="description" content="Stay up-to-date with your favorite RSS feeds & web services from the comfort of your menu bar.">
+	<meta name="author" content="Nick Farina & Eric Grossnickle">
+
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js" type="text/javascript"></script>
+	<script src="js/jquery.animate-enhanced.min.js" type="text/javascript"></script>
+	<script src="js/jquery.activity-indicator-1.0.1.js" type="text/javascript"></script>
+	<script src="http://use.typekit.com/yfy6xhy.js" type="text/javascript"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<script src="js/FancyZoom.js" type="text/javascript"></script>
+	<script src="js/FancyZoomHTML.js" type="text/javascript"></script>
+	<script>
+		$(document).ready(function() {
+			// Show loading indicator in application area
+			$('#desktop .loading').activity({
+				color: '#fff',
+				speed: 1
+			});
+
+			// Fetch latest release link
+			discoverLatestVersion();
+
+			// Toggle application when menu bar icon is clicked
+			$('#desktop .menu-bar .icon')
+				.click(function() {
+					if ($(this).hasClass('on')) {
+						$('#desktop .menu').fadeOut('fast');
+						$('#desktop .menu-selection').fadeOut('fast');
+						$('#desktop .popover').fadeOut('fast');
+					}
+					else {
+						$('#desktop .menu').fadeIn('slow', function() {
+							$('#desktop .menu-selection').fadeIn('fast', function() {
+								$('#desktop .popover').fadeIn('slow');
+							});
+						});
+					}
+
+					$(this).toggleClass('on');
+
+					return false;
+				});
+
+			// When all images have loaded, remove loading indicator and trigger application animation
+			$(window).load(function() {
+				$('#desktop .loading').fadeOut('fast', function() {
+					$(this).activity(false);
+				});
+				$('#desktop .menu-bar .icon').click();
+			});
+
+			// Crossfade wallpaper options
+			function toggleWallpaperOptions() {
+				var $currentWallpaper = $('#wallpaper .examples li:visible').first();
+
+				$currentWallpaper.fadeOut('slow', function() {
+					var $nextWallpaper = ($currentWallpaper.next().length) ? $currentWallpaper.next() : $('#wallpaper .examples li').first();
+					$nextWallpaper.fadeIn('slow');
+				});
+			}
+			setInterval(toggleWallpaperOptions, 5000);
+		});
+
+		function discoverLatestVersion() {
+
+				$("#latest_release").css("opacity","0.5");
+
+        $.ajax({
+            url: 'http://storage.googleapis.com/feeds-releases/LATEST',
+            success: function(version) {
+
+                version = version.trim() // like "2.1.0"
+
+								$("#latest_release")
+									.css("opacity","1")
+									.attr("href", "http://storage.googleapis.com/feeds-releases/Feeds-"+version+".zip");
+            }
+        });
+    }
+
+		// Google Analytics
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-139239-20']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body onload="setupZoom()">
+
+	<div id="container">
+		<header id="masthead">
+			<div class="content">
+				<h1><span>Feeds 2</span></h1>
+				<p>Stay up-to-date with your favorite RSS feeds &amp; web services from the comfort of your menu bar.</p>
+				<a id="latest_release" href="#"><img src="img/download.png" alt="Download - Free" class="buy" /></a>
+			</div>
+			<aside>
+				<img src="img/icon-284.png" alt="application icon" class="application-icon" />
+			</aside>
+		</header>
+
+		<div id="notice">
+			<p>Feeds is now <strong>free</strong> and <strong>open-source</strong> (read the <a href="http://nfarina.com/post/48394898557/free-feeds">blog post</a>). Help us add support for new services and maintain the existing ones by contributing to the <a href="https://github.com/nfarina/feeds">source code on Github</a>.</p>
+		</div>
+
+		<div id="main" role="main">
+			<section id="desktop">
+				<div class="menu-bar">
+					<a href="#" class="icon">Toggle Menu</a>
+				</div>
+				<div class="menu">
+					<img src="img/app-menu-selection.png" class="menu-selection" />
+					<img src="img/app-menu.png" class="the-menu" />
+				</div>
+				<div class="popover">
+					<img src="img/app-popover-image.jpg" alt="Dribbble shot" class="popover-image" />
+					<img src="img/app-popover.png" alt="popover" class="the-popover" />
+				</div>
+				<div class="loading" />
+			</section>
+
+			<section id="about">
+				<div class="content intro">
+					<h2>Do Not Refresh Your Browser.</h2>
+					<p>Feeds lives in your Mac's menu bar and lets you quickly view the content of new posts without ever opening a browser window.</p>
+				</div>
+
+				<div class="notice">
+					<p><strong>New in version 2.0 &rsaquo;</strong> Added support for RSS feeds and Pivotal Tracker, ability to 'Mark All Items as Read', bug fixes.</p>
+				</div>
+
+				<div class="block-rss content aside-left">
+					<aside>
+						<img src="img/rss.png" alt="RSS" />
+					</aside>
+					<div>
+						<h2>Monitor Any RSS Feed.</h2>
+						<p>Have feeds that you need to keep a sharp eye on? Now you can add any RSS or Atom feed to Feeds and be notified as soon as new activity happens.</p>
+					</div>
+				</div>
+
+				<div class="block-services content align-center">
+					<h2>Track Activity on Web Services.</h2>
+					<p>We've built-in support for several popular web services&mdash;staying on top of new activity has never been quicker or easier.</p>
+				</div>
+
+				<ul class="services row-of-four first-row">
+					<li class="service">
+						<a href="http://dribbble.com"><img src="img/service-dribbble.png" alt="Dribbble" /></a>
+						<ul>
+							<li class="feed"><span>My Activity</span></li>
+							<li class="feed"><span>Following Activity</span></li>
+						</ul>
+					</li>
+					<li class="service">
+						<a href="http://basecamphq.com"><img src="img/service-basecamp.png" alt="Basecamp + Basecamp Next" /></a>
+						<ul>
+							<li class="feed"><span>Latest Activity</span></li>
+							<li class="feature"><span>Multiple Accounts</span></li>
+						</ul>
+					</li>
+					<li class="service">
+						<a href="http://github.com"><img src="img/service-github.png" alt="Github" /></a>
+						<ul>
+							<li class="feed"><span>News Feed</span></li>
+							<li class="feature"><span>Multiple Organizations</span></li>
+						</ul>
+					</li>
+					<li class="service">
+						<a href="http://highrisehq.com"><img src="img/service-highrise.png" alt="Highrise" /></a>
+						<ul>
+							<li class="feed"><span>Latest Activity</span></li>
+							<li class="feature"><span>Multiple Accounts</span></li>
+						</ul>
+					</li>
+				</ul>
+
+				<ul class="services row-of-three">
+					<li class="service">
+						<a href="http://beanstalkapp.com"><img src="img/service-beanstalk.png" alt="Beanstalk" /></a>
+						<ul>
+							<li class="feed"><span>Changesets, Deployments</span></li>
+							<li class="feature"><span>Uses Official API</span></li>
+						</ul>
+					</li>
+					<li class="service">
+						<a href="http://trello.com"><img src="img/service-trello.png" alt="Trello" /></a>
+						<ul>
+							<li class="feed"><span>All Notifications</span></li>
+							<li class="feature"><span>Uses Official API</span></li>
+						</ul>
+					</li>
+					<li class="service">
+						<a href="http://uservoice.com"><img src="img/service-uservoice.png" alt="UserVoice" /></a>
+						<ul>
+							<li class="feed"><span>Latest Activity</span></li>
+							<li class="feature"><span>Per-Group Feeds</span></li>
+						</ul>
+					</li>
+				</ul>
+
+				<ul class="services row-of-three">
+					<li class="service">
+						<a href="http://dropmark.com"><img src="img/service-dropmark.png" alt="Dropmark" /></a>
+						<ul>
+							<li class="feed"><span>Activity Feed</span></li>
+							<li class="feed"><span>Comments</span></li>
+						</ul>
+					</li>
+					<li class="service">
+						<a href="http://zendesk.com"><img src="img/service-zendesk.png" alt="Zendesk" /></a>
+						<ul>
+							<li class="feed"><span>Activity Feed</span></li>
+							<li class="feed"><span>Comments</span></li>
+						</ul>
+					</li>
+					<li class="service">
+						<a href="http://pivotaltracker.com"><img src="img/service-pivotaltracker.png" alt="Pivotal Tracker" /></a>
+						<ul>
+							<li class="feed"><span>Multiple Projects</span></li>
+							<li class="feed"><span>Comments</span></li>
+						</ul>
+					</li>
+				</ul>
+
+				<!--<ul class="services last-row">
+					<li class="service coming-soon">
+						<p>More services coming soon.</p>
+					</li>
+				</ul>-->
+
+				<p class="services-disclaimer"><span>Support for other services is planned. Have a request? <a href="http://feedsapp.uservoice.com">Tell us</a> or <a href="">add it yourself!</a></span></p>
+
+				<ul class="screenshots">
+					<li>
+						<a href="img/screenshot-1.jpg" title="Image Support"><img src="img/screenshot-1_sm.png" alt="screenshot" /></a>
+						<span class="caption">Image Support</span>
+					</li>
+					<li>
+						<a href="img/screenshot-2.jpg" title="Long Text"><img src="img/screenshot-2_sm.png" alt="screenshot" /></a>
+						<span class="caption">Long Text</span>
+					</li>
+					<li>
+						<a href="img/screenshot-3.jpg" title="Preferences"><img src="img/screenshot-3_sm.png" alt="screenshot" /></a>
+						<span class="caption">Preferences</span>
+					</li>
+				</ul>
+
+				<aside class="sidebar">
+					<h3>Other Features</h3>
+					<ul>
+						<li>Popover previews (requires Lion)</li>
+						<li>Alerts via Notification Center or Growl</li>
+						<li>Menu hotkey (configurable)</li>
+					</ul>
+				</aside>
+			</section>
+
+			<section id="wallpaper">
+				<aside>
+					<h3>Desktop Wallpaper</h3>
+					<p>Need another space-themed wallpaper? Thought so. That's why we tailored the one we created for Feeds to several different screen sizes. It comes in two varieties: with and without the foreground scene.</p>
+				</aside>
+
+				<div class="preview">
+					<ul class="examples">
+						<li class="option-1" style="display: block;"><img src="img/wallpaper-option-1.jpg" alt="wallpaper option with foreground scene" /></li>
+						<li class="option-2"><img src="img/wallpaper-option-2.jpg" alt="wallpaper option without foreground scene" /></li>
+					</ul>
+				</div>
+
+				<ul class="options">
+					<li>
+						<a href="http://storage.googleapis.com/feeds-wallpaper/Feeds-Wallpaper-27-Display.zip">27-inch Display</a>
+						<a href="http://storage.googleapis.com/feeds-wallpaper/Feeds-Wallpaper-27-Display-1.jpg" class="option-1">1</a>
+						<a href="http://storage.googleapis.com/feeds-wallpaper/Feeds-Wallpaper-27-Display-2.jpg" class="option-2">2</a>
+					</li>
+					<li>
+						<a href="http://storage.googleapis.com/feeds-wallpaper/Feeds-Wallpaper-24-Display.zip">24-inch Display</a>
+						<a href="http://storage.googleapis.com/feeds-wallpaper/Feeds-Wallpaper-24-Display-1.jpg" class="option-1">1</a>
+						<a href="http://storage.googleapis.com/feeds-wallpaper/Feeds-Wallpaper-24-Display-2.jpg" class="option-2">2</a>
+					</li>
+					<li>
+						<a href="http://storage.googleapis.com/feeds-wallpaper/Feeds-Wallpaper-15-MacBook-Pro.zip">15-inch MacBook Pro</a>
+						<a href="http://storage.googleapis.com/feeds-wallpaper/Feeds-Wallpaper-15-MacBook-Pro-1.jpg" class="option-1">1</a>
+						<a href="http://storage.googleapis.com/feeds-wallpaper/Feeds-Wallpaper-15-MacBook-Pro-2.jpg" class="option-2">2</a><br />
+						<small>(also fits 13-inch MacBook Air)</small>
+					</li>
+					<li>
+						<a href="http://storage.googleapis.com/feeds-wallpaper/Feeds-Wallpaper-13-MacBook-Pro.zip">13-inch MacBook Pro</a>
+						<a href="http://storage.googleapis.com/feeds-wallpaper/Feeds-Wallpaper-13-MacBook-Pro-1.jpg" class="option-1">1</a>
+						<a href="http://storage.googleapis.com/feeds-wallpaper/Feeds-Wallpaper-13-MacBook-Pro-2.jpg" class="option-2">2</a>
+					</li>
+					<li>
+						<a href="http://storage.googleapis.com/feeds-wallpaper/Feeds-Wallpaper-iPad.zip">iPad</a>
+						<a href="http://storage.googleapis.com/feeds-wallpaper/Feeds-Wallpaper-iPad-1.jpg" class="option-1">1</a>
+						<a href="http://storage.googleapis.com/feeds-wallpaper/Feeds-Wallpaper-iPad-2.jpg" class="option-2">2</a>
+					</li>
+					<li>
+						<a href="http://storage.googleapis.com/feeds-wallpaper/Feeds-Wallpaper-iPhone.zip">iPhone</a>
+						<a href="http://storage.googleapis.com/feeds-wallpaper/Feeds-Wallpaper-iPhone-1.jpg" class="option-1">1</a>
+						<a href="http://storage.googleapis.com/feeds-wallpaper/Feeds-Wallpaper-iPhone-2.jpg" class="option-2">2</a>
+					</li>
+				</ul>
+			</section>
+
+			<!--
+			<section id="newsletter">
+				<form action="http://spotlightmobile.createsend.com/t/r/s/fltddr/" method="post" id="signup-form">
+					<label for="fltddr-fltddr">Sign up for the <strong>newsletter</strong>:</label>
+					<input type="text" name="cm-fltddr-fltddr" id="fltddr-fltddr" placeholder="joe@domain.com" />
+					<input type="submit" value="Sign Up" />
+					<a id="thanks-anchor" name="thanks" href="#">&nbsp;</a>
+					<label id="thankyou" style="display:none"><strong>Thanks!</strong> Look for our next newsletter soon.</label>
+				</form>
+				<script>
+				if (document.location.hash == "#thanks") {
+					$('#signup-form').children().css('display','none');
+					$('#thankyou').css('display','inline');
+					$('#thanks-anchor').css('display','inline');
+					$('#fltddr-fltddr').css('visibility','hidden').css('display','inline');
+				}
+				</script>
+				<a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.feedsapp.com" data-text="Feeds is a Mac menu bar app for tracking activity on web services like Dribbble, Basecamp, and more." data-count="horizontal" data-via="feedsapp">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+			</section>
+			-->
+		</div>
+
+		<footer id="footer">
+			<p class="twitter"><span>Follow <a href="http://twitter.com/feedsapp">@feedsapp</a> for news and updates.</span></p>
+			<p class="support"><span>Visit <a href="http://feedsapp.uservoice.com">UserVoice</a> for community-based help.</span></p>
+		</footer>
+	</div>
+
+	<div id="superfooter">
+		<p class="credits"><span>Brought to you by <a href="http://twitter.com/nfarina" class="vcard fn url">Nick Farina</a> and <a href="http://twitter.com/egrossnickle" class="vcard fn url">Eric Grossnickle</a>.</span></p>
+	</div>
+
+	<!--[if lt IE 7 ]>
+		<script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+		<script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+	<![endif]-->
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+   <channel>
+      <title>Feeds Changelog</title>
+      <link>https://feedswww.appspot.com/appcast.xml</link>
+      <description>Most recent changes with links to updates.</description>
+      <language>en</language>      
+
+         <item>
+            <title>Version 2.0.5.1 (Add Account Bugfix)</title>
+            <description>
+               This bugfix release fixes a crash when adding new accounts.
+            </description>
+            <pubDate>Wed, 08 May 2013 17:12:35 -0000</pubDate>
+            <enclosure
+               url="http://storage.googleapis.com/feeds-releases/Feeds-2.0.5.1.zip"
+               sparkle:version="2.0.5.1"
+               type="application/octet-stream"/>
+         </item>
+
+         <item>
+            <title>Version 2.0.5 (Initial Open-Source Release)</title>
+            <description>
+               This is the first release of the free and open-source "reboot" of Feeds.
+            </description>
+            <pubDate>Thu, 25 Apr 2013 00:14:47 -0000</pubDate>
+            <enclosure
+               url="https://storage.googleapis.com/feeds-releases/Feeds-2.0.5.zip"
+               sparkle:version="2.0.5"
+               type="application/octet-stream"/>
+         </item>
+
+   </channel>
+</rss>

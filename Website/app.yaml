@@ -1,0 +1,33 @@
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /css
+  static_dir: css
+
+- url: /css/(.*\.svg)
+  static_files: static/\1
+  upload: static/(.*\.svg)
+  mime_type: text/plain
+
+- url: /js
+  static_dir: js
+
+- url: /img
+  static_dir: img
+
+- url: /wallpaper
+  static_dir: wallpaper
+
+- url: /appcast.xml
+  static_files: appcast.xml
+  upload: appcast.xml
+
+- url: /favicon.ico
+  static_files: img/favicon.ico
+  upload: img/favicon.ico
+
+- url: /
+  static_files: index.html
+  upload: index.html
