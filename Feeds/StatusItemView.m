@@ -20,45 +20,66 @@
 
 - (void)setIcon:(StatusItemIcon)value {
     _icon = value;
-    
-    // use proper NSStatusBarButtons on 10.10 and higher
-    if ([self.statusItem respondsToSelector:@selector(button)]) {
-
-        if (self.icon == StatusItemIconNormal) {
-            NSImage *template = [NSImage imageNamed:@"StatusItemSelected"];
-            [template setTemplate:YES];
-            self.statusItem.button.image = template;
-            self.statusItem.button.appearsDisabled = NO;
-        }
-        else if (self.icon == StatusItemIconUnread) {
-            NSImage *template = [NSImage imageNamed:@"StatusItemUnread"];
-            [template setTemplate:NO];
-            self.statusItem.button.image = template;
-            self.statusItem.button.appearsDisabled = NO;
-        }
-        else if (self.icon == StatusItemIconInactive) {
-            NSImage *template = [NSImage imageNamed:@"StatusItemSelected"];
-            [template setTemplate:YES];
-            self.statusItem.button.image = template;
-            self.statusItem.button.appearsDisabled = YES;
-        }
-    }
-    else {
-        [self setNeedsDisplay:YES];
-    }
+    [self updateIcon];
 }
 
 - (void)setHighlighted:(BOOL)value {
     _highlighted = value;
+    [self updateIcon];
+}
+
+- (void) mouseDown:(NSEvent *)theEvent {
+    [self toggleMenu];
+}
+
+- (void)toggleMenu {
+    if (self.highlighted)
+        [[self.statusItem menu] cancelTracking];
+    else
+        [self.statusItem performSelector:@selector(popUpStatusItemMenu:) withObject:[self.statusItem menu] afterDelay:0];
     
+    self.highlighted = !self.highlighted;
+}
+
+- (void)updateIcon {
     // use proper NSStatusBarButtons on 10.10 and higher
     if ([self.statusItem respondsToSelector:@selector(button)]) {
-        [self.statusItem.button setHighlighted:self.highlighted];
+        [self updateIconForYosemite];
     }
     else {
         [self setNeedsDisplay:YES];
     }
 }
+
+//
+// New NSStatusBarButton-based icon system
+//
+
+- (void)updateIconForYosemite {
+
+    if (self.icon == StatusItemIconNormal || self.highlighted) {
+        NSImage *template = [NSImage imageNamed:@"StatusItemSelected"];
+        [template setTemplate:YES];
+        self.statusItem.button.image = template;
+        self.statusItem.button.appearsDisabled = NO;
+    }
+    else if (self.icon == StatusItemIconUnread) {
+        NSImage *template = [NSImage imageNamed:@"StatusItemUnread"];
+        [template setTemplate:NO];
+        self.statusItem.button.image = template;
+        self.statusItem.button.appearsDisabled = NO;
+    }
+    else if (self.icon == StatusItemIconInactive) {
+        NSImage *template = [NSImage imageNamed:@"StatusItemSelected"];
+        [template setTemplate:YES];
+        self.statusItem.button.image = template;
+        self.statusItem.button.appearsDisabled = YES;
+    }
+}
+
+//
+// Old manually-drawn status bar icons
+//
 
 - (NSImage *)iconImage {
     switch (self.icon) {
@@ -84,19 +105,6 @@
     dstRect.origin.y -= 1;
 
 	[image drawInRect:NSRectFromCGRect(dstRect) fromRect:srcRect operation:NSCompositeSourceOver fraction:1];
-}
-
-- (void) mouseDown:(NSEvent *)theEvent {
-    [self toggleMenu];
-}
-
-- (void)toggleMenu {
-    if (self.highlighted)
-        [[self.statusItem menu] cancelTracking];
-    else
-        [self.statusItem performSelector:@selector(popUpStatusItemMenu:) withObject:[self.statusItem menu] afterDelay:0];
-    
-    self.highlighted = !self.highlighted;
 }
 
 @end

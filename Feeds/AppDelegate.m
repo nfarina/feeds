@@ -30,6 +30,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 @property (nonatomic, strong) NSTimer *popoverTimer;
 @property (nonatomic, strong) NSPopover *popover;
 @property (nonatomic, strong) NSMenuItem *shimItem;
+@property (nonatomic, assign) NSUInteger previouslyDeliveredNotifications;
 @end
 
 @implementation AppDelegate
@@ -184,7 +185,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
     if (self.refreshTimer) {
 
         for (FeedItem *item in self.allItems)
-            if (!item.viewed) {
+            if (!item.viewed || YES) {
                 // you've got stuff up there that you haven't seen in the menu, so glow the icon to let you know!
                 self.statusItemView.icon = StatusItemIconUnread;
                 return;
@@ -367,6 +368,8 @@ const int ddLogLevel = LOG_LEVEL_INFO;
     for (FeedItem *item in self.allItems)
         if (!item.viewed)
             [self.markAllItemsAsReadItem setEnabled:YES];
+    
+    [self updateStatusItemIcon];
 }
 
 - (void)highlightMenuItem:(NSMenuItem *)menuItem {
@@ -572,8 +575,12 @@ const int ddLogLevel = LOG_LEVEL_INFO;
     // this is all so you can click the little "X" in notification center and have the corresponding items
     // magically get "viewed" in feeds.
 
-    if ([NSUserNotificationCenter defaultUserNotificationCenter].deliveredNotifications.count == 0)
+    NSUInteger deliveredNotifications = [NSUserNotificationCenter defaultUserNotificationCenter].deliveredNotifications.count;
+    
+    if (self.previouslyDeliveredNotifications > 0 && deliveredNotifications == 0)
         [self markAllItemsAsRead:nil];
+    
+    self.previouslyDeliveredNotifications = deliveredNotifications;
 }
 
 - (void)growlNotificationWasClicked:(NSString *)URLString {
