@@ -30,6 +30,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 @property (nonatomic, strong) NSTimer *popoverTimer;
 @property (nonatomic, strong) NSPopover *popover;
 @property (nonatomic, strong) NSMenuItem *shimItem;
+@property (nonatomic, assign) NSUInteger previouslyDeliveredNotifications;
 @end
 
 @implementation AppDelegate
@@ -571,9 +572,13 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 - (void)checkUserNotifications {
     // this is all so you can click the little "X" in notification center and have the corresponding items
     // magically get "viewed" in feeds.
-
-    if ([NSUserNotificationCenter defaultUserNotificationCenter].deliveredNotifications.count == 0)
+    
+    NSUInteger deliveredNotifications = [NSUserNotificationCenter defaultUserNotificationCenter].deliveredNotifications.count;
+    
+    if (self.previouslyDeliveredNotifications > 0 && deliveredNotifications == 0)
         [self markAllItemsAsRead:nil];
+    
+    self.previouslyDeliveredNotifications = deliveredNotifications;
 }
 
 - (void)growlNotificationWasClicked:(NSString *)URLString {
