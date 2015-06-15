@@ -13,6 +13,10 @@ Adding New Account Types
 
 To add a new service to Feeds, you simply write an `Account` subclass. We're still working on documentation for how to write these classes, but you can examing the existing ones to get a sense for it.
 
+Note regarding **Github two-factor authentication**
+
+2FA isn't yet supported, in the mean time you can create an app token in: [Settings > Tokens](https://github.com/settings/tokens), and provide the token as your password.
+
 
 Migrating Your Old Accounts
 ---------------------------
