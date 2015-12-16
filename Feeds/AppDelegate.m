@@ -454,7 +454,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
     
     NSString *author = item.author;
     
-    if ([titleOrFallback containsString:item.author] || [item.content beginsWithString:item.author]) {
+    if ([item.author length] > 0 && ([titleOrFallback containsString:item.author] || [item.content beginsWithString:item.author])) {
         // don't repeat the author in the subtitle if they are mentioned in the title or if the description
         // starts with the author name like "Nick Farina did something..."
         author = nil;
