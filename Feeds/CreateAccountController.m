@@ -102,7 +102,7 @@
     else if ([accountClass requiresPassword])
         [self.passwordField becomeFirstResponder];
     
-    [self controlTextDidChange:nil];
+    [self controlTextDidChange:[NSNotification notificationWithName:NSControlTextDidChangeNotification object:nil]];
 }
 
 - (void)controlTextDidChange:(NSNotification *)notification {

@@ -14,7 +14,13 @@ const int ddLogLevel = LOG_LEVEL_INFO;
 #define POPOVER_INTERVAL 0.5
 #define POPOVER_WIDTH 416
 
-@interface AppDelegate () <NSApplicationDelegate, NSMenuDelegate, GrowlApplicationBridgeDelegate, NSUserNotificationCenterDelegate, NSAlertDelegate>
+@interface AppDelegate () <NSApplicationDelegate, NSMenuDelegate, GrowlApplicationBridgeDelegate, NSUserNotificationCenterDelegate, NSAlertDelegate
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= __MAC_10_11
+// When we switched to build against the 10.11 SDK, the following interfaces
+// are now protocols: (are interfaces in <=10.10)
+, WebPolicyDelegate
+#endif
+>
 @property (nonatomic, strong) IBOutlet NSMenu *menu;
 @property (nonatomic, strong) IBOutlet NSMenuItem *markAllItemsAsReadItem;
 @property (nonatomic, strong) NSStatusItem *statusItem;
@@ -127,7 +133,7 @@ const int ddLogLevel = LOG_LEVEL_INFO;
         
         // did we open as the result of clicking a notification? (rare!)
         NSUserNotification *notification = (aNotification.userInfo)[NSApplicationLaunchUserNotificationKey];
-        if (notification) [self userNotificationCenter:nil didActivateNotification:notification];
+        if (notification) [self userNotificationCenter:[NSUserNotificationCenter defaultUserNotificationCenter] didActivateNotification:notification];
     }
 }
 

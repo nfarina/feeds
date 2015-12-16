@@ -48,7 +48,7 @@
 - (void)awakeFromNib {
     [self.toolbar setSelectedItemIdentifier:@"general"];
     [self selectGeneralTab:nil];
-    [self tableViewSelectionDidChange:nil];
+    [self tableViewSelectionDidChange:[NSNotification notificationWithName:NSTableViewSelectionDidChangeNotification object:nil]];
     
     // if we don't have Notification Center available (pre-mountain-lion) then we can't select it
     if (!HAS_NOTIFICATION_CENTER) {
