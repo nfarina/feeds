@@ -7,6 +7,18 @@
         <language>en</language>
 
         <item>
+            <title>Version 2.1.2 (Popover Preview Fixes)</title>
+            <description>
+                This release fixes a bug in the "popover" menu.
+            </description>
+            <pubDate>Mon, 09 May 2016 12:41:35 -0000</pubDate>
+            <enclosure
+            url="https://storage.googleapis.com/feeds-releases/Feeds-2.1.2.zip"
+            sparkle:version="2.1.2"
+            type="application/octet-stream"/>
+        </item>
+
+        <item>
             <title>Version 2.1.1 (Fixes for Yosemite)</title>
             <description>
                 This release fixes a couple bugs from 2.1.0's new Yosemite support.
