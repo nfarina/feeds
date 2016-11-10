@@ -237,6 +237,15 @@ NSDate *AutoFormatDate(NSString *dateString) {
         for (SMXMLElement *itemXml in itemsXml)
             [items addObject:[FeedItem itemWithATOMEntryElement:itemXml]];
     }
+    else if ([document.root.name isEqual:@"RDF"]) {
+        
+        if (title) *title = [document.root valueWithPath:@"channel.title"];
+        
+        NSArray *itemsXml = [document.root childrenNamed:@"item"];
+        
+        for (SMXMLElement *itemXml in itemsXml)
+            [items addObject:[FeedItem itemWithRSSItemElement:itemXml]];
+    }
     else {
         NSString *message = [NSString stringWithFormat:@"Unknown feed root element: <%@>", document.root.name];
         if (error) *error = [NSError errorWithDomain:@"Feed" code:0 userInfo:
